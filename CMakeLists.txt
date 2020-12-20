@@ -1,16 +1,16 @@
-# This CMakeList.txt currently only supports compilation of
-# a program on windows or linux, but only with the dependancies
-# for oclPixelGameEngine.h
-
-# NOTE: THIS CMAKELIST WILL NOT INSTALL DEPENDANCIES, IT WILL JUST FIND THEM AND
-# COMPILE / LINK THEM RESPECTIVELY, YOU NEED TO INSTALL THEM YOURSELF
-
-# Any problems? submit an issue, or contact the author, "Ben (plane000)#8618" on Discord
-
-# Currently linked / compiled by default is:
-# Threads (pthread), OpenGL, GLX, libPNG, X11
-
-
+# This file is part of the
+#   ___ _       __    __      _  __ 
+#  / _ \ |_  __/ / /\ \ \___ | |/ _|
+# / /_)/ \ \/ /\ \/  \/ / _ \| | |_ 
+#/ ___/| |>  <  \  /\  / (_) | |  _|
+#\/    |_/_/\_\  \/  \/ \___/|_|_|  
+# project
+# https://github.com/jacmoe/pxlwolf
+#
+# (c) 2020 Jacob Moena
+#
+# BSD 2-Clause "Simplified" License
+#
 cmake_minimum_required(VERSION 3.7)
 project(plxwolf)
 
