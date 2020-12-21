@@ -16,11 +16,14 @@ set(TARGET_NAME main)
 set(Sources
     ./src/main.cpp
     ./src/utils.cpp
+    ./src/nasl_geometry.cpp
 )
 
 set(Includes
     ../${IncludeDir}/olcPixelGameEngine.h
     ../${IncludeDir}/utils.h
+    ../${IncludeDir}/nasl_defs.h
+    ../${IncludeDir}/nasl_geometry.h
 )
 
 if (WIN32)

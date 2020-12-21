@@ -17,11 +17,6 @@
 
 class PlxWolf : public olc::PixelGameEngine
 {
-private:
-	int pal_offset;
-	int pal_width;
-	int pal_height;
-
 public:
 	PlxWolf()
 	{
