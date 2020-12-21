@@ -15,16 +15,27 @@ set(TARGET_NAME main)
 
 set(Sources
     ./src/main.cpp
+    ./src/utils.cpp
 )
 
 set(Includes
     ../${IncludeDir}/olcPixelGameEngine.h
+    ../${IncludeDir}/utils.h
 )
 
-add_executable(${TARGET_NAME}
-    ${Sources}
-    ${Includes}
-)
+if (WIN32)
+    add_executable(${TARGET_NAME}
+        WIN32
+        ${Sources}
+        ${Includes}
+    )
+endif (WIN32)
+if (UNIX)
+    add_executable(${TARGET_NAME}
+        ${Sources}
+        ${Includes}
+    )
+endif (UNIX)
 
 target_link_libraries(${TARGET_NAME}
         Threads::Threads

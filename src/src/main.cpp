@@ -43,10 +43,14 @@ public:
 };
 
 
+#ifdef _WIN32
+INT WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine, INT nCmdShow)
+#else
 int main()
+#endif
 {
 	PlxWolf wolf;
-	if (wolf.Construct(320, 240, 4, 4))
+	if (wolf.Construct(640, 480, 2, 2))
 		wolf.Start();
 
 	return 0;
