@@ -4,5 +4,12 @@
 			"path": "."
 		}
 	],
-	"settings": {}
+	"settings": {
+		"files.associations": {
+			"array": "cpp",
+			"istream": "cpp",
+			"tuple": "cpp",
+			"xutility": "cpp"
+		}
+	}
 }

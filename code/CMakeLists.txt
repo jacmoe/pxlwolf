@@ -16,37 +16,16 @@ set(TARGET_NAME plxwolf)
 set(Sources
     ./src/main.cpp
     ./src/utils.cpp
-    ./src/LDtkLoader/DataTypes.cpp
-    ./src/LDtkLoader/Entity.cpp
-    ./src/LDtkLoader/EntityDef.cpp
-    ./src/LDtkLoader/Enum.cpp
-    ./src/LDtkLoader/Layer.cpp
-    ./src/LDtkLoader/LayerDef.cpp
-    ./src/LDtkLoader/Level.cpp
-    ./src/LDtkLoader/Tileset.cpp
-    ./src/LDtkLoader/Utils.cpp
-    ./src/LDtkLoader/World.cpp
 )
 
 set(Includes
     ../${IncludeDir}/olcPixelGameEngine.h
     ../${IncludeDir}/utils.h
-    ../${IncludeDir}/LDtkLoader/thirdparty/json.hpp
-    ../${IncludeDir}/LDtkLoader/DataTypes.hpp
-    ../${IncludeDir}/LDtkLoader/Entity.hpp
-    ../${IncludeDir}/LDtkLoader/EntityDef.hpp
-    ../${IncludeDir}/LDtkLoader/Enum.hpp
-    ../${IncludeDir}/LDtkLoader/Layer.hpp
-    ../${IncludeDir}/LDtkLoader/LayerDef.hpp
-    ../${IncludeDir}/LDtkLoader/Level.hpp
-    ../${IncludeDir}/LDtkLoader/Tileset.hpp
-    ../${IncludeDir}/LDtkLoader/Utils.hpp
-    ../${IncludeDir}/LDtkLoader/World.hpp
 )
 
 if (WIN32)
     add_executable(${TARGET_NAME}
-        WIN32
+        #WIN32
         ${Sources}
         ${Includes}
     )
