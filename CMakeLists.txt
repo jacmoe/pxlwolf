@@ -12,7 +12,7 @@
 # BSD 2-Clause "Simplified" License
 #
 cmake_minimum_required(VERSION 3.7)
-project(plxwolf)
+project(pixelwolf)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} CMakeFiles/)
 
@@ -22,7 +22,7 @@ if(MSVC)
     add_definitions(-D_CRT_SECURE_NO_WARNINGS)
 endif()
 
-set(IncludeDir src/include/)
+set(IncludeDir code/include/)
 include_directories(${IncludeDir})
 
 set(THREADS_PREFER_PTHREAD_FLAD ON)
@@ -41,4 +41,4 @@ if (WIN32)
 endif (WIN32)
 
 
-add_subdirectory(src)
+add_subdirectory(code)
