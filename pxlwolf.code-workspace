@@ -9,7 +9,17 @@
 			"array": "cpp",
 			"istream": "cpp",
 			"tuple": "cpp",
-			"xutility": "cpp"
+			"xutility": "cpp",
+			"chrono": "cpp",
+			"compare": "cpp",
+			"filesystem": "cpp",
+			"functional": "cpp",
+			"memory": "cpp",
+			"ratio": "cpp",
+			"type_traits": "cpp",
+			"utility": "cpp",
+			"xmemory": "cpp",
+			"xtr1common": "cpp"
 		}
 	}
 }

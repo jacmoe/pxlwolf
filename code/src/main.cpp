@@ -16,6 +16,9 @@
 #include "olcPixelGameEngine.h"
 #define OLC_PGEX_RAYCASTWORLD
 #include "olcPGEX_RayCastWorld.h"
+#include "rapidjson/filereadstream.h"
+#include "rapidjson/document.h"
+#include <cstdio>
 #include "utils.h"
 
 class PlxWolfGame : public olc::rcw::Engine
@@ -147,6 +150,54 @@ public:
 	{
 		std::string path = moena::utils::get_homedir().append("/source/repos/pxlwolf/");
 		std::filesystem::current_path(path); 
+
+		FILE* fp = fopen("assets/levels/level.ldtk", "rb");
+ 
+		char readBuffer[65536];
+		rapidjson::FileReadStream is(fp, readBuffer, sizeof(readBuffer));
+		rapidjson::Document document;
+		document.ParseStream(is);
+
+		const rapidjson::Value& levels = document["levels"];
+        for (rapidjson::Value::ConstValueIterator itr = levels.Begin(); itr != levels.End(); ++itr)
+		{
+			std::cout << "Layer name: " << (*itr)["identifier"].GetString() << std::endl;
+			const rapidjson::Value& layerInstances = (*itr)["layerInstances"];
+			for (rapidjson::Value::ConstValueIterator itr = layerInstances.Begin(); itr != layerInstances.End(); ++itr)
+			{
+				std::cout << "Identifier : " << (*itr)["__identifier"].GetString() << std::endl;
+				std::string layer_type = (*itr)["__type"].GetString();
+				std::cout << "Type : " << layer_type << std::endl;
+				if(layer_type == "Entities")
+				{
+					const rapidjson::Value& entityInstances = (*itr)["entityInstances"];
+					for (rapidjson::Value::ConstValueIterator itr = entityInstances.Begin(); itr != entityInstances.End(); ++itr)
+					{
+						std::cout << "Entityinstance " << (*itr)["__identifier"].GetString() << std::endl;
+						std::string identifier = (*itr)["__identifier"].GetString();
+						if(identifier == "PlayerStart")
+						{
+							std::cout << "Player coordinates : " << std::endl;
+							std::cout << "X " << (*itr)["__grid"].GetArray()[0].GetInt() << std::endl;
+							std::cout << "Y " << (*itr)["__grid"].GetArray()[1].GetInt() << std::endl;
+							std::cout << (*itr)["fieldInstances"].GetArray()[0]["__identifier"].GetString() << " = " << (*itr)["fieldInstances"].GetArray()[0]["__value"].GetInt() << std::endl;
+						}
+					}
+				}
+				if(layer_type == "IntGrid")
+				{
+					const rapidjson::Value& initGrid = (*itr)["intGrid"];
+					for (rapidjson::Value::ConstValueIterator itr = initGrid.Begin(); itr != initGrid.End(); ++itr)
+					{
+						std::cout << "coordId " << (*itr)["coordId"].GetInt() << std::endl;
+						std::cout << "v " << (*itr)["v"].GetInt() << std::endl;
+					}
+				}
+
+			}
+		}
+		fclose(fp);
+
 
 		Clear(olc::DARK_GREY);
 
