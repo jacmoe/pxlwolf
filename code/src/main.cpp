@@ -97,42 +97,10 @@ protected:
 	{ return olc::BLACK; }
 
 private:
-	int wMap[16][16]  = {
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-	};
-	int tMap[16][16]  = {
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-	};
+	std::vector<int> wMap;
+	std::vector<int> tMap;
+	olc::vf2d player_pos;
+	float player_heading;
 	olc::vi2d vWorldSize = { 16, 16 };
 };
 
@@ -148,6 +116,12 @@ public:
 public:
 	bool OnUserCreate() override
 	{
+		std::vector<int> wMap;
+		std::vector<int> tMap;
+		olc::vf2d player_pos;
+		float player_heading;
+		olc::vi2d world_size;
+
 		std::string path = moena::utils::get_homedir().append("/source/repos/pxlwolf/");
 		std::filesystem::current_path(path); 
 
@@ -161,43 +135,48 @@ public:
 		const rapidjson::Value& levels = document["levels"];
         for (rapidjson::Value::ConstValueIterator itr = levels.Begin(); itr != levels.End(); ++itr)
 		{
-			std::cout << "Layer name: " << (*itr)["identifier"].GetString() << std::endl;
 			const rapidjson::Value& layerInstances = (*itr)["layerInstances"];
 			for (rapidjson::Value::ConstValueIterator itr = layerInstances.Begin(); itr != layerInstances.End(); ++itr)
 			{
-				std::cout << "Identifier : " << (*itr)["__identifier"].GetString() << std::endl;
 				std::string layer_type = (*itr)["__type"].GetString();
-				std::cout << "Type : " << layer_type << std::endl;
 				if(layer_type == "Entities")
 				{
 					const rapidjson::Value& entityInstances = (*itr)["entityInstances"];
 					for (rapidjson::Value::ConstValueIterator itr = entityInstances.Begin(); itr != entityInstances.End(); ++itr)
 					{
-						std::cout << "Entityinstance " << (*itr)["__identifier"].GetString() << std::endl;
 						std::string identifier = (*itr)["__identifier"].GetString();
 						if(identifier == "PlayerStart")
 						{
-							std::cout << "Player coordinates : " << std::endl;
-							std::cout << "X " << (*itr)["__grid"].GetArray()[0].GetInt() << std::endl;
-							std::cout << "Y " << (*itr)["__grid"].GetArray()[1].GetInt() << std::endl;
-							std::cout << (*itr)["fieldInstances"].GetArray()[0]["__identifier"].GetString() << " = " << (*itr)["fieldInstances"].GetArray()[0]["__value"].GetInt() << std::endl;
+							player_pos.x = (*itr)["__grid"].GetArray()[0].GetFloat();
+							player_pos.y = (*itr)["__grid"].GetArray()[1].GetFloat();
+							player_heading = (*itr)["fieldInstances"].GetArray()[0]["__value"].GetFloat();
 						}
 					}
 				}
 				if(layer_type == "IntGrid")
 				{
+					world_size.x = (*itr)["__cWid"].GetInt();
+					world_size.y = (*itr)["__cHei"].GetInt();
+					for(int elems = 0; elems < world_size.x * world_size.y; elems++)
+					{
+						wMap.push_back(-1);
+					}
+
 					const rapidjson::Value& initGrid = (*itr)["intGrid"];
+
 					for (rapidjson::Value::ConstValueIterator itr = initGrid.Begin(); itr != initGrid.End(); ++itr)
 					{
-						std::cout << "coordId " << (*itr)["coordId"].GetInt() << std::endl;
-						std::cout << "v " << (*itr)["v"].GetInt() << std::endl;
+						wMap[(*itr)["coordId"].GetInt()] = (*itr)["v"].GetInt();
 					}
 				}
 
 			}
 		}
 		fclose(fp);
-
+		//std::cout << "Parsed the following: " << std::endl;
+		//std::cout << "World size : " << world_size.x << "x" << world_size.y << std::endl;
+		//std::cout << "Player position : (" << player_pos.x << "," << player_pos.y << ")" << std::endl;
+		//std::cout << "Player heading : " << player_heading << std::endl;
 
 		Clear(olc::DARK_GREY);
 
