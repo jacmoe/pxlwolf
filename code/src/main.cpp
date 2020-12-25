@@ -32,9 +32,6 @@
 #include "nasl_geometry.h"
 #include "utils.h"
 
-#define mapWidth 24
-#define mapHeight 24
-
 int move_forwards = 0;
 int move_backwards = 0;
 int turn_left = 0;
@@ -51,33 +48,7 @@ void handle_keypress(int key, int action);
 
 class PlxWolf
 {
-    int worldMap[mapWidth][mapHeight] =
-        {
-            {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 4, 4, 6, 4, 4, 6, 4, 6, 4, 4, 4, 6, 4},
-            {8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
-            {8, 0, 3, 3, 0, 0, 0, 0, 0, 8, 8, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6},
-            {8, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6},
-            {8, 0, 3, 3, 0, 0, 0, 0, 0, 8, 8, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
-            {8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 4, 0, 0, 0, 0, 0, 6, 6, 6, 0, 6, 4, 6},
-            {8, 8, 8, 8, 0, 8, 8, 8, 8, 8, 8, 4, 4, 4, 4, 4, 4, 6, 0, 0, 0, 0, 0, 6},
-            {7, 7, 7, 7, 0, 7, 7, 7, 7, 0, 8, 0, 8, 0, 8, 0, 8, 4, 0, 4, 0, 6, 0, 6},
-            {7, 7, 0, 0, 0, 0, 0, 0, 7, 8, 0, 8, 0, 8, 0, 8, 8, 6, 0, 0, 0, 0, 0, 6},
-            {7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 6, 0, 0, 0, 0, 0, 4},
-            {7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 6, 0, 6, 0, 6, 0, 6},
-            {7, 7, 0, 0, 0, 0, 0, 0, 7, 8, 0, 8, 0, 8, 0, 8, 8, 6, 4, 6, 0, 6, 6, 6},
-            {7, 7, 7, 7, 0, 7, 7, 7, 7, 8, 8, 4, 0, 6, 8, 4, 8, 3, 3, 3, 0, 3, 3, 3},
-            {2, 2, 2, 2, 0, 2, 2, 2, 2, 4, 6, 4, 0, 0, 6, 0, 6, 3, 0, 0, 0, 0, 0, 3},
-            {2, 2, 0, 0, 0, 0, 0, 2, 2, 4, 0, 0, 0, 0, 0, 0, 4, 3, 0, 0, 0, 0, 0, 3},
-            {2, 0, 0, 0, 0, 0, 0, 0, 2, 4, 0, 0, 0, 0, 0, 0, 4, 3, 0, 0, 0, 0, 0, 3},
-            {1, 0, 0, 0, 0, 0, 0, 0, 1, 4, 4, 4, 4, 4, 6, 0, 6, 3, 3, 0, 0, 0, 3, 3},
-            {2, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 1, 2, 2, 2, 6, 6, 0, 0, 5, 0, 5, 0, 5},
-            {2, 2, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 2, 2, 0, 5, 0, 5, 0, 0, 0, 5, 5},
-            {2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 2, 5, 0, 5, 0, 5, 0, 5, 0, 5},
-            {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5},
-            {2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 2, 5, 0, 5, 0, 5, 0, 5, 0, 5},
-            {2, 2, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 2, 2, 0, 5, 0, 5, 0, 0, 0, 5, 5},
-            {2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 5, 5, 5, 5, 5, 5, 5, 5, 5}};
-
+	std::vector<int> lvlMap;
     double posX = 22.0, posY = 11.5;    //x and y start position
     double dirX = -1.0, dirY = 0.0;     //initial direction vector
     double planeX = 0.0, planeY = 0.66; //the 2d raycaster version of camera plane
@@ -89,6 +60,9 @@ class PlxWolf
     SpriteSheet textures;
     SpriteSheet ascii;
     Buffer *buffer = nullptr;
+    Vector player_pos;
+    float player_heading;
+    Vector world_size;
 public:
 	PlxWolf()
 	{
@@ -174,16 +148,16 @@ public:
             //*/
             if(move_forwards)
             {
-                if (!worldMap[(int)(posX + dirX * moveSpeed)][(int)(posY)])
+                if (!get_map_entry((int)(posX + dirX * moveSpeed), (int)(posY)) > -1)
                     posX += dirX * moveSpeed;
-                if (!worldMap[(int)(posX)][(int)(posY + dirY * moveSpeed)])
+                if (!get_map_entry((int)(posX), (int)(posY + dirY * moveSpeed)) > -1)
                     posY += dirY * moveSpeed;
             }
             if(move_backwards)
             {
-                if (!worldMap[(int)(posX - dirX * moveSpeed)][(int)(posY)])
+                if (!get_map_entry((int)(posX - dirX * moveSpeed), (int)(posY)) > -1)
                     posX -= dirX * moveSpeed;
-                if (!worldMap[(int)(posX)][(int)(posY - dirY * moveSpeed)])
+                if (!get_map_entry((int)(posX), (int)(posY - dirY * moveSpeed)) > -1)
                     posY -= dirY * moveSpeed;
             }
             if(turn_left)
@@ -300,7 +274,7 @@ public:
                     side = 1;
                 }
                 //Check if ray has hit a wall
-                if (worldMap[mapX][mapY] > 0)
+                if (get_map_entry(mapX, mapY) > -1)
                     hit = 1;
             }
 
@@ -321,7 +295,7 @@ public:
             if (drawEnd >= buffer->height)
                 drawEnd = buffer->height - 1;
             //texturing calculations
-            int texNum = worldMap[mapX][mapY] - 1; //1 subtracted from it so that texture 0 can be used!
+            int texNum = get_map_entry(mapX, mapY) + 1; //1 added to it so that texture 0 can be used!
             Buffer* texture = get_texture(textures, texNum);
 
             //calculate value of wallX
@@ -425,15 +399,6 @@ public:
 
     bool load_level(const std::string level_name)
     {
-        std::vector<int> wMap;
-        std::vector<int> tMap;
-        Vector player_pos;
-        float player_heading;
-        Vector world_size;
-
-        std::string path = moena::utils::get_homedir().append("/source/repos/pxlwolf/");
-        std::filesystem::current_path(path); 
-
         FILE* fp = fopen("assets/levels/level.ldtk", "rb");
 
         char readBuffer[65536];
@@ -458,7 +423,11 @@ public:
                         {
                             player_pos.x = (*itr)["__grid"].GetArray()[0].GetFloat();
                             player_pos.y = (*itr)["__grid"].GetArray()[1].GetFloat();
+                            posX = player_pos.x;
+                            posY = player_pos.y;
                             player_heading = (*itr)["fieldInstances"].GetArray()[0]["__value"].GetFloat();
+                            //dirX = sin(deg2rad(player_heading));
+                            //dirY = cos(deg2rad(player_heading));
                         }
                     }
                 }
@@ -468,24 +437,35 @@ public:
                     world_size.y = (*itr)["__cHei"].GetInt();
                     for(int elems = 0; elems < world_size.x * world_size.y; elems++)
                     {
-                        wMap.push_back(-1);
+                        lvlMap.push_back(-1);
                     }
 
                     const rapidjson::Value& initGrid = (*itr)["intGrid"];
 
                     for (rapidjson::Value::ConstValueIterator itr = initGrid.Begin(); itr != initGrid.End(); ++itr)
                     {
-                        wMap[(*itr)["coordId"].GetInt()] = (*itr)["v"].GetInt();
+                        lvlMap[(*itr)["coordId"].GetInt()] = (*itr)["v"].GetInt();
                     }
                 }
 
             }
         }
         fclose(fp);
-        std::cout << "Parsed the following: " << std::endl;
-        std::cout << "World size : " << world_size.x << "x" << world_size.y << std::endl;
-        std::cout << "Player position : (" << player_pos.x << "," << player_pos.y << ")" << std::endl;
-        std::cout << "Player heading : " << player_heading << std::endl;
+        //std::cout << "Parsed the following: " << std::endl;
+        //std::cout << "World size : " << world_size.x << "x" << world_size.y << std::endl;
+        //std::cout << "Player position : (" << player_pos.x << "," << player_pos.y << ")" << std::endl;
+        //std::cout << "Player heading : " << player_heading << std::endl;
+        return true;
+    }
+
+	int get_map_entry(int tile_x, int tile_y)
+	{
+		int item = int(tile_y) * world_size.x + int(tile_x);
+		return lvlMap[item];
+	}
+
+    double deg2rad (double degrees) {
+        return degrees * 4.0 * atan (1.0) / 180.0;
     }
 };
 
