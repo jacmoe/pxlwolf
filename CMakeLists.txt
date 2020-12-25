@@ -12,6 +12,9 @@
 # BSD 2-Clause "Simplified" License
 #
 cmake_minimum_required(VERSION 3.7)
+set(CMAKE_TOOLCHAIN_FILE ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/scripts/buildsystems/vcpkg.cmake
+  CACHE STRING "Vcpkg toolchain file")
+
 project(pixelwolf)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} CMakeFiles/)
@@ -24,10 +27,14 @@ endif()
 
 set(IncludeDir code/include/)
 include_directories(${IncludeDir})
+include_directories(${IncludeDir}/3rd)
+include_directories(${IncludeDir}/nasl)
 
 set(THREADS_PREFER_PTHREAD_FLAD ON)
 find_package(Threads REQUIRED)
 
+find_package(GLEW REQUIRED)
+find_package(glfw3 CONFIG REQUIRED)
 find_package(OpenGL REQUIRED)
 
 if (UNIX)

@@ -13,7 +13,6 @@
   #
 */
 #include "utils.h"
-#include "olcPixelGameEngine.h"
 
 namespace moena {
 	std::string utils::get_homedir(void)

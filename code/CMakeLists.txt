@@ -16,16 +16,43 @@ set(TARGET_NAME plxwolf)
 set(Sources
     ./src/main.cpp
     ./src/utils.cpp
+    ./src/3rd/my_basic.c
+    ./src/nasl/nasl_buffer_script.cpp
+    ./src/nasl/nasl_buffer.cpp
+    ./src/nasl/nasl_color_script.cpp
+    ./src/nasl/nasl_color.cpp
+    ./src/nasl/nasl_draw_script.cpp
+    ./src/nasl/nasl_draw.cpp
+    ./src/nasl/nasl_geometry.cpp
+    ./src/nasl/nasl_graphics_script.cpp
+    ./src/nasl/nasl_graphics.cpp
+    ./src/nasl/nasl_image_script.cpp
+    ./src/nasl/nasl_image.cpp
+    ./src/nasl/nasl_script.cpp
+    ./src/nasl/nasl_sprite_script.cpp
+    ./src/nasl/nasl_sprite.cpp
 )
 
 set(Includes
-    ../${IncludeDir}/olcPixelGameEngine.h
     ../${IncludeDir}/utils.h
+    ../${IncludeDir}/3rd/my_basic.h
+    ../${IncludeDir}/3rd/stb_image.h
+    ../${IncludeDir}/3rd/sysfont.h
+    ../${IncludeDir}/nasl/nasl_buffer.h
+    ../${IncludeDir}/nasl/nasl_color.h
+    ../${IncludeDir}/nasl/nasl_dbg.h
+    ../${IncludeDir}/nasl/nasl_defs.h
+    ../${IncludeDir}/nasl/nasl_draw.h
+    ../${IncludeDir}/nasl/nasl_geometry.h
+    ../${IncludeDir}/nasl/nasl_graphics.h
+    ../${IncludeDir}/nasl/nasl_image.h
+    ../${IncludeDir}/nasl/nasl_script.h
+    ../${IncludeDir}/nasl/nasl_sprite.h
 )
 
 if (WIN32)
     add_executable(${TARGET_NAME}
-        WIN32
+        #WIN32
         ${Sources}
         ${Includes}
     )
@@ -39,6 +66,8 @@ endif (UNIX)
 
 target_link_libraries(${TARGET_NAME}
         Threads::Threads
+        GLEW::GLEW
+        glfw
         ${OPENGL_LIBRARIES}
         )
 

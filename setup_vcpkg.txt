@@ -1,0 +1,16 @@
+git clone https://github.com/microsoft/vcpkg
+
+cd .\vcpkg\
+
+.\bootstrap-vcpkg.bat
+
+.\vcpkg.exe install glew:x64-windows
+
+rem find_package(GLEW REQUIRED)
+rem target_link_libraries(main PRIVATE GLEW::GLEW)
+
+.\vcpkg.exe install glfw3:x64-windows
+
+rem find_package(glfw3 CONFIG REQUIRED)
+rem target_link_libraries(main PRIVATE glfw)
+
