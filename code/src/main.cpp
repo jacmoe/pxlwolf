@@ -20,12 +20,16 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <math.h>
+#include <iostream>
+#include "rapidjson/filereadstream.h"
+#include "rapidjson/document.h"
 
 #include "nasl_graphics.h"
 #include "nasl_buffer.h"
 #include "nasl_image.h"
 #include "nasl_draw.h"
 #include "nasl_sprite.h"
+#include "nasl_geometry.h"
 #include "utils.h"
 
 #define mapWidth 24
@@ -83,6 +87,8 @@ void cursor_position_callback(GLFWwindow* window, double xpos, double ypos);
 
 void draw_maze(Buffer *buffer, SpriteSheet textures);
 
+bool load_level(const std::string level_name);
+
 #ifdef _WIN32f
 INT WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine, INT nCmdShow)
 #else
@@ -91,6 +97,8 @@ int main()
 {
     std::string path = moena::utils::get_homedir().append("/source/repos/pxlwolf/");
     std::filesystem::current_path(path); 
+
+    load_level("assets/levels/level.ldtk");
 
     int buffer_width = 320;
     int buffer_height = 240;
@@ -403,9 +411,76 @@ void draw_maze(Buffer *buffer, SpriteSheet textures)
     }
 }
 
+bool load_level(const std::string level_name)
+{
+    std::vector<int> wMap;
+    std::vector<int> tMap;
+    Vector player_pos;
+    float player_heading;
+    Vector world_size;
+
+    std::string path = moena::utils::get_homedir().append("/source/repos/pxlwolf/");
+    std::filesystem::current_path(path); 
+
+    FILE* fp = fopen("assets/levels/level.ldtk", "rb");
+
+    char readBuffer[65536];
+    rapidjson::FileReadStream is(fp, readBuffer, sizeof(readBuffer));
+    rapidjson::Document document;
+    document.ParseStream(is);
+
+    const rapidjson::Value& levels = document["levels"];
+    for (rapidjson::Value::ConstValueIterator itr = levels.Begin(); itr != levels.End(); ++itr)
+    {
+        const rapidjson::Value& layerInstances = (*itr)["layerInstances"];
+        for (rapidjson::Value::ConstValueIterator itr = layerInstances.Begin(); itr != layerInstances.End(); ++itr)
+        {
+            std::string layer_type = (*itr)["__type"].GetString();
+            if(layer_type == "Entities")
+            {
+                const rapidjson::Value& entityInstances = (*itr)["entityInstances"];
+                for (rapidjson::Value::ConstValueIterator itr = entityInstances.Begin(); itr != entityInstances.End(); ++itr)
+                {
+                    std::string identifier = (*itr)["__identifier"].GetString();
+                    if(identifier == "PlayerStart")
+                    {
+                        player_pos.x = (*itr)["__grid"].GetArray()[0].GetFloat();
+                        player_pos.y = (*itr)["__grid"].GetArray()[1].GetFloat();
+                        player_heading = (*itr)["fieldInstances"].GetArray()[0]["__value"].GetFloat();
+                    }
+                }
+            }
+            if(layer_type == "IntGrid")
+            {
+                world_size.x = (*itr)["__cWid"].GetInt();
+                world_size.y = (*itr)["__cHei"].GetInt();
+                for(int elems = 0; elems < world_size.x * world_size.y; elems++)
+                {
+                    wMap.push_back(-1);
+                }
+
+                const rapidjson::Value& initGrid = (*itr)["intGrid"];
+
+                for (rapidjson::Value::ConstValueIterator itr = initGrid.Begin(); itr != initGrid.End(); ++itr)
+                {
+                    wMap[(*itr)["coordId"].GetInt()] = (*itr)["v"].GetInt();
+                }
+            }
+
+        }
+    }
+    fclose(fp);
+    std::cout << "Parsed the following: " << std::endl;
+    std::cout << "World size : " << world_size.x << "x" << world_size.y << std::endl;
+    std::cout << "Player position : (" << player_pos.x << "," << player_pos.y << ")" << std::endl;
+    std::cout << "Player heading : " << player_heading << std::endl;
+}
+
+
+
 static int init(int width, int height)
 {
-    nasl_graphics_init(width, height, "Neogardens Lightsourced Raycast Maze Demo", 1, 3);
+    nasl_graphics_init(width, height, "Neogardens Lightsourced Raycast Maze Demo", 0, 3);
 
     glfwSetKeyCallback(nasl_graphics_get_window(), key_callback);
     //glfwSetCursorPosCallback(nasl_graphics_get_window(), cursor_position_callback);

@@ -1,2 +1,2 @@
 # pxlwolf
-Wolfenstein-like raycast engine using olcPixelgameengine
+Wolfenstein-like raycast engine
