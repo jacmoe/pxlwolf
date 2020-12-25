@@ -22,12 +22,12 @@ static Buffer* main_buffer = 0;
 
 Buffer *nasl_buffer_create(int width, int height)
 {
-    Buffer *b = new Buffer;//(Buffer*)malloc(sizeof(Buffer));
+    Buffer *b = malloc(sizeof(Buffer));
 
     b->width = width;
     b->height = height;
 
-    b->pixels = (uint32_t*)malloc(sizeof(uint32_t) * width * height);
+    b->pixels = malloc(sizeof(uint32_t) * width * height);
     memset(b->pixels, 0, sizeof(uint32_t) * width * height);
 
     return b;

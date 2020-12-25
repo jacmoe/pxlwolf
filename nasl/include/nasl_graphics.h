@@ -22,7 +22,7 @@
 int nasl_graphics_init(int width, int height, const char* title, int fullscreen, int scalefactor);
 void nasl_graphics_script_init();
 int nasl_graphics_shutdown();
-void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+
 int nasl_graphics_running();
 
 void nasl_graphics_poll_events();

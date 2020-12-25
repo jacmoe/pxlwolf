@@ -30,8 +30,7 @@ double G_LengthSquared(Vector v) {
 
 
 Vector G_Dir(Segment l) {
-    Vector vect = { l.end.x - l.start.x, l.end.y - l.end.x };
-    return vect;
+    return (Vector){ l.end.x - l.start.x, l.end.y - l.end.x };
 }
 
 
@@ -80,31 +79,23 @@ double G_Cross(Vector a, Vector b) {
 
 Vector G_Normalize(Vector v) {
     double l = G_Length(v);
-    if (ISZERO(l))
-    {
-        Vector vect = {0, 0};
-        return vect;
-    }
-    Vector vect = { v.x / l, v.y / l };
-    return vect;
+    if (ISZERO(l)) return (Vector){0, 0};
+    return (Vector){ v.x / l, v.y / l };
 }
 
 
 Vector G_Sum(Vector a, Vector b) {
-    Vector vect = { a.x + b.x, a.y + b.y };
-    return vect;
+    return (Vector){ a.x + b.x, a.y + b.y };
 }
 
 
 Vector G_Sub(Vector a, Vector b) {
-    Vector vect = { a.x - b.x, a.y - b.y };
-    return vect;
+    return (Vector){ a.x - b.x, a.y - b.y };
 }
 
 
 Vector G_Scale(double a, Vector v) {
-    Vector vect = { a * v.x, a * v.y };
-    return vect;
+    return (Vector){ a * v.x, a * v.y };
 }
 
 
@@ -114,8 +105,7 @@ double G_Angle(Vector a, Vector b) {
 
 
 Vector G_Perpendicular(Vector v) {
-    Vector vect = { -v.y, v.x };
-    return vect;
+    return (Vector){ -v.y, v.x };
 }
 
 
@@ -192,9 +182,10 @@ double G_SegmentPointDistance(Segment seg, Vector p) {
     double ap = G_Distance(p, seg.start);
     double bp = G_Distance(p, seg.end);
 
-    Line perpendicular;
-    perpendicular.start = p;
-    perpendicular.dir = G_Perpendicular(G_Dir(seg));
+    Line perpendicular = {
+        .start = p,
+        .dir = G_Perpendicular(G_Dir(seg))
+    };
 
     Vector p_l;
     if (G_SegmentLineIntersection(seg, perpendicular, &p_l)) {
@@ -209,9 +200,10 @@ Vector G_NearestPointOnSegment(Segment seg, Vector p) {
     double ap = G_Distance(p, seg.start);
     double bp = G_Distance(p, seg.end);
 
-    Line perpendicular;
-    perpendicular.start = p;
-    perpendicular.dir = G_Perpendicular(G_Dir(seg));
+    Line perpendicular = {
+        .start = p,
+        .dir = G_Perpendicular(G_Dir(seg))
+    };
 
     Vector p_l;
     if (G_SegmentLineIntersection(seg, perpendicular, &p_l)) {
@@ -307,10 +299,7 @@ int G_PointInsideBox(Box b, Vector p) {
 
 
 Segment G_TranslateSegment(Segment s, Vector d) {
-    Segment seg;
-    seg.start = G_Sum(s.start, d);
-    seg.end = G_Sum(s.end, d);
-    return seg;
+    return (Segment){ .start = G_Sum(s.start, d), .end = G_Sum(s.end, d) };
 }
 
 
@@ -320,17 +309,17 @@ Vector G_Center(Segment s) {
 
 
 Segment G_RotateSegment(Segment s, double angle) {
-    Segment r;
-    r.start = G_Rotate(s.start, angle);
-    r.end = G_Rotate(s.end, angle);
+    Segment r = {
+        .start = G_Rotate(s.start, angle),
+        .end = G_Rotate(s.end, angle)
+    };
+
     return r;
 }
 
 
 Segment G_RotateSegmentAroundPoint(Segment s, double angle, Vector point) {
-    Vector new_point = { -point.x, -point.y};
-
-    Segment temp = G_TranslateSegment(s, new_point);
+    Segment temp = G_TranslateSegment(s, N(point));
 
     temp = G_RotateSegment(temp, angle);
 
@@ -385,43 +374,43 @@ int G_ClipSegment(Segment in, Box rect, Segment *out) {
     if ((start_region & end_region)) return 0;
 
     // No trivial case, let's clip.
-    Line left; left.start = {rect.left, rect.top}; left.dir = {0, 1};
-    Line right; right.start = {rect.right, rect.top}; right.dir = {0, 1};
-    Line bottom; bottom.start = {rect.left, rect.bottom}; bottom.dir = {1, 0};
-    Line top; top.start = {rect.left, rect.top}; top.dir = {1, 0};
+    Line left =   { .start = {rect.left, rect.top},    .dir = {0, 1} };
+    Line right =  { .start = {rect.right, rect.top},   .dir = {0, 1} };
+    Line bottom = { .start = {rect.left, rect.bottom}, .dir = {1, 0} };
+    Line top =    { .start = {rect.left, rect.top},    .dir = {1, 0} };
 
-    Segment new_seg = in;
+    Segment new = in;
 
     if (start_region & G_REGION_TOP) {
-        G_SegmentLineIntersection(new_seg, top, &new_seg.start);
-        start_region = FindRegion(rect, new_seg.start);
+        G_SegmentLineIntersection(new, top, &new.start);
+        start_region = FindRegion(rect, new.start);
     } else if (start_region & G_REGION_BOTTOM) {
-        G_SegmentLineIntersection(new_seg, bottom, &new_seg.start);
-        start_region = FindRegion(rect, new_seg.start);
+        G_SegmentLineIntersection(new, bottom, &new.start);
+        start_region = FindRegion(rect, new.start);
     }
 
     if (start_region & G_REGION_LEFT) {
-        G_SegmentLineIntersection(new_seg, left, &new_seg.start);
-        start_region = FindRegion(rect, new_seg.start);
+        G_SegmentLineIntersection(new, left, &new.start);
+        start_region = FindRegion(rect, new.start);
     } else if (start_region & G_REGION_RIGHT) {
-        G_SegmentLineIntersection(new_seg, right, &new_seg.start);
-        start_region = FindRegion(rect, new_seg.start);
+        G_SegmentLineIntersection(new, right, &new.start);
+        start_region = FindRegion(rect, new.start);
     }
 
     if (end_region & G_REGION_TOP) {
-        G_SegmentLineIntersection(new_seg, top, &new_seg.end);
-        end_region = FindRegion(rect, new_seg.end);
+        G_SegmentLineIntersection(new, top, &new.end);
+        end_region = FindRegion(rect, new.end);
     } else if (end_region & G_REGION_BOTTOM) {
-        G_SegmentLineIntersection(new_seg, bottom, &new_seg.end);
-        end_region = FindRegion(rect, new_seg.end);
+        G_SegmentLineIntersection(new, bottom, &new.end);
+        end_region = FindRegion(rect, new.end);
     }
 
     if (end_region & G_REGION_LEFT) {
-        G_SegmentLineIntersection(new_seg, left, &new_seg.end);
-        end_region = FindRegion(rect, new_seg.end);
+        G_SegmentLineIntersection(new, left, &new.end);
+        end_region = FindRegion(rect, new.end);
     } else if (end_region & G_REGION_RIGHT) {
-        G_SegmentLineIntersection(new_seg, right, &new_seg.end);
-        end_region = FindRegion(rect, new_seg.end);
+        G_SegmentLineIntersection(new, right, &new.end);
+        end_region = FindRegion(rect, new.end);
     }
 
     // Again
@@ -430,7 +419,7 @@ int G_ClipSegment(Segment in, Box rect, Segment *out) {
     // Both endpoints inside rect.
     if ((start_region | end_region) == 0) {
         if (out) {
-            *out = new_seg;
+            *out = new;
         }
         return 1;
     }
@@ -444,9 +433,10 @@ int G_ClipSegment(Segment in, Box rect, Segment *out) {
 
 
 double G_LinePointDistance(Line l, Vector p) {
-    Line perpendicular;
-    perpendicular.start = p;
-    perpendicular.dir = G_Perpendicular(l.dir);
+    Line perpendicular = {
+        .start = p,
+        .dir = G_Perpendicular(l.dir)
+    };
 
     Vector intersection;
     int rc = G_LineLineIntersection(l, perpendicular, &intersection);
@@ -477,10 +467,7 @@ int G_LineLineIntersection(Line l1, Line l2, Vector *intersection) {
 
 
 Line G_SupportLine(Segment seg) {
-    Line line;
-    line.start = seg.start;
-    line.dir = G_Sub(seg.end, seg.start);
-    return line;
+    return (Line){ .start = seg.start, .dir = G_Sub(seg.end, seg.start) };
 }
 
 
@@ -494,8 +481,7 @@ int G_Parallel(Vector a, Vector b) {
 }
 
 Vector G_Midpoint(Vector a, Vector b) {
-    Vector vect = {(a.x + b.x) / 2, (a.y + b.y) / 2};
-    return vect;
+    return (Vector){(a.x + b.x) / 2, (a.y + b.y) / 2};
 }
 
 

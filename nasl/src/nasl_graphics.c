@@ -43,7 +43,7 @@ static char *ReadFile(const char *path) {
     size_t fsize = ftell(f);
     fseek(f, 0, SEEK_SET);
 
-    char *buf = (char*)malloc(fsize + 1);
+    char *buf = malloc(fsize + 1);
     fread(buf, fsize, 1, f);
     buf[fsize] = '\0';
 
@@ -194,7 +194,6 @@ int nasl_graphics_init(int width, int height, const char* title, int fullscreen,
 				 glGetString(GL_SHADING_LANGUAGE_VERSION));
 
     InitOpenGL(width, height);
-    glViewport(0, 0, width, height);
    return 0;
 }
 

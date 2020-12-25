@@ -27,8 +27,8 @@ endif()
 
 set(IncludeDir code/include/)
 include_directories(${IncludeDir})
-include_directories(${IncludeDir}/3rd)
-include_directories(${IncludeDir}/nasl)
+include_directories(nasl/3rd)
+include_directories(nasl/include)
 
 set(THREADS_PREFER_PTHREAD_FLAD ON)
 find_package(Threads REQUIRED)
@@ -36,7 +36,7 @@ find_package(Threads REQUIRED)
 find_package(GLEW REQUIRED)
 find_package(glfw3 CONFIG REQUIRED)
 find_package(OpenGL REQUIRED)
-
+include_directories(${GLEW_INCLUDE_DIR})
 if (UNIX)
     find_package(X11 REQUIRED)
     find_package(PNG REQUIRED)
@@ -47,5 +47,5 @@ if (WIN32)
     include_directories(${WinSDK})
 endif (WIN32)
 
-
+add_subdirectory(nasl)
 add_subdirectory(code)

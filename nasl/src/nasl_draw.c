@@ -116,16 +116,15 @@ void nasl_draw_rect(Buffer* b, int left, int top, int right, int bottom, uint32_
 	}
 }
 
-//void nasl_draw_text(Buffer* buffer, int x, int y, uint32_t color, int font_size, const char* fmt, ...)
-void nasl_draw_text(Buffer* buffer, int x, int y, uint32_t color, int font_size, const char* text)
+void nasl_draw_text(Buffer* buffer, int x, int y, uint32_t color, int font_size, const char* fmt, ...)
 {
-    /*va_list args;
+    va_list args;
     va_start(args, fmt);
 
     char text[128] = "";
     vsnprintf(text, 128, fmt, args); // Write formatted data from variable argument list to sized buffer
 
-    va_end(args);*/
+    va_end(args);
 
     Buffer* tex_buf = nasl_buffer_create(buffer->width, buffer->height);
     nasl_buffer_clear(tex_buf, TRANSPARANT);

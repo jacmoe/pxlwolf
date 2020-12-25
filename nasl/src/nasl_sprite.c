@@ -21,12 +21,13 @@
 SpriteSheet nasl_sprite_load(const char *path, int rows, int cols) {
     Buffer *b = nasl_image_load(path);
 
-    SpriteSheet ss;
-    ss.rows = rows;
-    ss.cols = cols;
-    ss.width =  b->width / cols;
-    ss.height = b->height / rows;
-    ss.sprites = (Buffer**)malloc(sizeof(Buffer *) * rows * cols);
+    SpriteSheet ss = {
+        .rows = rows,
+        .cols = cols,
+        .width =  b->width / cols,
+        .height = b->height / rows,
+        .sprites = malloc(sizeof(Buffer *) * rows * cols)
+    };
 
     for (int j = 0; j < rows; j++) {
         for (int i = 0; i < cols; i++) {

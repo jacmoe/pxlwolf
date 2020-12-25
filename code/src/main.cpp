@@ -24,12 +24,14 @@
 #include "rapidjson/filereadstream.h"
 #include "rapidjson/document.h"
 
+extern "C" {
 #include "nasl_graphics.h"
 #include "nasl_buffer.h"
 #include "nasl_image.h"
 #include "nasl_draw.h"
 #include "nasl_sprite.h"
 #include "nasl_geometry.h"
+}
 #include "utils.h"
 
 int move_forwards = 0;
@@ -95,7 +97,7 @@ public:
 
         int win_width, win_height;
         glfwGetWindowSize(nasl_graphics_get_window(), &win_width, &win_height);
-        framebuffer_size_callback(nasl_graphics_get_window(), win_width, win_height);
+        glViewport(0, 0, win_width, win_height);
 
         return true;
     }
