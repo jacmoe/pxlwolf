@@ -25,7 +25,7 @@ set(Includes
 
 if (WIN32)
     add_executable(${TARGET_NAME}
-        #WIN32
+        WIN32
         ${Sources}
         ${Includes}
     )
