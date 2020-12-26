@@ -1,9 +1,10 @@
 # This file is part of the
-#   ___ _       __    __      _  __ 
-#  / _ \ |_  __/ / /\ \ \___ | |/ _|
-# / /_)/ \ \/ /\ \/  \/ / _ \| | |_ 
-#/ ___/| |>  <  \  /\  / (_) | |  _|
-#\/    |_/_/\_\  \/  \/ \___/|_|_|  
+# ██████╗ ██╗     ██╗  ██╗██╗    ██╗ ██████╗ ██╗     ███████╗
+# ██╔══██╗██║     ╚██╗██╔╝██║    ██║██╔═══██╗██║     ██╔════╝
+# ██████╔╝██║      ╚███╔╝ ██║ █╗ ██║██║   ██║██║     █████╗  
+# ██╔═══╝ ██║      ██╔██╗ ██║███╗██║██║   ██║██║     ██╔══╝  
+# ██║     ███████╗██╔╝ ██╗╚███╔███╔╝╚██████╔╝███████╗██║     
+# ╚═╝     ╚══════╝╚═╝  ╚═╝ ╚══╝╚══╝  ╚═════╝ ╚══════╝╚═╝     
 # project
 # https://github.com/jacmoe/pxlwolf
 #
@@ -15,37 +16,22 @@ cmake_minimum_required(VERSION 3.7)
 set(CMAKE_TOOLCHAIN_FILE ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/scripts/buildsystems/vcpkg.cmake
   CACHE STRING "Vcpkg toolchain file")
 
+if(WIN32)
+    set(SFML_DIR ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows/share/sfml)
+    set(SFML_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows/include)
+    set(SFML_LIBS ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows/lib/sfml-graphics.lib 
+        ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows/lib/sfml-system.lib 
+        ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows/lib/sfml-window.lib )
+endif(WIN32)
+
+set(SFML_STATIC_LIBRARIES TRUE)
+
+find_package(SFML 2.4.2 REQUIRED system window graphics)
+
+include_directories(
+    ${SFML_INCLUDE_DIRS}
+)
+
 project(pixelwolf)
 
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} CMakeFiles/)
-
-set(CMAKE_CXX_STANDARD 17)
-
-if(MSVC)
-    add_definitions(-D_CRT_SECURE_NO_WARNINGS)
-endif()
-
-set(IncludeDir code/include/)
-include_directories(${IncludeDir})
-include_directories(nasl/3rd)
-include_directories(nasl/include)
-
-set(THREADS_PREFER_PTHREAD_FLAD ON)
-find_package(Threads REQUIRED)
-
-find_package(GLEW REQUIRED)
-find_package(glfw3 CONFIG REQUIRED)
-find_package(OpenGL REQUIRED)
-include_directories(${GLEW_INCLUDE_DIR})
-if (UNIX)
-    find_package(X11 REQUIRED)
-    find_package(PNG REQUIRED)
-    include_directories(${PNG_INCLUDE_DIR})
-endif (UNIX)
-
-if (WIN32)
-    include_directories(${WinSDK})
-endif (WIN32)
-
-add_subdirectory(nasl)
 add_subdirectory(code)
