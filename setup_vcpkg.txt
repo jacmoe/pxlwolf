@@ -1,8 +1,15 @@
+WINDOWS
+==============================================================
 git clone https://github.com/microsoft/vcpkg
-
 cd .\vcpkg\
-
 .\bootstrap-vcpkg.bat
-
 .\vcpkg.exe install sdl2 --triplet x64-windows
 .\vcpkg.exe install sdl2-image --triplet x64-windows
+
+LINUX
+==============================================================
+git clone https://github.com/microsoft/vcpkg
+cd vcpkg/
+./bootstrap-vcpkg.sh
+./vcpkg install sdl2 --triplet x64-linux
+./vcpkg install sdl2-image --triplet x64-linux

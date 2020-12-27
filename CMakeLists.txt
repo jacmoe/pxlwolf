@@ -18,6 +18,7 @@ set(CMAKE_TOOLCHAIN_FILE ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/scripts/buildsystems/
 
 set(CMAKE_CXX_STANDARD 17)
 
+if(WIN32)
 set(SDL2_DIR ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows/share/sdl2)
 set(sdl2-image_DIR ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows/share/sdl2-image)
 set(SDL2_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows/include/SDL2)
@@ -32,6 +33,24 @@ set(SDL2_LIBS_DEBUG
     ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows/debug/lib/SDL2_image.lib
     ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows/debug/lib/manual-link/SDL2maind.lib
 )
+endif(WIN32)
+if(UNIX)
+set(SDL2_DIR ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-linux/share/sdl2)
+set(sdl2-image_DIR ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-linux/share/sdl2-image)
+set(SDL2_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-linux/include/SDL2)
+
+set(SDL2_LIBS_RELEASE
+    ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-linux/lib/libSDL2.a
+    ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-linux/lib/libSDL2_image.a
+    ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-linux/lib/libSDL2main.a
+)
+set(SDL2_LIBS_DEBUG
+    ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-linux/debug/lib/libSDL2d.a
+    ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-linux/debug/lib/libSDL2_image.a
+    ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-linux/debug/lib/libSDL2maind.a
+)
+endif(UNIX)
+
 
 find_package(SDL2 CONFIG REQUIRED)
 find_package(sdl2-image CONFIG REQUIRED)
