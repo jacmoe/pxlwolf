@@ -13,18 +13,30 @@
 #
 #   BSD 2-Clause "Simplified" License
 #*/
-#include "utils.hpp"
-
-namespace moena {
-	std::string utils::get_homedir(void)
-	{
-		std::string homedir = "";
+#include "dbg_console.hpp"
 #ifdef _WIN32
-		homedir = std::getenv("HOMEDRIVE");
-		homedir.append(std::getenv("HOMEPATH"));
-#else
-		homedir = std::getenv("HOME");
-#endif
-		return homedir;
-	}
+#include <io.h>
+int _hConsole;
+
+void CreateConsoleWindow()
+{
+    AllocConsole();
+    FILE *fp;
+    freopen_s(&fp, "CONOUT$", "w", stdout);
+    freopen_s(&fp, "CONIN$", "r", stdin);
 }
+
+void closeConsoleWindow()
+{
+    _close(_hConsole);
+}
+#else
+void CreateConsoleWindow()
+{
+}
+
+void closeConsoleWindow()
+{
+}
+
+#endif //_WIN32

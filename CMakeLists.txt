@@ -16,9 +16,21 @@ cmake_minimum_required(VERSION 3.7)
 set(CMAKE_TOOLCHAIN_FILE ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/scripts/buildsystems/vcpkg.cmake
   CACHE STRING "Vcpkg toolchain file")
 
+project(pixelwolf)
+
 set(CMAKE_CXX_STANDARD 17)
 
+if(MSVC)
+    add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+endif()
+
+set(THREADS_PREFER_PTHREAD_FLAD ON)
+find_package(Threads REQUIRED)
+
+find_package(OpenGL REQUIRED)
+
 if(WIN32)
+include_directories(${WinSDK})
 set(SDL2_DIR ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows/share/sdl2)
 set(sdl2-image_DIR ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows/share/sdl2-image)
 set(SDL2_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows/include/SDL2)
@@ -62,7 +74,5 @@ include_directories(
     ${SDL2_INCLUDE_DIRS}
     ${IncludeDir}
 )
-
-project(pixelwolf)
 
 add_subdirectory(code)
