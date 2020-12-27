@@ -13,7 +13,7 @@
 #
 #   BSD 2-Clause "Simplified" License
 #
-set(TARGET_NAME plxwolf)
+set(TARGET_NAME pxlwolf)
 
 set(Sources
     ./src/main.cpp
@@ -40,8 +40,8 @@ if (UNIX)
     )
 endif (UNIX)
 
-target_link_libraries(plxwolf
+target_link_libraries(pxlwolf
         GLEW::GLEW
         )
 
-target_link_libraries(plxwolf optimized ${SDL2_LIBS_RELEASE} debug ${SDL2_LIBS_DEBUG})
+target_link_libraries(pxlwolf optimized ${SDL2_LIBS_RELEASE} debug ${SDL2_LIBS_DEBUG})
