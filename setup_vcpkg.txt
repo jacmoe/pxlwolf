@@ -5,6 +5,7 @@ cd .\vcpkg\
 .\bootstrap-vcpkg.bat
 .\vcpkg.exe install sdl2 --triplet x64-windows
 .\vcpkg.exe install sdl2-image --triplet x64-windows
+.\vcpkg.exe install glew:x64-windows
 
 LINUX
 ==============================================================
