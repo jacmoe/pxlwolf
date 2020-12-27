@@ -1,6 +1,7 @@
 /build
 /vsbuild
 /kdevbuild
+/backup
 /.kdev4
 test_package/build
 /.vscode
