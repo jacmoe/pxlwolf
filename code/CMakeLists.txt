@@ -16,7 +16,7 @@
 set(TARGET_NAME plxwolf)
 
 set(Sources
-    ./src/Main.cpp
+    ./src/main.cpp
     ./src/Camera.cpp
     ./src/Game.cpp
     ./src/RayCaster.cpp
@@ -29,7 +29,7 @@ set(Includes
     ../${IncludeDir}/Camera.h
     ../${IncludeDir}/Game.h
     ../${IncludeDir}/IRenderer.h
-    ../${IncludeDir}/Mathlib.h
+    ../${IncludeDir}/MathLib.h
     ../${IncludeDir}/RayCaster.h
     ../${IncludeDir}/SDLDeleter.h
     ../${IncludeDir}/SDLRenderer.h
