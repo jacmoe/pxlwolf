@@ -41,8 +41,7 @@ if (UNIX)
 endif (UNIX)
 
 target_link_libraries(plxwolf
-        Threads::Threads
-        ${OPENGL_LIBRARIES}
+        GLEW::GLEW
         )
 
 target_link_libraries(plxwolf optimized ${SDL2_LIBS_RELEASE} debug ${SDL2_LIBS_DEBUG})

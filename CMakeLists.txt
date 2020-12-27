@@ -21,14 +21,15 @@ project(pixelwolf)
 
 set(CMAKE_CXX_STANDARD 17)
 
+find_package(GLEW REQUIRED)
+
+if(${GLEW_FOUND})
+  add_definitions(-DUSE_GLEW)
+endif()
+
 if(MSVC)
     add_definitions(-D_CRT_SECURE_NO_WARNINGS)
 endif()
-
-set(THREADS_PREFER_PTHREAD_FLAD ON)
-find_package(Threads REQUIRED)
-
-find_package(OpenGL REQUIRED)
 
 if(WIN32)
 include_directories(${WinSDK})
