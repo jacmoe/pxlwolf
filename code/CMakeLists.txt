@@ -17,23 +17,11 @@ set(TARGET_NAME plxwolf)
 
 set(Sources
     ./src/main.cpp
-    ./src/Camera.cpp
-    ./src/Game.cpp
-    ./src/RayCaster.cpp
-    ./src/SDLRenderer.cpp
     ./src/utils.cpp
 )
 
 set(Includes
     ../${IncludeDir}/utils.h
-    ../${IncludeDir}/Camera.h
-    ../${IncludeDir}/Game.h
-    ../${IncludeDir}/IRenderer.h
-    ../${IncludeDir}/MathLib.h
-    ../${IncludeDir}/RayCaster.h
-    ../${IncludeDir}/SDLDeleter.h
-    ../${IncludeDir}/SDLRenderer.h
-    ../${IncludeDir}/WallTypes.h
 )
 
 if (WIN32)

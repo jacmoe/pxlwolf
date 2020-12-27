@@ -1,22 +1,20 @@
-#include <iostream>
-#include <stdexcept>
-
-#include "Game.h"
+/*# This file is part of the
+# ██████╗ ██╗     ██╗  ██╗██╗    ██╗ ██████╗ ██╗     ███████╗
+# ██╔══██╗██║     ╚██╗██╔╝██║    ██║██╔═══██╗██║     ██╔════╝
+# ██████╔╝██║      ╚███╔╝ ██║ █╗ ██║██║   ██║██║     █████╗  
+# ██╔═══╝ ██║      ██╔██╗ ██║███╗██║██║   ██║██║     ██╔══╝  
+# ██║     ███████╗██╔╝ ██╗╚███╔███╔╝╚██████╔╝███████╗██║     
+# ╚═╝     ╚══════╝╚═╝  ╚═╝ ╚══╝╚══╝  ╚═════╝ ╚══════╝╚═╝     
+#   project
+#
+#   https://github.com/jacmoe/pxlwolf
+#
+#   (c) 2020 Jacob Moena
+#
+#   BSD 2-Clause "Simplified" License
+#*/
 
 int main(int argc, char **argv)
 {
-    Game game;
-    // TODO: Remove exception handling
-    try
-    {
-        game.init();
-        game.run();
-    }
-    catch (std::runtime_error& e)
-    {
-        std::cerr << e.what() << std::endl;
-        return -1;
-    }
-
     return 0;
 }
