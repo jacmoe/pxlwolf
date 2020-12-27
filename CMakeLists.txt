@@ -21,6 +21,8 @@ project(pixelwolf)
 
 set(CMAKE_CXX_STANDARD 17)
 
+find_package(OpenGL REQUIRED)
+
 find_package(GLEW REQUIRED)
 
 if(${GLEW_FOUND})
@@ -36,13 +38,20 @@ include_directories(${WinSDK})
 set(SDL2_DIR ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows/share/sdl2)
 set(sdl2-image_DIR ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows/share/sdl2-image)
 set(SDL2_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows/include/SDL2)
+set(GL_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows/include/gl)
 
 set(SDL2_LIBS_RELEASE
+    ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows-static/lib/glew32.lib
+    ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows/lib/GLU32.lib
+    ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows/lib/OpenGL32.lib
     ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows/lib/SDL2.lib
     ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows/lib/SDL2_image.lib
     ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows/lib/manual-link/SDL2main.lib
 )
 set(SDL2_LIBS_DEBUG
+    ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows-static/debug/lib/glew32d.lib
+    ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows/debug/lib/GLU32.lib
+    ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows/debug/lib/OpenGL32.lib
     ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows/debug/lib/SDL2d.lib
     ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows/debug/lib/SDL2_image.lib
     ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows/debug/lib/manual-link/SDL2maind.lib
@@ -73,6 +82,7 @@ find_package(sdl2-image CONFIG REQUIRED)
 set(IncludeDir code/include/) # Change include/ to your include directory
 
 include_directories(
+    ${GL_INCLUDE_DIRS}
     ${SDL2_INCLUDE_DIRS}
     ${IncludeDir}
 )

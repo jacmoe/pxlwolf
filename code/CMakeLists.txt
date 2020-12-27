@@ -17,6 +17,7 @@ set(TARGET_NAME pxlwolf)
 
 set(Sources
     ./src/buffer.cpp
+    ./src/color.cpp
     ./src/dbg_console.cpp
     ./src/geometry.cpp
     ./src/main.cpp
@@ -26,7 +27,9 @@ set(Sources
 
 set(Includes
     ../${IncludeDir}/buffer.hpp
+    ../${IncludeDir}/color.hpp
     ../${IncludeDir}/dbg_console.hpp
+    ../${IncludeDir}/dbg.hpp
     ../${IncludeDir}/defs.hpp
     ../${IncludeDir}/geometry.hpp
     ../${IncludeDir}/system.hpp
@@ -46,9 +49,5 @@ if (UNIX)
         ${Includes}
     )
 endif (UNIX)
-
-target_link_libraries(pxlwolf
-        GLEW::GLEW
-        )
 
 target_link_libraries(pxlwolf optimized ${SDL2_LIBS_RELEASE} debug ${SDL2_LIBS_DEBUG})

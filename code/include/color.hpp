@@ -14,42 +14,26 @@
 #   BSD 2-Clause "Simplified" License
 #*/
 #pragma once
+#include <stdint.h>
 
-#include "dbg.hpp"
-#include "color.hpp"
+// Little-endian
+enum Color {
+    BLACK     = 0x000000,
+    BLUE      = 0xFF0000,
+    GREEN     = 0x00FF00,
+    GREY      = 0x111111,
+    LIGHTGREY = 0x222222,
+    RED       = 0x0000FF,
+    WHITE     = 0xFFFFFF,
+    YELLOW    = 0x00FFFF,
 
-typedef struct Buffer {
-    int width, height;
-    uint32_t *pixels;
-} Buffer;
+    TRANSPARENT = 0xFFFF00,
+};
 
+#define GETR(c) (((c) >>  0) & 0xFF)
+#define GETG(c) (((c) >>  8) & 0xFF)
+#define GETB(c) (((c) >> 16) & 0xFF)
 
-// Returns a Buffer of the given width and height.
-Buffer *B_CreateBuffer(int width, int height);
+#define BUILDRGB(r, g, b) ((r) | (g) << 8 | (b) << 16)
 
-// Free a Buffer
-void B_DeleteBuffer(Buffer *buf);
-
-// Fills a Buffer with color
-void B_ClearBuffer(Buffer *b, uint32_t color);
-
-// Returns a rectangular sub-buffer of buf starting at pixel (x,y) and with
-// the given width and height.
-Buffer *B_GetSubBuffer(Buffer *buf, int x, int y, int width, int height);
-
-// Copies src to dest starting at (x,y) pixel of dest.
-void B_BlitBuffer(Buffer *dest, Buffer *src, int x, int y);
-
-// Sets pixel (x,y) of b to color.
-static inline void B_SetPixel(Buffer *b, int x, int y, uint32_t color) {
-#ifndef NDEBUG
-    if (!(x >= 0 && x < b->width && y >= 0 && y < b->height)) {
-        debug("Drawing outside the buffer! (%d, %d)", x, y);
-    }
-#endif
-
-    b->pixels[y * b->width + x] = color;
-}
-
-// Returns the color of pixel (x,y) of b.
-uint32_t B_GetPixel(Buffer *b, int x, int y);
+uint32_t C_ScaleColor(uint32_t color, double intensity);

@@ -14,42 +14,44 @@
 #   BSD 2-Clause "Simplified" License
 #*/
 #pragma once
+#include <stdio.h>
+#include <errno.h>
+#include <string.h>
 
-#include "dbg.hpp"
-#include "color.hpp"
-
-typedef struct Buffer {
-    int width, height;
-    uint32_t *pixels;
-} Buffer;
-
-
-// Returns a Buffer of the given width and height.
-Buffer *B_CreateBuffer(int width, int height);
-
-// Free a Buffer
-void B_DeleteBuffer(Buffer *buf);
-
-// Fills a Buffer with color
-void B_ClearBuffer(Buffer *b, uint32_t color);
-
-// Returns a rectangular sub-buffer of buf starting at pixel (x,y) and with
-// the given width and height.
-Buffer *B_GetSubBuffer(Buffer *buf, int x, int y, int width, int height);
-
-// Copies src to dest starting at (x,y) pixel of dest.
-void B_BlitBuffer(Buffer *dest, Buffer *src, int x, int y);
-
-// Sets pixel (x,y) of b to color.
-static inline void B_SetPixel(Buffer *b, int x, int y, uint32_t color) {
-#ifndef NDEBUG
-    if (!(x >= 0 && x < b->width && y >= 0 && y < b->height)) {
-        debug("Drawing outside the buffer! (%d, %d)", x, y);
-    }
+#ifdef NDEBUG
+#define debug(M, ...)
+#else
+#define debug(M, ...) \
+    fprintf(stderr, "DEBUG %s:%d: " M "\n", __FILE__, __LINE__, ##__VA_ARGS__)
 #endif
 
-    b->pixels[y * b->width + x] = color;
+#define clean_errno() (errno == 0 ? "None" : strerror(errno))
+
+#define log_err(M, ...) fprintf(stderr, "[ERROR] (%s:%d: errno: %s) " M "\n",\
+        __FILE__, __LINE__, clean_errno(), ##__VA_ARGS__)
+
+#define log_warn(M, ...) fprintf(stderr, "[WARN] (%s:%d: errno: %s) " M "\n",\
+        __FILE__, __LINE__, clean_errno(), ##__VA_ARGS__)
+
+#define log_info(M, ...) fprintf(stderr, "[INFO] (%s:%d) " M "\n",\
+        __FILE__, __LINE__, ##__VA_ARGS__)
+
+#define check(A, M, ...) \
+    if(!(A)) {\
+        log_err(M, ##__VA_ARGS__);\
+        errno=0;\
+    }
+
+#define sentinel(M, ...) \
+{\
+    log_err(M, ##__VA_ARGS__);\
+    errno=0;\
 }
 
-// Returns the color of pixel (x,y) of b.
-uint32_t B_GetPixel(Buffer *b, int x, int y);
+#define check_mem(A) check((A), "Out of memory.")
+
+#define check_debug(A, M, ...) \
+    if(!(A)) {\
+        debug(M, ##__VA_ARGS__);\
+        errno=0;\
+    }
