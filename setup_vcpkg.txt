@@ -4,7 +4,5 @@ cd .\vcpkg\
 
 .\bootstrap-vcpkg.bat
 
-.\vcpkg.exe install sfml:x64-windows
-
-rem find_package(GLEW REQUIRED)
-rem target_link_libraries(main PRIVATE GLEW::GLEW)
+.\vcpkg.exe install sdl2 --triplet x64-windows
+.\vcpkg.exe install sdl2-image --triplet x64-windows
