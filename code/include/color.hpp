@@ -27,7 +27,7 @@ enum Color {
     WHITE     = 0xFFFFFF,
     YELLOW    = 0x00FFFF,
 
-    TRANSPARENT = 0xFFFF00,
+    TRANSP = 0xFFFF00,
 };
 
 #define GETR(c) (((c) >>  0) & 0xFF)

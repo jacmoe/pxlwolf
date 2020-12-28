@@ -15,6 +15,7 @@
 #*/
 #define GLEW_STATIC
 #include <glew.h>
+#include <iostream>
 
 #include <SDL.h>
 #include <SDL_image.h>
@@ -82,6 +83,7 @@ int HandleResize(void *userdata, SDL_Event *ev) {
 
 
 void S_Init(const char *title, int width, int height) {
+    std::cout << "System Initializing" << std::endl;
     SDL_Init(SDL_INIT_VIDEO);
     IMG_Init(IMG_INIT_PNG);
 
@@ -194,6 +196,7 @@ void S_Quit() {
     SDL_GL_DeleteContext(glcontext);
     IMG_Quit();
     SDL_Quit();
+    std::cout << "System Quitting" << std::endl;
 }
 
 
