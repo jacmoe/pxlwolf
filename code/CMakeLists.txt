@@ -16,31 +16,16 @@
 set(TARGET_NAME pxlwolf)
 
 set(Sources
-    ./src/buffer.cpp
-    ./src/collision.cpp
-    ./src/color.cpp
     ./src/dbg_console.cpp
-    ./src/draw.cpp
-    ./src/geometry.cpp
     ./src/main.cpp
-    ./src/map.cpp
-    ./src/sprites.cpp
-    ./src/system.cpp
+    ./src/pixel_render.cpp
     ./src/utils.cpp
 )
 
 set(Includes
-    ../${IncludeDir}/buffer.hpp
-    ../${IncludeDir}/collision.hpp
-    ../${IncludeDir}/color.hpp
     ../${IncludeDir}/dbg_console.hpp
-    ../${IncludeDir}/dbg.hpp
-    ../${IncludeDir}/defs.hpp
-    ../${IncludeDir}/draw.hpp
-    ../${IncludeDir}/geometry.hpp
-    ../${IncludeDir}/map.hpp
-    ../${IncludeDir}/sprites.hpp
-    ../${IncludeDir}/system.hpp
+    ../${IncludeDir}/pixel_render.hpp
+    ../${IncludeDir}/sdl2.hpp
     ../${IncludeDir}/utils.hpp
 )
 
@@ -77,5 +62,5 @@ if (UNIX)
             )
 endif (UNIX)
 
-target_link_libraries(pxlwolf ${SDL2_LIBS_RELEASE})
-#target_link_libraries(pxlwolf ${SDL2_LIBS_DEBUG})
+#target_link_libraries(pxlwolf ${SDL2_LIBS_RELEASE})
+target_link_libraries(pxlwolf ${SDL2_LIBS_DEBUG})
