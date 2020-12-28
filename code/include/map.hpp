@@ -1,4 +1,4 @@
-# This file is part of the
+/*# This file is part of the
 # ██████╗ ██╗  ██╗██╗     ██╗    ██╗ ██████╗ ██╗     ███████╗
 # ██╔══██╗╚██╗██╔╝██║     ██║    ██║██╔═══██╗██║     ██╔════╝
 # ██████╔╝ ╚███╔╝ ██║     ██║ █╗ ██║██║   ██║██║     █████╗  
@@ -12,50 +12,21 @@
 #   (c) 2020 Jacob Moena
 #
 #   BSD 2-Clause "Simplified" License
-#
-set(TARGET_NAME pxlwolf)
+#*/
+#pragma once
 
-set(Sources
-    ./src/buffer.cpp
-    ./src/collision.cpp
-    ./src/color.cpp
-    ./src/dbg_console.cpp
-    ./src/draw.cpp
-    ./src/geometry.cpp
-    ./src/main.cpp
-    ./src/map.cpp
-    ./src/sprites.cpp
-    ./src/system.cpp
-    ./src/utils.cpp
-)
+#include "geometry.hpp"
 
-set(Includes
-    ../${IncludeDir}/buffer.hpp
-    ../${IncludeDir}/collision.hpp
-    ../${IncludeDir}/color.hpp
-    ../${IncludeDir}/dbg_console.hpp
-    ../${IncludeDir}/dbg.hpp
-    ../${IncludeDir}/defs.hpp
-    ../${IncludeDir}/draw.hpp
-    ../${IncludeDir}/geometry.hpp
-    ../${IncludeDir}/map.hpp
-    ../${IncludeDir}/sprites.hpp
-    ../${IncludeDir}/system.hpp
-    ../${IncludeDir}/utils.hpp
-)
+typedef struct {
+    Segment seg;
 
-if (WIN32)
-    add_executable(${TARGET_NAME}
-        WIN32
-        ${Sources}
-        ${Includes}
-    )
-endif (WIN32)
-if (UNIX)
-    add_executable(${TARGET_NAME}
-        ${Sources}
-        ${Includes}
-    )
-endif (UNIX)
+    int seen;
+} Wall;
 
-target_link_libraries(pxlwolf optimized ${SDL2_LIBS_RELEASE} debug ${SDL2_LIBS_DEBUG})
+typedef struct Map {
+    Wall *walls;
+    int numwalls;
+} Map;
+
+
+Map *M_Load(const char *path);
