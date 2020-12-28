@@ -82,5 +82,6 @@ int main(int, char**)
         SDL_Delay(100);
     }
 	closeConsoleWindow();
+	free(background.pixels);
     return 0;
 }
