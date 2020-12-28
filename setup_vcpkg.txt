@@ -15,3 +15,5 @@ cd vcpkg/
 ./bootstrap-vcpkg.sh
 ./vcpkg install sdl2 --triplet x64-linux
 ./vcpkg install sdl2-image --triplet x64-linux
+./vcpkg install glew --triplet x64-linux
+./vcpkg install glew --triplet x64-linux-static

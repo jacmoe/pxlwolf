@@ -25,6 +25,14 @@ find_package(OpenGL REQUIRED)
 
 find_package(GLEW REQUIRED)
 
+if(UNIX)
+    set(THREADS_PREFER_PTHREAD_FLAD ON)
+    find_package(Threads REQUIRED)
+    find_package(X11 REQUIRED)
+    find_package(PNG REQUIRED)
+    include_directories(${PNG_INCLUDE_DIR})
+endif(UNIX)
+
 if(${GLEW_FOUND})
   add_definitions(-DUSE_GLEW)
 endif()
@@ -61,16 +69,23 @@ if(UNIX)
 set(SDL2_DIR ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-linux/share/sdl2)
 set(sdl2-image_DIR ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-linux/share/sdl2-image)
 set(SDL2_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-linux/include/SDL2)
+set(GL_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-linux/include/GL)
 
 set(SDL2_LIBS_RELEASE
+    ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-linux/lib/libGLEW.a
     ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-linux/lib/libSDL2.a
     ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-linux/lib/libSDL2_image.a
     ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-linux/lib/libSDL2main.a
+    dl
+    png
 )
 set(SDL2_LIBS_DEBUG
+    ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-linux/debug/lib/libGLEWd.a
     ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-linux/debug/lib/libSDL2d.a
     ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-linux/debug/lib/libSDL2_image.a
     ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-linux/debug/lib/libSDL2maind.a
+    dl
+    png
 )
 endif(UNIX)
 
