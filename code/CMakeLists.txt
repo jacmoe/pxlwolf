@@ -79,12 +79,4 @@ endif (UNIX)
 
 
 #target_link_libraries(pxlwolf ${SDL2_LIBS_RELEASE})
-target_link_libraries(pxlwolf
-    ${SDL2_LIBRARY}
-    ${SDL2_IMAGE}
-    ${SDL2_MAIN}
-    ${OPENGL_gl_LIBRARY}
-    ${OPENGL_glu_LIBRARY}
-)
-
-target_link_libraries(pxlwolf optimized ${GLEW_STATIC} debug ${GLEW_STATIC_DEBUG})
+target_link_libraries(pxlwolf debug ${SDL2_LIBS_DEBUG})
