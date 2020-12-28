@@ -68,13 +68,13 @@ int main(int, char**)
 	background.width = WIDTH;
 	background.height = HEIGHT;
 	drawTex = SDL_CreateTexture(ren.get(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, WIDTH, HEIGHT);
-
+	PixelRenderer pxlRenderer = PixelRenderer();
     for (int i = 0; i < 20; i++) {
         SDL_RenderClear(ren.get());
 
 		for (int x = 0; x < WIDTH; x++)
 			for (int y = 0; y < HEIGHT; y++)
-				PixBuffer_drawPix(&background, x, y, PixBuffer_toPixColor(rand() % 255, rand() % 255, rand()% 255, rand() % 255));
+				pxlRenderer.drawPix(&background, x, y, pxlRenderer.toPixColor(rand() % 255, rand() % 255, rand()% 255, rand() % 255));
 
 		SDL_UpdateTexture(drawTex, NULL, background.pixels, sizeof(uint32_t) * WIDTH);
         SDL_RenderCopy(ren.get(), drawTex, nullptr, nullptr);

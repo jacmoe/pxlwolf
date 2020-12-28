@@ -31,7 +31,7 @@ uint32_t getColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a);
  * Precomputed 4x4 bayer matrix
  * to be used for ordered dithering
  * based on 4 patterns
- * (see PixBuffer_orderedDither)
+ * (see PixelRenderer::orderedDither)
  */
 const double ditherMatrix[16] = {
     -0.875, 0.125, -0.625, 0.375,
@@ -40,7 +40,7 @@ const double ditherMatrix[16] = {
     1.0, 0.0, 0.75, -0.25
 };
 
-PixBuffer* PixBuffer_initPixBuffer(uint32_t width, uint32_t height)
+PixBuffer* PixelRenderer::initPixBuffer(uint32_t width, uint32_t height)
 {
     PixBuffer* newBuffer = (PixBuffer*)malloc(sizeof(PixBuffer));
     newBuffer->pixels = (uint32_t*)malloc(sizeof(uint32_t)*width*height);
@@ -49,13 +49,13 @@ PixBuffer* PixBuffer_initPixBuffer(uint32_t width, uint32_t height)
     return newBuffer;
 }
 
-void PixBuffer_delPixBuffer(PixBuffer* buffer)
+void PixelRenderer::delPixBuffer(PixBuffer* buffer)
 {
     free(buffer->pixels);
     free(buffer);
 }
 
-/** PixBuffer_drawColumn
+/** PixelRenderer::drawColumn
  * @brief Draws a column to a pixel buffer
  * Note: drawColumn <b>does not</b> check x bound
  * Ensure that your draw functions choose
@@ -65,7 +65,7 @@ void PixBuffer_delPixBuffer(PixBuffer* buffer)
  * @param y y coordinate of <b>top</b> of column
  * @param h height of column
  **/
-void PixBuffer_drawColumn(PixBuffer* buffer, uint32_t x, int32_t y, int32_t h, SDL_Color color)
+void PixelRenderer::drawColumn(PixBuffer* buffer, uint32_t x, int32_t y, int32_t h, SDL_Color color)
 {
     if (y < 0)
     {
@@ -79,11 +79,11 @@ void PixBuffer_drawColumn(PixBuffer* buffer, uint32_t x, int32_t y, int32_t h, S
     ////#pragma omp parallel for schedule(dynamic,1)
     for (int32_t i = y; i < y + h; i++)
     {
-        PixBuffer_drawPix(buffer, x, i, PixBuffer_toPixColor(color.r,color.g,color.b,color.a));
+        PixelRenderer::drawPix(buffer, x, i, PixelRenderer::toPixColor(color.r,color.g,color.b,color.a));
     }
 }
 
-/** PixBuffer_drawRow
+/** PixelRenderer::drawRow
  * @brief Draws a row to a pixel buffer
  * Note: drawRow <b>does not</b> check x <b>or</b>
  * y bounds. Be careful to ensure x, w, and y
@@ -93,7 +93,7 @@ void PixBuffer_drawColumn(PixBuffer* buffer, uint32_t x, int32_t y, int32_t h, S
  * @param y y coordinate of row
  * @param w width of row
  **/
-void PixBuffer_drawRow(PixBuffer* buffer, uint32_t x, uint32_t y, uint32_t w, SDL_Color color)
+void PixelRenderer::drawRow(PixBuffer* buffer, uint32_t x, uint32_t y, uint32_t w, SDL_Color color)
 {
     int r = color.r;
     int g = color.g;
@@ -111,18 +111,18 @@ void PixBuffer_drawRow(PixBuffer* buffer, uint32_t x, uint32_t y, uint32_t w, SD
             r = (int)((double)(color.r) * alpha + (double)oldR * (1.0-alpha));
             g = (int)((double)(color.g) * alpha + (double)oldG * (1.0-alpha));
             b = (int)((double)(color.b) * alpha + (double)oldB * (1.0-alpha));
-            PixBuffer_drawPix(buffer, i, y, PixBuffer_toPixColor(r,g,b,0xff));
+            PixelRenderer::drawPix(buffer, i, y, PixelRenderer::toPixColor(r,g,b,0xff));
         }
     }
 }
 
-/** PixBuffer_drawRect
+/** PixelRenderer::drawRect
  * @brief Draws a filled rectangle to a pixel buffer
  *
  * @param buffer PixBuffer struct to write to
  * @param rect SDL_Rect struct with coordinate and dimension data
  **/
-void PixBuffer_drawRect(PixBuffer* buffer, SDL_Rect* rect, SDL_Color color)
+void PixelRenderer::drawRect(PixBuffer* buffer, SDL_Rect* rect, SDL_Color color)
 {
     if (rect->x < buffer->width)
     {
@@ -130,13 +130,13 @@ void PixBuffer_drawRect(PixBuffer* buffer, SDL_Rect* rect, SDL_Color color)
         {
             if (i < buffer->width)
             {
-                PixBuffer_drawColumn(buffer, i, rect->y, rect->h, color);
+                PixelRenderer::drawColumn(buffer, i, rect->y, rect->h, color);
             }
         }
     }
 }
 
-void PixBuffer_drawHorizGradient(PixBuffer* buffer, SDL_Rect* rect, SDL_Color colTop, SDL_Color colBottom)
+void PixelRenderer::drawHorizGradient(PixBuffer* buffer, SDL_Rect* rect, SDL_Color colTop, SDL_Color colBottom)
 {
     if (rect->x < buffer->width && rect->x+rect->w <= buffer->width)
     {
@@ -154,13 +154,13 @@ void PixBuffer_drawHorizGradient(PixBuffer* buffer, SDL_Rect* rect, SDL_Color co
                 drawColor.g = colTop.g+(int)(gStep*i);
                 drawColor.b = colTop.b+(int)(bStep*i);
                 drawColor.a = colTop.a+(int)(aStep*i);
-                PixBuffer_drawRow(buffer, rect->x, rect->y+i, rect->w, drawColor);
+                PixelRenderer::drawRow(buffer, rect->x, rect->y+i, rect->w, drawColor);
             }
         }
     }
 }
 
-void PixBuffer_mergeBuffer(PixBuffer* target, PixBuffer* source, double alpha)
+void PixelRenderer::mergeBuffer(PixBuffer* target, PixBuffer* source, double alpha)
 {
     uint32_t sourcePix;
     for (uint32_t i = 0; i < source->height; i++)
@@ -172,14 +172,14 @@ void PixBuffer_mergeBuffer(PixBuffer* target, PixBuffer* source, double alpha)
                 if (j < target->width)
                 {
                     sourcePix = source->pixels[j+i*source->width];
-                    PixBuffer_drawPixAlpha(target, j, i, sourcePix, alpha);
+                    PixelRenderer::drawPixAlpha(target, j, i, sourcePix, alpha);
                 }
             }
         }
     }
 }
 
-void PixBuffer_fillBuffer(PixBuffer* target, uint32_t color, double alpha)
+void PixelRenderer::fillBuffer(PixBuffer* target, uint32_t color, double alpha)
 {
     for (uint32_t i = 0; i < target->height; i++)
     {
@@ -189,14 +189,14 @@ void PixBuffer_fillBuffer(PixBuffer* target, uint32_t color, double alpha)
             {
                 if (j < target->width)
                 {
-                    PixBuffer_drawPixAlpha(target, j, i, color, alpha);
+                    PixelRenderer::drawPixAlpha(target, j, i, color, alpha);
                 }
             }
         }
     }
 }
 
-void PixBuffer_drawBuffOffset(PixBuffer* target, PixBuffer* source, uint32_t x, uint32_t y, int32_t xOff)
+void PixelRenderer::drawBuffOffset(PixBuffer* target, PixBuffer* source, uint32_t x, uint32_t y, int32_t xOff)
 {
     int32_t xCoord;
     for (uint32_t i = 0; i < source->height; i++)
@@ -215,19 +215,19 @@ void PixBuffer_drawBuffOffset(PixBuffer* target, PixBuffer* source, uint32_t x, 
     }
 }
 
-/** PixBuffer_clearBuffer
+/** PixelRenderer::clearBuffer
  * @brief Clears buffer array to 0x00
  * * Useful if you need to quickly reuse a buffer
  * * for drawing layers/graphics updates. Sets to
  * * transparent black using memset
  * @param buffer PixBuffer struct to clear
  **/
-void PixBuffer_clearBuffer(PixBuffer* buffer)
+void PixelRenderer::clearBuffer(PixBuffer* buffer)
 {
     memset(buffer->pixels, 0, buffer->width * buffer->height * 4);
 }
 
-/** PixBuffer_paletteFilter
+/** PixelRenderer::paletteFilter
  * @brief Remaps RGB buffer colors to a given pallette
  * * Note: it is important to ensure paletteNum is no longer than
  * * the palette list, otherwise your this will index nonexistant colors
@@ -237,7 +237,7 @@ void PixBuffer_clearBuffer(PixBuffer* buffer)
  * @param paletteNum length of color palette
  * @todo consolidate palletteFilter and nearestColor functions
  **/
-void PixBuffer_paletteFilter(PixBuffer* buffer, SDL_Color* palette, int paletteNum)
+void PixelRenderer::paletteFilter(PixBuffer* buffer, SDL_Color* palette, int paletteNum)
 {
     int r;
     int g;
@@ -294,7 +294,7 @@ uint32_t getNearestColor(SDL_Color* palette, int paletteNum, uint32_t colorDat)
 }
 
 /**
- * PixBuffer_orderDither
+ * PixelRenderer::orderDither
  * The algorithm for this is somewhat based on the pseudocode
  * from the wikipedia page, but adapted once I found out
  * how this works
@@ -305,7 +305,7 @@ uint32_t getNearestColor(SDL_Color* palette, int paletteNum, uint32_t colorDat)
  * @param paletteNum length of color palette
  * @param scaleFactor intensity of dither weights
  **/
-void PixBuffer_orderDither(PixBuffer* buffer, SDL_Color* palette, int paletteNum, double scaleFactor)
+void PixelRenderer::orderDither(PixBuffer* buffer, SDL_Color* palette, int paletteNum, double scaleFactor)
 {
     // Components to decode RGBA format
     int32_t r;
@@ -380,7 +380,7 @@ uint32_t to8BitColor(uint32_t colorDat)
     return (uint32_t)(newR) << 3*8 | (uint32_t)(newG) << 2*8 | (uint32_t)newB << 8 | (uint32_t)0xFF;
 }
 
-/** PixBuffer_orderDither256
+/** PixelRenderer::orderDither256
  * Uses matrix dithering to palletize truecolor buffer to
  * 8-bit 256 color pallette
  * @brief Applies 256 color dithering filter to buffer
@@ -389,7 +389,7 @@ uint32_t to8BitColor(uint32_t colorDat)
  * @param scaleFactor Stength of dithering. Multiplies values in 
  *        matrix to increase extremety of offsets
  **/
-void PixBuffer_orderDither256(PixBuffer* buffer, double scaleFactor)
+void PixelRenderer::orderDither256(PixBuffer* buffer, double scaleFactor)
 {
     // Components to decode RGBA format
     int32_t r;
@@ -447,14 +447,14 @@ void PixBuffer_orderDither256(PixBuffer* buffer, double scaleFactor)
     }
 }
 
-/** PixBuffer_monochromeFilter
+/** PixelRenderer::monochromeFilter
  * * Note: Does not check fade percentage, could overflow color values
  * @brief Monochrome filter with selectable target color and saturation
  * @param buffer PixBuffer to apply filter to
  * @param targetColor Color to adjust chrominance towards
  * @param fadePercent Degree of monochromatic-ness (inverse saturation)
  **/
-void PixBuffer_monochromeFilter(PixBuffer* buffer, SDL_Color targetColor, double fadePercent)
+void PixelRenderer::monochromeFilter(PixBuffer* buffer, SDL_Color targetColor, double fadePercent)
 {
     SDL_Color oldColor;
     int targetAvg;
@@ -472,22 +472,22 @@ void PixBuffer_monochromeFilter(PixBuffer* buffer, SDL_Color targetColor, double
     {
         for (int x = 0; x < buffer->width; x++)
         {
-            oldColor = PixBuffer_toSDLColor(PixBuffer_getPix(buffer, x, y));
+            oldColor = PixelRenderer::toSDLColor(PixelRenderer::getPix(buffer, x, y));
             targetAvg = (oldColor.r + oldColor.g + oldColor.b) / 3;
             dr = (targetAvg * targetR - oldColor.r) * fadePercent;
             dg = (targetAvg * targetG - oldColor.g) * fadePercent;
             db = (targetAvg * targetB - oldColor.b) * fadePercent;
-            newColor = PixBuffer_toPixColor((uint8_t)(oldColor.r + dr), (uint8_t)(oldColor.g + dg), (uint8_t)(oldColor.b + db), (uint8_t)oldColor.a);
-            PixBuffer_drawPix(buffer, x, y, newColor);
+            newColor = PixelRenderer::toPixColor((uint8_t)(oldColor.r + dr), (uint8_t)(oldColor.g + dg), (uint8_t)(oldColor.b + db), (uint8_t)oldColor.a);
+            PixelRenderer::drawPix(buffer, x, y, newColor);
         }
     }
 }
 
-/** PixBuffer_inverseFilter
+/** PixelRenderer::inverseFilter
  * @brief Inverts the RGB channels of all pixels in a PixBuffer
  * @param buffer PixBuffer to swap channels of
  **/
-void PixBuffer_inverseFilter(PixBuffer* buffer)
+void PixelRenderer::inverseFilter(PixBuffer* buffer)
 {
     SDL_Color oldColor;
     uint32_t newColor;
@@ -500,29 +500,29 @@ void PixBuffer_inverseFilter(PixBuffer* buffer)
     {
         for (int x = 0; x < buffer->width; x++)
         {
-            oldColor = PixBuffer_toSDLColor(PixBuffer_getPix(buffer, x, y));
+            oldColor = PixelRenderer::toSDLColor(PixelRenderer::getPix(buffer, x, y));
             r = (255 - oldColor.r);
             g = (255 - oldColor.g);
             b = (255 - oldColor.b);
-            newColor = PixBuffer_toPixColor((uint8_t)r, (uint8_t)g, (uint8_t)b, (uint8_t)oldColor.a);
-            PixBuffer_drawPix(buffer, x, y, newColor);
+            newColor = PixelRenderer::toPixColor((uint8_t)r, (uint8_t)g, (uint8_t)b, (uint8_t)oldColor.a);
+            PixelRenderer::drawPix(buffer, x, y, newColor);
         }
     }
 }
 
-/** PixBuffer_toPixColor
+/** PixelRenderer::toPixColor
  * @brief Returns color formatted to RGBA format
  * @param r SDL_Color red component
  * @param g SDL_Color green component
  * @param b SDL_Color blue component
  * @param a SDL_Color alpha component
  **/
-uint32_t PixBuffer_toPixColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
+uint32_t PixelRenderer::toPixColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
 {
     return ((uint32_t)r << 3*8 | (uint32_t)g << 2*8 | (uint32_t)b << 8 | (uint32_t)a);
 }
 
-SDL_Color PixBuffer_toSDLColor(uint32_t pixColor)
+SDL_Color PixelRenderer::toSDLColor(uint32_t pixColor)
 {
     int r = (int)(pixColor >> 3*8);
     int g = (int)((pixColor >> 2*8) & 0xFF);
@@ -532,7 +532,7 @@ SDL_Color PixBuffer_toSDLColor(uint32_t pixColor)
     return newColor;
 }
 
-uint32_t PixBuffer_blendAlpha(uint32_t baseColor, uint32_t addColor, double alphaNum)
+uint32_t PixelRenderer::blendAlpha(uint32_t baseColor, uint32_t addColor, double alphaNum)
 {
     SDL_Color newSDLColor;
     uint32_t newColor;
@@ -558,7 +558,7 @@ uint32_t PixBuffer_blendAlpha(uint32_t baseColor, uint32_t addColor, double alph
         {
             newSDLColor.a = (int)((double)addA * alpha + (double)oldA * (1-alpha));
         }
-        newColor = PixBuffer_toPixColor(newSDLColor.r, newSDLColor.g, newSDLColor.b, newSDLColor.a);
+        newColor = PixelRenderer::toPixColor(newSDLColor.r, newSDLColor.g, newSDLColor.b, newSDLColor.a);
     }
     else
     {
@@ -567,23 +567,23 @@ uint32_t PixBuffer_blendAlpha(uint32_t baseColor, uint32_t addColor, double alph
     return newColor;
 }
 
-uint32_t PixBuffer_getPix(PixBuffer* buffer, uint32_t x, uint32_t y)
+uint32_t PixelRenderer::getPix(PixBuffer* buffer, uint32_t x, uint32_t y)
 {
     return buffer->pixels[x + y * buffer->width];
 }
 
-uint32_t PixBuffer_getTex(RayTex* texture, uint8_t tileNum, uint32_t x, uint32_t y)
+uint32_t PixelRenderer::getTex(RayTex* texture, uint8_t tileNum, uint32_t x, uint32_t y)
 {
     return texture->pixData[(tileNum*texture->tileHeight + y) * texture->tileWidth + x];
 }
 
-/** PixBuffer_drawPix
+/** PixelRenderer::drawPix
  * @brief Draws a single pixel to the PixBuffer
  * @param buffer PixBuffer to draw to
  * @param x x coordinate of pixel
  * @param y y coordinate of pixel
  **/
-void PixBuffer_drawPix(PixBuffer* buffer, uint32_t x, uint32_t y, uint32_t color)
+void PixelRenderer::drawPix(PixBuffer* buffer, uint32_t x, uint32_t y, uint32_t color)
 {
     if (x < buffer->width && y < buffer->height)
     {
@@ -591,7 +591,7 @@ void PixBuffer_drawPix(PixBuffer* buffer, uint32_t x, uint32_t y, uint32_t color
     }
 }
 
-void PixBuffer_drawPixAlpha(PixBuffer* buffer, uint32_t x, uint32_t y, uint32_t color, double alphaNum)
+void PixelRenderer::drawPixAlpha(PixBuffer* buffer, uint32_t x, uint32_t y, uint32_t color, double alphaNum)
 {
     int r = (int)(color >> 3*8);
     int g = (int)((color >> 2*8) & 0xFF);
@@ -612,11 +612,11 @@ void PixBuffer_drawPixAlpha(PixBuffer* buffer, uint32_t x, uint32_t y, uint32_t 
             b = (int)((double)b * alpha + (double)oldB * (1-alpha));
             a = (int)((double)a * alpha + (double)oldA * (1-alpha));
         }
-        PixBuffer_drawPix(buffer, x, y, PixBuffer_toPixColor(r,g,b,a));
+        PixelRenderer::drawPix(buffer, x, y, PixelRenderer::toPixColor(r,g,b,a));
     }
 }
 
-void PixBuffer_drawPixDouble(PixBuffer* buffer, double x, double y, uint32_t color, double alphaNum)
+void PixelRenderer::drawPixDouble(PixBuffer* buffer, double x, double y, uint32_t color, double alphaNum)
 {
     uint32_t baseX = (uint32_t)floor(x);
     uint32_t baseY = (uint32_t)floor(y);
@@ -624,29 +624,29 @@ void PixBuffer_drawPixDouble(PixBuffer* buffer, double x, double y, uint32_t col
     double partY = y - baseY;
     if (x >= 0 && y >= 0)
     {
-        PixBuffer_drawPixAlpha(buffer, baseX, baseY, color, alphaNum);
+        PixelRenderer::drawPixAlpha(buffer, baseX, baseY, color, alphaNum);
     }
     if (partX > 0.5)
     {
         baseX++;
-        PixBuffer_drawPixAlpha(buffer, baseX, baseY, color, alphaNum);
+        PixelRenderer::drawPixAlpha(buffer, baseX, baseY, color, alphaNum);
     }
     else if (partX < -0.5)
     {
         baseX--;
-        PixBuffer_drawPixAlpha(buffer, baseX, baseY, color, alphaNum);
+        PixelRenderer::drawPixAlpha(buffer, baseX, baseY, color, alphaNum);
     }
     if (partY > 0.5)
     {
         baseY++;
-        PixBuffer_drawPixAlpha(buffer, baseX, baseY, color, alphaNum);
+        PixelRenderer::drawPixAlpha(buffer, baseX, baseY, color, alphaNum);
     }
     else if (partY < -0.5)
     {
         baseY--;
-        PixBuffer_drawPixAlpha(buffer, baseX, baseY, color, alphaNum);
+        PixelRenderer::drawPixAlpha(buffer, baseX, baseY, color, alphaNum);
     }
-    //PixBuffer_drawPixAlpha(buffer, baseX, baseY, color, alphaNum);
+    //PixelRenderer::drawPixAlpha(buffer, baseX, baseY, color, alphaNum);
 }
 
 // RAYTEX FUNCTIONS
