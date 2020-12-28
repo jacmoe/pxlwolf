@@ -32,13 +32,17 @@ int main(int, char**)
     using std::cerr;
     using std::endl;
 
+	const unsigned int WIDTH = 320 * 2;
+	const unsigned int HEIGHT = 180 * 2;
+	const unsigned int SCALE = 2;
+
     auto sys = sdl2::make_sdlsystem(SDL_INIT_EVERYTHING);
     if (!sys) {
         cerr << "Error creating SDL2 system: " << SDL_GetError() << endl;
         return 1;
     }
 
-    auto win = sdl2::make_window("Hello World!", 100, 100, 320, 240, SDL_WINDOW_SHOWN);
+    auto win = sdl2::make_window("Hello World!", 100, 100, WIDTH * SCALE, HEIGHT * SCALE, SDL_WINDOW_SHOWN);
     if (!win) {
         cerr << "Error creating window: " << SDL_GetError() << endl;
         return 1;
@@ -51,17 +55,11 @@ int main(int, char**)
         return 1;
     }
 
-	const unsigned int WIDTH = 320;
-	const unsigned int HEIGHT = 240;
+	SDL_RenderSetLogicalSize(ren.get(), WIDTH, HEIGHT); // Actual size of canvas without the scaling factor.
+	SDL_SetHint (SDL_HINT_RENDER_SCALE_QUALITY, "1"); // dont scale blurry
 	SDL_Texture* drawTex = NULL;
 	drawTex = SDL_CreateTexture(ren.get(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, WIDTH, HEIGHT);
 	SDL_SetTextureBlendMode(drawTex, SDL_BLENDMODE_BLEND);
-
-	SDL_Color nightSky = {20,0,20,255};
-	SDL_Color nightHorizon = {50,20,50,255};
-	SDL_Color eveningSky =  {0x5c,0x57,0xff,255};
-	SDL_Color eveningHorizon = {0xff,0x40,0x00,255};
-	SDL_Color white = {0xff,0xff,0xff,0xff};
 
 	// Generate background texture
 	uint32_t* texPixels = (uint32_t*)calloc(sizeof(uint32_t), WIDTH * HEIGHT);
@@ -69,18 +67,20 @@ int main(int, char**)
 	background.pixels = texPixels;
 	background.width = WIDTH;
 	background.height = HEIGHT;
-	SDL_Color colorBottom1 = {50,50,80,255};
-	PixBuffer_fillBuffer(&background, 0x00FFFF, 1.0);
 	drawTex = SDL_CreateTexture(ren.get(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, WIDTH, HEIGHT);
-	SDL_SetTextureBlendMode(drawTex, SDL_BLENDMODE_NONE);
 
     for (int i = 0; i < 20; i++) {
         SDL_RenderClear(ren.get());
+
+		for (int x = 0; x < WIDTH; x++)
+			for (int y = 0; y < HEIGHT; y++)
+				PixBuffer_drawPix(&background, x, y, PixBuffer_toPixColor(rand() % 255, rand() % 255, rand()% 255, rand() % 255));
+
 		SDL_UpdateTexture(drawTex, NULL, background.pixels, sizeof(uint32_t) * WIDTH);
         SDL_RenderCopy(ren.get(), drawTex, nullptr, nullptr);
         SDL_RenderPresent(ren.get());
         SDL_Delay(100);
     }
-
+	closeConsoleWindow();
     return 0;
 }
