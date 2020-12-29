@@ -40,7 +40,7 @@ enum BufferLayer {
 	BL_ALPHA
 };
 
-typedef struct {
+typedef struct _DepthBuffer {
 	PixBuffer* pixelBuffer;
 	PixBuffer* alphaBuffer;
 	double* pixelDepth;

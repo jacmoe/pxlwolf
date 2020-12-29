@@ -18,8 +18,8 @@
 #include <SDL.h>
 #include <stdio.h>
 #include <math.h>
-#define WIDDERSHINS 1024
-#define TURNWISE 896
+constexpr auto WIDDERSHINS = 1024;
+constexpr auto TURNWISE = 896;
 
 typedef struct _PixBuffer {
     uint32_t* pixels;
@@ -39,11 +39,11 @@ class PixelRenderer
 {
 public:
 	static PixBuffer* initPixBuffer(uint32_t width, uint32_t height);
-
 	static void delPixBuffer(PixBuffer* buffer);
 	static void drawColumn(PixBuffer* buffer, uint32_t x, int32_t y, int32_t h, SDL_Color color);
 	static void drawRow(PixBuffer* buffer, uint32_t x, uint32_t y, uint32_t w, SDL_Color color);
-	static void drawTexColumn(PixBuffer* buffer, uint32_t x, int32_t y, int32_t h, RayTex* texture, uint8_t tileNum, double alphaNum, uint32_t column, double fadePercent, SDL_Color targetColor);
+	// drawTexColumn not defined/used?
+	//static void drawTexColumn(PixBuffer* buffer, uint32_t x, int32_t y, int32_t h, RayTex* texture, uint8_t tileNum, double alphaNum, uint32_t column, double fadePercent, SDL_Color targetColor);
 	static void drawRect(PixBuffer* buffer, SDL_Rect* rect, SDL_Color color);
 	static void drawHorizGradient(PixBuffer* buffer, SDL_Rect* rect, SDL_Color colTop, SDL_Color colBottom);
 	static void fillBuffer(PixBuffer* target, uint32_t color, double alpha);
@@ -51,9 +51,11 @@ public:
 	static void clearBuffer(PixBuffer* buffer);
 	static void paletteFilter(PixBuffer* buffer, SDL_Color* palette, int paletteNum);
 	static void orderDither(PixBuffer* buffer, SDL_Color* palette, int paletteNum, double scaleFactor);
+	static uint32_t to8BitColor(uint32_t colorDat);
 	static void orderDither256(PixBuffer* buffer, double scaleFactor);
 	static void monochromeFilter(PixBuffer* buffer, SDL_Color targetColor, double fadePercent);
 	static void inverseFilter(PixBuffer* buffer);
+	static uint32_t getNearestColor(SDL_Color* palette, int paletteNum, uint32_t colorDat);
 	static uint32_t toPixColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a);
 	static SDL_Color toSDLColor(uint32_t pixColor);
 	static uint32_t blendAlpha(uint32_t baseColor, uint32_t addColor, double alphaNum);

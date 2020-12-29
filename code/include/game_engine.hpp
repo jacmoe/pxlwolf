@@ -15,7 +15,6 @@
 #*/
 #pragma once
 
-#include <SDL_stdinc.h>
 #include "raycaster_engine.hpp"
 
 typedef struct _Player {
@@ -33,7 +32,6 @@ typedef struct _Player {
     double timer;
     uint8_t spacePressed;
     Camera camera;
-    //Mix_Chunk* walkSound;
 } Player;
 
 enum KeyMapNames {
@@ -55,12 +53,12 @@ enum KeyMapNames {
     TERMINATE_PK
 };
 
-typedef struct {
+typedef struct _KeyPair {
     uint8_t primary;
     uint8_t secondary;
 } KeyPair;
 
-typedef struct {
+typedef struct _KeyMap {
     KeyPair keys[LEN_PK];
     uint8_t state[LEN_PK];
 } KeyMap;
@@ -76,21 +74,21 @@ typedef struct _Entity {
 	RaySprite sprite;
 } Entity;
 
-typedef struct {
+typedef struct _ProjectileList {
     Entity projectiles[64];
 } ProjectileList;
 
 class GameEngine
 {
 public:
-static void initPlayer(Player* player, double x, double y, double angle, uint8_t usingMouse, double fov, double viewDist, uint32_t screenWidth);
-static void initEntity(Entity* entity, double x, double y, double h, double angle, RayTex* spriteTex, RayTex* shadowTex);
-static void initProjectiles(ProjectileList* projectiles, uint32_t numProjectile, RayTex* spriteTex, RayTex* shadowTex);
-static void moveEntity(Entity* entity, double x, double y, double h);
-static void scaleEntity(Entity* entity, double scaleFactor);
-static void updatePlayer(Player* player, Map* map, KeyMap* keyMap, double dt);
-static void updateEntity(Entity* entity);
-static void updateProjectile(ProjectileList* projectiles, uint32_t numProjectile, Player* player);
-static void bindKeys(KeyMap* keyMap, uint8_t* keyList);
-static void updateKeys(KeyMap* keyMap);
+    static void initPlayer(Player* player, double x, double y, double angle, uint8_t usingMouse, double fov, double viewDist, uint32_t screenWidth);
+    static void initEntity(Entity* entity, double x, double y, double h, double angle, RayTex* spriteTex, RayTex* shadowTex);
+    static void initProjectiles(ProjectileList* projectiles, uint32_t numProjectile, RayTex* spriteTex, RayTex* shadowTex);
+    static void moveEntity(Entity* entity, double x, double y, double h);
+    static void scaleEntity(Entity* entity, double scaleFactor);
+    static void updatePlayer(Player* player, Map* map, KeyMap* keyMap, double dt);
+    static void updateEntity(Entity* entity);
+    static void updateProjectile(ProjectileList* projectiles, uint32_t numProjectile, Player* player);
+    static void bindKeys(KeyMap* keyMap, uint8_t* keyList);
+    static void updateKeys(KeyMap* keyMap);
 };

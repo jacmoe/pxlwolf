@@ -25,7 +25,8 @@
 
 #include <omp.h>
 
-uint32_t getColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a);
+// getColor not used?
+// uint32_t getColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a);
 
 /**
  * Precomputed 4x4 bayer matrix
@@ -274,7 +275,7 @@ void PixelRenderer::paletteFilter(PixBuffer* buffer, SDL_Color* palette, int pal
  * @param colorDat buffer format color to quantititize
  * @return buffer format color of closest palette match
  **/
-uint32_t getNearestColor(SDL_Color* palette, int paletteNum, uint32_t colorDat)
+uint32_t PixelRenderer::getNearestColor(SDL_Color* palette, int paletteNum, uint32_t colorDat)
 {
     int r = (int)(colorDat >> 3*8);
     int g = (int)((colorDat >> 2*8) & 0xFF);
@@ -369,7 +370,7 @@ void PixelRenderer::orderDither(PixBuffer* buffer, SDL_Color* palette, int palet
  * @param colorDat Raw truecolor value to paletize
  * @return 8 bit color value
  */
-uint32_t to8BitColor(uint32_t colorDat)
+uint32_t PixelRenderer::to8BitColor(uint32_t colorDat)
 {
     int r = (int)(colorDat >> 3*8);
     int g = (int)((colorDat >> 2*8) & 0xFF);
@@ -441,7 +442,7 @@ void PixelRenderer::orderDither256(PixBuffer* buffer, double scaleFactor)
                     b = 0;
                 }
                 newColor = (uint32_t)(r) << 3*8 | (uint32_t)(g) << 2*8 | (uint32_t)(b) << 8 | (uint32_t)0xFF;
-                buffer->pixels[y*buffer->width+x] = to8BitColor(newColor);
+                buffer->pixels[y*buffer->width+x] = PixelRenderer::to8BitColor(newColor);
             }
         }
     }
