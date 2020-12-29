@@ -29,7 +29,6 @@ set(Includes
     ../${IncludeDir}/game_engine.hpp
     ../${IncludeDir}/pixel_render.hpp
     ../${IncludeDir}/raycaster_engine.hpp
-    ../${IncludeDir}/sdl2.hpp
     ../${IncludeDir}/utils.hpp
 )
 

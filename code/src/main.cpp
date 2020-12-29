@@ -21,8 +21,6 @@
 #include <SDL.h>
 #include <iostream>
 
-#include "sdl2.hpp"
-
 int main(int, char**)
 {
     std::string path = moena::utils::get_homedir().append("/source/repos/pxlwolf/");
@@ -36,54 +34,53 @@ int main(int, char**)
 	const unsigned int HEIGHT = 180 * 0.5;
 	const unsigned int SCALE = 6;
 
-    auto sys = sdl2::make_sdlsystem(SDL_INIT_EVERYTHING);
-    if (!sys) {
-        cerr << "Error creating SDL2 system: " << SDL_GetError() << endl;
-        return 1;
+    if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
+        cerr << "SDL_Init Error: " << SDL_GetError() << endl;
+        return EXIT_FAILURE;
     }
 
-    auto win = sdl2::make_window("PixelWolf", 400, 100, WIDTH * SCALE, HEIGHT * SCALE, SDL_WINDOW_SHOWN);
-    if (!win) {
-        cerr << "Error creating window: " << SDL_GetError() << endl;
-        return 1;
+    SDL_Window* win = SDL_CreateWindow("PixelWolf", 400, 200, WIDTH * SCALE, HEIGHT * SCALE, SDL_WINDOW_SHOWN);
+    if (win == nullptr) {
+        cerr << "SDL_CreateWindow Error: " << SDL_GetError() << endl;
+        return EXIT_FAILURE;
     }
 
-    auto ren
-        = sdl2::make_renderer(win.get(), -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-    if (!ren) {
-        cerr << "Error creating renderer: " << SDL_GetError() << endl;
-        return 1;
+    SDL_Renderer* ren
+        = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+    if (ren == nullptr) {
+        cerr << "SDL_CreateRenderer Error" << SDL_GetError() << endl;
+		if (win != nullptr) {
+			SDL_DestroyWindow(win);
+		}
+		SDL_Quit();
+        return EXIT_FAILURE;
     }
 
-    auto sdl_img
-        = sdl2::make_sdlimage(IMG_INIT_PNG);
-    if (!sdl_img) {
-        cerr << "Error creating SDL_Image: " << SDL_GetError() << endl;
-        return 1;
-    }
-    
-    SDL_RenderSetLogicalSize(ren.get(), WIDTH, HEIGHT); // Actual size of canvas without the scaling factor.
+    SDL_RenderSetLogicalSize(ren, WIDTH, HEIGHT); // Actual size of canvas without the scaling factor.
 	SDL_SetHint (SDL_HINT_RENDER_SCALE_QUALITY, "1"); // dont scale blurry
 	SDL_Texture* drawTex = NULL;
-	drawTex = SDL_CreateTexture(ren.get(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, WIDTH, HEIGHT);
+	drawTex = SDL_CreateTexture(ren, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, WIDTH, HEIGHT);
 	SDL_SetTextureBlendMode(drawTex, SDL_BLENDMODE_BLEND);
 
 	// Generate background texture
 	PixBuffer* background = PixelRenderer::initPixBuffer(WIDTH, HEIGHT);
-	drawTex = SDL_CreateTexture(ren.get(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, WIDTH, HEIGHT);
+	drawTex = SDL_CreateTexture(ren, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, WIDTH, HEIGHT);
     for (int i = 0; i < 20; i++) {
-        SDL_RenderClear(ren.get());
+        SDL_RenderClear(ren);
 
 		for (int x = 0; x < WIDTH; x++)
 			for (int y = 0; y < HEIGHT; y++)
 				PixelRenderer::drawPix(background, x, y, PixelRenderer::toPixColor(rand() % 255, rand() % 255, rand()% 255, rand() % 255));
 
 		SDL_UpdateTexture(drawTex, NULL, background->pixels, sizeof(uint32_t) * WIDTH);
-        SDL_RenderCopy(ren.get(), drawTex, nullptr, nullptr);
-        SDL_RenderPresent(ren.get());
-        SDL_Delay(200);
+        SDL_RenderCopy(ren, drawTex, nullptr, nullptr);
+        SDL_RenderPresent(ren);
+        SDL_Delay(100);
     }
 	closeConsoleWindow();
 	PixelRenderer::delPixBuffer(background);
+    SDL_DestroyRenderer(ren);
+    SDL_DestroyWindow(win);
+    SDL_Quit();
     return 0;
 }
