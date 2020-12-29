@@ -21,6 +21,7 @@
 #include <SDL.h>
 #include <iostream>
 #include "system.hpp"
+#include <filesystem>
 
 int main(int, char**)
 {
