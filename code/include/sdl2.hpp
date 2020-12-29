@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SDL.h>
+#include <SDL_image.h>
 #include <memory>
 
 namespace sdl2 {
@@ -21,6 +22,10 @@ auto make_resource(Creator c, Destructor d, Arguments&&... args)
 // The "internal type" of the SDL System
 using SDL_System = int;
 
+// The "internal type" of the SDL_image System
+using SDL_Image_System = int;
+
+
 // SDL_CreateSDL initiates the use of SDL.
 // The given flags are passed to SDL_Init.
 // The returned value contains the exit code.
@@ -38,7 +43,25 @@ inline void SDL_DestroySDL(SDL_System* init_status)
     SDL_Quit();
 }
 
+// SDL_CreateSDLImage initiates the use of SDL_image.
+// The given flags are passed to IMG_Init.
+// The returned value contains the exit code.
+inline SDL_Image_System* SDL_CreateSDLImage(Uint32 flags)
+{
+    auto img_init_status = new SDL_Image_System;
+    *img_init_status = IMG_Init(flags);
+    return img_init_status;
+}
+
+// SDL_DestroySDLImage ends the use of SDL_image
+inline void SDL_DestroySDLImage(SDL_Image_System* img_init_status)
+{
+    delete img_init_status; // Delete the int that contains the return value from IMG_Init
+    IMG_Quit();
+}
+
 using sdlsystem_ptr_t = std::unique_ptr<SDL_System, decltype(&SDL_DestroySDL)>;
+using sdlimage_ptr_t = std::unique_ptr<SDL_Image_System, decltype(&SDL_DestroySDLImage)>;
 using window_ptr_t = std::unique_ptr<SDL_Window, decltype(&SDL_DestroyWindow)>;
 using renderer_ptr_t = std::unique_ptr<SDL_Renderer, decltype(&SDL_DestroyRenderer)>;
 using surf_ptr_t = std::unique_ptr<SDL_Surface, decltype(&SDL_FreeSurface)>;
@@ -48,6 +71,12 @@ using texture_ptr_t = std::unique_ptr<SDL_Texture, decltype(&SDL_DestroyTexture)
 inline sdlsystem_ptr_t make_sdlsystem(Uint32 flags)
 {
     return make_resource(SDL_CreateSDL, SDL_DestroySDL, flags);
+}
+
+// Initialize SDL_image (the returned int* contains the return value from IMG_Init)
+inline sdlimage_ptr_t make_sdlimage(Uint32 flags)
+{
+    return make_resource(SDL_CreateSDLImage, SDL_DestroySDLImage, flags);
 }
 
 // Create a window (that contains both a SDL_Window and the destructor for SDL_Windows)

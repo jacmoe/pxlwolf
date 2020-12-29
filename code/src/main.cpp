@@ -32,9 +32,9 @@ int main(int, char**)
     using std::cerr;
     using std::endl;
 
-	const unsigned int WIDTH = 320 * 2;
-	const unsigned int HEIGHT = 180 * 2;
-	const unsigned int SCALE = 2;
+	const unsigned int WIDTH = 320 * 0.5;
+	const unsigned int HEIGHT = 180 * 0.5;
+	const unsigned int SCALE = 6;
 
     auto sys = sdl2::make_sdlsystem(SDL_INIT_EVERYTHING);
     if (!sys) {
@@ -55,7 +55,14 @@ int main(int, char**)
         return 1;
     }
 
-	SDL_RenderSetLogicalSize(ren.get(), WIDTH, HEIGHT); // Actual size of canvas without the scaling factor.
+    auto sdl_img
+        = sdl2::make_sdlimage(IMG_INIT_PNG);
+    if (!sdl_img) {
+        cerr << "Error creating SDL_Image: " << SDL_GetError() << endl;
+        return 1;
+    }
+    
+    SDL_RenderSetLogicalSize(ren.get(), WIDTH, HEIGHT); // Actual size of canvas without the scaling factor.
 	SDL_SetHint (SDL_HINT_RENDER_SCALE_QUALITY, "1"); // dont scale blurry
 	SDL_Texture* drawTex = NULL;
 	drawTex = SDL_CreateTexture(ren.get(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, WIDTH, HEIGHT);
