@@ -42,7 +42,7 @@ int main(int, char**)
         return 1;
     }
 
-    auto win = sdl2::make_window("Hello World!", 400, 100, WIDTH * SCALE, HEIGHT * SCALE, SDL_WINDOW_SHOWN);
+    auto win = sdl2::make_window("PixelWolf", 400, 100, WIDTH * SCALE, HEIGHT * SCALE, SDL_WINDOW_SHOWN);
     if (!win) {
         cerr << "Error creating window: " << SDL_GetError() << endl;
         return 1;
