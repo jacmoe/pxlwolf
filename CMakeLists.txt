@@ -11,7 +11,7 @@
 #
 #   (c) 2020 Jacob Moena
 #
-#   BSD 2-Clause "Simplified" License
+#   MIT License
 #
 cmake_minimum_required(VERSION 3.7)
 set(CMAKE_TOOLCHAIN_FILE ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/scripts/buildsystems/vcpkg.cmake

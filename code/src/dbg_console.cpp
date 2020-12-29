@@ -11,7 +11,7 @@
 #
 #   (c) 2020 Jacob Moena
 #
-#   BSD 2-Clause "Simplified" License
+#   MIT License
 #*/
 #include "dbg_console.hpp"
 #ifdef _WIN32
