@@ -17,14 +17,18 @@ set(TARGET_NAME pxlwolf)
 
 set(Sources
     ./src/dbg_console.cpp
+    ./src/game_engine.cpp
     ./src/main.cpp
     ./src/pixel_render.cpp
+    ./src/raycaster_engine.cpp
     ./src/utils.cpp
 )
 
 set(Includes
     ../${IncludeDir}/dbg_console.hpp
+    ../${IncludeDir}/game_engine.hpp
     ../${IncludeDir}/pixel_render.hpp
+    ../${IncludeDir}/raycaster_engine.hpp
     ../${IncludeDir}/sdl2.hpp
     ../${IncludeDir}/utils.hpp
 )

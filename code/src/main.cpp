@@ -42,7 +42,7 @@ int main(int, char**)
         return 1;
     }
 
-    auto win = sdl2::make_window("Hello World!", 100, 100, WIDTH * SCALE, HEIGHT * SCALE, SDL_WINDOW_SHOWN);
+    auto win = sdl2::make_window("Hello World!", 400, 100, WIDTH * SCALE, HEIGHT * SCALE, SDL_WINDOW_SHOWN);
     if (!win) {
         cerr << "Error creating window: " << SDL_GetError() << endl;
         return 1;
@@ -62,26 +62,21 @@ int main(int, char**)
 	SDL_SetTextureBlendMode(drawTex, SDL_BLENDMODE_BLEND);
 
 	// Generate background texture
-	uint32_t* texPixels = (uint32_t*)calloc(sizeof(uint32_t), WIDTH * HEIGHT);
-	PixBuffer background;
-	background.pixels = texPixels;
-	background.width = WIDTH;
-	background.height = HEIGHT;
+	PixBuffer* background = PixelRenderer::initPixBuffer(WIDTH, HEIGHT);
 	drawTex = SDL_CreateTexture(ren.get(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, WIDTH, HEIGHT);
-	PixelRenderer pxlRenderer = PixelRenderer();
     for (int i = 0; i < 20; i++) {
         SDL_RenderClear(ren.get());
 
 		for (int x = 0; x < WIDTH; x++)
 			for (int y = 0; y < HEIGHT; y++)
-				pxlRenderer.drawPix(&background, x, y, pxlRenderer.toPixColor(rand() % 255, rand() % 255, rand()% 255, rand() % 255));
+				PixelRenderer::drawPix(background, x, y, PixelRenderer::toPixColor(rand() % 255, rand() % 255, rand()% 255, rand() % 255));
 
-		SDL_UpdateTexture(drawTex, NULL, background.pixels, sizeof(uint32_t) * WIDTH);
+		SDL_UpdateTexture(drawTex, NULL, background->pixels, sizeof(uint32_t) * WIDTH);
         SDL_RenderCopy(ren.get(), drawTex, nullptr, nullptr);
         SDL_RenderPresent(ren.get());
-        SDL_Delay(100);
+        SDL_Delay(200);
     }
 	closeConsoleWindow();
-	free(background.pixels);
+	PixelRenderer::delPixBuffer(background);
     return 0;
 }
