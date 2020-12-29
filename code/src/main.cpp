@@ -22,6 +22,8 @@
 #include <iostream>
 #include "system.hpp"
 #include <filesystem>
+#include "rapidjson/filereadstream.h"
+#include "rapidjson/document.h"
 
 int test_1(int WIDTH, int HEIGHT, int SCALE)
 {
@@ -52,6 +54,90 @@ int test_1(int WIDTH, int HEIGHT, int SCALE)
 	return 0;
 }
 
+std::vector<int> lvlMap;
+double posX = 22.0, posY = 11.5;    //x and y start position
+double dirX = -1.0, dirY = 0.0;     //initial direction vector
+double planeX = 0.0, planeY = 0.66; //the 2d raycaster version of camera plane
+
+double curr_time = 0;    //time of current frame
+double oldTime = 0; //time of previous frame
+double frameTime = 0;
+
+//Vector player_pos;
+int player_pos_x;
+int player_pos_y;
+float player_heading;
+//Vector world_size;
+int world_size_x;
+int world_size_y;
+
+bool load_level(const std::string level_name)
+{
+    FILE* fp = fopen(level_name.c_str(), "rb");
+
+    char readBuffer[65536];
+    rapidjson::FileReadStream is(fp, readBuffer, sizeof(readBuffer));
+    rapidjson::Document document;
+    document.ParseStream(is);
+
+    const rapidjson::Value& levels = document["levels"];
+    for (rapidjson::Value::ConstValueIterator itr = levels.Begin(); itr != levels.End(); ++itr)
+    {
+        const rapidjson::Value& layerInstances = (*itr)["layerInstances"];
+        for (rapidjson::Value::ConstValueIterator itr = layerInstances.Begin(); itr != layerInstances.End(); ++itr)
+        {
+            std::string layer_type = (*itr)["__type"].GetString();
+            if(layer_type == "Entities")
+            {
+                const rapidjson::Value& entityInstances = (*itr)["entityInstances"];
+                for (rapidjson::Value::ConstValueIterator itr = entityInstances.Begin(); itr != entityInstances.End(); ++itr)
+                {
+                    std::string identifier = (*itr)["__identifier"].GetString();
+                    if(identifier == "PlayerStart")
+                    {
+                        player_pos_x = (*itr)["__grid"].GetArray()[0].GetFloat();
+                        player_pos_y = (*itr)["__grid"].GetArray()[1].GetFloat();
+                        posX = player_pos_x;
+                        posY = player_pos_y;
+                        player_heading = (*itr)["fieldInstances"].GetArray()[0]["__value"].GetFloat();
+                        //dirX = sin(deg2rad(player_heading));
+                        //dirY = cos(deg2rad(player_heading));
+                    }
+                }
+            }
+            if(layer_type == "IntGrid")
+            {
+                world_size_x = (*itr)["__cWid"].GetInt();
+                world_size_y = (*itr)["__cHei"].GetInt();
+                for(int elems = 0; elems < world_size_x * world_size_y; elems++)
+                {
+                    lvlMap.push_back(-1);
+                }
+
+                const rapidjson::Value& initGrid = (*itr)["intGrid"];
+
+                for (rapidjson::Value::ConstValueIterator itr = initGrid.Begin(); itr != initGrid.End(); ++itr)
+                {
+                    lvlMap[(*itr)["coordId"].GetInt()] = (*itr)["v"].GetInt();
+                }
+            }
+
+        }
+    }
+    fclose(fp);
+    std::cout << "Parsed the following: " << std::endl;
+    std::cout << "World size : " << world_size_x << "x" << world_size_y << std::endl;
+    std::cout << "Player position : (" << player_pos_x << "," << player_pos_y << ")" << std::endl;
+    std::cout << "Player heading : " << player_heading << std::endl;
+    return true;
+}
+
+int get_map_entry(int tile_x, int tile_y)
+{
+    int item = int(tile_y) * world_size_x + int(tile_x);
+    return lvlMap[item];
+}
+
 int main(int, char**)
 {
     std::string path = moena::utils::get_homedir().append("/source/repos/pxlwolf/");
@@ -64,7 +150,9 @@ int main(int, char**)
 
 	int result = 0;
 	
-	result = test_1(WIDTH, HEIGHT, SCALE);
+	//result = test_1(WIDTH, HEIGHT, SCALE);
+
+    load_level("assets/levels/level.ldtk");
 
 	closeConsoleWindow();
 
