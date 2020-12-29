@@ -21,6 +21,7 @@ set(Sources
     ./src/main.cpp
     ./src/pixel_render.cpp
     ./src/raycaster_engine.cpp
+    ./src/system.cpp
     ./src/utils.cpp
 )
 
@@ -29,6 +30,7 @@ set(Includes
     ../${IncludeDir}/game_engine.hpp
     ../${IncludeDir}/pixel_render.hpp
     ../${IncludeDir}/raycaster_engine.hpp
+    ../${IncludeDir}/system.hpp
     ../${IncludeDir}/utils.hpp
 )
 
