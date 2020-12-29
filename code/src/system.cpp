@@ -27,7 +27,6 @@
 
         }
         SDL_Quit();
-        std::cout << "I quit!" << std::endl;
     }
 
 uint32_t SimpleDirectLayer_System::init(const char* title, const int width, const int height, const int scale)
@@ -53,7 +52,7 @@ uint32_t SimpleDirectLayer_System::init(const char* title, const int width, cons
         return EXIT_FAILURE;
     }
 
-    SDL_RenderSetLogicalSize(renderer, WIDTH, HEIGHT); // Actual size of canvas without the scaling factor.
+    SDL_RenderSetLogicalSize(renderer, width, height); // Actual size of canvas without the scaling factor.
 	SDL_SetHint (SDL_HINT_RENDER_SCALE_QUALITY, "1"); // dont scale blurry
 
     return 0;
