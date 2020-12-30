@@ -15,7 +15,6 @@
 #*/
 #include <iostream>
 #include <filesystem>
-#include "utils.hpp"
 #include "dbg_console.hpp"
 #include "pixel_render.hpp"
 #include <SDL.h>
@@ -25,6 +24,9 @@
 #include <filesystem>
 #include "rapidjson/filereadstream.h"
 #include "rapidjson/document.h"
+#define DG_MISC_IMPLEMENTATION
+#include "DG_misc.h"
+#include "utils.hpp"
 
 int test_1(int WIDTH, int HEIGHT, int SCALE)
 {
@@ -141,19 +143,25 @@ int get_map_entry(int tile_x, int tile_y)
 
 int main(int, char**)
 {
-    std::string path = moena::utils::get_homedir().append("/source/repos/pxlwolf/");
-    std::filesystem::current_path(path); 
+    std::string path = DG_GetExecutableDir();
+    std::vector<std::string> strList;
+    strList.push_back("/build/code/");
+    strList.push_back("\\build\\code\\");
+    strList.push_back("Release");
+    strList.push_back("Debug");
+    utils::eraseSubStrings(path, strList);
+
+    std::filesystem::current_path(path);
+
     CreateConsoleWindow();
 
 	const unsigned int WIDTH = 320 * 2;
 	const unsigned int HEIGHT = 180 * 2;
 	const unsigned int SCALE = 2;
 
-	int result = 0;
-	
-	result = test_1(WIDTH, HEIGHT, SCALE);
+    load_level("assets/levels/level.ldtk");
 
-    //load_level("assets/levels/level.ldtk");
+	int result = test_1(WIDTH, HEIGHT, SCALE);
 
 	closeConsoleWindow();
 

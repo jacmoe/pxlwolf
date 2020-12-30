@@ -36,7 +36,7 @@ uint32_t SimpleDirectLayer_System::init(const char* title, const int width, cons
         return EXIT_FAILURE;
     }
 
-    window = SDL_CreateWindow(title, 400, 200, width * scale, height * scale, SDL_WINDOW_SHOWN);
+    window = SDL_CreateWindow(title, 500, 400, width * scale, height * scale, SDL_WINDOW_SHOWN);
     if (window == nullptr) {
         std::cerr << "SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
         return EXIT_FAILURE;
