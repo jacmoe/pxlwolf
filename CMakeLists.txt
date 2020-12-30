@@ -37,6 +37,8 @@ if(WIN32)
 include_directories(${WinSDK})
 set(SDL2_DIR ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows-static/share/sdl2)
 set(SDL2_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows-static/include/SDL2)
+set(SOL_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows-static/include/sol)
+set(LUA_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows-static/include)
 
 set(SDL2_LIBS_RELEASE
     dinput8
@@ -53,6 +55,7 @@ set(SDL2_LIBS_RELEASE
     user32 
     ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows-static/lib/manual-link/SDL2main.lib
     ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows-static/lib/SDL2.lib
+    ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows-static/lib/lua.lib
 )
 set(SDL2_LIBS_DEBUG
     dinput8
@@ -69,6 +72,7 @@ set(SDL2_LIBS_DEBUG
     user32 
     ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows-static/debug/lib/SDL2d.lib
     ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows-static/debug/lib/manual-link/SDL2maind.lib
+    ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows-static/debug/lib/lua.lib
 )
 endif(WIN32)
 if(UNIX)
@@ -95,6 +99,8 @@ set(IncludeDir code/include/) # Change include/ to your include directory
 
 include_directories(
     ${SDL2_INCLUDE_DIRS}
+    ${SOL_INCLUDE_DIRS}
+    ${LUA_INCLUDE_DIRS}
     ${IncludeDir}
 )
 

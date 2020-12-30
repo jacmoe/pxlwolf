@@ -33,6 +33,8 @@
 #include "raycaster_engine.hpp"
 #include "game_engine.hpp"
 
+#include <sol/sol.hpp>
+
 std::vector<int> lvlMap;
 double posX = 22.0, posY = 11.5;    //x and y start position
 double dirX = -1.0, dirY = 0.0;     //initial direction vector
@@ -130,6 +132,12 @@ int main(int, char**)
     std::filesystem::current_path(path);
 
     CreateConsoleWindow();
+
+	sol::state lua;
+	// open some common libraries
+	lua.open_libraries(sol::lib::base, sol::lib::package);
+	lua.script("print('bark bark bark!')");
+	std::cout << std::endl;
 
     //load_level("assets/levels/level.ldtk");
 
