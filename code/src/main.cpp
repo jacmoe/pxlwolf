@@ -61,7 +61,7 @@ float player_x = 0.0;
 float player_y = 0.0;
 float player_heading = 0.0;
 
-float deg2rad (float degrees) {
+double deg2rad (double degrees) {
     return degrees * 4.0 * atan (1.0) / 180.0;
 }
 
@@ -91,7 +91,7 @@ bool load_level(const std::string level_name)
                     {
                         player_x = (*itr)["__grid"].GetArray()[0].GetFloat() + 0.5f;
                         player_y = (*itr)["__grid"].GetArray()[1].GetFloat() + 0.5f;
-                        player_heading = deg2rad((*itr)["fieldInstances"].GetArray()[0]["__value"].GetFloat());
+                        player_heading = static_cast<float>(deg2rad((*itr)["fieldInstances"].GetArray()[0]["__value"].GetFloat()));
                     }
                 }
             }
