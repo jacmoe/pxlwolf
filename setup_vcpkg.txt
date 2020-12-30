@@ -3,7 +3,7 @@ WINDOWS
 git clone https://github.com/microsoft/vcpkg
 cd .\vcpkg\
 .\bootstrap-vcpkg.bat
-.\vcpkg.exe install sdl2 --triplet x64-windows
+.\vcpkg.exe install sdl2 --triplet x64-windows-static
 
 LINUX
 ==============================================================

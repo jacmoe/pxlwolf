@@ -37,21 +37,45 @@ endif()
 
 if(WIN32)
 include_directories(${WinSDK})
-set(SDL2_DIR ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows/share/sdl2)
-set(SDL2_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows/include/SDL2)
-set(GL_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows/include/gl)
+set(SDL2_DIR ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows-static/share/sdl2)
+set(SDL2_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows-static/include/SDL2)
+#set(GL_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows-static/include/gl)
 
 set(SDL2_LIBS_RELEASE
-    ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows/lib/GLU32.lib
-    ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows/lib/OpenGL32.lib
-    ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows/lib/SDL2.lib
-    ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows/lib/manual-link/SDL2main.lib
+    #${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows-static/lib/GLU32.lib
+    #${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows-static/lib/OpenGL32.lib
+    dinput8
+    shell32
+    setupapi
+    advapi32
+    uuid
+    version
+    oleaut32
+    ole32
+    imm32
+    winmm
+    gdi32
+    user32 
+    ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows-static/lib/manual-link/SDL2main.lib
+    ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows-static/lib/SDL2.lib
 )
 set(SDL2_LIBS_DEBUG
-    ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows/debug/lib/GLU32.lib
-    ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows/debug/lib/OpenGL32.lib
-    ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows/debug/lib/SDL2d.lib
-    ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows/debug/lib/manual-link/SDL2maind.lib
+    #${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows-static/debug/lib/GLU32.lib
+    #${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows-static/debug/lib/OpenGL32.lib
+    dinput8
+    shell32
+    setupapi
+    advapi32
+    uuid
+    version
+    oleaut32
+    ole32
+    imm32
+    winmm
+    gdi32
+    user32 
+    ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows-static/debug/lib/SDL2d.lib
+    ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows-static/debug/lib/manual-link/SDL2maind.lib
 )
 endif(WIN32)
 if(UNIX)

@@ -150,9 +150,9 @@ int main(int, char**)
 
 	int result = 0;
 	
-	//result = test_1(WIDTH, HEIGHT, SCALE);
+	result = test_1(WIDTH, HEIGHT, SCALE);
 
-    load_level("assets/levels/level.ldtk");
+    //load_level("assets/levels/level.ldtk");
 
 	closeConsoleWindow();
 
