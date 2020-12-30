@@ -127,12 +127,12 @@
 					"autoLayerTiles": [],
 					"seed": 5954926,
 					"gridTiles": [],
-					"entityInstances": [{ "__identifier": "PlayerStart", "__grid": [10,6], "__tile": null, "defUid": 3, "px": [160,96], "fieldInstances": [{
+					"entityInstances": [{ "__identifier": "PlayerStart", "__grid": [9,5], "__tile": null, "defUid": 3, "px": [144,80], "fieldInstances": [{
 						"__identifier": "ViewerAngle",
-						"__value": -45,
+						"__value": 90,
 						"__type": "Float",
 						"defUid": 5,
-						"realEditorValues": [{ "id": "V_Float", "params": [-45] }]
+						"realEditorValues": [{ "id": "V_Float", "params": [90] }]
 					}] }]
 				},
 				{
@@ -205,8 +205,10 @@
 						{ "coordId": 98, "v": 1 },
 						{ "coordId": 110, "v": 1 },
 						{ "coordId": 111, "v": 0 },
+						{ "coordId": 112, "v": 0 },
 						{ "coordId": 126, "v": 1 },
 						{ "coordId": 127, "v": 0 },
+						{ "coordId": 128, "v": 0 },
 						{ "coordId": 130, "v": 3 },
 						{ "coordId": 131, "v": 1 },
 						{ "coordId": 132, "v": 1 },

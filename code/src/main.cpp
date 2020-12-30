@@ -33,24 +33,37 @@
 #include "raycaster_engine.hpp"
 #include "game_engine.hpp"
 
-#include <sol/sol.hpp>
+#include "lua_main.hpp"
 
-std::vector<int> lvlMap;
-double posX = 22.0, posY = 11.5;    //x and y start position
-double dirX = -1.0, dirY = 0.0;     //initial direction vector
-double planeX = 0.0, planeY = 0.66; //the 2d raycaster version of camera plane
+const unsigned int MAP_WIDTH = 16;
+const unsigned int MAP_HEIGHT = 16;
 
-double curr_time = 0;    //time of current frame
-double oldTime = 0; //time of previous frame
-double frameTime = 0;
+unsigned char testMapChar[MAP_WIDTH*MAP_HEIGHT] = {
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+};
 
-//Vector player_pos;
-int player_pos_x;
-int player_pos_y;
-float player_heading;
-//Vector world_size;
-int world_size_x;
-int world_size_y;
+float player_x = 0.0;
+float player_y = 0.0;
+float player_heading = 0.0;
+
+float deg2rad (float degrees) {
+    return degrees * 4.0 * atan (1.0) / 180.0;
+}
 
 bool load_level(const std::string level_name)
 {
@@ -76,30 +89,19 @@ bool load_level(const std::string level_name)
                     std::string identifier = (*itr)["__identifier"].GetString();
                     if(identifier == "PlayerStart")
                     {
-                        player_pos_x = (*itr)["__grid"].GetArray()[0].GetInt();
-                        player_pos_y = (*itr)["__grid"].GetArray()[1].GetInt();
-                        posX = player_pos_x;
-                        posY = player_pos_y;
-                        player_heading = (*itr)["fieldInstances"].GetArray()[0]["__value"].GetFloat();
-                        //dirX = sin(deg2rad(player_heading));
-                        //dirY = cos(deg2rad(player_heading));
+                        player_x = (*itr)["__grid"].GetArray()[0].GetFloat() + 0.5f;
+                        player_y = (*itr)["__grid"].GetArray()[1].GetFloat() + 0.5f;
+                        player_heading = deg2rad((*itr)["fieldInstances"].GetArray()[0]["__value"].GetFloat());
                     }
                 }
             }
             if(layer_type == "IntGrid")
             {
-                world_size_x = (*itr)["__cWid"].GetInt();
-                world_size_y = (*itr)["__cHei"].GetInt();
-                for(int elems = 0; elems < world_size_x * world_size_y; elems++)
-                {
-                    lvlMap.push_back(-1);
-                }
-
                 const rapidjson::Value& initGrid = (*itr)["intGrid"];
 
                 for (rapidjson::Value::ConstValueIterator itr = initGrid.Begin(); itr != initGrid.End(); ++itr)
                 {
-                    lvlMap[(*itr)["coordId"].GetInt()] = (*itr)["v"].GetInt();
+					testMapChar[(*itr)["coordId"].GetInt()] = (*itr)["v"].GetInt() + 1;
                 }
             }
 
@@ -107,16 +109,15 @@ bool load_level(const std::string level_name)
     }
     fclose(fp);
     std::cout << "Parsed the following: " << std::endl;
-    std::cout << "World size : " << world_size_x << "x" << world_size_y << std::endl;
-    std::cout << "Player position : (" << player_pos_x << "," << player_pos_y << ")" << std::endl;
+    std::cout << "Player position : (" << player_x << "," << player_y << ")" << std::endl;
     std::cout << "Player heading : " << player_heading << std::endl;
     return true;
 }
 
 int get_map_entry(int tile_x, int tile_y)
 {
-    int item = int(tile_y) * world_size_x + int(tile_x);
-    return lvlMap[item];
+    int item = int(tile_y) * MAP_WIDTH + int(tile_x);
+    return testMapChar[item];
 }
 
 int main(int, char**)
@@ -139,7 +140,7 @@ int main(int, char**)
 	lua.script("print('bark bark bark!')");
 	std::cout << std::endl;
 
-    //load_level("assets/levels/level.ldtk");
+    load_level("assets/levels/level.ldtk");
 
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
 
@@ -153,38 +154,6 @@ int main(int, char**)
     const unsigned int SCALE = 2;
     const unsigned int WIDTH = 320 * 2;//WIDDERSHINS/SCALE;
     const unsigned int HEIGHT = 180 * 2;//TURNWISE/SCALE;
-    const unsigned int MAP_SCALE = 1;
-    // const unsigned int MAP_WIDTH = 10;
-    // const unsigned int MAP_HEIGHT = 13;
-
-	// unsigned char testMapChar[MAP_WIDTH*MAP_HEIGHT] = {
-	// 	3,1,1,1,3,4,5,5,5,4,
-	// 	1,0,0,0,1,5,0,0,0,5,
-	// 	1,0,2,0,1,5,0,0,0,5,
-	// 	1,0,0,0,0,0,0,0,0,5,
-	// 	3,1,1,1,3,4,5,0,5,4,
-	// 	6,6,6,6,6,0,3,0,4,0,
-	// 	6,0,0,0,6,0,3,0,4,0,
-	// 	6,0,0,0,6,0,3,0,4,0,
-	// 	0,0,0,0,6,3,3,0,3,3,
-	// 	6,0,0,0,6,3,0,0,0,3,
-	// 	0,0,0,0,0,0,0,0,0,3,
-	// 	6,0,0,0,6,3,0,0,0,3,
-	// 	6,6,0,6,6,3,3,3,3,3
-	// };
-
-    const unsigned int MAP_WIDTH = 8;
-    const unsigned int MAP_HEIGHT = 8;
-	unsigned char testMapChar[MAP_WIDTH*MAP_HEIGHT] = {
-		3,1,1,1,1,1,1,1,
-		3,0,0,0,0,0,0,5,
-		3,0,0,4,0,0,0,5,
-		3,0,0,4,0,0,0,5,
-		3,0,0,4,0,0,0,5,
-		3,0,0,4,0,0,0,5,
-		3,0,0,1,0,0,0,5,
-		3,2,2,1,1,1,1,1
-    };
 
 	window = SDL_CreateWindow(
 		"PixelWolf",
@@ -220,7 +189,7 @@ int main(int, char**)
 	double depth = 6;
 	// Demo player
 	Player testPlayer;
-	GameEngine::initPlayer(&testPlayer, 1.5, 1.5, 0, 1, M_PI/2, depth, WIDTH);
+	GameEngine::initPlayer(&testPlayer, player_x, player_y, player_heading, 1, M_PI/2, depth, WIDTH);
 
 	// Init keymapping
 	KeyMap testKeys;
@@ -318,7 +287,7 @@ int main(int, char**)
 		}
 		else if (testPlayer.state == 2)
 		{
-			GameEngine::initPlayer(&testPlayer, 1.5, 1.5, 0, 1, M_PI/2, depth, WIDTH);
+			GameEngine::initPlayer(&testPlayer, player_x, player_y, player_heading, 1, M_PI/2, depth, WIDTH);
 		}
 		SDL_Color sepiaPink = {221,153,153,255};
 		if (paused)
