@@ -326,7 +326,8 @@ int main(int, char**)
 		RaycasterEngine::texRenderFloor(buffer->pixelBuffer, &testPlayer.camera, WIDTH, HEIGHT, NULL, 0, worldTex, 6);
 		RaycasterEngine::texRenderCeiling(buffer->pixelBuffer, &(testPlayer.camera), WIDTH, HEIGHT, NULL, worldTex, 7);
 		RaycasterEngine::raycastRender(buffer, &(testPlayer.camera), WIDTH, HEIGHT, &testMap, 0.01, worldTex);
-		RaycasterEngine::renderBuffer(buffer);
+		RaycasterEngine::drawMinimap(buffer->pixelBuffer, &(testPlayer.camera), WIDTH, HEIGHT, &testMap, 2);
+        RaycasterEngine::renderBuffer(buffer);
 		// Player death animation
 		if (!testPlayer.state && testPlayer.timer < 2)
 		{
