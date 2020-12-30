@@ -244,7 +244,7 @@ int main(int, char**)
 	stbi_image_free(mapPixDat);
 
 	// View depth
-	double depth = 20;
+	double depth = 6;
 	// Demo player
 	Player testPlayer;
 	GameEngine::initPlayer(&testPlayer, 1.5, 1.5, 0, 1, M_PI/2, depth, WIDTH);

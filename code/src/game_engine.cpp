@@ -134,7 +134,7 @@ void GameEngine::updatePlayer(Player* player, Map* map, KeyMap* keyMap, double d
 	{
 		if (keys[PK_CROUCH])
 		{
-			player->groundH = -0.15;
+			player->groundH = -0.30;
 		}
 		else
 		{
