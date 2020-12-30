@@ -200,9 +200,9 @@ void RaycasterEngine::renderBuffer(DepthBuffer* buffer)
 	uint32_t width = buffer->pixelBuffer->width;
 	uint32_t height = buffer->pixelBuffer->height;
 	uint32_t pix;
-	for (int i = 0; i < width; i++)
+	for (uint32_t i = 0; i < width; i++)
 	{
-		for (int j = 0; j < height; j++)
+		for (uint32_t j = 0; j < height; j++)
 		{	
 			if (RaycasterEngine::getDepth(buffer, i, j, BL_BASE) > RaycasterEngine::getDepth(buffer, i, j, BL_ALPHA))
 			{
@@ -509,7 +509,7 @@ void RaycasterEngine::raycastRender(DepthBuffer* buffer, Camera* camera, uint32_
 	double rayAngle = startAngle;
 	// Sweeeeep for each column
 	#pragma omp parallel for schedule(dynamic,1) private(rayAngle)
-	for (int i = 0; i < width; i++)
+	for (uint32_t i = 0; i < width; i++)
 	{
 		rayAngle = startAngle + camera->angleValues[i];
 		double rayX = camera->x;
@@ -572,7 +572,7 @@ void RaycasterEngine::raycastRender(DepthBuffer* buffer, Camera* camera, uint32_
 					);
 					// Check for texture column transparency
 					uint8_t hasAlpha = 0;
-					for (int p = 0; p < texData->tileHeight; p++)
+					for (uint32_t p = 0; p < texData->tileHeight; p++)
 					{
 						if ((texData->pixData[(mapTile-1)*texData->tileWidth*texData->tileHeight+texCoord+(texData->tileWidth*p)] & 0xFF) < 0xFF)
 						{

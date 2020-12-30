@@ -33,35 +33,6 @@
 #include "raycaster_engine.hpp"
 #include "game_engine.hpp"
 
-int test_1(int WIDTH, int HEIGHT, int SCALE)
-{
-    SimpleDirectLayer_System system;
-    if(system.init("PixelWolf", WIDTH, HEIGHT, SCALE) == EXIT_FAILURE) return EXIT_FAILURE;
-    SDL_Renderer* renderer = system.get_renderer();
-
-	SDL_Texture* drawTex = NULL;
-	drawTex = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, WIDTH, HEIGHT);
-	SDL_SetTextureBlendMode(drawTex, SDL_BLENDMODE_BLEND);
-
-	// Generate background texture
-	PixBuffer* background = PixelRenderer::initPixBuffer(WIDTH, HEIGHT);
-	drawTex = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, WIDTH, HEIGHT);
-    for (int i = 0; i < 20; i++) {
-        SDL_RenderClear(renderer);
-
-		for (int x = 0; x < WIDTH; x++)
-			for (int y = 0; y < HEIGHT; y++)
-				PixelRenderer::drawPix(background, x, y, PixelRenderer::toPixColor(rand() % 255, rand() % 255, rand()% 255, rand() % 255));
-
-		SDL_UpdateTexture(drawTex, NULL, background->pixels, sizeof(uint32_t) * WIDTH);
-        SDL_RenderCopy(renderer, drawTex, nullptr, nullptr);
-        SDL_RenderPresent(renderer);
-        SDL_Delay(100);
-    }
-	PixelRenderer::delPixBuffer(background);
-	return 0;
-}
-
 std::vector<int> lvlMap;
 double posX = 22.0, posY = 11.5;    //x and y start position
 double dirX = -1.0, dirY = 0.0;     //initial direction vector
@@ -160,13 +131,7 @@ int main(int, char**)
 
     CreateConsoleWindow();
 
-	//const unsigned int WIDTH = 320 * 2;
-	//const unsigned int HEIGHT = 180 * 2;
-	//const unsigned int SCALE = 2;
-
     //load_level("assets/levels/level.ldtk");
-
-	//int result = test_1(WIDTH, HEIGHT, SCALE);
 
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
 
@@ -177,9 +142,9 @@ int main(int, char**)
 
 	const uint8_t* keys = SDL_GetKeyboardState(nullptr);
 
-    const unsigned int SCALE = 4;
-    const unsigned int WIDTH = WIDDERSHINS/SCALE;
-    const unsigned int HEIGHT = TURNWISE/SCALE;
+    const unsigned int SCALE = 2;
+    const unsigned int WIDTH = 320 * 2;//WIDDERSHINS/SCALE;
+    const unsigned int HEIGHT = 180 * 2;//TURNWISE/SCALE;
     const unsigned int MAP_SCALE = 1;
     // const unsigned int MAP_WIDTH = 10;
     // const unsigned int MAP_HEIGHT = 13;
@@ -215,7 +180,7 @@ int main(int, char**)
 
 	window = SDL_CreateWindow(
 		"PixelWolf",
-		30, 30,
+		300, 100,
 		WIDTH*SCALE, HEIGHT*SCALE,
 		SDL_WINDOW_OPENGL
 	);
@@ -278,7 +243,6 @@ int main(int, char**)
 	SDL_SetTextureBlendMode(drawTex, SDL_BLENDMODE_BLEND);
 
 	// Depth buffer initialization
-	uint32_t pixels[WIDTH * HEIGHT];
 	DepthBuffer* buffer = RaycasterEngine::initDepthBuffer(WIDTH, HEIGHT);
 	SDL_Rect screenRect = {0,0,WIDTH,HEIGHT};
 
@@ -333,9 +297,7 @@ int main(int, char**)
 		SDL_RenderClear(renderer);
 		SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 
-		////PixBuffer_drawBuffOffset(&buffer, &background, WIDTH, HEIGHT, testPlayer.angle*scrollConst);
 		RaycasterEngine::resetDepthBuffer(buffer);
-		//memcpy(buffer->pixelBuffer->pixels, background.pixels, sizeof(uint32_t)*WIDTH*HEIGHT);
 		RaycasterEngine::texRenderFloor(buffer->pixelBuffer, &testPlayer.camera, WIDTH, HEIGHT, NULL, 0, worldTex, 6);
 		RaycasterEngine::texRenderCeiling(buffer->pixelBuffer, &(testPlayer.camera), WIDTH, HEIGHT, NULL, worldTex, 7);
 		RaycasterEngine::raycastRender(buffer, &(testPlayer.camera), WIDTH, HEIGHT, &testMap, 0.01, worldTex);
@@ -350,21 +312,12 @@ int main(int, char**)
 		{
 			GameEngine::initPlayer(&testPlayer, 1.5, 1.5, 0, 1, M_PI/2, depth, WIDTH);
 		}
-		//RaycasterEngine::draw2DSprite(buffer->pixelBuffer, cursorSprite, 2*runTimeF);
-		////PixelRenderer::fillBuffer(&buffer, PixelRenderer::toPixColor(50, 50, 50, 255), 0.2);
-
-		////PixelRenderer::fillBuffer(&buffer, PixelRenderer::toPixColor(150,0,20,255), 1);
-		////PixelRenderer::monochromeFilter(&buffer, white, toggleSaturation);
 		SDL_Color sepiaPink = {221,153,153,255};
-		////PixelRenderer::monochromeFilter(&buffer, sepiaPink, 1);
-		////PixelRenderer::monochromeFilter(&buffer, white, 4.442);
 		if (paused)
 		{
-			SDL_Color monoGrey = {233,214,255,255};//{153, 140, 168, 255};
 			PixelRenderer::monochromeFilter(buffer->pixelBuffer, sepiaPink, 1);
 		}
 
-		////PixBuffer_orderDither(&buffer, gameboyColorPalette, 4, 5);
 		// Note: between 4 & 10 is good for 16 color palette
 		PixelRenderer::orderDither256(buffer->pixelBuffer, 5);
 		SDL_UpdateTexture(drawTex, NULL, buffer->pixelBuffer->pixels, sizeof(uint32_t) * WIDTH);
@@ -381,7 +334,6 @@ int main(int, char**)
 	// Clean up and quit
 	RaycasterEngine::delDepthBuffer(buffer);
 	RayTex_delRayTex(worldTex);
-	//free(background.pixels);
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	renderer = nullptr;
