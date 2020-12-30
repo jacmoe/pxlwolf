@@ -27,6 +27,8 @@
 #define DG_MISC_IMPLEMENTATION
 #include "DG_misc.h"
 #include "utils.hpp"
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
 
 int test_1(int WIDTH, int HEIGHT, int SCALE)
 {
@@ -162,6 +164,20 @@ int main(int, char**)
     load_level("assets/levels/level.ldtk");
 
 	int result = test_1(WIDTH, HEIGHT, SCALE);
+
+	// Demo texture
+	int32_t mPixWidth;
+	int32_t mPixHeight;
+	uint8_t* mapPixDat = stbi_load("assets/textures/sjswalls2.bmp", &mPixWidth, &mPixHeight, NULL, 0);
+	if (!mapPixDat)
+	{
+		fprintf(stderr, "FATAL: Could not load textures. Exiting...\n");
+		return -1;
+	}
+	RayTex* worldTex = RayTex_initFromRGBA(mapPixDat, (uint32_t)mPixWidth, (uint32_t)mPixWidth, mPixHeight/mPixWidth);
+	stbi_image_free(mapPixDat);
+
+	RayTex_delRayTex(worldTex);
 
 	closeConsoleWindow();
 
