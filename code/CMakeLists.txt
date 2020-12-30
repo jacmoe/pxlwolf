@@ -51,7 +51,6 @@ endif (UNIX)
 
 if (UNIX)
     target_link_libraries(${TARGET_NAME} stdc++fs)
-    target_link_libraries(${TARGET_NAME} GL)
     target_link_libraries(${TARGET_NAME} png)
 
     set(CMAKE_THREAD_LIBS_INIT "-lpthread")
@@ -68,4 +67,3 @@ if (UNIX)
 endif (UNIX)
 
 target_link_libraries(pxlwolf optimized ${SDL2_LIBS_RELEASE} debug ${SDL2_LIBS_DEBUG})
-#target_link_libraries(pxlwolf ${SDL2_LIBS_DEBUG})

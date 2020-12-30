@@ -21,8 +21,6 @@ project(pixelwolf)
 
 set(CMAKE_CXX_STANDARD 17)
 
-find_package(OpenGL REQUIRED)
-
 if(UNIX)
     set(THREADS_PREFER_PTHREAD_FLAD ON)
     find_package(Threads REQUIRED)
@@ -39,11 +37,8 @@ if(WIN32)
 include_directories(${WinSDK})
 set(SDL2_DIR ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows-static/share/sdl2)
 set(SDL2_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows-static/include/SDL2)
-#set(GL_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows-static/include/gl)
 
 set(SDL2_LIBS_RELEASE
-    #${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows-static/lib/GLU32.lib
-    #${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows-static/lib/OpenGL32.lib
     dinput8
     shell32
     setupapi
@@ -60,8 +55,6 @@ set(SDL2_LIBS_RELEASE
     ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows-static/lib/SDL2.lib
 )
 set(SDL2_LIBS_DEBUG
-    #${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows-static/debug/lib/GLU32.lib
-    #${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows-static/debug/lib/OpenGL32.lib
     dinput8
     shell32
     setupapi
@@ -97,14 +90,11 @@ set(SDL2_LIBS_DEBUG
 )
 endif(UNIX)
 
-
 find_package(SDL2 CONFIG REQUIRED)
-
 
 set(IncludeDir code/include/) # Change include/ to your include directory
 
 include_directories(
-    ${GL_INCLUDE_DIRS}
     ${SDL2_INCLUDE_DIRS}
     ${IncludeDir}
 )
