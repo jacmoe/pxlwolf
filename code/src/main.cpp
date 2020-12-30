@@ -20,6 +20,7 @@
 #include "pixel_render.hpp"
 #include <SDL.h>
 #include <iostream>
+#include <vector>
 #include "system.hpp"
 #include <filesystem>
 #include "rapidjson/filereadstream.h"
