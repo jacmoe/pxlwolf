@@ -15,6 +15,10 @@
 #*/
 #pragma once
 
+#ifndef M_PI
+    #define M_PI 3.14159265358979323846
+#endif
+
 #include "raycaster_engine.hpp"
 
 typedef struct _Player {
