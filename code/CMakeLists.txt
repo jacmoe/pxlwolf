@@ -27,9 +27,12 @@ set(Sources
 
 set(Includes
     ../${IncludeDir}/dbg_console.hpp
+    ../${IncludeDir}/DG_misc.hpp
     ../${IncludeDir}/game_engine.hpp
     ../${IncludeDir}/pixel_render.hpp
     ../${IncludeDir}/raycaster_engine.hpp
+    ../${IncludeDir}/SDL_stbimage.hpp
+    ../${IncludeDir}/stb_image.hpp
     ../${IncludeDir}/system.hpp
     ../${IncludeDir}/utils.hpp
 )
