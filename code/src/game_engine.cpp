@@ -61,7 +61,7 @@ void GameEngine::initEntity(Entity* entity, double x, double y, double h, double
 
 void GameEngine::initProjectiles(ProjectileList* projectiles, uint32_t numProjectile, RayTex* spriteTex, RayTex* shadowTex)
 {
-	for (int i = 0; i < numProjectile; i++)
+	for (uint32_t i = 0; i < numProjectile; i++)
 	{
 		GameEngine::initEntity(&projectiles->projectiles[i], -1000, -1000, -0.5, 0, spriteTex, shadowTex);
 		projectiles->projectiles[i].sprite.scaleFactor = 0.1;
@@ -277,7 +277,7 @@ void GameEngine::updateProjectile(ProjectileList* projectiles, uint32_t numProje
 	// Hasn't yet fired
 	if (keys[SDL_SCANCODE_SPACE] && !player->spacePressed)
 	{
-		for (int i = 0; i < numProjectile; i++)
+		for (uint32_t i = 0; i < numProjectile; i++)
 		{
 			if (projectiles->projectiles[i].state == 0)
 			{
@@ -296,7 +296,7 @@ void GameEngine::updateProjectile(ProjectileList* projectiles, uint32_t numProje
 	}
 	//printf("spacePressed: %d\n", player->spacePressed);
 	// Update bullets
-	for (int i = 0; i < numProjectile; i++)
+	for (uint32_t i = 0; i < numProjectile; i++)
 	{
 		if (projectiles->projectiles[i].state == 1)
 		{
