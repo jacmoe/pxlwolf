@@ -120,6 +120,103 @@ int get_map_entry(int tile_x, int tile_y)
     return testMapChar[item];
 }
 
+void RandomStuff()
+{
+    printf("RandomStuff()\n");
+}
+
+int GetRandomNumber(int value)
+{
+    return value;
+}
+
+struct MyStruct
+{
+    float x, y;
+
+    MyStruct() : x(0), y(0)
+    {
+    }
+
+    MyStruct(float x, float y) : x(x), y(y)
+    {
+    }
+
+    void Print() const
+    {
+        printf("%f, %f\n", x, y);
+    }
+
+    float GetX() const
+    {
+        return x;
+    }
+
+    float GetY() const
+    {
+        return y;
+    }
+
+    void SetX(const float& x)
+    {
+        this->x = x;
+    }
+
+    void SetY(const float& y)
+    {
+        this->y = y;
+    }
+};
+
+void DoStuffToStruct(MyStruct& myStruct)
+{
+    myStruct.x = 200;
+    myStruct.y = 200;
+}
+
+void test_lua()
+{
+    sol::state lua{};
+    lua.open_libraries(sol::lib::base);
+
+    // 1. Run Lua scripts
+    lua.script("print('Hello World from Lua!')");
+    
+    // 3. Bind and call C++ functions to Lua
+    lua.set_function("RandomStuff", &RandomStuff);
+    lua.set_function("GetRandomNumber", &GetRandomNumber);
+    lua.set_function("DoStuffToStruct", &DoStuffToStruct);
+
+    
+    // 4. Bind and use C++ data to Lua
+    lua.new_usertype<MyStruct>("MyStruct",
+        sol::constructors<void(), void(float, float)>(),
+        "x", &MyStruct::x,
+        "y", &MyStruct::y,
+        "Print", &MyStruct::Print,
+        "GetX", &MyStruct::GetX,
+        "GetY", &MyStruct::GetY,
+        "SetX", &MyStruct::SetX,
+        "SetY", &MyStruct::SetY
+    );
+        
+    // 2. Load Lua scripts from disk
+    lua.script_file("assets/scripts/init.lua");
+    
+    // 5. Call Lua functions from C++ (With return types)
+    const std::function<void()>& luaFunction = lua["LuaFunction"];
+    luaFunction();
+
+    const std::function<int(int)>& luaFunction2 = lua["LuaFunction2"];
+    auto value = luaFunction2(123);
+    printf("value = %d \n", value);
+
+    MyStruct myStruct;
+    const std::function<void(MyStruct&)>& luaFunction3 = lua["LuaFunction3"];
+    luaFunction3(myStruct);
+    myStruct.Print();
+}
+
 int main(int, char**)
 {
     // Get executable pah
@@ -137,6 +234,8 @@ int main(int, char**)
 
     CreateConsoleWindow();
 
+	test_lua();
+
     load_level("assets/levels/level.ldtk");
 
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
@@ -149,8 +248,8 @@ int main(int, char**)
 	const uint8_t* keys = SDL_GetKeyboardState(nullptr);
 
     const unsigned int SCALE = 2;
-    const unsigned int WIDTH = 320 * 3;//WIDDERSHINS/SCALE;
-    const unsigned int HEIGHT = 180 * 3;//TURNWISE/SCALE;
+    const unsigned int WIDTH = 320 * 2;//WIDDERSHINS/SCALE;
+    const unsigned int HEIGHT = 180 * 2;//TURNWISE/SCALE;
 
 	window = SDL_CreateWindow(
 		"PixelWolf",
@@ -278,7 +377,7 @@ int main(int, char**)
 		RaycasterEngine::texRenderFloor(buffer->pixelBuffer, &testPlayer.camera, WIDTH, HEIGHT, NULL, 0, worldTex, 6);
 		RaycasterEngine::texRenderCeiling(buffer->pixelBuffer, &(testPlayer.camera), WIDTH, HEIGHT, NULL, worldTex, 7);
 		RaycasterEngine::raycastRender(buffer, &(testPlayer.camera), WIDTH, HEIGHT, &testMap, 0.01, worldTex);
-		RaycasterEngine::drawMinimap(buffer->pixelBuffer, &(testPlayer.camera), WIDTH, HEIGHT, &testMap, 6);
+		//RaycasterEngine::drawMinimap(buffer->pixelBuffer, &(testPlayer.camera), WIDTH, HEIGHT, &testMap, 6);
         RaycasterEngine::renderBuffer(buffer);
 		// Player death animation
 		if (!testPlayer.state && testPlayer.timer < 2)
