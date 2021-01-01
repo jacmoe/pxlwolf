@@ -230,7 +230,7 @@ void GameEngine::updatePlayer(Player* player, Map* map, KeyMap* keyMap, double d
 				int32_t mouseX;
 				SDL_GetRelativeMouseState(&mouseX, NULL);
 				// Update player
-				player->angle += 0.25 * dt * mouseX;
+				player->angle += 0.1 * dt * mouseX;
 			}
 		}
 		else

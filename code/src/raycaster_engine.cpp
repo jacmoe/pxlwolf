@@ -14,6 +14,7 @@
 #   MIT License
 #*/
 #include "raycaster_engine.hpp"
+#include <iostream>
 /**
  * A basic retro-style raycasting game engine implemented
  * entirely in SDL2. Uses textures and renderer for
@@ -358,8 +359,6 @@ void RaycasterEngine::drawMinimap(PixBuffer* buffer, Camera* camera, unsigned in
 	blockRect.h = blockSize;
 	SDL_Color backColor = {0x00, 0x00, 0x00, 0x40};
 	PixelRenderer::drawRect(buffer, &mapRect, backColor);
-	//SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-	//SDL_RenderDrawRect(renderer, &mapRect);
 	for (int i = 0; i < map->height; i++)
 	{
 		for (int j = 0; j < map->width; j++)
@@ -371,6 +370,10 @@ void RaycasterEngine::drawMinimap(PixBuffer* buffer, Camera* camera, unsigned in
 				SDL_Color blockColor = map->colorData[map->data[i * map->width + j] - 1];
 				PixelRenderer::drawRect(buffer, &blockRect, blockColor);
 			}
+			blockRect.x = static_cast<int>(trunc(camera->x)) + width - 90;//(mapRect.w / 2) - (blockSize / 2);
+			blockRect.y = static_cast<int>(trunc(camera->y)) * blockSize;
+			SDL_Color sepiaPink = {221,153,153,255};
+			PixelRenderer::drawRect(buffer, &blockRect, sepiaPink);
 		}
 	}
 }

@@ -111,9 +111,6 @@ bool load_level(const std::string level_name)
         }
     }
     fclose(fp);
-    std::cout << "Parsed the following: " << std::endl;
-    std::cout << "Player position : (" << player_x << "," << player_y << ")" << std::endl;
-    std::cout << "Player heading : " << player_heading << std::endl;
     return true;
 }
 
@@ -140,12 +137,6 @@ int main(int, char**)
 
     CreateConsoleWindow();
 
-	sol::state lua;
-	// open some common libraries
-	lua.open_libraries(sol::lib::base, sol::lib::package);
-	lua.script("print('bark bark bark!')");
-	std::cout << std::endl;
-
     load_level("assets/levels/level.ldtk");
 
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
@@ -158,8 +149,8 @@ int main(int, char**)
 	const uint8_t* keys = SDL_GetKeyboardState(nullptr);
 
     const unsigned int SCALE = 2;
-    const unsigned int WIDTH = 320 * 2;//WIDDERSHINS/SCALE;
-    const unsigned int HEIGHT = 180 * 2;//TURNWISE/SCALE;
+    const unsigned int WIDTH = 320 * 3;//WIDDERSHINS/SCALE;
+    const unsigned int HEIGHT = 180 * 3;//TURNWISE/SCALE;
 
 	window = SDL_CreateWindow(
 		"PixelWolf",
@@ -182,7 +173,7 @@ int main(int, char**)
 	// Demo texture
 	int32_t mPixWidth;
 	int32_t mPixHeight;
-	uint8_t* mapPixDat = stbi_load("assets/textures/cobblebrick.png", &mPixWidth, &mPixHeight, NULL, 0);
+	uint8_t* mapPixDat = stbi_load("assets/textures/walls.png", &mPixWidth, &mPixHeight, NULL, 0);
 	if (!mapPixDat)
 	{
 		fprintf(stderr, "FATAL: Could not load textures. Exiting...\n");
@@ -192,10 +183,11 @@ int main(int, char**)
 	stbi_image_free(mapPixDat);
 
 	// View depth
-	double depth = 6;
+	double view_depth = 6;
 	// Demo player
 	Player testPlayer;
-	GameEngine::initPlayer(&testPlayer, player_x, player_y, player_heading, 1, M_PI/2, depth, WIDTH);
+	GameEngine::initPlayer(&testPlayer, 1.5, 1.5, player_heading, 1, M_PI/2, view_depth, WIDTH);
+	//GameEngine::initPlayer(&testPlayer, player_x, player_y, player_heading, 1, M_PI/2, view_depth, WIDTH);
 
 	// Init keymapping
 	KeyMap testKeys;
@@ -280,11 +272,13 @@ int main(int, char**)
 		SDL_RenderClear(renderer);
 		SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 
+		testPlayer.camera.x = testPlayer.x;
+		testPlayer.camera.y = testPlayer.y;
 		RaycasterEngine::resetDepthBuffer(buffer);
 		RaycasterEngine::texRenderFloor(buffer->pixelBuffer, &testPlayer.camera, WIDTH, HEIGHT, NULL, 0, worldTex, 6);
 		RaycasterEngine::texRenderCeiling(buffer->pixelBuffer, &(testPlayer.camera), WIDTH, HEIGHT, NULL, worldTex, 7);
 		RaycasterEngine::raycastRender(buffer, &(testPlayer.camera), WIDTH, HEIGHT, &testMap, 0.01, worldTex);
-		RaycasterEngine::drawMinimap(buffer->pixelBuffer, &(testPlayer.camera), WIDTH, HEIGHT, &testMap, 2);
+		RaycasterEngine::drawMinimap(buffer->pixelBuffer, &(testPlayer.camera), WIDTH, HEIGHT, &testMap, 6);
         RaycasterEngine::renderBuffer(buffer);
 		// Player death animation
 		if (!testPlayer.state && testPlayer.timer < 2)
@@ -293,7 +287,7 @@ int main(int, char**)
 		}
 		else if (testPlayer.state == 2)
 		{
-			GameEngine::initPlayer(&testPlayer, player_x, player_y, player_heading, 1, M_PI/2, depth, WIDTH);
+			GameEngine::initPlayer(&testPlayer, player_x, player_y, player_heading, 1, M_PI/2, view_depth, WIDTH);
 		}
 		SDL_Color sepiaPink = {221,153,153,255};
 		if (paused)
