@@ -25,6 +25,7 @@
 #include <filesystem>
 #include "rapidjson/filereadstream.h"
 #include "rapidjson/document.h"
+#include "rapidjson/istreamwrapper.h"
 #define DG_MISC_IMPLEMENTATION
 #include "DG_misc.h"
 #include "utils.hpp"
@@ -35,7 +36,7 @@
 #include "game_engine.hpp"
 
 #include "lua_main.hpp"
-
+#include "physfs.hpp"
 
 // Completely hardcoded. I love it! :)
 const unsigned int MAP_WIDTH = 16;
@@ -68,14 +69,22 @@ double deg2rad (double degrees) {
     return degrees * 4.0 * atan (1.0) / 180.0;
 }
 
-bool load_level(const std::string level_name)
+bool load_level(const std::string level_name, bool from_zip = false)
 {
-    FILE* fp = fopen(level_name.c_str(), "rb");
-
     char readBuffer[65536];
-    rapidjson::FileReadStream is(fp, readBuffer, sizeof(readBuffer));
     rapidjson::Document document;
-    document.ParseStream(is);
+	FILE* fp = nullptr;
+
+    if(from_zip)
+	{
+		PhysFS::ifstream fp(level_name);
+		rapidjson::IStreamWrapper isw(fp);
+	    document.ParseStream(isw);
+	} else {
+		fp = fopen(level_name.c_str(), "rb");
+    	rapidjson::FileReadStream is(fp, readBuffer, sizeof(readBuffer));
+	    document.ParseStream(is);
+	}
 
     const rapidjson::Value& levels = document["levels"];
     for (rapidjson::Value::ConstValueIterator itr = levels.Begin(); itr != levels.End(); ++itr)
@@ -111,7 +120,12 @@ bool load_level(const std::string level_name)
 
         }
     }
-    fclose(fp);
+	if(from_zip)
+	{
+		// I am probably leaving resources dangling, oh no . . . ;)
+	} else {
+		fclose(fp);
+	}
     return true;
 }
 
@@ -292,6 +306,20 @@ void logSDLError(std::ostream &os, const std::string &msg){
 	os << msg << " error: " << SDL_GetError() << std::endl;
 }
 
+SDL_RWops *SDL_RWFromIStream( std::istream& stream )
+{
+	std::streamsize size = stream.tellg();
+	stream.seekg(0, std::ios::beg);
+
+	std::vector<char> buffer(size);
+	stream.read(buffer.data(), size);
+
+	// Get an SDL_RWops struct for the file
+	SDL_RWops* rwops = SDL_RWFromMem(&buffer[0], buffer.size());
+
+    return rwops;
+}
+
 int main(int, char**)
 {
     // Get executable pah
@@ -311,7 +339,10 @@ int main(int, char**)
 
 	test_lua();
 
-    load_level("assets/levels/level.ldtk");
+	PhysFS::init (nullptr);
+	PhysFS::mount("assets.zip", "", 1);
+
+    load_level("assets/levels/level.ldtk", true);
 
 	SDL_Init(SDL_INIT_VIDEO);
 
@@ -509,6 +540,7 @@ int main(int, char**)
 	window = nullptr;
 	TTF_Quit();
 	SDL_Quit();
+	PhysFS::deinit();
 
 	closeConsoleWindow();
 

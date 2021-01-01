@@ -18,3 +18,4 @@ cd vcpkg/
 ./vcpkg install sdl2-ttf --triplet x64-linux
 ./vcpkg install lua --triplet x64-linux
 ./vcpkg install sol2 --triplet x64-linux
+./vcpkg install physfs --triplet x64-linux
