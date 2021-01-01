@@ -19,6 +19,7 @@ set(Sources
     ./src/dbg_console.cpp
     ./src/game_engine.cpp
     ./src/main.cpp
+    ./src/physfs.cpp
     ./src/pixel_render.cpp
     ./src/raycaster_engine.cpp
     ./src/system.cpp
@@ -30,6 +31,7 @@ set(Includes
     ../${IncludeDir}/DG_misc.h
     ../${IncludeDir}/game_engine.hpp
     ../${IncludeDir}/lua_main.hpp
+    ../${IncludeDir}/physfs.hpp
     ../${IncludeDir}/pixel_render.hpp
     ../${IncludeDir}/raycaster_engine.hpp
     ../${IncludeDir}/SDL_stbimage.h

@@ -7,6 +7,7 @@ cd .\vcpkg\
 .\vcpkg.exe install sdl2-ttf --triplet x64-windows-static
 .\vcpkg.exe install lua --triplet x64-windows-static
 .\vcpkg.exe install sol2 --triplet x64-windows-static
+.\vcpkg.exe install physfs --triplet x64-windows-static
 
 LINUX
 ==============================================================
