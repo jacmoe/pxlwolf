@@ -402,8 +402,8 @@ int main(int, char**)
 	SDL_Rect screenRect = {0,0,WIDTH,HEIGHT};
 
 	SDL_Color text_color = { 255, 255, 255, 255 };
-	SDL_Texture* text_image = renderText("PixelWolf", "assets/fonts/8bitoperator.ttf",
-		text_color, 10, renderer);
+	SDL_Texture* text_image = renderText("PixelWolf", "assets/fonts/MedievalSharp-Bold.ttf",
+		text_color, 16, renderer);
 	if (text_image == nullptr){
 		//cleanup(renderer, window);
 		TTF_Quit();
