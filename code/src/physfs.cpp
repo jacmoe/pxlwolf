@@ -22,7 +22,9 @@ private:
 		if (PHYSFS_eof(file)) {
 			return traits_type::eof();
 		}
-		size_t bytesRead = PHYSFS_read(file, buffer, 1, bufferSize);
+
+		size_t bytesRead = PHYSFS_readBytes(file, buffer, bufferSize);
+		
 		if (bytesRead < 1) {
 			return traits_type::eof();
 		}
@@ -67,11 +69,12 @@ private:
 		if (pptr() == pbase() && c == traits_type::eof()) {
 			return 0; // no-op
 		}
-		if (PHYSFS_write(file, pbase(), pptr() - pbase(), 1) < 1) {
+		
+		if (PHYSFS_writeBytes(file, pbase(), pptr() - pbase()) < 1) {
 			return traits_type::eof();
 		}
 		if (c != traits_type::eof()) {
-			if (PHYSFS_write(file, &c, 1, 1) < 1) {
+			if (PHYSFS_writeBytes(file, &c, 1) < 1) {
 				return traits_type::eof();
 			}
 		}
@@ -88,7 +91,7 @@ private:
 protected:
 	PHYSFS_File * const file;
 public:
-	fbuf(PHYSFS_File * file, std::size_t bufferSize = 2048) : file(file), bufferSize(bufferSize) {
+        fbuf(PHYSFS_File * file, std::size_t bufferSize = 2048) : bufferSize(bufferSize),  file(file) {
 		buffer = new char[bufferSize];
 		char * end = buffer + bufferSize;
 		setg(end, end, end);
@@ -199,11 +202,11 @@ void getCdRomDirs(StringCallback callback, void * extra) {
 }
 
 string getBaseDir() {
-	return PHYSFS_getBaseDir();
+        return PHYSFS_getBaseDir();
 }
 
-string getUserDir() {
-	return PHYSFS_getUserDir();
+string getPrefDir(const string &org, const string &app) {
+        return PHYSFS_getPrefDir(org.c_str(), app.c_str());
 }
 
 string getWriteDir() {
@@ -214,8 +217,8 @@ void setWriteDir(const string& newDir) {
 	PHYSFS_setWriteDir(newDir.c_str());
 }
 
-void removeFromSearchPath(const string& oldDir) {
-	PHYSFS_removeFromSearchPath(oldDir.c_str());
+void unmount(const string& oldDir) {
+	PHYSFS_unmount(oldDir.c_str());
 }
 
 StringList getSearchPath() {
@@ -259,24 +262,32 @@ StringList enumerateFiles(const string& directory) {
 	return files;
 }
 
-void enumerateFiles(const string& directory, EnumFilesCallback callback, void * extra) {
-	PHYSFS_enumerateFilesCallback(directory.c_str(), callback, extra);
+int enumerateFiles(string const & directory, EnumFilesCallback callback, void * extra) {
+       return PHYSFS_enumerate(directory.c_str(), callback, extra);
 }
 
 bool exists(const string& filename) {
 	return PHYSFS_exists(filename.c_str());
 }
 
+Stat getStat(const string &filename)
+{
+        Stat stat;
+        PHYSFS_stat(filename.c_str(), &stat);
+
+        return stat;
+}
+
 bool isDirectory(const string& filename) {
-	return PHYSFS_isDirectory(filename.c_str());
+        return (getStat(filename).filetype == PHYSFS_FILETYPE_DIRECTORY);
 }
 
 bool isSymbolicLink(const string& filename) {
-	return PHYSFS_isSymbolicLink(filename.c_str());
+       return (getStat(filename).filetype == PHYSFS_FILETYPE_SYMLINK);
 }
 
 sint64 getLastModTime(const string& filename) {
-	return PHYSFS_getLastModTime(filename.c_str());
+       return (getStat(filename).modtime);
 }
 
 bool isInit() {
