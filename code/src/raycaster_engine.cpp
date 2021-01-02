@@ -349,10 +349,10 @@ void RaycasterEngine::draw2DSprite(PixBuffer* buffer, RaySprite sprite, double a
  */
 void RaycasterEngine::drawMinimap(PixBuffer* buffer, Camera* camera, unsigned int width, unsigned int height, Map* map, int blockSize)
 {
-    int i, row, col;
+    int row, col;
     float mapGridSquareSize = (float)height / (float)blockSize;
-    int mapXOffset = (width - height) / 2; // 280
-    int mapYOffset = (height - height) / 2; // Makes no sense! :D
+    int mapXOffset = (width - height) / 2;
+    int mapYOffset = (height - height) / 2;
 	SDL_Rect mapRect;
 	mapRect.w = map->width * blockSize;
 	mapRect.h = map->height * blockSize;
@@ -362,19 +362,25 @@ void RaycasterEngine::drawMinimap(PixBuffer* buffer, Camera* camera, unsigned in
 	blockRect.w = blockSize;
 	blockRect.h = blockSize;
 
+	int p_x = static_cast<int>(camera->x);
+	int p_y = static_cast<int>(camera->y);
     /* Draw map tiles */
     for(row = 0; row < map->height; row++) {
         for(col = 0; col < map->width; col++) {
 			blockRect.x = mapRect.x + col * blockSize;
 			blockRect.y = mapRect.y + row * blockSize;
-			SDL_Color blockColor = map->colorData[map->data[row * map->width + col] - 1];
-			PixelRenderer::drawRect(buffer, &blockRect, blockColor);
+			if(map->data[map->data[row * map->width + col] - 1] > 0)
+			{
+				SDL_Color blockColor = map->colorData[map->data[row * map->width + col] - 1];
+				PixelRenderer::drawRect(buffer, &blockRect, blockColor);
+			}
+			if(p_y == row && p_x == col)
+			{
+				SDL_Color sepiaPink = {221,153,153,255};
+				PixelRenderer::drawRect(buffer, &blockRect, sepiaPink);
+			}
         }
     }
-	blockRect.x = (int)(camera->x * (float)blockSize) + mapXOffset + 402;
-	blockRect.y = (int)(camera->y * (float)blockSize) + mapYOffset - 2;
-	SDL_Color sepiaPink = {221,153,153,255};
-	PixelRenderer::drawRect(buffer, &blockRect, sepiaPink);
 }
 
 //! Old
