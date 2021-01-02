@@ -72,4 +72,4 @@ if (UNIX)
             )
 endif (UNIX)
 
-target_link_libraries(pxlwolf optimized ${SDL2_LIBS_RELEASE} debug ${SDL2_LIBS_DEBUG})
+target_link_libraries(pxlwolf optimized ${LIBS_RELEASE} debug ${LIBS_DEBUG})

@@ -40,7 +40,7 @@ set(SDL2_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows-st
 set(SOL_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows-static/include/sol)
 set(LUA_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows-static/include)
 
-set(SDL2_LIBS_RELEASE
+set(LIBS_RELEASE
     dinput8
     shell32
     setupapi
@@ -67,7 +67,7 @@ set(SDL2_LIBS_RELEASE
     ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows-static/lib/physfs-static.lib
 )
 
-set(SDL2_LIBS_DEBUG
+set(LIBS_DEBUG
     dinput8
     shell32
     setupapi
@@ -100,14 +100,14 @@ set(SDL2_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-linux/incl
 set(SOL_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-linux/include/sol)
 set(LUA_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-linux/include)
 
-set(SDL2_LIBS_RELEASE
+set(LIBS_RELEASE
     ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-linux/lib/libSDL2.a
     ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-linux/lib/libSDL2main.a
     ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-linux/lib/liblua.a
     dl
     png
 )
-set(SDL2_LIBS_DEBUG
+set(LIBS_DEBUG
     ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-linux/debug/lib/libSDL2d.a
     ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-linux/debug/lib/libSDL2maind.a
     ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-linux/debug/lib/liblua.a
@@ -116,9 +116,7 @@ set(SDL2_LIBS_DEBUG
 )
 endif(UNIX)
 
-find_package(SDL2 CONFIG REQUIRED)
-
-set(IncludeDir code/include/) # Change include/ to your include directory
+set(IncludeDir code/include/)
 
 include_directories(
     ${SDL2_INCLUDE_DIRS}
