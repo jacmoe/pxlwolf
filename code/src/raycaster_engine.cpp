@@ -332,18 +332,12 @@ void RaycasterEngine::draw2DSprite(PixBuffer* buffer, RaySprite sprite, double a
 	}
 }
 
-//! Old
 /** RaycasterEngine::drawMinimap
  * @brief Renders minimap to screen
- * !! Very depricated code, does not work, cannot delete (???)
- * TODO: Please fix all of this
  * @param buffer PixBuffer to render minimap to
  * @param camera Active camera to render from
- * ! Also depricated, does not do anything
  * @param width Width of window
- * ! Redundant, pre-buffer size
  * @param height Height of window
- * ! Ditto
  * @param map Map to render
  * @param blockSize Size of tiles on rendered map
  */
@@ -376,6 +370,7 @@ void RaycasterEngine::drawMinimap(PixBuffer* buffer, Camera* camera, unsigned in
 			}
 			if(p_y == row && p_x == col)
 			{
+				/* Draw the player */
 				SDL_Color sepiaPink = {221,153,153,255};
 				PixelRenderer::drawRect(buffer, &blockRect, sepiaPink);
 			}

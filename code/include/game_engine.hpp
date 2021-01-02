@@ -51,6 +51,7 @@ enum KeyMapNames {
     PK_PAUSE,
     PK_KILL,
     PK_RESPAWN,
+    PK_SHOWMAP,
     PK_USE,
     PK_INTERACT,
     LEN_PK,

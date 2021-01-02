@@ -414,6 +414,7 @@ int main(int, char**)
 		PK_PAUSE, SDL_SCANCODE_DELETE, 0,
 		PK_KILL, SDL_SCANCODE_K, 0,
 		PK_RESPAWN, SDL_SCANCODE_R, 0,
+		PK_SHOWMAP, SDL_SCANCODE_M, 0,
 		TERMINATE_PK
 	};
 	GameEngine::bindKeys(&testKeys, keyList);
@@ -442,9 +443,11 @@ int main(int, char**)
 	}
 
 	// State variables
-	uint8_t quit = 0;
-	uint8_t paused = 0;
-	uint8_t pauseKeyPressed = 0;
+	bool quit = false;
+	bool paused = false;
+	bool pauseKeyPressed = false;
+	bool map_shown = false;
+	bool mapKeyPressed = false;
 	uint8_t frameCounter = 0;
 	uint32_t realRunTime = 0;
 	double realRunTimeF = 0;
@@ -465,19 +468,28 @@ int main(int, char**)
 		{
 			if (event.type == SDL_QUIT || (event.type == SDL_KEYDOWN && event.key.keysym.scancode == SDL_SCANCODE_ESCAPE))
 			{
-				quit = 1;
+				quit = true;
 			}
 			else if (event.type == SDL_KEYDOWN && event.key.keysym.scancode == SDL_SCANCODE_DELETE && !pauseKeyPressed)
 			{
 				paused = !paused;
-				pauseKeyPressed = 1;
+				pauseKeyPressed = true;
 				SDL_WarpMouseInWindow(window, 0, 0);
                 bool mouse_mode = SDL_GetRelativeMouseMode();
 				SDL_SetRelativeMouseMode(SDL_bool(!mouse_mode));
 			}
 			else if (event.type == SDL_KEYUP && event.key.keysym.scancode == SDL_SCANCODE_DELETE)
 			{
-				pauseKeyPressed = 0;
+				pauseKeyPressed = false;
+			}
+			else if (event.type == SDL_KEYDOWN && event.key.keysym.scancode == SDL_SCANCODE_M && !mapKeyPressed)
+			{
+				map_shown = !map_shown;
+				mapKeyPressed = true;
+			}
+			else if (event.type == SDL_KEYUP && event.key.keysym.scancode == SDL_SCANCODE_M)
+			{
+				mapKeyPressed = false;
 			}
 		}
 		// Update if not paused
@@ -496,7 +508,10 @@ int main(int, char**)
 		RaycasterEngine::texRenderFloor(buffer->pixelBuffer, &testPlayer.camera, WIDTH, HEIGHT, NULL, 0, worldTex, 6);
 		RaycasterEngine::texRenderCeiling(buffer->pixelBuffer, &(testPlayer.camera), WIDTH, HEIGHT, NULL, worldTex, 7);
 		RaycasterEngine::raycastRender(buffer, &(testPlayer.camera), WIDTH, HEIGHT, &testMap, 0.01, worldTex);
-		RaycasterEngine::drawMinimap(buffer->pixelBuffer, &(testPlayer.camera), WIDTH, HEIGHT, &testMap, 4);
+		if(map_shown)
+		{
+			RaycasterEngine::drawMinimap(buffer->pixelBuffer, &(testPlayer.camera), WIDTH, HEIGHT, &testMap, 4);
+		}
         RaycasterEngine::renderBuffer(buffer);
 		// Player death animation
 		if (!testPlayer.state && testPlayer.timer < 2)
