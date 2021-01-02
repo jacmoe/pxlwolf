@@ -349,6 +349,10 @@ void RaycasterEngine::draw2DSprite(PixBuffer* buffer, RaySprite sprite, double a
  */
 void RaycasterEngine::drawMinimap(PixBuffer* buffer, Camera* camera, unsigned int width, unsigned int height, Map* map, int blockSize)
 {
+    int i, row, col;
+    float mapGridSquareSize = (float)height / (float)blockSize;
+    int mapXOffset = (width - height) / 2;
+    int mapYOffset = (height - height) / 2;
 	SDL_Rect mapRect;
 	mapRect.w = map->width * blockSize;
 	mapRect.h = map->height * blockSize;
@@ -357,25 +361,20 @@ void RaycasterEngine::drawMinimap(PixBuffer* buffer, Camera* camera, unsigned in
 	SDL_Rect blockRect;
 	blockRect.w = blockSize;
 	blockRect.h = blockSize;
-	SDL_Color backColor = {0x00, 0x00, 0x00, 0x40};
-	PixelRenderer::drawRect(buffer, &mapRect, backColor);
-	for (int i = 0; i < map->height; i++)
-	{
-		for (int j = 0; j < map->width; j++)
-		{
-			if (map->data[i * map->width + j] != 0)
-			{
-				blockRect.x = mapRect.x + j * blockSize;
-				blockRect.y = mapRect.y + i * blockSize;
-				SDL_Color blockColor = map->colorData[map->data[i * map->width + j] - 1];
-				PixelRenderer::drawRect(buffer, &blockRect, blockColor);
-			}
-			blockRect.x = static_cast<int>(trunc(camera->x)) + width - 90;//(mapRect.w / 2) - (blockSize / 2);
-			blockRect.y = static_cast<int>(trunc(camera->y)) * blockSize;
-			SDL_Color sepiaPink = {221,153,153,255};
-			PixelRenderer::drawRect(buffer, &blockRect, sepiaPink);
-		}
-	}
+
+    /* Draw map tiles */
+    for(row = 0; row < map->height; row++) {
+        for(col = 0; col < map->width; col++) {
+			blockRect.x = mapRect.x + col * blockSize;
+			blockRect.y = mapRect.y + row * blockSize;
+			SDL_Color blockColor = map->colorData[map->data[row * map->width + col] - 1];
+			PixelRenderer::drawRect(buffer, &blockRect, blockColor);
+        }
+    }
+	blockRect.x = (int)(camera->x * height / (float)blockSize) + mapXOffset;
+	blockRect.y = (int)(camera->y * height / (float)blockSize + mapYOffset);
+	SDL_Color sepiaPink = {221,153,153,255};
+	PixelRenderer::drawRect(buffer, &blockRect, sepiaPink);
 }
 
 //! Old
