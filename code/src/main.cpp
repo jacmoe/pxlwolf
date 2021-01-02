@@ -397,8 +397,7 @@ int main(int, char**)
 	double view_depth = 6;
 	// Demo player
 	Player testPlayer;
-	GameEngine::initPlayer(&testPlayer, 1.5, 1.5, player_heading, 1, M_PI/2, view_depth, WIDTH);
-	//GameEngine::initPlayer(&testPlayer, player_x, player_y, player_heading, 1, M_PI/2, view_depth, WIDTH);
+	GameEngine::initPlayer(&testPlayer, player_x, player_y, player_heading, 1, M_PI/2, view_depth, WIDTH);
 
 	// Init keymapping
 	KeyMap testKeys;
@@ -487,8 +486,6 @@ int main(int, char**)
 			GameEngine::updatePlayer(&testPlayer, &testMap, &testKeys, dt);
 		}
 
-		// **Render Routine**
-		// Clear, draw line and update
 		SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
 		SDL_RenderClear(renderer);
 		SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
