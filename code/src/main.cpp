@@ -360,8 +360,8 @@ int main(int, char**)
 	const uint8_t* keys = SDL_GetKeyboardState(nullptr);
 
     const unsigned int SCALE = 2;
-    const unsigned int WIDTH = 320 * 2;//WIDDERSHINS/SCALE;
-    const unsigned int HEIGHT = 180 * 2;//TURNWISE/SCALE;
+    const unsigned int WIDTH = 320 * 2;// 640 WIDDERSHINS/SCALE;
+    const unsigned int HEIGHT = 180 * 2;//360 TURNWISE/SCALE;
 
 	window = SDL_CreateWindow(
 		"PixelWolf",

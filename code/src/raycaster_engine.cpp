@@ -351,8 +351,8 @@ void RaycasterEngine::drawMinimap(PixBuffer* buffer, Camera* camera, unsigned in
 {
     int i, row, col;
     float mapGridSquareSize = (float)height / (float)blockSize;
-    int mapXOffset = (width - height) / 2;
-    int mapYOffset = (height - height) / 2;
+    int mapXOffset = (width - height) / 2; // 280
+    int mapYOffset = (height - height) / 2; // Makes no sense! :D
 	SDL_Rect mapRect;
 	mapRect.w = map->width * blockSize;
 	mapRect.h = map->height * blockSize;
@@ -371,8 +371,8 @@ void RaycasterEngine::drawMinimap(PixBuffer* buffer, Camera* camera, unsigned in
 			PixelRenderer::drawRect(buffer, &blockRect, blockColor);
         }
     }
-	blockRect.x = (int)(camera->x * height / (float)blockSize) + mapXOffset;
-	blockRect.y = (int)(camera->y * height / (float)blockSize + mapYOffset);
+	blockRect.x = (int)(camera->x * (float)blockSize) + mapXOffset + 402;
+	blockRect.y = (int)(camera->y * (float)blockSize) + mapYOffset - 2;
 	SDL_Color sepiaPink = {221,153,153,255};
 	PixelRenderer::drawRect(buffer, &blockRect, sepiaPink);
 }
