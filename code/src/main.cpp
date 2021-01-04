@@ -358,11 +358,15 @@ int main(int, char**)
 		SDL_WINDOW_OPENGL
 	);
 
-	SDL_Color colorKey[4] = {
-		{255, 255, 255, 255},
-		{220,50,50,255},	// Light red
-		{100,255,70,255},	// Light green
-		{70,70,255,255} 	// Light blue
+	SDL_Color colorKey[8] = {
+		{52, 28, 227, 255},// blue walls
+		{226, 98, 16, 255},// red bricks with eagle
+		{219, 21, 64, 255},// sand walls
+		{150, 158, 175, 255},// brick walls
+		{147, 197, 164, 255},// brick walls with slime
+		{217, 11, 189, 255},// purple walls
+		{255, 0, 0, 255},// red bricks
+		{195, 113, 83, 255}// wooden walls
 	};
 
 	//Demo map
@@ -372,7 +376,7 @@ int main(int, char**)
 	// Demo texture
 	int32_t mPixWidth;
 	int32_t mPixHeight;
-	uint8_t* mapPixDat = stbi_load("assets/textures/walls.png", &mPixWidth, &mPixHeight, NULL, 0);
+	uint8_t* mapPixDat = stbi_load("assets/textures/wolf3d.png", &mPixWidth, &mPixHeight, NULL, 0);
 	if (!mapPixDat)
 	{
 		fprintf(stderr, "FATAL: Could not load textures. Exiting...\n");
