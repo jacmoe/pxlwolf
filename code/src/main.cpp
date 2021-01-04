@@ -55,6 +55,7 @@ bool load_level(const std::string level_file, const std::string level_name, bool
     char readBuffer[65536];
     rapidjson::Document document;
 	FILE* fp = nullptr;
+	bool level_found = false;
 
     if(from_zip)
 	{
@@ -73,6 +74,7 @@ bool load_level(const std::string level_file, const std::string level_name, bool
         std::string level_name_ = (*itr)["identifier"].GetString();
 		if(level_name_ == level_name)
 		{
+			level_found = true;
 			const rapidjson::Value& layerInstances = (*itr)["layerInstances"];
 			for (rapidjson::Value::ConstValueIterator itr = layerInstances.Begin(); itr != layerInstances.End(); ++itr)
 			{
@@ -117,7 +119,7 @@ bool load_level(const std::string level_file, const std::string level_name, bool
 	} else {
 		fclose(fp);
 	}
-    return true;
+    return level_found;
 }
 
 int get_map_entry(int tile_x, int tile_y)
@@ -333,7 +335,12 @@ int main(int, char**)
 	//PhysFS::init (nullptr);
 	//PhysFS::mount("assets.zip", "", 1);
 
-    load_level("assets/levels/levels.ldtk", "Level2");
+    if(!load_level("assets/levels/levels.ldtk", "Level1"))
+	{
+		closeConsoleWindow();
+		std::cout << "Level could not be loaded!" << std::endl;
+		return 1;
+	}
 
 	SDL_Init(SDL_INIT_VIDEO);
 
