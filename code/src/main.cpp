@@ -333,7 +333,7 @@ int main(int, char**)
 	//PhysFS::init (nullptr);
 	//PhysFS::mount("assets.zip", "", 1);
 
-    load_level("assets/levels/levels.ldtk", "Level1");
+    load_level("assets/levels/levels.ldtk", "Level2");
 
 	SDL_Init(SDL_INIT_VIDEO);
 
@@ -365,9 +365,9 @@ int main(int, char**)
 	SDL_Color colorKey[12] = {
 		{224, 13, 170, 255},// Elevator
 		{150, 158, 175, 255},// Stone
-		{150, 158, 175, 255},// brick walls
-		{150, 158, 175, 255},// brick walls
-		{150, 158, 175, 255},// brick walls
+		{219, 21, 64, 255},// brick walls
+		{219, 21, 64, 255},// brick walls
+		{219, 21, 64, 255},// brick walls
 		{150, 158, 175, 255},// Stone
 		{150, 158, 175, 255},// Stone
 		{150, 158, 175, 255},// Stone
