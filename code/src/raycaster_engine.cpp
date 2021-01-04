@@ -363,7 +363,7 @@ void RaycasterEngine::drawMinimap(PixBuffer* buffer, Camera* camera, unsigned in
         for(col = 0; col < map->width; col++) {
 			blockRect.x = mapRect.x + col * blockSize;
 			blockRect.y = mapRect.y + row * blockSize;
-			if(map->data[map->data[row * map->width + col]] >= 0)
+			if(map->data[row * map->width + col] > 0)
 			{
 				SDL_Color blockColor = map->colorData[map->data[row * map->width + col] - 1];
 				PixelRenderer::drawRect(buffer, &blockRect, blockColor);
