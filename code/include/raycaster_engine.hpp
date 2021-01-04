@@ -15,6 +15,7 @@
 #*/
 #pragma once
 #include "pixel_render.hpp"
+#include <vector>
 
 typedef struct _Camera {
 	double x;
@@ -27,7 +28,7 @@ typedef struct _Camera {
 } Camera;
 
 typedef struct _Map {
-	unsigned char* data;
+	std::vector<int> data;
 	SDL_Color* colorData;
 	int numColor;
 	int width;
@@ -68,7 +69,7 @@ public:
     static void renderBuffer(DepthBuffer* buffer);
     static void resetDepthBuffer(DepthBuffer* buffer);
     static void delDepthBuffer(DepthBuffer* buffer);
-    static void generateMap(Map* newMap, unsigned char* charList, int width, int height, int border, SDL_Color* colorData, int numColor);
+    static void generateMap(Map* newMap, const std::vector<int>& map_data, int width, int height, int border, SDL_Color* colorData, int numColor);
     static void initSprite(RaySprite* newSprite, RayTex* texture, double scaleFactor, double alphaNum, double x, double y, double h);
     static void draw2DSprite(PixBuffer* buffer, RaySprite sprite, double angle);
     static void generateAngleValues(uint32_t width, Camera* camera);

@@ -38,28 +38,9 @@
 #include "lua_main.hpp"
 #include "physfs.hpp"
 
-// Completely hardcoded. I love it! :)
-const unsigned int MAP_WIDTH = 16;
-const unsigned int MAP_HEIGHT = 16;
-
-unsigned char testMapChar[MAP_WIDTH*MAP_HEIGHT] = {
-	0, 0, 0, 0 ,0 ,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0 ,0 ,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0 ,0 ,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0 ,0 ,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0 ,0 ,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0 ,0 ,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0 ,0 ,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0 ,0 ,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0 ,0 ,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0 ,0 ,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0 ,0 ,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0 ,0 ,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0 ,0 ,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0 ,0 ,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0 ,0 ,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0 ,0 ,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-};
+std::vector<int> levelMap;
+int map_width = 0;
+int map_height = 0;
 
 float player_x = 0.0;
 float player_y = 0.0;
@@ -109,12 +90,18 @@ bool load_level(const std::string level_name, bool from_zip = false)
             }
             if(layer_type == "IntGrid")
             {
+                map_width = (*itr)["__cWid"].GetInt();
+                map_height = (*itr)["__cHei"].GetInt();
+
+				// set the size of levelMap and fill it with zeroes.
+				levelMap.assign(map_width * map_height, 0);
+
                 const rapidjson::Value& initGrid = (*itr)["intGrid"];
 
                 for (rapidjson::Value::ConstValueIterator itr = initGrid.Begin(); itr != initGrid.End(); ++itr)
                 {
 					// Add one to wall values so that zero becomes walkable area
-					testMapChar[(*itr)["coordId"].GetInt()] = (*itr)["v"].GetInt() + 1;
+					levelMap[(*itr)["coordId"].GetInt()] = (*itr)["v"].GetInt() + 1;
                 }
             }
 
@@ -131,8 +118,8 @@ bool load_level(const std::string level_name, bool from_zip = false)
 
 int get_map_entry(int tile_x, int tile_y)
 {
-    int item = int(tile_y) * MAP_WIDTH + int(tile_x);
-    return testMapChar[item];
+    int item = int(tile_y) * map_width + int(tile_x);
+    return levelMap[item];
 }
 
 void RandomStuff()
@@ -232,6 +219,15 @@ void test_lua()
     myStruct.Print();
 }
 
+/*
+ * Log an SDL error with some error message to the output stream of our choice
+ * @param os The output stream to write the message too
+ * @param msg The error message to write, format will be msg error: SDL_GetError()
+ */
+void logSDLError(std::ostream &os, const std::string &msg){
+	os << msg << " error: " << SDL_GetError() << std::endl;
+}
+
 // From https://www.willusher.io/sdl2%20tutorials/2013/12/18/lesson-6-true-type-fonts-with-sdl_ttf
 SDL_Texture* renderText(const std::string &message, const std::string &fontFile,
 	SDL_Color color, int fontSize, SDL_Renderer *renderer)
@@ -239,7 +235,7 @@ SDL_Texture* renderText(const std::string &message, const std::string &fontFile,
 	//Open the font
 	TTF_Font *font = TTF_OpenFont(fontFile.c_str(), fontSize);
 	if (font == nullptr){
-		//logSDLError(std::cout, "TTF_OpenFont");
+		logSDLError(std::cout, "TTF_OpenFont");
 		return nullptr;
 	}	
 	//We need to first render to a surface as that's what TTF_RenderText
@@ -247,12 +243,12 @@ SDL_Texture* renderText(const std::string &message, const std::string &fontFile,
 	SDL_Surface *surf = TTF_RenderText_Blended(font, message.c_str(), color);
 	if (surf == nullptr){
 		TTF_CloseFont(font);
-		//logSDLError(std::cout, "TTF_RenderText");
+		logSDLError(std::cout, "TTF_RenderText");
 		return nullptr;
 	}
 	SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surf);
 	if (texture == nullptr){
-		//logSDLError(std::cout, "CreateTexture");
+		logSDLError(std::cout, "CreateTexture");
 	}
 	//Clean up the surface and font
 	SDL_FreeSurface(surf);
@@ -297,15 +293,6 @@ void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y, SDL_Rect *
 	renderTexture(tex, ren, dst, clip);
 }
 
-/*
- * Log an SDL error with some error message to the output stream of our choice
- * @param os The output stream to write the message too
- * @param msg The error message to write, format will be msg error: SDL_GetError()
- */
-void logSDLError(std::ostream &os, const std::string &msg){
-	os << msg << " error: " << SDL_GetError() << std::endl;
-}
-
 SDL_RWops *SDL_RWFromIStream( std::istream& stream )
 {
 	std::streamsize size = stream.tellg();
@@ -324,7 +311,7 @@ int main(int, char**)
 {
     // Get executable pah
 	std::string path = DG_GetExecutableDir();
-    // Remove the build directory, so that we land on appropriate direcotory for asset loading
+    // Remove the build directory, so that we land on appropriate directory for asset loading
 	std::vector<std::string> strList;
     strList.push_back("/build/code/");
     strList.push_back("\\build\\code\\");
@@ -339,14 +326,15 @@ int main(int, char**)
 
 	test_lua();
 
-	PhysFS::init (nullptr);
-	PhysFS::mount("assets.zip", "", 1);
+	//PhysFS::init (nullptr);
+	//PhysFS::mount("assets.zip", "", 1);
 
-    load_level("assets/levels/level.ldtk", true);
+    load_level("assets/levels/level.ldtk");
 
 	SDL_Init(SDL_INIT_VIDEO);
 
-	if (TTF_Init() != 0){
+	if (TTF_Init() != 0)
+	{
 		logSDLError(std::cout, "TTF_Init");
 		SDL_Quit();
 		return 1;
@@ -379,7 +367,7 @@ int main(int, char**)
 
 	//Demo map
 	Map testMap;
-	RaycasterEngine::generateMap(&testMap, testMapChar, MAP_WIDTH, MAP_HEIGHT, 2, colorKey, 4);
+	RaycasterEngine::generateMap(&testMap, levelMap, map_width, map_height, 2, colorKey, 4);
 
 	// Demo texture
 	int32_t mPixWidth;
@@ -552,7 +540,7 @@ int main(int, char**)
 	window = nullptr;
 	TTF_Quit();
 	SDL_Quit();
-	PhysFS::deinit();
+	//PhysFS::deinit();
 
 	closeConsoleWindow();
 

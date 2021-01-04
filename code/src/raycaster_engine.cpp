@@ -258,9 +258,9 @@ void RaycasterEngine::delDepthBuffer(DepthBuffer* buffer)
  * @param numColor Number of colors in colorData
  * ! Warning: depricated feature, pre-textures
  */
-void RaycasterEngine::generateMap(Map* newMap, unsigned char* charList, int width, int height, int border, SDL_Color* colorData, int numColor)
+void RaycasterEngine::generateMap(Map* newMap, const std::vector<int>& map_data, int width, int height, int border, SDL_Color* colorData, int numColor)
 {
-	newMap->data = charList;
+	newMap->data = map_data;
 	newMap->width = width;
 	newMap->height = height;
 	newMap->colorData = colorData;
