@@ -18,8 +18,10 @@
 Wolfenstein-like raycast engine
 ## Screenshot
 ![PixelWolf][pxlwolf]
-## Level Editing in LDTK
+## Level Editing in LDtk
+Pxlwolf uses the [LDtk Level Designer Toolkit][ldtk_link] to create and edit levels.
 ![LDTK][ldtk]
 
 [pxlwolf]: https://github.com/jacmoe/pxlwolf/raw/main/Screenshot.jpg "Screenshot of PixelWolf"
 [ldtk]: https://github.com/jacmoe/pxlwolf/raw/main/LevelEditing.jpg "Level editing in LDTK"
+[ldtk_link]: https://ldtk.io/ "LDtk Level Designer Toolkit"
