@@ -16,3 +16,6 @@
 
 # pxlwolf
 Wolfenstein-like raycast engine
+![PixelWolf][pxlwolf]
+
+[pxlwolf]: https://github.com/jacmoe/pxlwolf/raw/main/Screenshot.jpg "Screenshot of PixelWolf"
