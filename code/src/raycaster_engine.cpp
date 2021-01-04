@@ -775,29 +775,33 @@ void RaycasterEngine::texRenderFloor(PixBuffer* buffer, Camera* camera, uint32_t
 			int r;
 			int g;
 			int b;
-			if (pixelDist < camera->dist * fogConstant)
-			{
-				// Get associated coordinate pixel...
-				// TODO: some grid code...
-				texX = (uint32_t)floor((double)texData->tileWidth * (pixelX - floor(pixelX)));
-				texY = (uint32_t)floor((double)texData->tileHeight * (pixelY - floor(pixelY)));
-				uint32_t pixColor = texData->pixData[tileNum * texData->tileWidth * texData->tileHeight + texX + texY * texData->tileWidth];
-				r = (int)(pixColor >> 3*8);
-				g = (int)((pixColor >> 2*8) & 0xFF);
-				b = (int)((pixColor >> 8) & 0xFF);
-				int dr = fadeColor.r - r;
-				int dg = fadeColor.g - g;
-				int db = fadeColor.b - b;
-				r += (int)((double)dr * fadePercent);
-				g += (int)((double)dg * fadePercent);
-				b += (int)((double)db * fadePercent);
-			}
-			else
-			{
-				r = fadeColor.r;
-				g = fadeColor.g;
-				b = fadeColor.b;
-			}
+			r = 74;
+			g = 82;
+			b = 99;
+			// if (pixelDist < camera->dist * fogConstant)
+			// {
+			// 	// Get associated coordinate pixel...
+			// 	// TODO: some grid code...
+			// 	texX = (uint32_t)floor((double)texData->tileWidth * (pixelX - floor(pixelX)));
+			// 	texY = (uint32_t)floor((double)texData->tileHeight * (pixelY - floor(pixelY)));
+			// 	uint32_t pixColor = texData->pixData[tileNum * texData->tileWidth * texData->tileHeight + texX + texY * texData->tileWidth];
+			// 	r = (int)(pixColor >> 3*8);
+			// 	g = (int)((pixColor >> 2*8) & 0xFF);
+			// 	b = (int)((pixColor >> 8) & 0xFF);
+			// 	int dr = fadeColor.r - r;
+			// 	int dg = fadeColor.g - g;
+			// 	int db = fadeColor.b - b;
+			// 	r += (int)((double)dr * fadePercent);
+			// 	g += (int)((double)dg * fadePercent);
+			// 	b += (int)((double)db * fadePercent);
+			// }
+			// else
+			// {
+			// 	r = fadeColor.r;
+			// 	g = fadeColor.g;
+			// 	b = fadeColor.b;
+			// }
+			// buffer->pixels[x + y * buffer->width] = ((uint32_t)r << 3*8 | (uint32_t)g << 2*8 | (uint32_t)b << 8 | (uint32_t)0xFF);
 			buffer->pixels[x + y * buffer->width] = ((uint32_t)r << 3*8 | (uint32_t)g << 2*8 | (uint32_t)b << 8 | (uint32_t)0xFF);
 		}
 	}
@@ -860,30 +864,34 @@ void RaycasterEngine::texRenderCeiling(PixBuffer* buffer, Camera* camera, uint32
 			int r;
 			int g;
 			int b;
-			if (pixelDist < camera->dist * fogConstant)
-			{
-				// Get associated coordinate pixel...
-				// TODO: some grid code...
-				texX = (uint32_t)floor((double)texData->tileWidth * (pixelX - floor(pixelX)));
-				texY = (uint32_t)floor((double)texData->tileHeight * (pixelY - floor(pixelY)));
-				uint32_t pixColor = texData->pixData[tileNum * texData->tileWidth * texData->tileHeight + texX + texY * texData->tileWidth];
-				r = (int)(pixColor >> 3*8);
-				g = (int)((pixColor >> 2*8) & 0xFF);
-				b = (int)((pixColor >> 8) & 0xFF);
-				int dr = fadeColor.r - r;
-				int dg = fadeColor.g - g;
-				int db = fadeColor.b - b;
-				r += (int)((double)dr * fadePercent);
-				g += (int)((double)dg * fadePercent);
-				b += (int)((double)db * fadePercent);
-			}
-			else
-			{
-				r = fadeColor.r;
-				g = fadeColor.g;
-				b = fadeColor.b;
-			}
-			PixelRenderer::drawPix(buffer, x, y, PixelRenderer::toPixColor(r,g,b,0xff));
+			r = 110;
+			g = 118;
+			b = 135;
+			// if (pixelDist < camera->dist * fogConstant)
+			// {
+			// 	// Get associated coordinate pixel...
+			// 	// TODO: some grid code...
+			// 	texX = (uint32_t)floor((double)texData->tileWidth * (pixelX - floor(pixelX)));
+			// 	texY = (uint32_t)floor((double)texData->tileHeight * (pixelY - floor(pixelY)));
+			// 	uint32_t pixColor = texData->pixData[tileNum * texData->tileWidth * texData->tileHeight + texX + texY * texData->tileWidth];
+			// 	r = (int)(pixColor >> 3*8);
+			// 	g = (int)((pixColor >> 2*8) & 0xFF);
+			// 	b = (int)((pixColor >> 8) & 0xFF);
+			// 	int dr = fadeColor.r - r;
+			// 	int dg = fadeColor.g - g;
+			// 	int db = fadeColor.b - b;
+			// 	r += (int)((double)dr * fadePercent);
+			// 	g += (int)((double)dg * fadePercent);
+			// 	b += (int)((double)db * fadePercent);
+			// }
+			// else
+			// {
+			// 	r = fadeColor.r;
+			// 	g = fadeColor.g;
+			// 	b = fadeColor.b;
+			// }
+			// PixelRenderer::drawPix(buffer, x, y, PixelRenderer::toPixColor(r,g,b,0xff));
+			PixelRenderer::drawPix(buffer, x, y, PixelRenderer::toPixColor(r, g, b, 255));
 		}
 	}
 }
