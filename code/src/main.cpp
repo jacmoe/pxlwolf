@@ -386,7 +386,7 @@ int main(int, char**)
 	stbi_image_free(mapPixDat);
 
 	// View depth
-	double view_depth = 6;
+	double view_depth = 36;
 	// Demo player
 	Player testPlayer;
 	GameEngine::initPlayer(&testPlayer, player_x, player_y, player_heading, 1, M_PI/2, view_depth, WIDTH);
@@ -438,7 +438,7 @@ int main(int, char**)
 	bool quit = false;
 	bool paused = false;
 	bool pauseKeyPressed = false;
-	bool map_shown = false;
+	bool map_shown = true;
 	bool mapKeyPressed = false;
 	uint8_t frameCounter = 0;
 	uint32_t realRunTime = 0;
@@ -492,13 +492,10 @@ int main(int, char**)
 
 		SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
 		SDL_RenderClear(renderer);
-		SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 
-		testPlayer.camera.x = testPlayer.x;
-		testPlayer.camera.y = testPlayer.y;
 		RaycasterEngine::resetDepthBuffer(buffer);
-		RaycasterEngine::texRenderFloor(buffer->pixelBuffer, &testPlayer.camera, WIDTH, HEIGHT, NULL, 0, worldTex, 6);
-		RaycasterEngine::texRenderCeiling(buffer->pixelBuffer, &(testPlayer.camera), WIDTH, HEIGHT, NULL, worldTex, 7);
+		//RaycasterEngine::texRenderFloor(buffer->pixelBuffer, &testPlayer.camera, WIDTH, HEIGHT, NULL, 0, worldTex, 6);
+		//RaycasterEngine::texRenderCeiling(buffer->pixelBuffer, &(testPlayer.camera), WIDTH, HEIGHT, NULL, worldTex, 7);
 		RaycasterEngine::raycastRender(buffer, &(testPlayer.camera), WIDTH, HEIGHT, &testMap, 0.01, worldTex);
 		if(map_shown)
 		{
