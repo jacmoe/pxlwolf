@@ -21,6 +21,8 @@
 #include <SDL_ttf.h>
 #include <iostream>
 #include <vector>
+#include <list>
+#include <algorithm>
 #include "system.hpp"
 #include <filesystem>
 #include "rapidjson/filereadstream.h"
@@ -39,6 +41,7 @@
 #include "physfs.hpp"
 
 std::vector<int> levelMap;
+std::list<std::string> level_names;
 int map_width = 0;
 int map_height = 0;
 
@@ -50,7 +53,7 @@ double deg2rad (double degrees) {
     return degrees * 4.0 * atan (1.0) / 180.0;
 }
 
-bool load_level(const std::string level_file, const std::string level_name, bool from_zip = false)
+bool load_level(const std::string& level_file, const std::string& level_name, bool from_zip = false)
 {
     char readBuffer[65536];
     rapidjson::Document document;
@@ -72,6 +75,8 @@ bool load_level(const std::string level_file, const std::string level_name, bool
     for (rapidjson::Value::ConstValueIterator itr = levels.Begin(); itr != levels.End(); ++itr)
     {
         std::string level_name_ = (*itr)["identifier"].GetString();
+		bool found = (std::find(level_names.begin(), level_names.end(), level_name_) != level_names.end());
+		if(!found) level_names.push_back(level_name);
 		if(level_name_ == level_name)
 		{
 			level_found = true;
@@ -335,7 +340,7 @@ int main(int, char**)
 	//PhysFS::init (nullptr);
 	//PhysFS::mount("assets.zip", "", 1);
 
-    if(!load_level("assets/levels/levels.ldtk", "Level1"))
+    if(!load_level("assets/levels/levels.ldtk", "Level2"))
 	{
 		closeConsoleWindow();
 		std::cout << "Level could not be loaded!" << std::endl;
