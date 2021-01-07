@@ -45,3 +45,4 @@ test_package/build
 vcpkg/
 vcpkg
 assets.zip
+logs/
