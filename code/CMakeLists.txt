@@ -16,28 +16,22 @@
 set(TARGET_NAME pxlwolf)
 
 set(Sources
-    ./src/dbg_console.cpp
-    ./src/game_engine.cpp
-    ./src/main.cpp
-    ./src/physfs.cpp
-    ./src/pixel_render.cpp
-    ./src/raycaster_engine.cpp
-    ./src/system.cpp
-    ./src/utils.cpp
+    ./src/Camera.cpp
+    ./src/Game.cpp
+    ./src/Main.cpp
+    ./src/RayCaster.cpp
+    ./src/SDLRenderer.cpp
 )
 
 set(Includes
-    ../${IncludeDir}/dbg_console.hpp
-    ../${IncludeDir}/DG_misc.h
-    ../${IncludeDir}/game_engine.hpp
-    ../${IncludeDir}/lua_main.hpp
-    ../${IncludeDir}/physfs.hpp
-    ../${IncludeDir}/pixel_render.hpp
-    ../${IncludeDir}/raycaster_engine.hpp
-    ../${IncludeDir}/SDL_stbimage.h
-    ../${IncludeDir}/stb_image.h
-    ../${IncludeDir}/system.hpp
-    ../${IncludeDir}/utils.hpp
+    ../${IncludeDir}/Camera.hpp
+    ../${IncludeDir}/Game.hpp
+    ../${IncludeDir}/IRenderer.hpp
+    ../${IncludeDir}/MathLib.hpp
+    ../${IncludeDir}/RayCaster.hpp
+    ../${IncludeDir}/SDLDeleter.hpp
+    ../${IncludeDir}/SDLRenderer.hpp
+    ../${IncludeDir}/WallTypes.hpp
 )
 
 if (WIN32)
