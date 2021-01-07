@@ -77,8 +77,14 @@ void Game::init()
 
 	CreateConsoleWindow();
 
+    std::string logfile_name = "logs/pxllog.txt";
+    if(std::filesystem::exists(logfile_name))
+    {
+        std::remove(logfile_name.c_str());
+    }
+
 	auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
-	auto file_sink = std::make_shared<spdlog::sinks::basic_file_sink_mt>("logs/pxllog.txt", true);
+	auto file_sink = std::make_shared<spdlog::sinks::basic_file_sink_mt>(logfile_name, true);
 	spdlog::sinks_init_list sink_list = { file_sink, console_sink };
 	pxllogger = std::make_shared<spdlog::logger>("multi_sink", spdlog::sinks_init_list({console_sink, file_sink}));
 	spdlog::set_default_logger(pxllogger);
