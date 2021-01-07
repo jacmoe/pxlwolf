@@ -40,6 +40,12 @@
 #include "lua_main.hpp"
 #include "physfs.hpp"
 
+#include "spdlog/spdlog.h"
+#include "spdlog/sinks/basic_file_sink.h"
+
+
+std::shared_ptr<spdlog::logger> pxllogger;
+
 std::vector<int> levelMap;
 std::list<std::string> level_names;
 int map_width = 0;
@@ -55,6 +61,7 @@ double deg2rad (double degrees) {
 
 bool load_level(const std::string& level_file, const std::string& level_name, bool from_zip = false)
 {
+	SPDLOG_INFO("Loading level . . .");
     char readBuffer[65536];
     rapidjson::Document document;
 	FILE* fp = nullptr;
@@ -189,6 +196,8 @@ void DoStuffToStruct(MyStruct& myStruct)
 
 void test_lua()
 {
+	SPDLOG_INFO("We are in the test_lua function");
+
     sol::state lua{};
     lua.open_libraries(sol::lib::base);
 
@@ -333,7 +342,11 @@ int main(int, char**)
     // Set a proper working directory
 	std::filesystem::current_path(path);
 
-    CreateConsoleWindow();
+	pxllogger = spdlog::basic_logger_mt("pxl_logger", "logs/pxllog.txt");
+	pxllogger->info("PixelWolf Starting up . . .");	
+	spdlog::set_default_logger(pxllogger);
+	
+	//CreateConsoleWindow();
 
 	test_lua();
 
@@ -342,7 +355,7 @@ int main(int, char**)
 
     if(!load_level("assets/levels/levels.ldtk", "Level2"))
 	{
-		closeConsoleWindow();
+		//closeConsoleWindow();
 		std::cout << "Level could not be loaded!" << std::endl;
 		return 1;
 	}
@@ -563,7 +576,7 @@ int main(int, char**)
 	SDL_Quit();
 	//PhysFS::deinit();
 
-	closeConsoleWindow();
+	//closeConsoleWindow();
 
     return 0;
 }

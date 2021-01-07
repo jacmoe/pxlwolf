@@ -19,6 +19,8 @@ set(CMAKE_TOOLCHAIN_FILE ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/scripts/buildsystems/
 
 project(pixelwolf)
 
+add_subdirectory(spdlog)
+
 set(CMAKE_CXX_STANDARD 17)
 
 if(UNIX)
