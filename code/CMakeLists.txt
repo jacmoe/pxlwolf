@@ -26,7 +26,6 @@ set(Sources
 set(Includes
     ../${IncludeDir}/Camera.hpp
     ../${IncludeDir}/Game.hpp
-    ../${IncludeDir}/IRenderer.hpp
     ../${IncludeDir}/MathLib.hpp
     ../${IncludeDir}/RayCaster.hpp
     ../${IncludeDir}/SDLDeleter.hpp

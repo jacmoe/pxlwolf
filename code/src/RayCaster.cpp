@@ -16,7 +16,7 @@
 #include "RayCaster.hpp"
 
 #include "Camera.hpp"
-#include "IRenderer.hpp"
+#include "SDLRenderer.hpp"
 
 RayCaster::RayCaster(
         const std::vector< std::vector<int> >& map,
@@ -28,18 +28,18 @@ RayCaster::RayCaster(
     , height_(height)
 {}
 
-void RayCaster::drawTop(IRenderer* renderer)
+void RayCaster::drawTop(SDLRenderer* renderer)
 {
     renderer->setDrawColor(128, 128, 128);
     renderer->fillRectangle(0, 0, width_, height_ / 2);
 }
 
-void RayCaster::drawTop(IRenderer* renderer, SDL_Texture* top_texture)
+void RayCaster::drawTop(SDLRenderer* renderer, SDL_Texture* top_texture)
 {
     renderer->drawTexture(top_texture);
 }
 
-void RayCaster::drawBottom(IRenderer* renderer)
+void RayCaster::drawBottom(SDLRenderer* renderer)
 {
     renderer->setDrawColor(160, 160, 160);
     renderer->fillRectangle(0, height_ / 2, width_, height_);
@@ -49,7 +49,7 @@ void RayCaster::drawBottom(IRenderer* renderer)
  * Calculate how the screen should look to the user based on their position on the map
  */
 // TODO: Very long function
-void RayCaster::drawWalls(IRenderer* renderer, const Camera& camera)
+void RayCaster::drawWalls(SDLRenderer* renderer, const Camera& camera)
 {
     // Cast rays horizontally
     for (int x = 0; x < width_; ++x)
@@ -159,7 +159,7 @@ void RayCaster::drawWalls(IRenderer* renderer, const Camera& camera)
 }
 
 void RayCaster::drawPlainColoredStripe(
-    IRenderer* renderer,
+    SDLRenderer* renderer,
     const int x,
     const mymath::Point2d<int>& square_on_map,
     const int draw_start,

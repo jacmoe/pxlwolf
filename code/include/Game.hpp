@@ -18,21 +18,21 @@
 #include <string>
 #include <vector>
 #include <memory>
-#include <SDL2/SDL.h> // TODO: Abstract away
+#include <SDL.h>
 
 #include "Camera.hpp"
-#include "IRenderer.hpp"
+#include "SDLRenderer.hpp"
 #include "RayCaster.hpp"
-#include "SDLDeleter.hpp"  // TODO: Abstract away
+#include "SDLDeleter.hpp"
 
 typedef std::vector< std::vector<int> > Map;
 
 static const int WINDOW_WIDTH = 1024;
 static const int WINDOW_HEIGHT = 768;
 
-static const float BASE_MOVEMENT_SPEED = 0.035;
-static const float RUN_MOVEMENT_SPEED = BASE_MOVEMENT_SPEED + 0.04;
-static const float CURSOR_TURN_SPEED = 0.03;
+static const float BASE_MOVEMENT_SPEED = 0.035f;
+static const float RUN_MOVEMENT_SPEED = BASE_MOVEMENT_SPEED + 0.04f;
+static const float CURSOR_TURN_SPEED = 0.03f;
 
 class Game
 {
@@ -49,7 +49,7 @@ class Game
         bool overview_map_on;
         float movement_speed_;
 
-        std::unique_ptr<IRenderer> renderer_;
+        std::unique_ptr<SDLRenderer> renderer_;
         RayCaster raycaster_;
         Camera camera_;
 
