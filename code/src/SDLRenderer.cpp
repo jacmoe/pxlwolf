@@ -106,8 +106,7 @@ void SDLRenderer::fillRectangle(
 
 SDL_Texture* SDLRenderer::loadTexture(const std::string& path)
 {
-    std::string absolute_path = std::string(SDL_GetBasePath()) + path.c_str();
-    SDL_Surface* tmp_surface = SDL_LoadBMP(absolute_path.c_str());
+    SDL_Surface* tmp_surface = SDL_LoadBMP(path.c_str());
     if (!tmp_surface)
     {
         errorMessage_ = std::string("Error loading texture: " + std::string(SDL_GetError()));

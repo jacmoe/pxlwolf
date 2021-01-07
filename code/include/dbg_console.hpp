@@ -13,27 +13,13 @@
 #
 #   MIT License
 #*/
+#pragma once
+#ifdef _WIN32
 #include <iostream>
-#include <stdexcept>
+#include <windows.h>
+#include <fstream>
+#include <streambuf>
+#endif //_WIN32
 
-#include "Game.hpp"
-
-int main(int argc, char **argv)
-{
-    Game game;
-    // TODO: Remove exception handling
-    try
-    {
-        game.init();
-        SPDLOG_INFO("Starting the loop . . .");
-        game.run();
-    }
-    catch (std::runtime_error& e)
-    {
-        std::cerr << e.what() << std::endl;
-        return -1;
-    }
-
-    return 0;
-}
-
+void CreateConsoleWindow();
+void closeConsoleWindow();

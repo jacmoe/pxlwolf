@@ -20,6 +20,18 @@
 #include <sstream>
 #include <stdexcept>
 #include <chrono>
+#include <filesystem>
+
+#include "rapidjson/filereadstream.h"
+#include "rapidjson/document.h"
+#include "rapidjson/istreamwrapper.h"
+#define DG_MISC_IMPLEMENTATION
+#include "DG_misc.hpp"
+#include "utils.hpp"
+#include "dbg_console.hpp"
+
+#include "spdlog/sinks/basic_file_sink.h"
+#include "spdlog/sinks/stdout_color_sinks.h"
 
 #include "SDLRenderer.hpp"
 #include "WallTypes.hpp"
@@ -46,10 +58,33 @@ Game::~Game()
     top_texture_.reset();
     renderer_.reset();
     SDL_Quit();
+	closeConsoleWindow();
 }
 
 void Game::init()
 {
+    // Get executable pah
+	std::string path = DG_GetExecutableDir();
+    // Remove the build directory, so that we land on appropriate directory for asset loading
+	std::vector<std::string> strList;
+    strList.push_back("/build/code/");
+    strList.push_back("\\build\\code\\");
+    strList.push_back("Release");
+    strList.push_back("Debug");
+    utils::eraseSubStrings(path, strList);
+    // Set a proper working directory
+	std::filesystem::current_path(path);
+
+	CreateConsoleWindow();
+
+	auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
+	auto file_sink = std::make_shared<spdlog::sinks::basic_file_sink_mt>("logs/pxllog.txt", true);
+	spdlog::sinks_init_list sink_list = { file_sink, console_sink };
+	pxllogger = std::make_shared<spdlog::logger>("multi_sink", spdlog::sinks_init_list({console_sink, file_sink}));
+	spdlog::set_default_logger(pxllogger);
+	spdlog::set_pattern("[%l] [%D %T] [%s] [%!] [line %#] %v");
+	SPDLOG_INFO("PixelWolf starting up . . .");
+
     // Initialize SDL window and renderer
     bool success = renderer_->initialize(
             WINDOW_WIDTH,
@@ -96,8 +131,7 @@ void Game::init()
 
 Map Game::loadMap(const std::string& path)
 {
-    std::string absolute_path = std::string(SDL_GetBasePath()) + path.c_str();
-    std::ifstream file(absolute_path, std::ios::in);
+    std::ifstream file(path, std::ios::in);
     if (file)
     {
         std::string line;

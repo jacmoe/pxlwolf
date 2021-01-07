@@ -13,27 +13,27 @@
 #
 #   MIT License
 #*/
-#include <iostream>
-#include <stdexcept>
+#include "utils.hpp"
 
-#include "Game.hpp"
-
-int main(int argc, char **argv)
+/*
+ * Erase all Occurrences of given substring from main string.
+ */
+void utils::eraseAllSubStr(std::string & mainStr, const std::string & toErase)
 {
-    Game game;
-    // TODO: Remove exception handling
-    try
+    size_t pos = std::string::npos;
+    // Search for the substring in string in a loop untill nothing is found
+    while ((pos  = mainStr.find(toErase) )!= std::string::npos)
     {
-        game.init();
-        SPDLOG_INFO("Starting the loop . . .");
-        game.run();
+        // If found then erase it from string
+        mainStr.erase(pos, toErase.length());
     }
-    catch (std::runtime_error& e)
-    {
-        std::cerr << e.what() << std::endl;
-        return -1;
-    }
-
-    return 0;
 }
-
+/*
+ * Erase all Occurrences of all given substrings from main string using C++11 stuff
+ */
+void utils::eraseSubStrings(std::string & mainStr, const std::vector<std::string> & strList)
+{
+    // Iterate over the given list of substrings. For each substring call eraseAllSubStr() to
+    // remove its all occurrences from main string.
+    std::for_each(strList.begin(), strList.end(), std::bind(eraseAllSubStr, std::ref(mainStr), std::placeholders::_1));
+}

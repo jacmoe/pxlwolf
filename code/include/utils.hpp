@@ -14,56 +14,22 @@
 #   MIT License
 #*/
 #pragma once
-
 #include <string>
 #include <vector>
-#include <memory>
-#include <SDL.h>
-#include "spdlog/spdlog.h"
+#include <algorithm>
+#include <functional>
 
-#include "Camera.hpp"
-#include "SDLRenderer.hpp"
-#include "RayCaster.hpp"
-#include "SDLDeleter.hpp"
+namespace utils {
+  /*
+  * Erase all Occurrences of given substring from main string.
+  * Lifted from https://thispointer.com/how-to-remove-substrings-from-a-string-in-c/
+  */
+  void eraseAllSubStr(std::string & mainStr, const std::string & toErase);
 
-typedef std::vector< std::vector<int> > Map;
+  /*
+  * Erase all Occurrences of all given substrings from main string using C++11 stuff
+  * Lifted from https://thispointer.com/how-to-remove-substrings-from-a-string-in-c/
+  */
+  void eraseSubStrings(std::string & mainStr, const std::vector<std::string> & strList);
 
-static const int WINDOW_WIDTH = 1024;
-static const int WINDOW_HEIGHT = 768;
-
-static const float BASE_MOVEMENT_SPEED = 0.035f;
-static const float RUN_MOVEMENT_SPEED = BASE_MOVEMENT_SPEED + 0.04f;
-static const float CURSOR_TURN_SPEED = 0.03f;
-
-class Game
-{
-    public:
-        Game();
-        ~Game();
-
-        void init();
-        void run();
-
-    private:
-        bool running_;
-        Map map_;
-        bool overview_map_on;
-        float movement_speed_;
-
-        std::unique_ptr<SDLRenderer> renderer_;
-        RayCaster raycaster_;
-        Camera camera_;
-
-        std::shared_ptr<spdlog::logger> pxllogger;
-        
-        SDL_Event e_;
-        std::unique_ptr<SDL_Texture, SDLDeleter> top_texture_;
-
-        Map loadMap(const std::string& path);
-
-        void event();
-        void update();
-        void render();
-
-        void drawMap();
-};
+}

@@ -27,7 +27,6 @@ class SDLRenderer
     public:
         SDLRenderer();
 
-        // IRenderer interface
         virtual ~SDLRenderer();
         virtual bool initialize(
                 const uint16_t screen_width,
