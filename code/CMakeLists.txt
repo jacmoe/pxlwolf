@@ -16,20 +16,24 @@
 set(TARGET_NAME pxlwolf)
 
 set(Sources
+    ./src/Application.cpp
     ./src/Camera.cpp
     ./src/dbg_console.cpp
     ./src/Game.cpp
     ./src/Main.cpp
+    ./src/Map.cpp
     ./src/RayCaster.cpp
     ./src/SDLRenderer.cpp
     ./src/utils.cpp
 )
 
 set(Includes
+    ../${IncludeDir}/Application.hpp
     ../${IncludeDir}/Camera.hpp
     ../${IncludeDir}/dbg_console.hpp
     ../${IncludeDir}/DG_misc.hpp
     ../${IncludeDir}/Game.hpp
+    ../${IncludeDir}/Map.hpp
     ../${IncludeDir}/MathLib.hpp
     ../${IncludeDir}/RayCaster.hpp
     ../${IncludeDir}/SDLDeleter.hpp

@@ -13,34 +13,4 @@
 #
 #   MIT License
 #*/
-#include "Game.hpp"
-
-Game::Game()
-{}
-
-Game::~Game()
-{}
-
-// Called once on application startup, use to load your resources
-bool Game::OnUserCreate()
-{
-    SPDLOG_INFO("Creating things");
-    return true;
-}
-// Called every frame, and provides you with a time per frame value
-bool Game::OnUserUpdate(float fElapsedTime)
-{
-    static bool did_it = false;
-    if(!did_it)
-    {
-        SPDLOG_INFO("Updating");
-        did_it = true;
-    }
-    return true;
-}
-// Called once on application termination, so you can be one clean coder
-bool Game::OnUserDestroy()
-{
-    SPDLOG_INFO("Destroying things");
-    return true;
-}
+#include "Map.hpp"
