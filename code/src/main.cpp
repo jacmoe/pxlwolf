@@ -42,7 +42,7 @@
 
 #include "spdlog/spdlog.h"
 #include "spdlog/sinks/basic_file_sink.h"
-
+#include "spdlog/sinks/stdout_color_sinks.h"
 
 std::shared_ptr<spdlog::logger> pxllogger;
 
@@ -61,7 +61,6 @@ double deg2rad (double degrees) {
 
 bool load_level(const std::string& level_file, const std::string& level_name, bool from_zip = false)
 {
-	SPDLOG_INFO("Loading level . . .");
     char readBuffer[65536];
     rapidjson::Document document;
 	FILE* fp = nullptr;
@@ -83,10 +82,15 @@ bool load_level(const std::string& level_file, const std::string& level_name, bo
     {
         std::string level_name_ = (*itr)["identifier"].GetString();
 		bool found = (std::find(level_names.begin(), level_names.end(), level_name_) != level_names.end());
-		if(!found) level_names.push_back(level_name);
+		if(!found)
+		{
+			SPDLOG_INFO("Adding {} to the list of level names", level_name);
+			level_names.push_back(level_name);
+		}
 		if(level_name_ == level_name)
 		{
 			level_found = true;
+			SPDLOG_INFO("Loading level {}", level_name);
 			const rapidjson::Value& layerInstances = (*itr)["layerInstances"];
 			for (rapidjson::Value::ConstValueIterator itr = layerInstances.Begin(); itr != layerInstances.End(); ++itr)
 			{
@@ -99,9 +103,11 @@ bool load_level(const std::string& level_file, const std::string& level_name, bo
 						std::string identifier = (*itr)["__identifier"].GetString();
 						if(identifier == "PlayerStart")
 						{
+							SPDLOG_INFO("Parsing {} . . .", identifier);
 							player_x = (*itr)["__grid"].GetArray()[0].GetFloat() + 0.5f;
 							player_y = (*itr)["__grid"].GetArray()[1].GetFloat() + 0.5f;
 							player_heading = static_cast<float>(deg2rad((*itr)["fieldInstances"].GetArray()[0]["__value"].GetFloat()));
+							SPDLOG_INFO("PlayerStart : ({},{}), and angle is {}", player_x, player_y, player_heading);
 						}
 					}
 				}
@@ -196,7 +202,7 @@ void DoStuffToStruct(MyStruct& myStruct)
 
 void test_lua()
 {
-	SPDLOG_INFO("We are in the test_lua function");
+	SPDLOG_INFO("Testing Lua . . .");
 
     sol::state lua{};
     lua.open_libraries(sol::lib::base);
@@ -339,23 +345,28 @@ int main(int, char**)
     strList.push_back("Debug");
     utils::eraseSubStrings(path, strList);
 
+	CreateConsoleWindow();
+
     // Set a proper working directory
 	std::filesystem::current_path(path);
 
-	pxllogger = spdlog::basic_logger_mt("pxl_logger", "logs/pxllog.txt");
-	pxllogger->info("PixelWolf Starting up . . .");	
+	auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
+	auto file_sink = std::make_shared<spdlog::sinks::basic_file_sink_mt>("logs/pxllog.txt", true);
+	spdlog::sinks_init_list sink_list = { file_sink, console_sink };
+	pxllogger = std::make_shared<spdlog::logger>("multi_sink", spdlog::sinks_init_list({console_sink, file_sink}));
 	spdlog::set_default_logger(pxllogger);
-	
-	//CreateConsoleWindow();
+	spdlog::set_pattern("[%l] [%D %T] [%s] [%!] [line %#] %v");
+	SPDLOG_INFO("PixelWolf starting up . . .");
 
 	test_lua();
 
+	//SPDLOG_INFO("Initializing PhysFS.");
 	//PhysFS::init (nullptr);
 	//PhysFS::mount("assets.zip", "", 1);
 
     if(!load_level("assets/levels/levels.ldtk", "Level2"))
 	{
-		//closeConsoleWindow();
+		closeConsoleWindow();
 		std::cout << "Level could not be loaded!" << std::endl;
 		return 1;
 	}
@@ -471,7 +482,7 @@ int main(int, char**)
 	bool quit = false;
 	bool paused = false;
 	bool pauseKeyPressed = false;
-	bool map_shown = true;
+	bool map_shown = false;
 	bool mapKeyPressed = false;
 	uint8_t frameCounter = 0;
 	uint32_t realRunTime = 0;
@@ -576,7 +587,7 @@ int main(int, char**)
 	SDL_Quit();
 	//PhysFS::deinit();
 
-	//closeConsoleWindow();
+	closeConsoleWindow();
 
     return 0;
 }
