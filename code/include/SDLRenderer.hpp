@@ -1,5 +1,19 @@
-#ifndef SDLRENDERER_H
-#define SDLRENDERER_H
+/*# This file is part of the
+# ██████╗ ██╗  ██╗██╗     ██╗    ██╗ ██████╗ ██╗     ███████╗
+# ██╔══██╗╚██╗██╔╝██║     ██║    ██║██╔═══██╗██║     ██╔════╝
+# ██████╔╝ ╚███╔╝ ██║     ██║ █╗ ██║██║   ██║██║     █████╗  
+# ██╔═══╝  ██╔██╗ ██║     ██║███╗██║██║   ██║██║     ██╔══╝  
+# ██║     ██╔╝ ██╗███████╗╚███╔███╔╝╚██████╔╝███████╗██║     
+# ╚═╝     ╚═╝  ╚═╝╚══════╝ ╚══╝╚══╝  ╚═════╝ ╚══════╝╚═╝     
+#   project
+#
+#   https://github.com/jacmoe/pxlwolf
+#
+#   (c) 2020 - 2021 Jacob Moena
+#
+#   MIT License
+#*/
+#pragma once
 
 #include "IRenderer.hpp"
 #include "SDLDeleter.hpp"
@@ -54,6 +68,3 @@ class SDLRenderer : public IRenderer {
         SDLRendererPtr renderer_;
         std::string errorMessage_;
 };
-
-#endif  // SDLRENDERER_H
-

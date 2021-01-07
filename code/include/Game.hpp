@@ -1,5 +1,19 @@
-#ifndef GAME_H
-#define GAME_H
+/*# This file is part of the
+# ██████╗ ██╗  ██╗██╗     ██╗    ██╗ ██████╗ ██╗     ███████╗
+# ██╔══██╗╚██╗██╔╝██║     ██║    ██║██╔═══██╗██║     ██╔════╝
+# ██████╔╝ ╚███╔╝ ██║     ██║ █╗ ██║██║   ██║██║     █████╗  
+# ██╔═══╝  ██╔██╗ ██║     ██║███╗██║██║   ██║██║     ██╔══╝  
+# ██║     ██╔╝ ██╗███████╗╚███╔███╔╝╚██████╔╝███████╗██║     
+# ╚═╝     ╚═╝  ╚═╝╚══════╝ ╚══╝╚══╝  ╚═════╝ ╚══════╝╚═╝     
+#   project
+#
+#   https://github.com/jacmoe/pxlwolf
+#
+#   (c) 2020 - 2021 Jacob Moena
+#
+#   MIT License
+#*/
+#pragma once
 
 #include <string>
 #include <vector>
@@ -50,5 +64,3 @@ class Game
 
         void drawMap();
 };
-
-#endif

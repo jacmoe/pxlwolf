@@ -1,5 +1,19 @@
-#ifndef SDL_DELETER
-#define SDL_DELETER
+/*# This file is part of the
+# ██████╗ ██╗  ██╗██╗     ██╗    ██╗ ██████╗ ██╗     ███████╗
+# ██╔══██╗╚██╗██╔╝██║     ██║    ██║██╔═══██╗██║     ██╔════╝
+# ██████╔╝ ╚███╔╝ ██║     ██║ █╗ ██║██║   ██║██║     █████╗  
+# ██╔═══╝  ██╔██╗ ██║     ██║███╗██║██║   ██║██║     ██╔══╝  
+# ██║     ██╔╝ ██╗███████╗╚███╔███╔╝╚██████╔╝███████╗██║     
+# ╚═╝     ╚═╝  ╚═╝╚══════╝ ╚══╝╚══╝  ╚═════╝ ╚══════╝╚═╝     
+#   project
+#
+#   https://github.com/jacmoe/pxlwolf
+#
+#   (c) 2020 - 2021 Jacob Moena
+#
+#   MIT License
+#*/
+#pragma once
 
 #include <SDL.h>
 
@@ -10,5 +24,3 @@ struct SDLDeleter
     void operator()(SDL_Surface* surface) { SDL_FreeSurface(surface); }
     void operator()(SDL_Texture* texture) { SDL_DestroyTexture(texture); }
 };
-
-#endif

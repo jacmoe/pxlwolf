@@ -1,5 +1,19 @@
-#ifndef RAYCASTER_H 
-#define RAYCASTER_H
+/*# This file is part of the
+# ██████╗ ██╗  ██╗██╗     ██╗    ██╗ ██████╗ ██╗     ███████╗
+# ██╔══██╗╚██╗██╔╝██║     ██║    ██║██╔═══██╗██║     ██╔════╝
+# ██████╔╝ ╚███╔╝ ██║     ██║ █╗ ██║██║   ██║██║     █████╗  
+# ██╔═══╝  ██╔██╗ ██║     ██║███╗██║██║   ██║██║     ██╔══╝  
+# ██║     ██╔╝ ██╗███████╗╚███╔███╔╝╚██████╔╝███████╗██║     
+# ╚═╝     ╚═╝  ╚═╝╚══════╝ ╚══╝╚══╝  ╚═════╝ ╚══════╝╚═╝     
+#   project
+#
+#   https://github.com/jacmoe/pxlwolf
+#
+#   (c) 2020 - 2021 Jacob Moena
+#
+#   MIT License
+#*/
+#pragma once
 
 #include "WallTypes.hpp"
 #include "MathLib.hpp"
@@ -37,5 +51,3 @@ class RayCaster
             const int side
         );
 };
-
-#endif

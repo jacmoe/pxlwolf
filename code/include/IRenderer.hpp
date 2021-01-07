@@ -1,5 +1,19 @@
-#ifndef IRENDERER_H
-#define IRENDERER_H
+/*# This file is part of the
+# ██████╗ ██╗  ██╗██╗     ██╗    ██╗ ██████╗ ██╗     ███████╗
+# ██╔══██╗╚██╗██╔╝██║     ██║    ██║██╔═══██╗██║     ██╔════╝
+# ██████╔╝ ╚███╔╝ ██║     ██║ █╗ ██║██║   ██║██║     █████╗  
+# ██╔═══╝  ██╔██╗ ██║     ██║███╗██║██║   ██║██║     ██╔══╝  
+# ██║     ██╔╝ ██╗███████╗╚███╔███╔╝╚██████╔╝███████╗██║     
+# ╚═╝     ╚═╝  ╚═╝╚══════╝ ╚══╝╚══╝  ╚═════╝ ╚══════╝╚═╝     
+#   project
+#
+#   https://github.com/jacmoe/pxlwolf
+#
+#   (c) 2020 - 2021 Jacob Moena
+#
+#   MIT License
+#*/
+#pragma once
 
 #include <string>
 
@@ -40,5 +54,3 @@ class IRenderer {
         virtual void drawTexture(SDL_Texture* texture) = 0;
         virtual std::string errorMessage() const = 0;
 };
-
-#endif  // IRENDERER_H
