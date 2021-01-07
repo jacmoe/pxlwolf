@@ -26,9 +26,6 @@
 
 typedef std::vector< std::vector<int> > Map;
 
-static const int WINDOW_WIDTH = 1024;
-static const int WINDOW_HEIGHT = 768;
-
 static const float BASE_MOVEMENT_SPEED = 0.035f;
 static const float RUN_MOVEMENT_SPEED = BASE_MOVEMENT_SPEED + 0.04f;
 static const float CURSOR_TURN_SPEED = 0.03f;
@@ -39,13 +36,13 @@ class Application
         Application();
         virtual ~Application();
 
-        void init();
+        void init(const int width, const int height, const std::string title);
         void run();
 
 		// Called once on application startup, use to load your resources
 		virtual bool OnUserCreate();
 		// Called every frame, and provides you with a time per frame value
-		virtual bool OnUserUpdate(float fElapsedTime);
+		virtual bool OnUserUpdate(double fDeltaTime);
 		// Called once on application termination, so you can be one clean coder
 		virtual bool OnUserDestroy();
 

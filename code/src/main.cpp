@@ -24,7 +24,7 @@ int main(int argc, char **argv)
     // TODO: Remove exception handling
     try
     {
-        game.init();
+        game.init(360 * 3, 240 * 3, "PixelWolf");
         SPDLOG_INFO("Starting the loop . . .");
         game.run();
     }

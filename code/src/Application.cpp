@@ -19,7 +19,6 @@
 #include <fstream>
 #include <sstream>
 #include <stdexcept>
-#include <chrono>
 #include <filesystem>
 
 #include "rapidjson/filereadstream.h"
@@ -49,8 +48,8 @@ Application::Application()
     , overview_map_on(false)
     , movement_speed_(BASE_MOVEMENT_SPEED)
     , renderer_(new SDLRenderer)
-    , raycaster_(map_, WINDOW_WIDTH, WINDOW_HEIGHT)
     , camera_(4.5, 4.5, 1, 0, 0, -0.60, map_)
+    , raycaster_{}
 {}
 
 Application::~Application()
@@ -66,7 +65,7 @@ bool Application::OnUserCreate()
     return true;
 }
 
-bool Application::OnUserUpdate(float fElapsedTime)
+bool Application::OnUserUpdate(double fDeltaTime)
 {
     return true;
 }
@@ -113,7 +112,7 @@ void Application::setup_logging()
 	spdlog::set_pattern("[%l] [%D %T] [%s] [%!] [line %#] %v");
 }
 
-void Application::init()
+void Application::init(const int width, const int height, const std::string title)
 {
     setup_working_directory();
 
@@ -125,9 +124,9 @@ void Application::init()
 
     // Initialize SDL window and renderer
     bool success = renderer_->initialize(
-            WINDOW_WIDTH,
-            WINDOW_HEIGHT,
-            "PixelWolf"
+            width,
+            height,
+            title
             );
     if (!success)
     {
@@ -149,6 +148,8 @@ void Application::init()
         SDL_Quit();
         throw e;
     }
+
+    raycaster_.init(map_, width, height);
 
     // Load sky texture
     top_texture_.reset(renderer_->loadTexture(
@@ -197,13 +198,12 @@ Map Application::loadMap(const std::string& path)
 
 void Application::run()
 {
-    using namespace std::chrono;
-    using namespace std::chrono_literals;
-
-    constexpr nanoseconds TIME_STEP(16ms);
-
-    high_resolution_clock::time_point previous_time = high_resolution_clock::now();
-    nanoseconds lag(0ns);
+	uint8_t frameCounter = 0;
+	uint32_t realRunTime = 0;
+	double realRunTimeF = 0;
+	double dt = 0;
+	uint32_t runTime = SDL_GetTicks();
+	double runTimeF = (double)runTime/1000;
 
     running_ = true;
 
@@ -211,19 +211,13 @@ void Application::run()
 
     while (running_)
     {
-        high_resolution_clock::time_point now = high_resolution_clock::now();
-        auto delta = now - previous_time;
-        previous_time = now;
-
-        lag += delta;
+		realRunTime = SDL_GetTicks();		
+		realRunTimeF = (double)realRunTime/1000;
 
         event();
-        while (lag >= TIME_STEP)
-        {
-            update();
-            OnUserUpdate(2.0f);
-            lag -= TIME_STEP;
-        }
+
+        update();
+        OnUserUpdate(realRunTimeF);
 
         render();
     }

@@ -28,13 +28,15 @@ bool Game::OnUserCreate()
     return true;
 }
 // Called every frame, and provides you with a time per frame value
-bool Game::OnUserUpdate(float fElapsedTime)
+bool Game::OnUserUpdate(double fDeltaTime)
 {
     static bool did_it = false;
+    static unsigned short counter = 0;
     if(!did_it)
     {
-        SPDLOG_INFO("Updating");
-        did_it = true;
+        SPDLOG_INFO("Updating with fDeltaTime : {}", fDeltaTime);
+        counter++;
+        if(counter > 10) did_it = true;
     }
     return true;
 }

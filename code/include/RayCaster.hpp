@@ -28,8 +28,10 @@ class SDLRenderer;
 class RayCaster
 {
     public:
-        RayCaster(
-            const std::vector< std::vector<int> >& map,
+        RayCaster();
+
+        void init(
+            const std::vector< std::vector<int> > map,
             const int width,
             const int height
         );
@@ -40,7 +42,7 @@ class RayCaster
         void drawWalls(SDLRenderer* renderer, const Camera& camera);
 
     private:
-        const std::vector< std::vector<int> >& map_;
+        std::vector< std::vector<int> > map_;
         int width_, height_;
 
         void drawPlainColoredStripe(

@@ -18,15 +18,18 @@
 #include "Camera.hpp"
 #include "SDLRenderer.hpp"
 
-RayCaster::RayCaster(
-        const std::vector< std::vector<int> >& map,
+RayCaster::RayCaster()
+{}
+
+void RayCaster::init(const std::vector< std::vector<int> > map,
         const int width,
         const int height
 )
-    : map_(map)
-    , width_(width)
-    , height_(height)
-{}
+{
+    map_ = map;
+    width_ = width;
+    height_ = height;
+}
 
 void RayCaster::drawTop(SDLRenderer* renderer)
 {
