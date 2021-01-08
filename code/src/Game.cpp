@@ -26,7 +26,6 @@ Game::~Game()
 // Called once on application startup, use to load your resources
 bool Game::OnUserCreate()
 {
-    SPDLOG_INFO("Creating things");
     Map map;
     map.load("assets/levels/levels.ldtk", "Level1");
     write_text("PixelWolf");
@@ -51,6 +50,5 @@ bool Game::OnUserRender()
 // Called once on application termination, so you can be one clean coder
 bool Game::OnUserDestroy()
 {
-    SPDLOG_INFO("Destroying things");
     return true;
 }

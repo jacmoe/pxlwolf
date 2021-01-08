@@ -84,7 +84,9 @@
 			"xloctime": "cpp",
 			"xstddef": "cpp",
 			"xstring": "cpp",
-			"xtree": "cpp"
+			"xtree": "cpp",
+			"bitset": "cpp",
+			"cstdarg": "cpp"
 		}
 	}
 }

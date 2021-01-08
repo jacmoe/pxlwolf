@@ -22,7 +22,6 @@ int main(int argc, char **argv)
 
     if(game.init("PixelWolf", 360, 240, 2))
     {
-        SPDLOG_INFO("Starting the loop . . .");
         game.run();
     }
 
