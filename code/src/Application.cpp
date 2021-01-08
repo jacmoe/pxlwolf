@@ -21,9 +21,6 @@
 #include <stdexcept>
 #include <filesystem>
 
-#include "rapidjson/filereadstream.h"
-#include "rapidjson/document.h"
-#include "rapidjson/istreamwrapper.h"
 #define DG_MISC_IMPLEMENTATION
 #include "DG_misc.hpp"
 #include "utils.hpp"
