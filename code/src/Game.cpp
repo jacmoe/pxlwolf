@@ -14,6 +14,7 @@
 #   MIT License
 #*/
 #include "Game.hpp"
+#include "Map.hpp"
 
 Game::Game()
 {}
@@ -25,6 +26,9 @@ Game::~Game()
 bool Game::OnUserCreate()
 {
     SPDLOG_INFO("Creating things");
+    Map map;
+    map.load("assets/levels/levels.ldtk", "Level1");
+
     return true;
 }
 // Called every frame, and provides you with a time per frame value

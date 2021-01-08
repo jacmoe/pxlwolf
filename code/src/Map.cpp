@@ -21,6 +21,8 @@
 #include "spdlog/spdlog.h"
 
 #include <algorithm>
+#include <iostream>
+#include <fstream>
 
 Map::Map()
 : map_width(0)
@@ -39,20 +41,29 @@ double Map::deg2rad (double degrees) {
 
 bool Map::load(const std::string& file_name, const std::string& level_name, bool from_zip)
 {
-    char readBuffer[65536];
     rapidjson::Document document;
-	FILE* fp = nullptr;
+	std::fstream fp;
 	bool level_found = false;
 
     if(from_zip)
 	{
 		PhysFS::ifstream fp(file_name);
+		if(!fp)
+		{
+			SPDLOG_ERROR("Was unable to load '{}' from zip", file_name);
+			return false;
+		}
 		rapidjson::IStreamWrapper isw(fp);
 	    document.ParseStream(isw);
 	} else {
-		fp = fopen(file_name.c_str(), "rb");
-    	rapidjson::FileReadStream is(fp, readBuffer, sizeof(readBuffer));
-	    document.ParseStream(is);
+		fp.open(file_name, std::fstream::in);
+		if(!fp)
+		{
+			SPDLOG_ERROR("Was unable to load '{}'", file_name);
+			return false;
+		}
+		rapidjson::IStreamWrapper isw(fp);
+	    document.ParseStream(isw);
 	}
 
     const rapidjson::Value& levels = document["levels"];
@@ -147,7 +158,7 @@ bool Map::load(const std::string& file_name, const std::string& level_name, bool
 	{
 		// I am probably leaving resources dangling, oh no . . . ;)
 	} else {
-		fclose(fp);
+		if(fp) fp.close();
 	}
     return level_found;
 }
