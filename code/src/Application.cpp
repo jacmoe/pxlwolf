@@ -95,7 +95,7 @@ void Application::setup_logging()
 	spdlog::set_pattern("[%l] [%D %T] [%s] [%!] [line %#] %v");
 }
 
-bool Application::init(const int width, const int height, const std::string title)
+bool Application::init(const std::string title, const int width, const int height, const int scale)
 {
     setup_working_directory();
 
@@ -107,9 +107,10 @@ bool Application::init(const int width, const int height, const std::string titl
 
     // Initialize SDL window and renderer
     bool success = renderer_->initialize(
+            title,
             width,
             height,
-            title
+            scale
             );
     if (!success)
     {

@@ -29,9 +29,11 @@ class SDLRenderer
 
         virtual ~SDLRenderer();
         virtual bool initialize(
+                const std::string& window_title,
                 const uint16_t screen_width,
                 const uint16_t screen_height,
-                const std::string& window_title);
+                const uint16_t screen_scale
+                );
         virtual void clearScreen();
         virtual void refreshScreen();
         virtual void setDrawColor(

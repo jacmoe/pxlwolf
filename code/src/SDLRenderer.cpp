@@ -20,9 +20,11 @@ SDLRenderer::SDLRenderer() = default;
 SDLRenderer::~SDLRenderer() = default;
 
 bool SDLRenderer::initialize(
+        const std::string& window_title,
         const uint16_t screen_width,
         const uint16_t screen_height,
-        const std::string& window_title)
+        const uint16_t screen_scale
+        )
 {
     if (0 != SDL_Init(SDL_INIT_VIDEO))
     {
@@ -34,8 +36,8 @@ bool SDLRenderer::initialize(
                 window_title.c_str(),
                 SDL_WINDOWPOS_UNDEFINED,
                 SDL_WINDOWPOS_UNDEFINED,
-                screen_width,
-                screen_height,
+                screen_width * screen_scale,
+                screen_height * screen_scale,
                 SDL_WINDOW_SHOWN
                 ));
     if (!window_)

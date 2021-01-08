@@ -28,7 +28,7 @@ class Application
         Application();
         virtual ~Application();
 
-        bool init(const int width, const int height, const std::string title);
+        bool init(const std::string title, const int width, const int height, const int scale = 1);
         void run();
 
 		// Called once on application startup, use to load your resources

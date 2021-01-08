@@ -20,7 +20,7 @@ int main(int argc, char **argv)
 {
     Game game;
 
-    if(game.init(360 * 3, 240 * 3, "PixelWolf"))
+    if(game.init("PixelWolf", 360, 240, 2))
     {
         SPDLOG_INFO("Starting the loop . . .");
         game.run();
