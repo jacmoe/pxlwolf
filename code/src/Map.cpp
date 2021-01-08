@@ -88,27 +88,61 @@ bool Map::load(const std::string& file_name, const std::string& level_name, bool
 							SPDLOG_INFO("PlayerStart : ({},{}), and angle is {}", player_x, player_y, player_heading);
 						}
 					}
-				}
+				} // if layer type is Entities
 				if(layer_type == "IntGrid")
 				{
 					map_width = (*itr)["__cWid"].GetInt();
 					map_height = (*itr)["__cHei"].GetInt();
 
-					// set the size of levelMap and fill it with zeroes.
-					map_.assign(map_width * map_height, 0);
+					std::string identifier = (*itr)["__identifier"].GetString();
+					SPDLOG_INFO("Parsing IntGrid {} . . .", identifier);
+
+					// Set the size of walls, floor and ceiling vectors and fill it with zeroes.
+					// For debugging purposes, only zero out if found
+					if(identifier == "Walls")
+					{
+						walls.assign(map_width * map_height, 0);
+					}
+					if(identifier == "Floor")
+					{
+						floor.assign(map_width * map_height, 0);
+					}
+					if(identifier == "Ceiling")
+					{
+						ceiling.assign(map_width * map_height, 0);
+					}
 
 					const rapidjson::Value& initGrid = (*itr)["intGrid"];
 
 					for (rapidjson::Value::ConstValueIterator itr = initGrid.Begin(); itr != initGrid.End(); ++itr)
 					{
-						// Add one to wall values so that zero becomes walkable area
-						map_[(*itr)["coordId"].GetInt()] = (*itr)["v"].GetInt() + 1;
+						if(identifier == "Walls")
+						{
+							// Add one to wall values so that zero becomes walkable area
+							walls[(*itr)["coordId"].GetInt()] = (*itr)["v"].GetInt() + 1;
+						}
+						if(identifier == "Floor")
+						{
+							// Add one to floor values because LDtk starts from zero
+							floor[(*itr)["coordId"].GetInt()] = (*itr)["v"].GetInt() + 1;
+						}
+						if(identifier == "Ceiling")
+						{
+							// Add one to ceiling values because LDtk starts from zero
+							ceiling[(*itr)["coordId"].GetInt()] = (*itr)["v"].GetInt() + 1;
+						}
 					}
-				}
+				} // if layer type is IntGrid
 
-			}
-		}
-    }
+			} // for layer instances
+		} // If level_name == ...
+    } // all levels
+	
+	SPDLOG_INFO("Map loaded");
+	SPDLOG_INFO("Walls is of size {}", walls.size());
+	SPDLOG_INFO("Floor is of size {}", floor.size());
+	SPDLOG_INFO("Ceiling is of size {}", ceiling.size());
+
 	if(from_zip)
 	{
 		// I am probably leaving resources dangling, oh no . . . ;)
@@ -118,13 +152,24 @@ bool Map::load(const std::string& file_name, const std::string& level_name, bool
     return level_found;
 }
 
-int Map::get_map_entry(int tile_x, int tile_y)
+int Map::get_wall_entry(int tile_x, int tile_y)
 {
     int item = int(tile_y) * map_width + int(tile_x);
-    return map_[item];
+    return walls[item];
 }
 
-const std::vector<int>& Map::get_map()
+const std::vector<int>& Map::get_walls()
 {
-    return map_;
+    return walls;
 }
+
+const std::vector<int>& Map::get_floor()
+{
+    return floor;
+}
+
+const std::vector<int>& Map::get_ceiling()
+{
+    return ceiling;
+}
+

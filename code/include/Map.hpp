@@ -27,10 +27,14 @@ public:
 
     bool load(const std::string& file_name, const std::string& level_name, bool from_zip = false);
 
-    const std::vector<int>& get_map();
+    const std::vector<int>& get_walls();
+    const std::vector<int>& get_floor();
+    const std::vector<int>& get_ceiling();
 
 private:
-    std::vector<int> map_;
+    std::vector<int> walls;
+    std::vector<int> floor;
+    std::vector<int> ceiling;
     std::list<std::string> level_names;
     int map_width;
     int map_height;
@@ -38,6 +42,6 @@ private:
     int player_y;
     float player_heading;
 
-    int get_map_entry(int tile_x, int tile_y);
+    int get_wall_entry(int tile_x, int tile_y);
     double deg2rad (double degrees);
 };
