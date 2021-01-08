@@ -71,16 +71,19 @@ bool Map::load(const std::string& file_name, const std::string& level_name, bool
     for (rapidjson::Value::ConstValueIterator itr = levels.Begin(); itr != levels.End(); ++itr)
     {
         std::string level_name_ = (*itr)["identifier"].GetString();
-		bool found = (std::find(level_names.begin(), level_names.end(), level_name_) != level_names.end());
+		bool found = false;
+		for (std::string level : level_names)
+		{
+			if(level == level_name_) found = true;
+		}
 		if(!found)
 		{
-			SPDLOG_INFO("Adding {} to the list of level names", level_name);
-			level_names.push_back(level_name);
+			level_names.push_back(level_name_);
 		}
 		if(level_name_ == level_name)
 		{
 			level_found = true;
-			SPDLOG_INFO("Loading level {}", level_name);
+			SPDLOG_INFO("Loading level '{}'", level_name);
 			const rapidjson::Value& layerInstances = (*itr)["layerInstances"];
 			for (rapidjson::Value::ConstValueIterator itr = layerInstances.Begin(); itr != layerInstances.End(); ++itr)
 			{
@@ -93,11 +96,10 @@ bool Map::load(const std::string& file_name, const std::string& level_name, bool
 						std::string identifier = (*itr)["__identifier"].GetString();
 						if(identifier == "PlayerStart")
 						{
-							SPDLOG_INFO("Parsing {} . . .", identifier);
 							player_x = (*itr)["__grid"].GetArray()[0].GetFloat() + 0.5f;
 							player_y = (*itr)["__grid"].GetArray()[1].GetFloat() + 0.5f;
 							player_heading = static_cast<float>(deg2rad((*itr)["fieldInstances"].GetArray()[0]["__value"].GetFloat()));
-							SPDLOG_INFO("PlayerStart : ({},{}), and angle is {}", player_x, player_y, player_heading);
+							SPDLOG_INFO("PlayerStart : ({}, {}), and angle is {}", player_x, player_y, player_heading);
 						}
 					}
 				} // if layer type is Entities
@@ -107,7 +109,7 @@ bool Map::load(const std::string& file_name, const std::string& level_name, bool
 					map_height = (*itr)["__cHei"].GetInt();
 
 					std::string identifier = (*itr)["__identifier"].GetString();
-					SPDLOG_INFO("Parsing IntGrid {} . . .", identifier);
+					SPDLOG_INFO("Parsing IntGrid '{}' . . .", identifier);
 
 					// Set the size of walls, floor and ceiling vectors and fill it with zeroes.
 					// For debugging purposes, only zero out if found
@@ -150,13 +152,9 @@ bool Map::load(const std::string& file_name, const std::string& level_name, bool
 		} // If level_name == ...
     } // all levels
 	
-	SPDLOG_INFO("Map loaded");
-	SPDLOG_INFO("Walls is of size {}", walls.size());
-	SPDLOG_INFO("Floor is of size {}", floor.size());
-	SPDLOG_INFO("Ceiling is of size {}", ceiling.size());
-
 	if(level_found)
 	{
+		SPDLOG_INFO("Level '{}' initialized.", level_name);
 		initialized = true;
 	}
 

@@ -35,20 +35,11 @@ bool Game::OnUserCreate()
 // Called every frame, and provides you with a time per frame value
 bool Game::OnUserUpdate(double fDeltaTime)
 {
-    static bool did_it = false;
-    static unsigned short counter = 0;
-    if(!did_it)
-    {
-        SPDLOG_INFO("Updating with fDeltaTime : {}", fDeltaTime);
-        counter++;
-        if(counter > 10) did_it = true;
-    }
     return true;
 }
 
 bool Game::OnUserRender()
 {
-    write_text("PixelWolf");
 	SDL_Rect dst;
 	dst.x = 10;
 	dst.y = 10;
