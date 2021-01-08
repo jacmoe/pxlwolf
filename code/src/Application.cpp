@@ -35,8 +35,8 @@
 Application::Application()
     : running(false)
     , m_renderer(nullptr)
-    , font_name("/assets/fonts/MedievalSharp-Bold.ttf")
-    , font_size(12)
+    , font_name("assets/fonts/MedievalSharp-Bold.ttf")
+    , font_size(16)
     , font_color({255, 255, 255, 255})
 {}
 
@@ -72,11 +72,8 @@ bool Application::OnUserRender()
 
 bool Application::write_text(const std::string text)
 {
-    SDL_Color color = { 255, 255, 255, 255 };
-	SDL_Surface* surf = TTF_RenderText_Blended(m_font, text.c_str(), color);
+	SDL_Surface* surf = TTF_RenderText_Blended(m_font, text.c_str(), font_color);
 	if (surf == nullptr){
-		//TTF_CloseFont(font);
-		//logSDLError(std::cout, "TTF_RenderText");
         SPDLOG_ERROR("Can't render the font!");
 		return false;
 	}
@@ -124,7 +121,7 @@ void Application::setup_logging()
 
 void Application::load_font()
 {
-    m_font = TTF_OpenFont("assets/fonts/MedievalSharp-Bold.ttf", 16);
+    m_font = TTF_OpenFont(font_name.c_str(), font_size);
 	if (m_font == nullptr){
         SPDLOG_ERROR("Cannot load font!");
 	}	
