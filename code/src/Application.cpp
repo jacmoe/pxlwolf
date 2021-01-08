@@ -21,6 +21,8 @@
 #include <stdexcept>
 #include <filesystem>
 
+#include <SDL.h>
+
 #define DG_MISC_IMPLEMENTATION
 #include "DG_misc.hpp"
 #include "utils.hpp"
@@ -31,14 +33,19 @@
 
 
 Application::Application()
-    : running_(false)
-    , renderer_(new SDLRenderer)
+    : running(false)
+    , m_renderer(nullptr)
+    , font_name("/assets/fonts/MedievalSharp-Bold.ttf")
+    , font_size(12)
+    , font_color({255, 255, 255, 255})
 {}
 
 Application::~Application()
 {
-    //top_texture_.reset();
-    renderer_.reset();
+    TTF_CloseFont(m_font);
+    m_font_texture.reset();
+    m_renderer.reset();
+    TTF_Quit();
     SDL_Quit();
 	closeConsoleWindow();
 }
@@ -55,6 +62,26 @@ bool Application::OnUserUpdate(double fDeltaTime)
 
 bool Application::OnUserDestroy()
 {
+    return true;
+}
+
+bool Application::OnUserRender()
+{
+    return true;
+}
+
+bool Application::write_text(const std::string text)
+{
+    SDL_Color color = { 255, 255, 255, 255 };
+	SDL_Surface* surf = TTF_RenderText_Blended(m_font, text.c_str(), color);
+	if (surf == nullptr){
+		//TTF_CloseFont(font);
+		//logSDLError(std::cout, "TTF_RenderText");
+        SPDLOG_ERROR("Can't render the font!");
+		return false;
+	}
+    m_font_texture.reset(SDL_CreateTextureFromSurface(m_renderer.get(), surf));
+	SDL_FreeSurface(surf);
     return true;
 }
 
@@ -88,11 +115,19 @@ void Application::setup_logging()
 	auto file_sink = std::make_shared<spdlog::sinks::basic_file_sink_mt>(logfile_name, true);
 	spdlog::sinks_init_list sink_list = { file_sink, console_sink };
 	// Make the logger use both console and file logger
-    pxllogger = std::make_shared<spdlog::logger>("multi_sink", spdlog::sinks_init_list({console_sink, file_sink}));
+    m_pxllogger = std::make_shared<spdlog::logger>("multi_sink", spdlog::sinks_init_list({console_sink, file_sink}));
 	// Set the standard logger so that we can use it freely everywhere
-    spdlog::set_default_logger(pxllogger);
+    spdlog::set_default_logger(m_pxllogger);
 	// Set the format pattern - [Loglevel] [Date Time] [File] [Function] [Line] message
 	spdlog::set_pattern("[%l] [%D %T] [%s] [%!] [line %#] %v");
+}
+
+void Application::load_font()
+{
+    m_font = TTF_OpenFont("assets/fonts/MedievalSharp-Bold.ttf", 16);
+	if (m_font == nullptr){
+        SPDLOG_ERROR("Cannot load font!");
+	}	
 }
 
 bool Application::init(const std::string title, const int width, const int height, const int scale)
@@ -103,20 +138,23 @@ bool Application::init(const std::string title, const int width, const int heigh
 
     setup_logging();
 
+    TTF_Init();
+    load_font();
+
 	SPDLOG_INFO("PixelWolf starting up . . .");
 
-    // Initialize SDL window and renderer
-    bool success = renderer_->initialize(
-            title,
-            width,
-            height,
-            scale
-            );
-    if (!success)
-    {
-        SPDLOG_ERROR("Renderer could not be initialized : {}", renderer_->errorMessage());
-        return false;
-    }
+
+	m_window.reset(SDL_CreateWindow(
+		title.c_str(),
+		300, 100,
+		width * scale, height * scale,
+		SDL_WINDOW_OPENGL
+	));
+
+	m_renderer.reset(SDL_CreateRenderer(m_window.get(), -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC));
+	SDL_RenderSetScale(m_renderer.get(), scale, scale);
+	SDL_SetRenderDrawBlendMode(m_renderer.get(), SDL_BLENDMODE_BLEND);
+
     return true;
 }
 
@@ -129,11 +167,11 @@ void Application::run()
 	uint32_t runTime = SDL_GetTicks();
 	double runTimeF = (double)runTime/1000;
 
-    running_ = true;
+    running = true;
 
-    if (!OnUserCreate()) running_ = false;
+    if (!OnUserCreate()) running = false;
 
-    while (running_)
+    while (running)
     {
 		realRunTime = SDL_GetTicks();		
 		realRunTimeF = (double)realRunTime/1000;
@@ -157,14 +195,14 @@ void Application::event()
         switch (e_.type)
         {
             case SDL_QUIT:
-                running_ = false;
+                running = false;
                 break;
 
             case SDL_KEYDOWN:
                 switch (e_.key.keysym.sym)
                 {
                     case SDLK_ESCAPE:
-                        running_ = false;
+                        running = false;
                         break;
                 }
         }
@@ -177,7 +215,10 @@ void Application::update()
 
 void Application::render()
 {
-    renderer_->clearScreen();
+    SDL_SetRenderDrawColor(m_renderer.get(), 0, 0, 0, 255);
+    SDL_RenderClear(m_renderer.get());
 
-    renderer_->refreshScreen();
+    OnUserRender();
+
+    SDL_RenderPresent(m_renderer.get());
 }

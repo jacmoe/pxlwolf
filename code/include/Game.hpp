@@ -29,4 +29,6 @@ class Game : public Application
 		bool OnUserUpdate(double fDeltaTime) override;
 		// Called once on application termination, so you can be one clean coder
 		bool OnUserDestroy() override;
+
+		bool OnUserRender() override;
 };
