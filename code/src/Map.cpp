@@ -27,9 +27,10 @@
 Map::Map()
 : map_width(0)
 , map_height(0)
-, player_x(0)
-, player_y(0)
+, player_x(0.0f)
+, player_y(0.0f)
 , player_heading(0.0f)
+, initialized(false)
 {}
 
 Map::~Map()
@@ -154,6 +155,11 @@ bool Map::load(const std::string& file_name, const std::string& level_name, bool
 	SPDLOG_INFO("Floor is of size {}", floor.size());
 	SPDLOG_INFO("Ceiling is of size {}", ceiling.size());
 
+	if(level_found)
+	{
+		initialized = true;
+	}
+
 	if(from_zip)
 	{
 		// I am probably leaving resources dangling, oh no . . . ;)
@@ -184,3 +190,7 @@ const std::vector<int>& Map::get_ceiling()
     return ceiling;
 }
 
+const bool Map::is_initialized()
+{
+	return initialized;
+}

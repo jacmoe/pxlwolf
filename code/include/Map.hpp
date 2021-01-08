@@ -30,6 +30,7 @@ public:
     const std::vector<int>& get_walls();
     const std::vector<int>& get_floor();
     const std::vector<int>& get_ceiling();
+    const bool is_initialized();
 
 private:
     std::vector<int> walls;
@@ -38,9 +39,10 @@ private:
     std::list<std::string> level_names;
     int map_width;
     int map_height;
-    int player_x;
-    int player_y;
+    float player_x;
+    float player_y;
     float player_heading;
+    bool initialized;
 
     int get_wall_entry(int tile_x, int tile_y);
     double deg2rad (double degrees);
