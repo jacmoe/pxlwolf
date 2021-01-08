@@ -60,7 +60,7 @@ class Application
         
         void setup_working_directory();
         void setup_logging();
-        void load_font();
+        bool load_font();
 
         void event();
         void update();

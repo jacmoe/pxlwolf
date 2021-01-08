@@ -38,11 +38,12 @@ Application::Application()
     , font_name("assets/fonts/MedievalSharp-Bold.ttf")
     , font_size(16)
     , font_color({255, 255, 255, 255})
+    , m_font(nullptr)
 {}
 
 Application::~Application()
 {
-    TTF_CloseFont(m_font);
+    if(m_font != nullptr) TTF_CloseFont(m_font);
     m_font_texture.reset();
     m_renderer.reset();
     TTF_Quit();
@@ -119,12 +120,22 @@ void Application::setup_logging()
 	spdlog::set_pattern("[%l] [%D %T] [%s] [%!] [line %#] %v");
 }
 
-void Application::load_font()
+bool Application::load_font()
 {
-    m_font = TTF_OpenFont(font_name.c_str(), font_size);
-	if (m_font == nullptr){
-        SPDLOG_ERROR("Cannot load font!");
-	}	
+    if(std::filesystem::exists(font_name))
+    {
+        m_font = TTF_OpenFont(font_name.c_str(), font_size);
+        if (!m_font){
+            SPDLOG_ERROR("Cannot load font!", TTF_GetError());
+            return false;
+        }	
+    }
+    else
+    {
+        SPDLOG_ERROR("Font '{}' could not be found.", font_name);
+        return false;
+    }
+    return true;
 }
 
 bool Application::init(const std::string title, const int width, const int height, const int scale)
@@ -135,11 +146,16 @@ bool Application::init(const std::string title, const int width, const int heigh
 
     setup_logging();
 
-    TTF_Init();
-    load_font();
-
-	SPDLOG_INFO("PixelWolf starting up . . .");
-
+    if (0 != SDL_Init(SDL_INIT_VIDEO))
+    {
+        SPDLOG_ERROR("Error initializing SDL: {}", std::string(SDL_GetError()));
+        return false;
+    }
+    if (0 != TTF_Init())
+    {
+        SPDLOG_ERROR("Error initializing TTF: {}", std::string(TTF_GetError()));
+        return false;
+    }
 
 	m_window.reset(SDL_CreateWindow(
 		title.c_str(),
@@ -147,11 +163,28 @@ bool Application::init(const std::string title, const int width, const int heigh
 		width * scale, height * scale,
 		SDL_WINDOW_OPENGL
 	));
+    if (!m_window)
+    {
+        SPDLOG_ERROR("Error creating window: {}", std::string(SDL_GetError()));
+        return false;
+    }
 
 	m_renderer.reset(SDL_CreateRenderer(m_window.get(), -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC));
-	SDL_RenderSetScale(m_renderer.get(), scale, scale);
+    if (!m_renderer)
+    {
+        SPDLOG_ERROR("Error creating renderer: {}", std::string(SDL_GetError()));
+        return false;
+    }
+
+	SDL_RenderSetScale(m_renderer.get(), static_cast<float>(scale), static_cast<float>(scale));
 	SDL_SetRenderDrawBlendMode(m_renderer.get(), SDL_BLENDMODE_BLEND);
 
+    if(!load_font())
+    {
+        return false;
+    }
+
+	SPDLOG_INFO("PixelWolf initialized.");
     return true;
 }
 
