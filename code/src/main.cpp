@@ -13,25 +13,17 @@
 #
 #   MIT License
 #*/
-#include <iostream>
-#include <stdexcept>
 
 #include "Game.hpp"
 
 int main(int argc, char **argv)
 {
     Game game;
-    // TODO: Remove exception handling
-    try
+
+    if(game.init(360 * 3, 240 * 3, "PixelWolf"))
     {
-        game.init(360 * 3, 240 * 3, "PixelWolf");
         SPDLOG_INFO("Starting the loop . . .");
         game.run();
-    }
-    catch (std::runtime_error& e)
-    {
-        std::cerr << e.what() << std::endl;
-        return -1;
     }
 
     return 0;

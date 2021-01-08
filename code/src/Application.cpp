@@ -95,7 +95,7 @@ void Application::setup_logging()
 	spdlog::set_pattern("[%l] [%D %T] [%s] [%!] [line %#] %v");
 }
 
-void Application::init(const int width, const int height, const std::string title)
+bool Application::init(const int width, const int height, const std::string title)
 {
     setup_working_directory();
 
@@ -113,8 +113,10 @@ void Application::init(const int width, const int height, const std::string titl
             );
     if (!success)
     {
-        throw std::runtime_error(renderer_->errorMessage());
+        SPDLOG_ERROR("Renderer could not be initialized : {}", renderer_->errorMessage());
+        return false;
     }
+    return true;
 }
 
 void Application::run()
