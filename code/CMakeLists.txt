@@ -23,6 +23,7 @@ set(Sources
     ./src/Main.cpp
     ./src/Map.cpp
     ./src/physfs.cpp
+    ./src/Pixelator.cpp
     ./src/RayCaster.cpp
     ./src/SDLRenderer.cpp
     ./src/utils.cpp
@@ -37,6 +38,7 @@ set(Includes
     ../${IncludeDir}/Map.hpp
     ../${IncludeDir}/MathLib.hpp
     ../${IncludeDir}/physfs.hpp
+    ../${IncludeDir}/Pixelator.hpp
     ../${IncludeDir}/RayCaster.hpp
     ../${IncludeDir}/SDLDeleter.hpp
     ../${IncludeDir}/SDLRenderer.hpp
