@@ -14,6 +14,13 @@
 #   MIT License
 #*/
 #pragma once
+/**
+ * My solution to being unable to
+ * apply per-pixel effects using
+ * the SDL2 primitive render functions
+ * 
+ * @author Connor Ennis
+*/
 
 #include <SDL.h>
 #include <stdio.h>

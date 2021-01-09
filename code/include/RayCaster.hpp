@@ -14,6 +14,15 @@
 #   MIT License
 #*/
 #pragma once
+/**
+ * A basic retro-style raycasting game engine implemented
+ * entirely in SDL2. Uses textures and renderer for
+ * hardware acceleration. Also implements my PixBuffer
+ * effects for most of the graphics, shaders, etc.
+ * 
+ * @author Connor Ennis
+ * @date 11/1/2019
+ **/
 #include "Pixelator.hpp"
 #include <vector>
 

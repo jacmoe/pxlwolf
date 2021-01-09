@@ -21,7 +21,8 @@
  * 
  * (See header file for details on
  * PixBuffers)
- */
+ * @author Connor Ennis
+*/
 
 #include <omp.h>
 

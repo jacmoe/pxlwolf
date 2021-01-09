@@ -14,6 +14,16 @@
 #   MIT License
 #*/
 #pragma once
+/**
+ * Game mechanics implementation for the 
+ * rayengine. Handles things involving
+ * sprites and players, such as collisions,
+ * updates, events, and other game stuff.
+ * Also animates memes I guess
+ * 
+ * @author Connor Ennis
+ * @date 11/1/2019
+ **/
 
 #ifndef M_PI
     #define M_PI 3.14159265358979323846
