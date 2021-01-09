@@ -1,5 +1,7 @@
 All fonts downloaded from https://fonts2u.com/ - under a Freeware license.
 
-Medieval Sharp - Copyright (c) 2011, wmk69 (wmk69@o2.pl) and under the SIL Open Font License, Version 1.1.
+Font: Medieval Sharp - Copyright (c) 2011, wmk69 (wmk69@o2.pl) and under the SIL Open Font License, Version 1.1.
 
-Brignorth Regular - (C) Copyright PJL '96
+Font: Brignorth Regular - (C) Copyright PJL '96
+
+Font: 8bitoperator - © 2009, 2010, 2011, 2012, 2013 Grand Chaos Productions. Jayvee D. Enaguas (Grand Chaos)
