@@ -19,9 +19,9 @@ set(Sources
     ./src/Application.cpp
     ./src/dbg_console.cpp
     ./src/Game.cpp
-    ./src/Logic.cpp
     ./src/Main.cpp
     ./src/Map.cpp
+    ./src/Mechanics.cpp
     ./src/physfs.cpp
     ./src/Pixelator.cpp
     ./src/RayCaster.cpp
@@ -34,8 +34,8 @@ set(Includes
     ../${IncludeDir}/dbg_console.hpp
     ../${IncludeDir}/DG_misc.hpp
     ../${IncludeDir}/Game.hpp
-    ../${IncludeDir}/Logic.hpp
     ../${IncludeDir}/Map.hpp
+    ../${IncludeDir}/Mechanics.hpp
     ../${IncludeDir}/MathLib.hpp
     ../${IncludeDir}/physfs.hpp
     ../${IncludeDir}/Pixelator.hpp

@@ -13,7 +13,7 @@
 #
 #   MIT License
 #*/
-#include "Logic.hpp"
+#include "Mechanics.hpp"
 #include <cmath>
 /**
  * Game mechanics implementation for the 
