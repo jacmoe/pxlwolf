@@ -108,11 +108,11 @@ void Application::setup_logging()
         std::remove(logfile_name.c_str());
     }
 
-	// Create console logger and file logger
+	// Create console sink and file sink
     auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
 	auto file_sink = std::make_shared<spdlog::sinks::basic_file_sink_mt>(logfile_name, true);
 	spdlog::sinks_init_list sink_list = { file_sink, console_sink };
-	// Make the logger use both console and file logger
+	// Make the logger use both the console and the file sink
     m_pxllogger = std::make_shared<spdlog::logger>("multi_sink", spdlog::sinks_init_list({console_sink, file_sink}));
 	// Set the standard logger so that we can use it freely everywhere
     spdlog::set_default_logger(m_pxllogger);
