@@ -21,10 +21,9 @@
 
 int main()
 {
-    PixelBuffer* buffer = Pixelator::CreatePixelBuffer(800, 600, sf::Color::Magenta);
-    Pixelator::FillBuffer(buffer, sf::Color::Cyan);
-    const unsigned int W = 800;
-    const unsigned int H = 600;
+    PixelBuffer* buffer = Pixelator::CreatePixelBuffer(800, 600, sf::Color::Red);
+    const unsigned int W = 400;
+    const unsigned int H = 300;
     // create the window
     sf::RenderWindow window(sf::VideoMode(800, 600), "My window");
 
@@ -36,6 +35,10 @@ int main()
     sf::Sprite sprite;
     
     sprite.setTexture(texture);
+    sprite.setScale(2,2);
+
+    Pixelator::FillBuffer(buffer, commodoreColorPallette[2]);
+    texture.update(&buffer->pixels[0]);
 
     // run the program as long as the window is open
     while (window.isOpen())
@@ -51,6 +54,25 @@ int main()
 
         // clear the window with black color
         window.clear(sf::Color::Black);
+
+        sf::Color color;
+
+        for (uint32_t i = 0; i < buffer->height; i++)
+        {
+            if (i < buffer->height)
+            {
+                for (uint32_t j = 0; j < buffer->width; j++)
+                {
+                    if (j < buffer->width)
+                    {
+                        Pixelator::PutPixelAlpha(buffer, j, i, sf::Color(rand() % 255, rand() % 255, rand()% 255, rand()% 255), 1.0);
+                    }
+                }
+            }
+        }
+
+
+        texture.update(&buffer->pixels[0]);
 
         window.draw(sprite);
 

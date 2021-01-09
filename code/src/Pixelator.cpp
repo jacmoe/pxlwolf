@@ -15,6 +15,26 @@
 #*/
 #include "Pixelator.hpp"
 
+sf::Color commodoreColorPallette[16] = {
+	{0,0,0,255},		// Black
+	{255,255,255,255},	// White
+	{136,0,0,255},		// Red
+	{170,255,238,255},	// Cyan
+	{204,68,204,255},	// Purple
+	{0,204,85,255},		// Green
+	{0,0,170,255},		// Blue
+	{238,238,119,255},	// Yellow
+	{221,136,85,255},	// Orange
+	{102,68,0,255},		// Brown
+	{255,119,119,255},	// Light red
+	{51,51,51,255},		// Dark grey
+	{119,119,119,255},	// Grey
+	{170,255,102,255},	// Light green
+	{0,136,255,255},	// Light blue
+	{187,187,187,255}	// Light grey
+};
+
+
 PixelBuffer* Pixelator::CreatePixelBuffer(uint32_t width, uint32_t height, sf::Color color)
 {
     PixelBuffer* newBuffer = new PixelBuffer;

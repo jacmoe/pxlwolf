@@ -18,6 +18,9 @@
 #include <SFML/Config.hpp>
 #include <SFML/Graphics.hpp>
 
+// C64 color pallette, why not
+extern sf::Color commodoreColorPallette[16];
+
 struct PixelBuffer
 {
     std::vector<sf::Uint8> pixels;
