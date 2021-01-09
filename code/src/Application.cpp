@@ -116,8 +116,8 @@ void Application::setup_logging()
     m_pxllogger = std::make_shared<spdlog::logger>("multi_sink", spdlog::sinks_init_list({console_sink, file_sink}));
 	// Set the standard logger so that we can use it freely everywhere
     spdlog::set_default_logger(m_pxllogger);
-	// Set the format pattern - [Loglevel] [Date Time] [File] [Function] [Line] message
-	spdlog::set_pattern("[%l] [%D %T] [%s] [%!] [line %#] %v");
+	// Set the format pattern - [Loglevel] [Function] [Line] message
+	spdlog::set_pattern("[%l] [%!] [line %#] %v");
 }
 
 bool Application::load_font()
