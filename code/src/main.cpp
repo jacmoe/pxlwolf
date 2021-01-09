@@ -14,17 +14,49 @@
 #   MIT License
 #*/
 
-#include "Game.hpp"
+#include <SFML/Config.hpp>
+#include <SFML/Graphics.hpp>
 
-int main(int argc, char **argv)
+#include "Pixelator.hpp"
+
+int main()
 {
-    Game game;
+    PixelBuffer* buffer = Pixelator::CreatePixelBuffer(800, 600, sf::Color::Magenta);
+    Pixelator::FillBuffer(buffer, sf::Color::Cyan);
+    const unsigned int W = 800;
+    const unsigned int H = 600;
+    // create the window
+    sf::RenderWindow window(sf::VideoMode(800, 600), "My window");
 
-    if(game.init("PixelWolf", 360, 240, 2))
+    sf::Texture texture;
+    texture.create(W, H);
+
+    texture.update(&buffer->pixels[0]);
+
+    sf::Sprite sprite;
+    
+    sprite.setTexture(texture);
+
+    // run the program as long as the window is open
+    while (window.isOpen())
     {
-        game.run();
+        // check all the window's events that were triggered since the last iteration of the loop
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            // "close requested" event: we close the window
+            if (event.type == sf::Event::Closed)
+                window.close();
+        }
+
+        // clear the window with black color
+        window.clear(sf::Color::Black);
+
+        window.draw(sprite);
+
+        // end the current frame
+        window.display();
     }
 
     return 0;
 }
-

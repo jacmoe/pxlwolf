@@ -16,32 +16,32 @@
 set(TARGET_NAME pxlwolf)
 
 set(Sources
-    ./src/Application.cpp
+    #./src/Application.cpp
     ./src/dbg_console.cpp
-    ./src/Game.cpp
+    #./src/Game.cpp
     ./src/Main.cpp
-    ./src/Map.cpp
-    ./src/Mechanics.cpp
-    ./src/physfs.cpp
+    #./src/Map.cpp
+    #./src/Mechanics.cpp
+    #./src/physfs.cpp
     ./src/Pixelator.cpp
-    ./src/RayCaster.cpp
-    ./src/SDLRenderer.cpp
+    #./src/RayCaster.cpp
+    #./src/SDLRenderer.cpp
     ./src/utils.cpp
 )
 
 set(Includes
-    ../${IncludeDir}/Application.hpp
+    #../${IncludeDir}/Application.hpp
     ../${IncludeDir}/dbg_console.hpp
     ../${IncludeDir}/DG_misc.hpp
-    ../${IncludeDir}/Game.hpp
-    ../${IncludeDir}/Map.hpp
-    ../${IncludeDir}/Mechanics.hpp
-    ../${IncludeDir}/MathLib.hpp
-    ../${IncludeDir}/physfs.hpp
+    #../${IncludeDir}/Game.hpp
+    #../${IncludeDir}/Map.hpp
+    #../${IncludeDir}/Mechanics.hpp
+    #../${IncludeDir}/MathLib.hpp
+    #../${IncludeDir}/physfs.hpp
     ../${IncludeDir}/Pixelator.hpp
-    ../${IncludeDir}/RayCaster.hpp
-    ../${IncludeDir}/SDLDeleter.hpp
-    ../${IncludeDir}/SDLRenderer.hpp
+    #../${IncludeDir}/RayCaster.hpp
+    #../${IncludeDir}/SDLDeleter.hpp
+    #../${IncludeDir}/SDLRenderer.hpp
     ../${IncludeDir}/utils.hpp
 )
 
@@ -77,4 +77,5 @@ if (UNIX)
             )
 endif (UNIX)
 
-target_link_libraries(pxlwolf optimized spdlog ${LIBS_RELEASE} debug spdlog ${LIBS_DEBUG})
+#target_link_libraries(pxlwolf optimized spdlog ${LIBS_RELEASE} debug spdlog ${LIBS_DEBUG})
+target_link_libraries(pxlwolf spdlog ${LIBS_DEBUG})
