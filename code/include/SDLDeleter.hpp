@@ -14,6 +14,11 @@
 #   MIT License
 #*/
 #pragma once
+/*
+* Coded by Balint Kiss for his Raycaster-engine project at https://github.com/balintkissdev/raycaster-engine
+* Copyright (c) 2012-2021 Balint Kiss - MIT licensed.
+* Modified slightly by Jacob Moena (added the TTF_Font)
+*/
 
 #include <SDL.h>
 #include <SDL_ttf.h>

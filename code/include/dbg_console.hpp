@@ -14,6 +14,8 @@
 #   MIT License
 #*/
 #pragma once
+// Creates a console window for a Windows program
+// It does nothing on Linux, but it is not needed since we are running in the console there anyway ;)
 #ifdef _WIN32
 #include <iostream>
 #include <windows.h>
