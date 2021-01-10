@@ -36,6 +36,7 @@ Application::Application()
     , m_scale(0)
     , m_width(0)
     , m_height(0)
+    , m_fullscreen(false)
     , m_renderwindow(nullptr)
     , m_font_name("assets/fonts/MedievalSharp-Bold.ttf")
     , m_font_size(16)
@@ -49,6 +50,7 @@ Application::Application()
 
 Application::~Application()
 {
+	SPDLOG_INFO("PixelWolf shutdown.");
     m_renderwindow.reset();
 	closeConsoleWindow();
 }
@@ -134,12 +136,13 @@ bool Application::load_font()
     return true;
 }
 
-bool Application::init(const std::string title, const int width, const int height, const float scale)
+bool Application::init(const std::string title, const int width, const int height, const float scale, const bool fullscreen)
 {
     m_width = width;
     m_height = height;
     m_scale = scale;
     m_title = title;
+    m_fullscreen = fullscreen;
 
     setup_working_directory();
 
@@ -147,9 +150,20 @@ bool Application::init(const std::string title, const int width, const int heigh
 
     setup_logging();
 
-	m_renderwindow.reset(new sf::RenderWindow(
-        sf::VideoMode(m_width * static_cast<unsigned int>(m_scale), m_height * static_cast<unsigned int>(m_scale)), m_title
-	));
+    if(fullscreen)
+    {
+        m_renderwindow.reset(new sf::RenderWindow(
+            sf::VideoMode(m_width * static_cast<unsigned int>(m_scale), m_height * static_cast<unsigned int>(m_scale)), m_title
+            , sf::Style::Fullscreen
+        ));
+    }
+    else
+    {
+        m_renderwindow.reset(new sf::RenderWindow(
+            sf::VideoMode(m_width * static_cast<unsigned int>(m_scale), m_height * static_cast<unsigned int>(m_scale)), m_title
+            , sf::Style::Default
+        ));
+    }
     if (!m_renderwindow)
     {
         SPDLOG_ERROR("Error creating window");
@@ -159,7 +173,19 @@ bool Application::init(const std::string title, const int width, const int heigh
     m_rendertexture.create(m_width, m_height);
 
     m_rendersprite.setTexture(m_rendertexture);
-    m_rendersprite.setScale(m_scale, m_scale);
+
+    if(m_fullscreen)
+    {
+        unsigned int scale_x = m_renderwindow.get()->getSize().x;
+        unsigned int scale_y = m_renderwindow.get()->getSize().y;
+        unsigned int diff_x = m_width - scale_x;
+        unsigned int diff_y = m_height - scale_y;
+        m_rendersprite.setScale(m_scale + diff_x, m_scale + diff_y);
+    }
+    else
+    {
+        m_rendersprite.setScale(m_scale, m_scale);
+    }
 
     if(!load_font())
     {

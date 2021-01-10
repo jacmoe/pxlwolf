@@ -26,7 +26,7 @@ class Application : private sf::NonCopyable
         Application();
         virtual ~Application();
 
-        bool init(const std::string title, const int width, const int height, const float scale = 1.0f);
+        bool init(const std::string title, const int width, const int height, const float scale = 1.0f, const bool fullscreen = false);
         void run();
 
 		virtual bool OnUserCreate();
@@ -36,6 +36,7 @@ class Application : private sf::NonCopyable
 
         virtual bool write_text(const std::string text);
 
+        bool m_fullscreen;
         std::string m_font_name;
         int m_font_size;
         sf::Color m_font_color;
