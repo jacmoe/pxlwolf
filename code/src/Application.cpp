@@ -142,6 +142,11 @@ bool Application::init(const std::string title, const int width, const int heigh
         return false;
     }
 
+    m_rendertexture.create(m_width, m_height);
+
+    m_rendersprite.setTexture(m_rendertexture);
+    m_rendersprite.setScale(m_scale, m_scale);
+
     if(!load_font())
     {
         return false;
@@ -162,6 +167,7 @@ void Application::run()
         event();
 
         update();
+
         OnUserUpdate(2.0f);
 
         render();
@@ -174,7 +180,6 @@ void Application::event()
     sf::Event event;
     while (m_renderwindow.get()->pollEvent(event))
     {
-        // "close requested" event: we close the window
         if (event.type == sf::Event::Closed)
             m_renderwindow.get()->close();
     }
@@ -189,6 +194,8 @@ void Application::render()
     m_renderwindow.get()->clear(sf::Color::Black);
 
     OnUserRender();
+
+    m_renderwindow.get()->draw(m_rendersprite);
 
     m_renderwindow.get()->display();
 }

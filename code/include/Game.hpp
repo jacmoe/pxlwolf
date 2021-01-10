@@ -30,7 +30,5 @@ public:
 	bool OnUserRender() override;
 	bool OnUserDestroy() override;
 private:
-	sf::Sprite sprite;
-	sf::Texture texture;
 	PixelBuffer* buffer;
 };

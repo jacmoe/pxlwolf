@@ -39,11 +39,13 @@ class Application
         std::string font_name;
         int font_size;
         sf::Color font_color;
-        int m_scale;
+        float m_scale;
         int m_width;
         int m_height;
 
         std::unique_ptr<sf::RenderWindow> m_renderwindow;
+        sf::Sprite m_rendersprite;
+        sf::Texture m_rendertexture;
 
     private:
         bool running;

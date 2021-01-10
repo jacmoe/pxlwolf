@@ -19,19 +19,15 @@ Game::Game()
 {}
 
 Game::~Game()
-{}
+{
+}
 
 
 bool Game::OnUserCreate()
 {
-    buffer = Pixelator::CreatePixelBuffer(800, 600, sf::Color::Red);
+    buffer = Pixelator::CreatePixelBuffer(800, 600, commodoreColorPallette[4]);
 
-    texture.create(m_width, m_height);
-
-    texture.update(&buffer->pixels[0]);
-
-    sprite.setTexture(texture);
-    sprite.setScale(m_scale, m_scale);
+    m_rendertexture.update(&buffer->pixels[0]);
 
     return true;
 }
@@ -43,11 +39,11 @@ bool Game::OnUserUpdate(double fDeltaTime)
 
 bool Game::OnUserRender()
 {
-    m_renderwindow.get()->draw(sprite);
     return true;
 }
 
 bool Game::OnUserDestroy()
 {
+    delete buffer;
     return true;
 }
