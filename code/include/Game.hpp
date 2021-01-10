@@ -16,19 +16,21 @@
 #pragma once
 
 #include "Application.hpp"
+#include "Pixelator.hpp"
+#include <SFML/Graphics.hpp>
 
 class Game : public Application
 {
-    public:
-        Game();
-        ~Game();
+public:
+	Game();
+	~Game();
 
-		// Called once on application startup, use to load your resources
-		bool OnUserCreate() override;
-		// Called every frame, and provides you with a time per frame value
-		bool OnUserUpdate(double fDeltaTime) override;
-		// Called once on application termination, so you can be one clean coder
-		bool OnUserDestroy() override;
-
-		bool OnUserRender() override;
+	bool OnUserCreate() override;
+	bool OnUserUpdate(double fDeltaTime) override;
+	bool OnUserRender() override;
+	bool OnUserDestroy() override;
+private:
+	sf::Sprite sprite;
+	sf::Texture texture;
+	PixelBuffer* buffer;
 };

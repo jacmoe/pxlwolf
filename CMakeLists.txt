@@ -19,8 +19,6 @@ set(CMAKE_TOOLCHAIN_FILE ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/scripts/buildsystems/
 
 project(pixelwolf)
 
-add_subdirectory(spdlog)
-
 set(CMAKE_CXX_STANDARD 17)
 
 if(UNIX)
@@ -36,6 +34,8 @@ if(MSVC)
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MT")
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MTd")
 endif()
+
+add_subdirectory(spdlog)
 
 add_definitions(-DSFML_STATIC)
 
@@ -82,6 +82,7 @@ set(LIBS_DEBUG
     ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows-static/debug/lib/vorbis.lib
     ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows-static/debug/lib/ogg.lib
     ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows-static/debug/lib/sfml-audio-s-d.lib
+    ${CMAKE_BINARY_DIR}/spdlog/Debug/spdlogd.lib
 )
 endif(WIN32)
 if(UNIX)

@@ -17,9 +17,8 @@
 #include <string>
 #include <vector>
 #include <memory>
-#include <SDL.h>
 #include "spdlog/spdlog.h"
-#include "SDLDeleter.hpp"
+#include <SFML/Graphics.hpp>
 
 class Application
 {
@@ -30,31 +29,24 @@ class Application
         bool init(const std::string title, const int width, const int height, const int scale = 1);
         void run();
 
-		// Called once on application startup, use to load your resources
 		virtual bool OnUserCreate();
-		// Called every frame, and provides you with a time per frame value
 		virtual bool OnUserUpdate(double fDeltaTime);
-		// Called once on application termination, so you can be one clean coder
-		virtual bool OnUserDestroy();
-
 		virtual bool OnUserRender();
+		virtual bool OnUserDestroy();
 
         virtual bool write_text(const std::string text);
 
         std::string font_name;
         int font_size;
-        SDL_Color font_color;
+        sf::Color font_color;
+        int m_scale;
+        int m_width;
+        int m_height;
 
-        TTF_Font* m_font;
-        std::unique_ptr<SDL_Texture, SDLDeleter> m_font_texture;
-
-        std::unique_ptr<SDL_Window, SDLDeleter> m_window;
-        std::unique_ptr<SDL_Renderer, SDLDeleter> m_renderer;
+        std::unique_ptr<sf::RenderWindow> m_renderwindow;
 
     private:
         bool running;
-
-        SDL_Event e_;
 
         std::shared_ptr<spdlog::logger> m_pxllogger;
         

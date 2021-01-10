@@ -16,9 +16,9 @@
 set(TARGET_NAME pxlwolf)
 
 set(Sources
-    #./src/Application.cpp
+    ./src/Application.cpp
     ./src/dbg_console.cpp
-    #./src/Game.cpp
+    ./src/Game.cpp
     ./src/Main.cpp
     #./src/Map.cpp
     #./src/Mechanics.cpp
@@ -30,10 +30,10 @@ set(Sources
 )
 
 set(Includes
-    #../${IncludeDir}/Application.hpp
+    ../${IncludeDir}/Application.hpp
     ../${IncludeDir}/dbg_console.hpp
     ../${IncludeDir}/DG_misc.hpp
-    #../${IncludeDir}/Game.hpp
+    ../${IncludeDir}/Game.hpp
     #../${IncludeDir}/Map.hpp
     #../${IncludeDir}/Mechanics.hpp
     #../${IncludeDir}/MathLib.hpp
@@ -78,4 +78,4 @@ if (UNIX)
 endif (UNIX)
 
 #target_link_libraries(pxlwolf spdlog ${LIBS_RELEASE})
-target_link_libraries(pxlwolf spdlog ${LIBS_DEBUG})
+target_link_libraries(pxlwolf ${LIBS_DEBUG})
