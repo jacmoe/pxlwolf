@@ -35,7 +35,7 @@ bool Game::OnUserCreate()
 
 bool Game::OnUserUpdate(sf::Time elapsedTime)
 {
-    write_text("Hello from PixelWolf! Time is : " + std::to_string(elapsedTime.asSeconds()));
+    write_text("Hello from PixelWolf! Time is : " + std::to_string(elapsedTime.asSeconds()) + " Frames per second : " + std::to_string(m_frames_per_second));
     return true;
 }
 

@@ -42,6 +42,9 @@ Application::Application()
     , m_font_color({255, 255, 255, 255})
     , m_font()
     , m_text()
+    , m_stats_update_time()
+    , m_stats_num_frames(0)
+    , m_frames_per_second(0)
 {}
 
 Application::~Application()
@@ -186,7 +189,7 @@ void Application::run()
 
             event();
 
-            update();
+            update(m_time_per_frame);
 
             OnUserUpdate(m_time_per_frame);
 		}
@@ -206,8 +209,17 @@ void Application::event()
     }
 }
 
-void Application::update()
+void Application::update(sf::Time elapsedTime)
 {
+	m_stats_update_time += elapsedTime;
+	m_stats_num_frames += 1;
+
+	if (m_stats_update_time >= sf::seconds(1.0f))
+	{
+        m_frames_per_second = m_stats_num_frames;
+		m_stats_update_time -= sf::seconds(1.0f);
+		m_stats_num_frames = 0;
+	}
 }
 
 void Application::render()

@@ -43,12 +43,15 @@ class Application : private sf::NonCopyable
         float m_scale;
         int m_width;
         int m_height;
+		std::size_t m_frames_per_second;
 
         std::unique_ptr<sf::RenderWindow> m_renderwindow;
         sf::Texture m_rendertexture;
 
     private:
 		static const sf::Time m_time_per_frame;
+		sf::Time m_stats_update_time;
+		std::size_t m_stats_num_frames;
         bool running;
         std::string m_title;
 
@@ -61,6 +64,6 @@ class Application : private sf::NonCopyable
         bool load_font();
 
         void event();
-        void update();
+        void update(sf::Time elapsedTime);
         void render();
 };
