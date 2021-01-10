@@ -77,5 +77,5 @@ if (UNIX)
             )
 endif (UNIX)
 
-#target_link_libraries(pxlwolf optimized spdlog ${LIBS_RELEASE} debug spdlog ${LIBS_DEBUG})
+#target_link_libraries(pxlwolf spdlog ${LIBS_RELEASE})
 target_link_libraries(pxlwolf spdlog ${LIBS_DEBUG})
