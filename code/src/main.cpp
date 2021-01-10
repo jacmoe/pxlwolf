@@ -16,15 +16,14 @@
 
 #include "Game.hpp"
 
-int main(int argc, char **argv)
+int main()
 {
     Game game;
 
-    if(game.init("PixelWolf", 360, 240, 2))
+    if(game.init("PixelWolf", 360, 240, 2.0f))
     {
         game.run();
     }
 
     return 0;
 }
-
