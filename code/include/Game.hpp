@@ -26,7 +26,7 @@ public:
 	~Game();
 
 	bool OnUserCreate() override;
-	bool OnUserUpdate(double fDeltaTime) override;
+	bool OnUserUpdate(sf::Time elapsedTime) override;
 	bool OnUserRender() override;
 	bool OnUserDestroy() override;
 private:

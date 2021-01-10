@@ -22,18 +22,20 @@ Game::~Game()
 {
 }
 
-
 bool Game::OnUserCreate()
 {
-    buffer = Pixelator::CreatePixelBuffer(800, 600, commodoreColorPallette[4]);
+    buffer = Pixelator::CreatePixelBuffer(m_width, m_height, commodoreColorPallette[4]);
 
     m_rendertexture.update(&buffer->pixels[0]);
+
+    write_text("Hello from PixelWolf!");
 
     return true;
 }
 
-bool Game::OnUserUpdate(double fDeltaTime)
+bool Game::OnUserUpdate(sf::Time elapsedTime)
 {
+    write_text("Hello from PixelWolf! Time is : " + std::to_string(elapsedTime.asSeconds()));
     return true;
 }
 

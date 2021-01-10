@@ -29,6 +29,7 @@
 #include "spdlog/sinks/basic_file_sink.h"
 #include "spdlog/sinks/stdout_color_sinks.h"
 
+const sf::Time Application::m_time_per_frame = sf::seconds(1.f/60.f);
 
 Application::Application()
     : running(false)
@@ -36,9 +37,11 @@ Application::Application()
     , m_width(0)
     , m_height(0)
     , m_renderwindow(nullptr)
-    , font_name("assets/fonts/MedievalSharp-Bold.ttf")
-    , font_size(16)
-    , font_color({255, 255, 255, 255})
+    , m_font_name("assets/fonts/MedievalSharp-Bold.ttf")
+    , m_font_size(16)
+    , m_font_color({255, 255, 255, 255})
+    , m_font()
+    , m_text()
 {}
 
 Application::~Application()
@@ -52,7 +55,7 @@ bool Application::OnUserCreate()
     return true;
 }
 
-bool Application::OnUserUpdate(double fDeltaTime)
+bool Application::OnUserUpdate(sf::Time elapsedTime)
 {
     return true;
 }
@@ -69,6 +72,7 @@ bool Application::OnUserRender()
 
 bool Application::write_text(const std::string text)
 {
+    m_text.setString(text);
     return true;
 }
 
@@ -111,8 +115,14 @@ void Application::setup_logging()
 
 bool Application::load_font()
 {
-    if(std::filesystem::exists(font_name))
+    if(std::filesystem::exists(m_font_name))
     {
+        m_font.loadFromFile(m_font_name);
+        m_text.setFont(m_font);
+        m_text.setFillColor(m_font_color);
+        m_text.setPosition(10.f, 10.f);
+        m_text.setCharacterSize(m_font_size);
+        m_text.setString(m_title);
     }
     else
     {
@@ -121,11 +131,12 @@ bool Application::load_font()
     return true;
 }
 
-bool Application::init(const std::string title, const int width, const int height, const int scale)
+bool Application::init(const std::string title, const int width, const int height, const float scale)
 {
     m_width = width;
     m_height = height;
     m_scale = scale;
+    m_title = title;
 
     setup_working_directory();
 
@@ -134,7 +145,7 @@ bool Application::init(const std::string title, const int width, const int heigh
     setup_logging();
 
 	m_renderwindow.reset(new sf::RenderWindow(
-        sf::VideoMode(m_width * m_scale, m_height * m_scale), title
+        sf::VideoMode(m_width * static_cast<unsigned int>(m_scale), m_height * static_cast<unsigned int>(m_scale)), m_title
 	));
     if (!m_renderwindow)
     {
@@ -162,13 +173,23 @@ void Application::run()
 
     if (!OnUserCreate()) running = false;
 
+	sf::Clock clock;
+	sf::Time timeSinceLastUpdate = sf::Time::Zero;
+
     while (m_renderwindow.get()->isOpen())
     {
-        event();
+		sf::Time elapsedTime = clock.restart();
+		timeSinceLastUpdate += elapsedTime;
+		while (timeSinceLastUpdate > m_time_per_frame)
+		{
+			timeSinceLastUpdate -= m_time_per_frame;
 
-        update();
+            event();
 
-        OnUserUpdate(2.0f);
+            update();
+
+            OnUserUpdate(m_time_per_frame);
+		}
 
         render();
     }
@@ -196,6 +217,7 @@ void Application::render()
     OnUserRender();
 
     m_renderwindow.get()->draw(m_rendersprite);
+    m_renderwindow.get()->draw(m_text);
 
     m_renderwindow.get()->display();
 }
