@@ -15,7 +15,6 @@
 #*/
 #pragma once
 
-#include <SFML/Config.hpp>
 #include <SFML/Graphics.hpp>
 
 // C64 color pallette, why not

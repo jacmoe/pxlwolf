@@ -89,6 +89,7 @@ void Application::setup_working_directory()
 	std::vector<std::string> strList;
     strList.push_back("/build/code/");
     strList.push_back("\\build\\code\\");
+    strList.push_back("\\vsbuild\\code\\");
     strList.push_back("Release");
     strList.push_back("Debug");
     utils::eraseSubStrings(path, strList);
@@ -171,6 +172,7 @@ bool Application::init(const std::string title, const int width, const int heigh
     }
 
     m_rendertexture.create(m_width, m_height);
+    //m_rendertexture.create(64, 64);
 
     m_rendersprite.setTexture(m_rendertexture);
 

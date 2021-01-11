@@ -17,7 +17,7 @@
 #include "rapidjson/filereadstream.h"
 #include "rapidjson/document.h"
 #include "rapidjson/istreamwrapper.h"
-#include "physfs.hpp"
+//#include "physfs.hpp"
 #include "spdlog/spdlog.h"
 
 #include <algorithm>
@@ -48,14 +48,14 @@ bool Map::load(const std::string& file_name, const std::string& level_name, bool
 
     if(from_zip)
 	{
-		PhysFS::ifstream fp(file_name);
-		if(!fp)
-		{
-			SPDLOG_ERROR("Was unable to load '{}' from zip", file_name);
-			return false;
-		}
-		rapidjson::IStreamWrapper isw(fp);
-	    document.ParseStream(isw);
+		//PhysFS::ifstream fp(file_name);
+		//if(!fp)
+		//{
+		//	SPDLOG_ERROR("Was unable to load '{}' from zip", file_name);
+		//	return false;
+		//}
+		//rapidjson::IStreamWrapper isw(fp);
+	 //   document.ParseStream(isw);
 	} else {
 		fp.open(file_name, std::fstream::in);
 		if(!fp)
