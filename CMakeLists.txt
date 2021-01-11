@@ -54,4 +54,6 @@ include_directories(
     ${IncludeDir}
 )
 
+add_subdirectory(lua)
+
 add_subdirectory(code)
