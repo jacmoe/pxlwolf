@@ -23,7 +23,7 @@ set(Sources
     ./src/Main.cpp
     ./src/Map.cpp
     #./src/Mechanics.cpp
-    ./src/physfs.cpp
+    #./src/physfs.cpp
     ./src/Pixelator.cpp
     #./src/RayCaster.cpp
     ./src/utils.cpp
@@ -39,7 +39,7 @@ set(Includes
     ../${IncludeDir}/Map.hpp
     #../${IncludeDir}/Mechanics.hpp
     #../${IncludeDir}/MathLib.hpp
-    ../${IncludeDir}/physfs.hpp
+    #../${IncludeDir}/physfs.hpp
     ../${IncludeDir}/Pixelator.hpp
     #../${IncludeDir}/RayCaster.hpp
     ../${IncludeDir}/utils.hpp
@@ -77,5 +77,4 @@ if (UNIX)
             )
 endif (UNIX)
 
-#target_link_libraries(pxlwolf spdlog ${LIBS_RELEASE})
-target_link_libraries(pxlwolf ${LIBS_DEBUG})
+target_link_libraries(pxlwolf sfml-graphics sfml-system sfml-main)
