@@ -49,15 +49,19 @@ endif(WIN32)
 
 add_subdirectory(Lua)
 
+add_subdirectory(physfs)
+
 set(SPDLOG_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/spdlog/include)
 set(SOL_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/sol2)
 set(LUA_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/Lua/include)
+set(PHYSFS_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/physfs/src)
 set(IncludeDir code/include/)
 
 include_directories(
     ${SPDLOG_INCLUDE_DIR}
     ${LUA_INCLUDE_DIR}
     ${SOL_INCLUDE_DIR}
+    ${PHYSFS_INCLUDE_DIR}
     ${SFML_INCLUDE_DIRS}
     ${IncludeDir}
 )

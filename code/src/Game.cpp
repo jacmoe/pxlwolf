@@ -16,6 +16,8 @@
 #include "Game.hpp"
 #include "ImageAtlas.hpp"
 #include "lua_main.hpp"
+#include "Map.hpp"
+#include "physfs.hpp"
 
 Game::Game()
 {}
@@ -32,6 +34,17 @@ bool Game::OnUserCreate()
     lua.open_libraries(sol::lib::base);
 
     lua.script("print('Hello World from Lua!')");
+
+	SPDLOG_INFO("Testing Maploading . . .");
+
+	SPDLOG_INFO("Initializing PhysFS.");
+	PhysFS::init (nullptr);
+	PhysFS::mount("assets.zip", "", 1);
+
+    Map map;
+    map.load("assets/levels/levels.ldtk", "Level1", true);
+
+	SPDLOG_INFO("Testing ImageAtlas . . .");
 
     ImageAtlas atlas;
 
@@ -76,6 +89,7 @@ bool Game::OnUserRender()
 
 bool Game::OnUserDestroy()
 {
+	PhysFS::deinit();
     //delete buffer;
     return true;
 }
