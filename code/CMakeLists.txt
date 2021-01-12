@@ -77,4 +77,4 @@ if (UNIX)
             )
 endif (UNIX)
 
-target_link_libraries(pxlwolf liblua sfml-graphics sfml-system sfml-main)
+target_link_libraries(pxlwolf lua sfml-graphics sfml-system sfml-main)

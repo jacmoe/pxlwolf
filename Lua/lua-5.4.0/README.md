@@ -1,2 +1,0 @@
-- Add CMakeLists.txt and make.bat to a Lua 5.3.x source code download from here: https://www.lua.org/ftp/
-- Execute `make.bat`

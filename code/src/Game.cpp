@@ -15,6 +15,7 @@
 #*/
 #include "Game.hpp"
 #include "ImageAtlas.hpp"
+#include "lua_main.hpp"
 
 Game::Game()
 {}
@@ -25,6 +26,13 @@ Game::~Game()
 
 bool Game::OnUserCreate()
 {
+	SPDLOG_INFO("Testing Lua . . .");
+
+    sol::state lua{};
+    lua.open_libraries(sol::lib::base);
+
+    lua.script("print('Hello World from Lua!')");
+
     ImageAtlas atlas;
 
     atlas.Init("assets/textures/walls.png", 10, 1);

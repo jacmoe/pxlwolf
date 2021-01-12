@@ -17,6 +17,14 @@ cmake_minimum_required(VERSION 3.7)
 
 project(pixelwolf)
 
+if(MSVC)
+    add_compile_options(
+        $<$<CONFIG:>:/MT> #---------|
+        $<$<CONFIG:Debug>:/MTd> #---|-- Statically link the runtime libraries
+        $<$<CONFIG:Release>:/MT> #--|
+    )
+endif()
+
 set(CMAKE_CXX_STANDARD 17)
 
 if(UNIX)
@@ -26,12 +34,6 @@ if(UNIX)
     find_package(PNG REQUIRED)
     include_directories(${PNG_INCLUDE_DIR})
 endif(UNIX)
-
-if(MSVC)
-    add_definitions(-D_CRT_SECURE_NO_WARNINGS)
-    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MT")
-    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MTd")
-endif()
 
 if(WIN32)
 set(SFML_DIR C:/SFML/lib/cmake/SFML)
@@ -43,17 +45,21 @@ find_package(SFML 2 COMPONENTS system window graphics audio main)
 if(WIN32)
 include_directories(${WinSDK})
 set(SFML_INCLUDE_DIRS C:/SFML/include)
-set(SPDLOG_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/spdlog/include)
 endif(WIN32)
 
+add_subdirectory(Lua)
+
+set(SPDLOG_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/spdlog/include)
+set(SOL_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/sol2)
+set(LUA_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/Lua/include)
 set(IncludeDir code/include/)
 
 include_directories(
-    ${SPDLOG_INCLUDE_DIRS}
+    ${SPDLOG_INCLUDE_DIR}
+    ${LUA_INCLUDE_DIR}
+    ${SOL_INCLUDE_DIR}
     ${SFML_INCLUDE_DIRS}
     ${IncludeDir}
 )
-
-add_subdirectory(lua)
 
 add_subdirectory(code)
