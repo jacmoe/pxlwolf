@@ -171,23 +171,16 @@ bool Application::init(const std::string title, const int width, const int heigh
         return false;
     }
 
-    m_rendertexture.create(m_width, m_height);
-    //m_rendertexture.create(64, 64);
-
-    m_rendersprite.setTexture(m_rendertexture);
-
     if(m_fullscreen)
     {
-        unsigned int scale_x = m_renderwindow.get()->getSize().x;
-        unsigned int scale_y = m_renderwindow.get()->getSize().y;
-        unsigned int diff_x = m_width - scale_x;
-        unsigned int diff_y = m_height - scale_y;
-        m_rendersprite.setScale(m_scale + diff_x, m_scale + diff_y);
+        m_pixeldisplay.setSize(sf::Vector2f(m_renderwindow.get()->getSize().x, m_renderwindow.get()->getSize().y));
     }
     else
     {
-        m_rendersprite.setScale(m_scale, m_scale);
+        m_pixeldisplay.setSize(sf::Vector2f(m_width * m_scale, m_height * m_scale));
     }
+
+    m_pixeldisplay.setResolution(sf::Vector2u(m_width, m_height));
 
     if(!load_font())
     {
@@ -256,7 +249,7 @@ void Application::render()
 
     OnUserRender();
 
-    m_renderwindow.get()->draw(m_rendersprite);
+    m_renderwindow.get()->draw(m_pixeldisplay);
     m_renderwindow.get()->draw(m_text);
 
     m_renderwindow.get()->display();

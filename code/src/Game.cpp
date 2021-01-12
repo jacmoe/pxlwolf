@@ -26,6 +26,25 @@ Game::~Game()
 {
 }
 
+int getIndex(std::vector<sf::Color> v, sf::Color color)
+{
+    auto it = std::find(v.begin(), v.end(), color);
+ 
+    // If element was found
+    if (it != v.end()) 
+    {
+     
+        // calculating the index
+        // of K
+        return it - v.begin();
+    }
+    else {
+        // If the element is not
+        // present in the vector
+        return -1;
+    }
+}
+
 bool Game::OnUserCreate()
 {
 	SPDLOG_INFO("Testing Lua . . .");
@@ -48,28 +67,31 @@ bool Game::OnUserCreate()
 
     ImageAtlas atlas;
 
-    atlas.Init("assets/textures/walls.png", 10, 1);
+    atlas.Init("assets/textures/sjswalls2.bmp", 4, 3);
 
-    //buffer = Pixelator::CreatePixelBuffer(m_width, m_height, commodoreColorPallette[4]);
+    sf::Image image;
+    image.create(atlas.GetImageDimensions().x, atlas.GetImageDimensions().y, atlas.GetPixels(7));
 
-    sf::Image dest_image;
-    dest_image.create(m_width, m_height);
-
-    int x = 0;
-    for (int i = 0; i < atlas.GetRows(); i++)
+    std::vector<sf::Color> the_palette;
+    for(unsigned int px = 0; px < image.getSize().x; px++ )
     {
-        for (int j = 0; j < atlas.GetCols(); j++)
+        for(unsigned int py = 0; py < image.getSize().y; py++ )
         {
-            sf::Image image;
-            image.create(atlas.GetImageDimensions().x, atlas.GetImageDimensions().y, atlas.GetPixels(x));
-            x++;
-            dest_image.copy(image, j * atlas.GetImageDimensions().x, i * atlas.GetImageDimensions().y);
+            the_palette.push_back(image.getPixel(px, py));
         }
     }
 
-    m_rendertexture.update(dest_image);
+    m_pixeldisplay.setPalette(the_palette);
 
-    //m_rendertexture.update(pixels);
+    int idx = 0;
+    for(unsigned int px = 0; px < image.getSize().x; px++ )
+    {
+        for(unsigned int py = 0; py < image.getSize().y; py++ )
+        {
+            m_pixeldisplay.setPixel(m_pixeldisplay.getIndex(sf::Vector2u(px, py)), idx);
+            idx++;
+        }
+    }
 
     write_text("Hello from PixelWolf!");
 

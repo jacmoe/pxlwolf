@@ -55,7 +55,7 @@ set(SPDLOG_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/spdlog/include)
 set(SOL_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/sol2)
 set(LUA_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/Lua/include)
 set(PHYSFS_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/physfs/src)
-set(SelbaWardDir code/include/SelbaWard)
+set(SelbaWardDir code/SelbaWard)
 set(IncludeDir code/include/)
 
 include_directories(
