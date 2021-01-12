@@ -27,6 +27,7 @@ set(Sources
     ./src/Pixelator.cpp
     #./src/RayCaster.cpp
     ./src/utils.cpp
+    ./SelbaWard/PixelDisplay.cpp
 )
 
 set(Includes
@@ -43,6 +44,7 @@ set(Includes
     ../${IncludeDir}/Pixelator.hpp
     #../${IncludeDir}/RayCaster.hpp
     ../${IncludeDir}/utils.hpp
+    ../${SelbaWardDir}/PixelDisplay.hpp
 )
 
 if (WIN32)
