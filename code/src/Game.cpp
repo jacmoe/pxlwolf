@@ -20,6 +20,8 @@
 #include "physfs.hpp"
 #include <set>
 
+#include "tser/tser.hpp"
+
 Game::Game()
 {}
 
