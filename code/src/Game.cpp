@@ -92,6 +92,9 @@ bool Game::OnUserCreate()
 
     SPDLOG_INFO("Pixelators current buffer is '{}'", m_pixelator.getActiveBuffer());
 
+    SPDLOG_INFO("Trying to add a buffer that already exsists . . .");
+    m_pixelator.addBuffer("second_buffer");
+
     write_text("Hello from PixelWolf!");
 
     return true;

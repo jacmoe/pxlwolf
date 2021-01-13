@@ -38,7 +38,7 @@ public:
 	void randomize();
 
 	// Buffers
-	unsigned int addBuffer(const std::string name);
+	bool addBuffer(const std::string name);
 	bool removeBuffer(const std::string name);
 	void setActiveBuffer(const std::string name);
 	const std::string getActiveBuffer() { return m_current_buffer; }

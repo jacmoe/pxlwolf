@@ -44,8 +44,22 @@ Pixelator::Pixelator()
     m_buffer_map.insert({"primary", 0});
 }
 
-unsigned int Pixelator::addBuffer(const std::string name)
+bool check_key(std::unordered_map<std::string, unsigned int> m, std::string key) 
+{ 
+    if (m.find(key) == m.end()) 
+        return false; 
+  
+    return true; 
+}
+
+bool Pixelator::addBuffer(const std::string name)
 {
+    if(check_key(m_buffer_map, name))
+    {
+        SPDLOG_ERROR("Attempting to add a buffer that already exist!");
+        return false;
+    }
+
 	const unsigned int newBufferIndex{ static_cast<unsigned int>(m_buffers.size()) };
     m_buffer_map.insert({name, newBufferIndex});
 	m_buffers.emplace_back();
@@ -66,15 +80,7 @@ unsigned int Pixelator::addBuffer(const std::string name)
     m_buffers[newBufferIndex].pixels.swap(newPixels);
     m_buffers[newBufferIndex].size = m_buffers[index].size;
 
-    return newBufferIndex;
-}
-
-bool check_key(std::unordered_map<std::string, unsigned int> m, std::string key) 
-{ 
-    if (m.find(key) == m.end()) 
-        return false; 
-  
-    return true; 
+    return true;
 }
 
 bool Pixelator::removeBuffer(const std::string name)
