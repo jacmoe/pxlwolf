@@ -16,6 +16,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <unordered_map>
 
 // C64 color pallette, why not
 extern sf::Color commodoreColorPallette[16];
@@ -37,14 +38,15 @@ public:
 	void randomize();
 
 	// Buffers
-	unsigned int addBuffer();
-	bool removeBuffer(const unsigned int index);
-	void setActiveBuffer(const unsigned int index);
-	const unsigned int getActiveBuffer() { return m_current_buffer; }
+	unsigned int addBuffer(const std::string name);
+	bool removeBuffer(const std::string name);
+	void setActiveBuffer(const std::string name);
+	const std::string getActiveBuffer() { return m_current_buffer; }
 	unsigned int getNumberOfBuffers() const { return static_cast<unsigned int>(m_buffers.size()); }
 
 private:
-	unsigned int m_current_buffer;
+	std::string m_current_buffer;
+	std::unordered_map<std::string, unsigned int> m_buffer_map;
 
 	// buffers
 	struct Buffer

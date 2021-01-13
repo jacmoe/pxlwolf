@@ -67,25 +67,30 @@ bool Game::OnUserCreate()
 
     SPDLOG_INFO("Pixelators current buffer index is '{}'", m_pixelator.getActiveBuffer());
 
-    unsigned int bufnum = m_pixelator.addBuffer();
+    unsigned int bufnum = m_pixelator.addBuffer("test_buffer");
 
-    SPDLOG_INFO("Added a Pixelator buffer with index '{}'", bufnum);
+    SPDLOG_INFO("Added a Pixelator buffer with name '{}'", bufnum);
 
     SPDLOG_INFO("Pixelator has {} buffers", m_pixelator.getNumberOfBuffers());
 
     SPDLOG_INFO("Pixelators current buffer index is '{}'", m_pixelator.getActiveBuffer());
 
-    m_pixelator.removeBuffer(bufnum);
+    m_pixelator.removeBuffer("test_buffer");
 
     SPDLOG_INFO("Pixelator has {} buffers", m_pixelator.getNumberOfBuffers());
 
     SPDLOG_INFO("Trying to remove active buffer . . .");
-    m_pixelator.removeBuffer(0);
+    m_pixelator.removeBuffer("primary");
 
-    // bufnum = m_pixelator.addBuffer();
-    // m_pixelator.setActiveBuffer(bufnum);
+    m_pixelator.addBuffer("second_buffer");
+    m_pixelator.setActiveBuffer("second_buffer");
+    m_pixelator.fill(sf::Color::Blue);
 
-    // m_pixelator.fill(sf::Color::Blue);
+    m_pixelator.setActiveBuffer("primaryy");
+
+    SPDLOG_INFO("Pixelator has {} buffers", m_pixelator.getNumberOfBuffers());
+
+    SPDLOG_INFO("Pixelators current buffer is '{}'", m_pixelator.getActiveBuffer());
 
     write_text("Hello from PixelWolf!");
 

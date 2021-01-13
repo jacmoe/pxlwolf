@@ -175,7 +175,6 @@ bool Application::init(const std::string title, const int width, const int heigh
     m_rendertexture.create(m_width, m_height);
 
     m_rendersprite.setTexture(m_rendertexture);
-    m_pixelator.setSize(sf::Vector2f(m_width, m_height));
 
     if(m_fullscreen)
     {
@@ -194,6 +193,8 @@ bool Application::init(const std::string title, const int width, const int heigh
     {
         return false;
     }
+
+    m_pixelator.setSize(sf::Vector2f(static_cast<float>(m_width), static_cast<float>(m_height)));
 
 	SPDLOG_INFO("PixelWolf initialized.");
     return true;
