@@ -19,8 +19,9 @@
 #include "Map.hpp"
 #include "physfs.hpp"
 #include <set>
-
-#include "tser/tser.hpp"
+#include <fstream>
+#include <filesystem>
+#include "spdlog/stopwatch.h"
 
 Game::Game()
 {}
@@ -104,39 +105,63 @@ bool Game::OnUserCreate()
     sf::Image image;
     image.create(atlas.GetImageDimensions().x, atlas.GetImageDimensions().y, atlas.GetPixels(7));
 
-    std::vector<sf::Color> the_palette;
+    std::stringstream ss;
+
+    PaletteStruct ps;
+    ColorStruct cs;
+
+    if(std::filesystem::exists("assets/data/palcol.dat"))
+    {
+        SPDLOG_INFO("Loading from 'assets/data/palcol.dat'");
+        spdlog::stopwatch sw;
+        std::ifstream is("assets/data/palcol.dat", std::ios::in | std::ios::binary);
+
+        cereal::BinaryInputArchive iarchive(is);
+
+        iarchive(ps, cs);
+        SPDLOG_INFO("Loaded from assets/data/palcol.dat : {:.2}", sw);
+    }
+    else
+    {
+        SPDLOG_INFO("Generating 'assets/data/palcol.dat'");
+        spdlog::stopwatch sw;
+        std::ofstream os("assets/data/palcol.dat", std::ios::out | std::ios::binary);
+        cereal::BinaryOutputArchive oarchive(os);
+
+        int idx = 0;
+        for(unsigned int px = 0; px < image.getSize().x; px++ )
+        {
+            for(unsigned int py = 0; py < image.getSize().y; py++ )
+            {
+                ps.palette_colors.push_back(image.getPixel(px, py));
+                idx++;
+            }
+        }
+
+        SPDLOG_INFO("Size of the_palette before duplicate removal: {}", ps.palette_colors.size());
+        removeDuplicates(ps.palette_colors);
+        SPDLOG_INFO("Size of the_palette after duplicate removal: {}", ps.palette_colors.size());
+
+        for(unsigned int px = 0; px < image.getSize().x; px++ )
+        {
+            for(unsigned int py = 0; py < image.getSize().y; py++ )
+            {
+                cs.colors.push_back(getIndex(ps.palette_colors, image.getPixel(px, py)));
+            }
+        }
+
+        oarchive(ps, cs);
+        SPDLOG_INFO("Created assets/data/test.dat : {:.2}", sw);
+    }
+
+    m_pixeldisplay.setPalette(ps.palette_colors);
+
     int idx = 0;
     for(unsigned int px = 0; px < image.getSize().x; px++ )
     {
         for(unsigned int py = 0; py < image.getSize().y; py++ )
         {
-            the_palette.push_back(image.getPixel(px, py));
-            idx++;
-        }
-    }
-
-    SPDLOG_INFO("Size of the_palette before duplicate removal: {}", the_palette.size());
-    removeDuplicates(the_palette);
-    SPDLOG_INFO("Size of the_palette after duplicate removal: {}", the_palette.size());
-
-    std::vector<unsigned int> the_colors;
-    for(unsigned int px = 0; px < image.getSize().x; px++ )
-    {
-        for(unsigned int py = 0; py < image.getSize().y; py++ )
-        {
-            the_colors.push_back(getIndex(the_palette, image.getPixel(px, py)));
-        }
-    }
-
-
-    m_pixeldisplay.setPalette(the_palette);
-
-    idx = 0;
-    for(unsigned int px = 0; px < image.getSize().x; px++ )
-    {
-        for(unsigned int py = 0; py < image.getSize().y; py++ )
-        {
-            m_pixeldisplay.setPixel(m_pixeldisplay.getIndex(sf::Vector2u(px, py)), the_colors[idx]);
+            m_pixeldisplay.setPixel(m_pixeldisplay.getIndex(sf::Vector2u(px, py)), cs.colors[idx]);
             idx++;
         }
     }
