@@ -152,7 +152,7 @@ bool Application::init(const std::string title, const int width, const int heigh
 
     setup_logging();
 
-    if(fullscreen)
+    if(m_fullscreen)
     {
         m_renderwindow.reset(new sf::RenderWindow(
             sf::VideoMode(m_width * static_cast<unsigned int>(m_scale), m_height * static_cast<unsigned int>(m_scale)), m_title
@@ -175,6 +175,7 @@ bool Application::init(const std::string title, const int width, const int heigh
     m_rendertexture.create(m_width, m_height);
 
     m_rendersprite.setTexture(m_rendertexture);
+    m_pixelator.setSize(sf::Vector2f(m_width, m_height));
 
     if(m_fullscreen)
     {
@@ -188,8 +189,6 @@ bool Application::init(const std::string title, const int width, const int heigh
     {
         m_rendersprite.setScale(m_scale, m_scale);
     }
-
-    m_pixelator.setSize(sf::Vector2f(m_width, m_height));
 
     if(!load_font())
     {

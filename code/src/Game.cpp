@@ -65,11 +65,27 @@ bool Game::OnUserCreate()
 
     // int bufnum = m_pixelator.copy();
 
-    // SPDLOG_INFO("Pixelator has {} buffers", m_pixelator.getNumberOfBuffers());
+    SPDLOG_INFO("Pixelators current buffer index is '{}'", m_pixelator.getActiveBuffer());
 
-    // m_pixelator.addBuffer(sf::Vector2u(m_width, m_height));
+    unsigned int bufnum = m_pixelator.addBuffer();
 
-    // SPDLOG_INFO("Pixelator has {} buffers", m_pixelator.getNumberOfBuffers());
+    SPDLOG_INFO("Added a Pixelator buffer with index '{}'", bufnum);
+
+    SPDLOG_INFO("Pixelator has {} buffers", m_pixelator.getNumberOfBuffers());
+
+    SPDLOG_INFO("Pixelators current buffer index is '{}'", m_pixelator.getActiveBuffer());
+
+    m_pixelator.removeBuffer(bufnum);
+
+    SPDLOG_INFO("Pixelator has {} buffers", m_pixelator.getNumberOfBuffers());
+
+    SPDLOG_INFO("Trying to remove active buffer . . .");
+    m_pixelator.removeBuffer(0);
+
+    // bufnum = m_pixelator.addBuffer();
+    // m_pixelator.setActiveBuffer(bufnum);
+
+    // m_pixelator.fill(sf::Color::Blue);
 
     write_text("Hello from PixelWolf!");
 

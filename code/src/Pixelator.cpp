@@ -14,6 +14,7 @@
 #   MIT License
 #*/
 #include "Pixelator.hpp"
+#include "spdlog/spdlog.h"
 
 sf::Color commodoreColorPallette[16] = {
 	{0,0,0,255},		// Black
@@ -35,17 +36,20 @@ sf::Color commodoreColorPallette[16] = {
 };
 
 Pixelator::Pixelator()
-	: m_size(360.f, 240.f)
-	, m_pixels()
+    : m_current_buffer(0)
 	, m_buffers()
 {
-    setSize(m_size);
+    m_current_buffer = { static_cast<unsigned int>(m_buffers.size()) };
+	m_buffers.emplace_back();
+    setSize(sf::Vector2f(360.0f, 240.0f));
 }
 
-void Pixelator::setSize(const sf::Vector2f size)
+unsigned int Pixelator::addBuffer()
 {
-	m_size = size;
-    std::vector<sf::Uint8> newPixels(m_size.x * m_size.y * 4u);
+	const unsigned int newBufferIndex{ static_cast<unsigned int>(m_buffers.size()) };
+	m_buffers.emplace_back();
+
+    std::vector<sf::Uint8> newPixels(m_buffers[m_current_buffer].size.x * m_buffers[m_current_buffer].size.y * 4u);
     sf::Uint8* ptr = &newPixels[0];
     sf::Uint8* end = ptr + newPixels.size();
     while (ptr < end)
@@ -56,12 +60,52 @@ void Pixelator::setSize(const sf::Vector2f size)
         *ptr++ = sf::Color::Black.a;
     }
     // Commit the new pixel buffer
-    m_pixels.swap(newPixels);
+    m_buffers[newBufferIndex].pixels.swap(newPixels);
+    m_buffers[newBufferIndex].size = m_buffers[m_current_buffer].size;
+
+    return newBufferIndex;
+}
+
+bool Pixelator::removeBuffer(const unsigned int index)
+{
+	assert(index < m_buffers.size());
+    if(m_current_buffer == index)
+    {
+        // Can't remove current buffer! Raise error here.
+        SPDLOG_ERROR("Attempting to remove active buffer!");
+        return false;
+    }
+    m_buffers.erase(m_buffers.begin() + index);
+    return true;
+}
+
+void Pixelator::setActiveBuffer(const unsigned int index)
+{
+	assert(index < m_buffers.size());
+    m_current_buffer = index;
+}
+
+void Pixelator::setSize(const sf::Vector2f size)
+{
+	m_buffers[m_current_buffer].size = size;
+    std::vector<sf::Uint8> newPixels(m_buffers[m_current_buffer].size.x * m_buffers[m_current_buffer].size.y * 4u);
+    sf::Uint8* ptr = &newPixels[0];
+    sf::Uint8* end = ptr + newPixels.size();
+    while (ptr < end)
+    {
+        *ptr++ = sf::Color::Black.r;
+        *ptr++ = sf::Color::Black.g;
+        *ptr++ = sf::Color::Black.b;
+        *ptr++ = sf::Color::Black.a;
+    }
+    // Commit the new pixel buffer
+    m_buffers[m_current_buffer].pixels.swap(newPixels);
+    m_buffers[m_current_buffer].size = size;
 }
 
 void Pixelator::setPixel(unsigned int x, unsigned int y, const sf::Color& color)
 {
-    sf::Uint8* pixel = &m_pixels[(x + y * m_size.x) * 4];
+    sf::Uint8* pixel = &m_buffers[m_current_buffer].pixels[(x + y * m_buffers[m_current_buffer].size.x) * 4];
     *pixel++ = color.r;
     *pixel++ = color.g;
     *pixel++ = color.b;
@@ -70,15 +114,15 @@ void Pixelator::setPixel(unsigned int x, unsigned int y, const sf::Color& color)
 
 sf::Color Pixelator::getPixel(unsigned int x, unsigned int y) const
 {
-    const sf::Uint8* pixel = &m_pixels[(x + y * m_size.x) * 4];
+    const sf::Uint8* pixel = &m_buffers[m_current_buffer].pixels[(x + y * m_buffers[m_current_buffer].size.x) * 4];
     return sf::Color(pixel[0], pixel[1], pixel[2], pixel[3]);
 }
 
 const sf::Uint8* Pixelator::getPixelsPtr() const
 {
-    if (!m_pixels.empty())
+    if (!m_buffers[m_current_buffer].pixels.empty())
     {
-        return &m_pixels[0];
+        return &m_buffers[m_current_buffer].pixels[0];
     }
     else
     {
@@ -89,7 +133,7 @@ const sf::Uint8* Pixelator::getPixelsPtr() const
 
 void Pixelator::fill(sf::Color color)
 {
-    std::vector<sf::Uint8> newPixels(m_size.x * m_size.y * 4);
+    std::vector<sf::Uint8> newPixels(m_buffers[m_current_buffer].size.x * m_buffers[m_current_buffer].size.y * 4);
     sf::Uint8* ptr = &newPixels[0];
     sf::Uint8* end = ptr + newPixels.size();
     while (ptr < end)
@@ -100,12 +144,12 @@ void Pixelator::fill(sf::Color color)
         *ptr++ = color.a;
     }
     // Commit the new pixel buffer
-    m_pixels.swap(newPixels);
+    m_buffers[m_current_buffer].pixels.swap(newPixels);
 }
 
 void Pixelator::clear()
 {
-    std::vector<sf::Uint8> newPixels(m_size.x * m_size.y * 4);
+    std::vector<sf::Uint8> newPixels(m_buffers[m_current_buffer].size.x * m_buffers[m_current_buffer].size.y * 4);
     sf::Uint8* ptr = &newPixels[0];
     sf::Uint8* end = ptr + newPixels.size();
     while (ptr < end)
@@ -116,6 +160,5 @@ void Pixelator::clear()
         *ptr++ = sf::Color::Transparent.a;
     }
     // Commit the new pixel buffer
-    m_pixels.swap(newPixels);
+    m_buffers[m_current_buffer].pixels.swap(newPixels);
 }
-

@@ -36,14 +36,20 @@ public:
 	void clear();
 	void randomize();
 
+	// Buffers
+	unsigned int addBuffer();
+	bool removeBuffer(const unsigned int index);
+	void setActiveBuffer(const unsigned int index);
+	const unsigned int getActiveBuffer() { return m_current_buffer; }
+	unsigned int getNumberOfBuffers() const { return static_cast<unsigned int>(m_buffers.size()); }
+
 private:
-	sf::Vector2f m_size;
-	std::vector<sf::Uint8> m_pixels;
+	unsigned int m_current_buffer;
 
 	// buffers
 	struct Buffer
 	{
-		sf::Vector2u size;
+		sf::Vector2f size;
 		std::vector<sf::Uint8> pixels;
 	};
 	std::vector<Buffer> m_buffers;
