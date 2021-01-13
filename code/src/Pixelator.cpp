@@ -34,12 +34,62 @@ sf::Color commodoreColorPallette[16] = {
 	{187,187,187,255}	// Light grey
 };
 
-
-PixelBuffer* Pixelator::CreatePixelBuffer(uint32_t width, uint32_t height, sf::Color color)
+Pixelator::Pixelator()
+	: m_size(360.f, 240.f)
+	, m_pixels()
+	, m_buffers()
 {
-    PixelBuffer* newBuffer = new PixelBuffer;
-    std::vector<sf::Uint8> newPixels(width * height * 4);
-    // Fill it with the specified color
+    setSize(m_size);
+}
+
+void Pixelator::setSize(const sf::Vector2f size)
+{
+	m_size = size;
+    std::vector<sf::Uint8> newPixels(m_size.x * m_size.y * 4u);
+    sf::Uint8* ptr = &newPixels[0];
+    sf::Uint8* end = ptr + newPixels.size();
+    while (ptr < end)
+    {
+        *ptr++ = sf::Color::Black.r;
+        *ptr++ = sf::Color::Black.g;
+        *ptr++ = sf::Color::Black.b;
+        *ptr++ = sf::Color::Black.a;
+    }
+    // Commit the new pixel buffer
+    m_pixels.swap(newPixels);
+}
+
+void Pixelator::setPixel(unsigned int x, unsigned int y, const sf::Color& color)
+{
+    sf::Uint8* pixel = &m_pixels[(x + y * m_size.x) * 4];
+    *pixel++ = color.r;
+    *pixel++ = color.g;
+    *pixel++ = color.b;
+    *pixel++ = color.a;
+}
+
+sf::Color Pixelator::getPixel(unsigned int x, unsigned int y) const
+{
+    const sf::Uint8* pixel = &m_pixels[(x + y * m_size.x) * 4];
+    return sf::Color(pixel[0], pixel[1], pixel[2], pixel[3]);
+}
+
+const sf::Uint8* Pixelator::getPixelsPtr() const
+{
+    if (!m_pixels.empty())
+    {
+        return &m_pixels[0];
+    }
+    else
+    {
+        //err() << "Trying to access the pixels of an empty image" << std::endl;
+        return NULL;
+    }
+}
+
+void Pixelator::fill(sf::Color color)
+{
+    std::vector<sf::Uint8> newPixels(m_size.x * m_size.y * 4);
     sf::Uint8* ptr = &newPixels[0];
     sf::Uint8* end = ptr + newPixels.size();
     while (ptr < end)
@@ -49,61 +99,23 @@ PixelBuffer* Pixelator::CreatePixelBuffer(uint32_t width, uint32_t height, sf::C
         *ptr++ = color.b;
         *ptr++ = color.a;
     }
-
     // Commit the new pixel buffer
-    newBuffer->pixels.swap(newPixels);
-    newBuffer->width = width;
-    newBuffer->height = height;
-    return newBuffer;
+    m_pixels.swap(newPixels);
 }
 
-void Pixelator::PutPixel(PixelBuffer* buffer, uint32_t x, uint32_t y, sf::Color color)
+void Pixelator::clear()
 {
-    sf::Uint8* pixel = &buffer->pixels[(x + y * buffer->width) * 4];
-    *pixel++ = color.r;
-    *pixel++ = color.g;
-    *pixel++ = color.b;
-    *pixel++ = color.a;
-}
-
-void Pixelator::PutPixelAlpha(PixelBuffer* buffer, uint32_t x, uint32_t y, sf::Color color, double alphaNum)
-{
-    int r = color.r;
-    int g = color.g;
-    int b = color.b;
-    int a = color.a;
-    if (a)
+    std::vector<sf::Uint8> newPixels(m_size.x * m_size.y * 4);
+    sf::Uint8* ptr = &newPixels[0];
+    sf::Uint8* end = ptr + newPixels.size();
+    while (ptr < end)
     {
-        if (alphaNum*a != 0 && alphaNum*a != 255) // Alpha transparency, compute alpha based on array colors
-        {
-            double alpha = ((double)a)/255.0 * (alphaNum);
-            uint32_t oldPix = buffer->pixels[y*buffer->width+x];
-            int oldR = (int)(oldPix >> 3*8);
-            int oldG = (int)((oldPix >> 2*8) & 0xFF);
-            int oldB = (int)((oldPix >> 8) & 0xFF);
-            int oldA = (int)(oldPix & 0xFF);
-            r = (int)((double)r * alpha + (double)oldR * (1-alpha));
-            g = (int)((double)g * alpha + (double)oldG * (1-alpha));
-            b = (int)((double)b * alpha + (double)oldB * (1-alpha));
-            a = (int)((double)a * alpha + (double)oldA * (1-alpha));
-        }
-        PutPixel(buffer, x, y, sf::Color(r,g,b,a));
+        *ptr++ = sf::Color::Transparent.r;
+        *ptr++ = sf::Color::Transparent.g;
+        *ptr++ = sf::Color::Transparent.b;
+        *ptr++ = sf::Color::Transparent.a;
     }
+    // Commit the new pixel buffer
+    m_pixels.swap(newPixels);
 }
 
-void Pixelator::FillBuffer(PixelBuffer* target, sf::Color color, double alpha)
-{
-    for (uint32_t i = 0; i < target->height; i++)
-    {
-        if (i < target->height)
-        {
-            for (uint32_t j = 0; j < target->width; j++)
-            {
-                if (j < target->width)
-                {
-                    PutPixelAlpha(target, j, i, color, alpha);
-                }
-            }
-        }
-    }
-}

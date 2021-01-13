@@ -19,7 +19,7 @@
 #include <memory>
 #include "spdlog/spdlog.h"
 #include <SFML/Graphics.hpp>
-#include "PixelDisplay.hpp"
+#include "Pixelator.hpp"
 
 class Application : private sf::NonCopyable
 {
@@ -48,7 +48,8 @@ class Application : private sf::NonCopyable
 		std::size_t m_frames_per_second;
 
         std::unique_ptr<sf::RenderWindow> m_renderwindow;
-        sw::PixelDisplay m_pixeldisplay;
+        Pixelator m_pixelator;
+        sf::Texture m_rendertexture;
 
     private:
 		static const sf::Time m_time_per_frame;

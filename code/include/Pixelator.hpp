@@ -20,19 +20,32 @@
 // C64 color pallette, why not
 extern sf::Color commodoreColorPallette[16];
 
-struct PixelBuffer
-{
-    std::vector<sf::Uint8> pixels;
-    uint32_t width;
-    uint32_t height;
-};
-
 class Pixelator
 {
 public:
-	static PixelBuffer* CreatePixelBuffer(const uint32_t width, const uint32_t height, const sf::Color color);
+	Pixelator();
 
-	static void PutPixel(PixelBuffer* buffer, uint32_t x, uint32_t y, sf::Color color);
-	static void PutPixelAlpha(PixelBuffer* buffer, uint32_t x, uint32_t y, sf::Color color, double alphaNum);
-	static void FillBuffer(PixelBuffer* target, sf::Color color, double alpha = 1.0);
+	void setSize(const sf::Vector2f size);
+
+	// Pixel
+	void setPixel(unsigned int x, unsigned int y, const sf::Color& color);
+	sf::Color getPixel(unsigned int x, unsigned int y) const;
+	const sf::Uint8* getPixelsPtr() const;
+
+	void fill(sf::Color color);
+	void clear();
+	void randomize();
+
+private:
+	sf::Vector2f m_size;
+	std::vector<sf::Uint8> m_pixels;
+
+	// buffers
+	struct Buffer
+	{
+		sf::Vector2u size;
+		std::vector<sf::Uint8> pixels;
+	};
+	std::vector<Buffer> m_buffers;
+
 };

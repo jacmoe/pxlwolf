@@ -70,6 +70,4 @@ public:
 	bool OnUserUpdate(sf::Time elapsedTime) override;
 	bool OnUserRender() override;
 	bool OnUserDestroy() override;
-private:
-	PixelBuffer* buffer;
 };
