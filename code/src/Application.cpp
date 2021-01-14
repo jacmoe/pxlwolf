@@ -158,7 +158,6 @@ bool Application::init(const std::string title, const int width, const int heigh
             sf::VideoMode(m_width * static_cast<unsigned int>(m_scale), m_height * static_cast<unsigned int>(m_scale)), m_title
             , sf::Style::Fullscreen
         ));
-        m_rendersprite.setScale(1,1);
     }
     else
     {
@@ -166,8 +165,9 @@ bool Application::init(const std::string title, const int width, const int heigh
             sf::VideoMode(m_width * static_cast<unsigned int>(m_scale), m_height * static_cast<unsigned int>(m_scale)), m_title
             , sf::Style::Default
         ));
-        m_rendersprite.setScale(m_scale, m_scale);
     }
+
+    m_rendersprite.setScale(m_scale, m_scale);
 
     if (!m_renderwindow)
     {
@@ -245,7 +245,6 @@ void Application::toggle_fullscreen()
             sf::VideoMode(m_width * static_cast<unsigned int>(m_scale), m_height * static_cast<unsigned int>(m_scale)), m_title
             , sf::Style::Fullscreen
         );
-        m_rendersprite.setScale(1,1);
     }
     else
     {
@@ -253,7 +252,6 @@ void Application::toggle_fullscreen()
             sf::VideoMode(m_width * static_cast<unsigned int>(m_scale), m_height * static_cast<unsigned int>(m_scale)), m_title
             , sf::Style::Default
         );
-        m_rendersprite.setScale(m_scale, m_scale);
     }
 }
 
