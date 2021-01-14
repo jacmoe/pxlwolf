@@ -55,7 +55,7 @@ class Application : private sf::NonCopyable
 		static const sf::Time m_time_per_frame;
 		sf::Time m_stats_update_time;
 		std::size_t m_stats_num_frames;
-        bool running;
+        bool m_running;
         std::string m_title;
 
         std::shared_ptr<spdlog::logger> m_pxllogger;

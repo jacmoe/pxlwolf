@@ -32,7 +32,7 @@
 const sf::Time Application::m_time_per_frame = sf::seconds(1.f/60.f);
 
 Application::Application()
-    : running(false)
+    : m_running(false)
     , m_scale(0)
     , m_width(0)
     , m_height(0)
@@ -181,6 +181,7 @@ bool Application::init(const std::string title, const int width, const int heigh
 
     if(!load_font())
     {
+        SPDLOG_ERROR("Error loading font");
         return false;
     }
 
@@ -192,14 +193,14 @@ bool Application::init(const std::string title, const int width, const int heigh
 
 void Application::run()
 {
-    running = true;
+    m_running = true;
 
-    if (!OnUserCreate()) running = false;
+    if (!OnUserCreate()) m_running = false;
 
 	sf::Clock clock;
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
 
-    while ((m_renderwindow.get()->isOpen()) && running)
+    while ((m_renderwindow.get()->isOpen()) && m_running)
     {
 		sf::Time elapsedTime = clock.restart();
 		timeSinceLastUpdate += elapsedTime;
@@ -213,7 +214,7 @@ void Application::run()
 
             OnUserUpdate(m_time_per_frame);
             
-            running = handle_input();
+            m_running = handle_input();
 		}
 
         render();
@@ -223,19 +224,17 @@ void Application::run()
 
 bool Application::handle_input()
 {
-    bool status = true;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+    bool keep_running = true;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) && sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
     {
-        status = false;
+        keep_running = false;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::LAlt) && sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
     {
         m_fullscreen = !m_fullscreen;
         toggle_fullscreen();
     }
-
-
-    return status;
+    return keep_running;
 }
 
 void Application::toggle_fullscreen()
