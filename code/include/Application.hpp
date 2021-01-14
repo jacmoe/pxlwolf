@@ -69,4 +69,5 @@ class Application : private sf::NonCopyable
         void event();
         void update(sf::Time elapsedTime);
         void render();
+        bool handle_input();
 };

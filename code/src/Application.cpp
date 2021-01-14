@@ -176,15 +176,7 @@ bool Application::init(const std::string title, const int width, const int heigh
 
     m_rendersprite.setTexture(m_rendertexture);
 
-    if(m_fullscreen)
-    {
-        unsigned int scale_x = m_renderwindow.get()->getSize().x;
-        unsigned int scale_y = m_renderwindow.get()->getSize().y;
-        unsigned int diff_x = m_width - scale_x;
-        unsigned int diff_y = m_height - scale_y;
-        m_rendersprite.setScale(m_scale + diff_x, m_scale + diff_y);
-    }
-    else
+    if(!m_fullscreen)
     {
         m_rendersprite.setScale(m_scale, m_scale);
     }
@@ -209,7 +201,7 @@ void Application::run()
 	sf::Clock clock;
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
 
-    while (m_renderwindow.get()->isOpen())
+    while ((m_renderwindow.get()->isOpen()) && running)
     {
 		sf::Time elapsedTime = clock.restart();
 		timeSinceLastUpdate += elapsedTime;
@@ -222,11 +214,23 @@ void Application::run()
             update(m_time_per_frame);
 
             OnUserUpdate(m_time_per_frame);
+            
+            running = handle_input();
 		}
 
         render();
     }
     OnUserDestroy();
+}
+
+bool Application::handle_input()
+{
+    bool status = true;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+    {
+        status = false;
+    }
+    return status;
 }
 
 void Application::event()

@@ -20,7 +20,7 @@ int main()
 {
     Game game;
 
-    if(game.init("PixelWolf", 360, 240, 2.0f, false))
+    if(game.init("PixelWolf", 360, 240, 2.0f, true))
     {
         game.run();
     }
