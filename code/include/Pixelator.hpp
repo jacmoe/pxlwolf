@@ -46,6 +46,11 @@ public:
 
 	bool swapBuffer(const std::string name);
 
+	void copy(const std::string name, unsigned int destX, unsigned int destY, const sf::IntRect& sourceRect, bool applyAlpha = false);
+
+	sf::IntRect getSize();
+	sf::IntRect getSize(const std::string name);
+
 private:
 	std::string m_current_buffer;
 	std::unordered_map<std::string, unsigned int> m_buffer_map;

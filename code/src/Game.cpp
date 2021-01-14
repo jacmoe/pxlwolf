@@ -105,6 +105,7 @@ bool Game::OnUserCreate()
 
     m_pixelator.clear();
 
+    m_pixelator.copy("second_buffer", 0, 0, m_pixelator.getSize("second_buffer"));
     write_text("Hello from PixelWolf!");
 
     return true;
