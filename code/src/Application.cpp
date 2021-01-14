@@ -158,6 +158,7 @@ bool Application::init(const std::string title, const int width, const int heigh
             sf::VideoMode(m_width * static_cast<unsigned int>(m_scale), m_height * static_cast<unsigned int>(m_scale)), m_title
             , sf::Style::Fullscreen
         ));
+        m_rendersprite.setScale(1,1);
     }
     else
     {
@@ -165,7 +166,9 @@ bool Application::init(const std::string title, const int width, const int heigh
             sf::VideoMode(m_width * static_cast<unsigned int>(m_scale), m_height * static_cast<unsigned int>(m_scale)), m_title
             , sf::Style::Default
         ));
+        m_rendersprite.setScale(m_scale, m_scale);
     }
+
     if (!m_renderwindow)
     {
         SPDLOG_ERROR("Error creating window");
@@ -175,11 +178,6 @@ bool Application::init(const std::string title, const int width, const int heigh
     m_rendertexture.create(m_width, m_height);
 
     m_rendersprite.setTexture(m_rendertexture);
-
-    if(!m_fullscreen)
-    {
-        m_rendersprite.setScale(m_scale, m_scale);
-    }
 
     if(!load_font())
     {
@@ -230,7 +228,34 @@ bool Application::handle_input()
     {
         status = false;
     }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::LAlt) && sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+    {
+        m_fullscreen = !m_fullscreen;
+        toggle_fullscreen();
+    }
+
+
     return status;
+}
+
+void Application::toggle_fullscreen()
+{
+    if(m_fullscreen)
+    {
+        m_renderwindow.get()->create(
+            sf::VideoMode(m_width * static_cast<unsigned int>(m_scale), m_height * static_cast<unsigned int>(m_scale)), m_title
+            , sf::Style::Fullscreen
+        );
+        m_rendersprite.setScale(1,1);
+    }
+    else
+    {
+        m_renderwindow.get()->create(
+            sf::VideoMode(m_width * static_cast<unsigned int>(m_scale), m_height * static_cast<unsigned int>(m_scale)), m_title
+            , sf::Style::Default
+        );
+        m_rendersprite.setScale(m_scale, m_scale);
+    }
 }
 
 void Application::event()

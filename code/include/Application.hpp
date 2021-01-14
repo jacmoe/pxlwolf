@@ -70,4 +70,5 @@ class Application : private sf::NonCopyable
         void update(sf::Time elapsedTime);
         void render();
         bool handle_input();
+        void toggle_fullscreen();
 };
