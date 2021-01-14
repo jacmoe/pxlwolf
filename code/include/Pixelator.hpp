@@ -35,7 +35,6 @@ public:
 
 	void fill(sf::Color color);
 	void clear();
-	void randomize();
 
 	// Buffers
 	bool addBuffer(const std::string name);
