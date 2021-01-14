@@ -213,11 +213,6 @@ void Pixelator::clear()
     m_buffers[index].pixels.swap(newPixels);
 }
 
-sf::IntRect Pixelator::getSize()
-{
-    return getSize(m_current_buffer);
-}
-
 sf::IntRect Pixelator::getSize(const std::string name)
 {
     sf::IntRect rect(0, 0, static_cast<int>(m_buffers[m_buffer_map[name]].size.x), static_cast<int>(m_buffers[m_buffer_map[name]].size.y));
