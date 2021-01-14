@@ -44,6 +44,8 @@ public:
 	const std::string getActiveBuffer() { return m_current_buffer; }
 	unsigned int getNumberOfBuffers() const { return static_cast<unsigned int>(m_buffers.size()); }
 
+	bool swapBuffer(const std::string name);
+
 private:
 	std::string m_current_buffer;
 	std::unordered_map<std::string, unsigned int> m_buffer_map;

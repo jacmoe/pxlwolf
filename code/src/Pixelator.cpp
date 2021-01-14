@@ -56,7 +56,7 @@ bool Pixelator::addBuffer(const std::string name)
 {
     if(check_key(m_buffer_map, name))
     {
-        SPDLOG_ERROR("Attempting to add a buffer that already exist!");
+        SPDLOG_ERROR("Attempting to add '{}' which already exist!", name);
         return false;
     }
 
@@ -111,6 +111,24 @@ void Pixelator::setActiveBuffer(const std::string name)
     }
 	assert(m_buffer_map[name] < m_buffers.size());
     m_current_buffer = name;
+}
+
+bool Pixelator::swapBuffer(const std::string name)
+{
+    if(!check_key(m_buffer_map, name))
+    {
+        SPDLOG_ERROR("Attempting to swap with a buffer name that doesn't exist!");
+        return false;
+    }
+
+    unsigned int own_index = m_buffer_map[m_current_buffer];
+    unsigned int swap_index = m_buffer_map[name];
+
+    std::vector<sf::Uint8> newPixels(m_buffers[swap_index].pixels);
+
+    m_buffers[swap_index].pixels.swap(m_buffers[own_index].pixels);
+
+    return true;
 }
 
 void Pixelator::setSize(const sf::Vector2f size)
