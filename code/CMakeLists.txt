@@ -20,7 +20,7 @@ set(Sources
     ./src/dbg_console.cpp
     ./src/Game.cpp
     ./src/ImageAtlas.cpp
-    ./src/Main.cpp
+    ./src/main.cpp
     ./src/Map.cpp
     #./src/Mechanics.cpp
     ./src/physfs.cpp
@@ -79,4 +79,8 @@ if (UNIX)
             )
 endif (UNIX)
 
+if(WIN32)
 target_link_libraries(pxlwolf lua  physfs-static sfml-graphics sfml-system sfml-main)
+else()
+target_link_libraries(pxlwolf lua  physfs-static sfml-graphics sfml-system)
+endif(WIN32)

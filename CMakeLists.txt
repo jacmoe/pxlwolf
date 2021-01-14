@@ -37,10 +37,13 @@ endif(UNIX)
 
 if(WIN32)
 set(SFML_DIR C:/SFML/lib/cmake/SFML)
-endif(WIN32)
-
 set(SFML_STATIC_LIBRARIES TRUE)
 find_package(SFML 2 COMPONENTS system window graphics audio main)
+endif(WIN32)
+
+if(UNIX)
+find_package(SFML 2 COMPONENTS system window graphics audio)
+endif(UNIX)
 
 if(WIN32)
 include_directories(${WinSDK})
