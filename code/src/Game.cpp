@@ -95,6 +95,16 @@ bool Game::OnUserCreate()
     SPDLOG_INFO("Trying to add a buffer that already exsists . . .");
     m_pixelator.addBuffer("second_buffer");
 
+    SPDLOG_INFO("Swapping between primary and second_buffer . . .");
+
+    m_pixelator.swapBuffer("primary");
+
+    SPDLOG_INFO("Switching to primary buffer");
+
+    m_pixelator.setActiveBuffer("primary");
+
+    m_pixelator.clear();
+
     write_text("Hello from PixelWolf!");
 
     return true;
