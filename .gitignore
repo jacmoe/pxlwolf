@@ -46,3 +46,4 @@ vcpkg/
 vcpkg
 assets.zip
 *.dat
+logs/pxllog.txt
