@@ -24,6 +24,17 @@ Pxlwolf uses the [LDtk Level Designer Toolkit][ldtk_link] to create and edit lev
 ![LDTK][ldtk]
 
 
+## Dependencies
+### External dependencies
+[SFML 2.5.1](https://www.sfml-dev.org/download/sfml/2.5.1/)
+### Bundled dependencies
+|Library|Description|License|
+|-------|-----------|-------|
+|[Sol](https://github.com/ThePhD/sol)|C++ binding library to Lua|MIT License|
+|[Lua 5.4](https://www.lua.org/download.html)|Scripting language|zlib License|
+|[spdlog](https://github.com/gabime/spdlog)|Logging library|MIT License|
+|[PhysicsFS ](https://www.icculus.org/physfs/)|Archive support for games|zlib license|
+
 ## Credits
 
 This project is using code from the [c-raycaster project][cray] - the raycaster and a lot of the pixel related functionality is borrowed from the project. It also uses code from Herrecito's [2.5D Raycaster engine][herrecito] in C. And the overall structure of the project is lifted from Balantkissdev's [Raycaster engine][balantkiss].
