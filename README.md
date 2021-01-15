@@ -19,9 +19,19 @@ Wolfenstein-like raycast engine
 
 **ACHTUNG!** Project is currently being ported from SDL to SFML, and the raycaster doesn't work (yet)
 
+## TOC
+
+- [Screenshots](#Screenshots)
+  - [PixelWolf](#PixelWolf)
+  - [Level Editing in LDtk](#Level-Editing-in-LDtk)
+- [Dependencies](#Dependencies)
+  - [External dependencies](#External-dependencies)
+  - [Bundled dependencies](#Bundled-dependencies)
+- [Credits](#Credits)
+
 
 ## Screenshots
-### Main window 
+### PixelWolf 
 ![PixelWolf][pxlwolf]
 ### Level Editing in LDtk
 Pxlwolf uses the [LDtk Level Designer Toolkit][ldtk_link] to create and edit levels.
@@ -34,7 +44,7 @@ Pxlwolf uses the [LDtk Level Designer Toolkit][ldtk_link] to create and edit lev
 ### Bundled dependencies
 |Library|Description|License|
 |-------|-----------|-------|
-|[cereal][cereal]|C++11 library for serialization|MIT license|
+|[cereal][cereal]|C++11 library for serialization|BSD license|
 |[Lua 5.4][lua]|Scripting language|zlib License|
 |[PhysicsFS ][physfs]|Archive support for games|zlib license|
 |[PhysFS++][physpp]|C++ wrapper for PhysicsFS|zlib license|
