@@ -100,7 +100,7 @@ void Application::setup_working_directory()
 
 void Application::setup_logging()
 {
-    std::string logfile_name = "logs/pxllog.txt";
+    std::string logfile_name = "log/pxllog.txt";
     
     // Remove old log file
     if(std::filesystem::exists(logfile_name))
