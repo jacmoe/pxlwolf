@@ -50,18 +50,20 @@ include_directories(${WinSDK})
 set(SFML_INCLUDE_DIRS C:/SFML/include)
 endif(WIN32)
 
-add_subdirectory(Lua)
+add_subdirectory(3rdparty/Lua)
 
-add_subdirectory(physfs)
+add_subdirectory(3rdparty/physfs)
 
-set(SPDLOG_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/spdlog/include)
-set(SOL_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/sol2)
-set(LUA_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/Lua/include)
-set(PHYSFS_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/physfs/src)
-set(SelbaWardDir code/SelbaWard)
+set(3RD_PARTY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty)
+set(SPDLOG_INCLUDE_DIR ${3RD_PARTY_DIR}/spdlog/include)
+set(SOL_INCLUDE_DIR ${3RD_PARTY_DIR}/sol2)
+set(LUA_INCLUDE_DIR ${3RD_PARTY_DIR}/Lua/include)
+set(PHYSFS_INCLUDE_DIR ${3RD_PARTY_DIR}/physfs/src)
+set(SelbaWardDir ${3RD_PARTY_DIR}/SelbaWard)
 set(IncludeDir code/include/)
 
 include_directories(
+    ${3RD_PARTY_DIR}
     ${SPDLOG_INCLUDE_DIR}
     ${LUA_INCLUDE_DIR}
     ${SOL_INCLUDE_DIR}

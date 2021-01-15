@@ -16,35 +16,32 @@
 set(TARGET_NAME pxlwolf)
 
 set(Sources
+    ./main.cpp
     ./src/Application.cpp
     ./src/dbg_console.cpp
     ./src/Game.cpp
     ./src/ImageAtlas.cpp
-    ./src/main.cpp
     ./src/Map.cpp
     #./src/Mechanics.cpp
-    ./src/physfs.cpp
+    ${3RD_PARTY_DIR}/physfs.cpp
     ./src/Pixelator.cpp
     #./src/RayCaster.cpp
     ./src/utils.cpp
-    ./SelbaWard/PixelDisplay.cpp
 )
 
 set(Includes
     ../${IncludeDir}/Application.hpp
     ../${IncludeDir}/dbg_console.hpp
-    ../${IncludeDir}/DG_misc.hpp
+    ${3RD_PARTY_DIR}/DG_misc.hpp
     ../${IncludeDir}/Game.hpp
     ../${IncludeDir}/ImageAtlas.hpp
-    ../${IncludeDir}/lua_main.hpp
+    ${3RD_PARTY_DIR}/lua_main.hpp
     ../${IncludeDir}/Map.hpp
     #../${IncludeDir}/Mechanics.hpp
-    #../${IncludeDir}/MathLib.hpp
-    ../${IncludeDir}/physfs.hpp
+    ${3RD_PARTY_DIR}/physfs.hpp
     ../${IncludeDir}/Pixelator.hpp
     #../${IncludeDir}/RayCaster.hpp
     ../${IncludeDir}/utils.hpp
-    ../${SelbaWardDir}/PixelDisplay.hpp
 )
 
 if (WIN32)

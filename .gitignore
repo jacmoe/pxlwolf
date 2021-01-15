@@ -45,5 +45,4 @@ test_package/build
 vcpkg/
 vcpkg
 assets.zip
-logs/
-assets/data/palcol.dat
+*.dat
