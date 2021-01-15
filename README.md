@@ -34,10 +34,16 @@ Pxlwolf uses the [LDtk Level Designer Toolkit][ldtk_link] to create and edit lev
 ### Bundled dependencies
 |Library|Description|License|
 |-------|-----------|-------|
-|[Sol][sol]|C++ binding library to Lua|MIT License|
+|[cereal][cereal]|C++11 library for serialization|MIT license|
 |[Lua 5.4][lua]|Scripting language|zlib License|
-|[spdlog][spdlog]|Logging library|MIT License|
 |[PhysicsFS ][physfs]|Archive support for games|zlib license|
+|[PhysFS++][physpp]|C++ wrapper for PhysicsFS|zlib license|
+|[RapidJSON][rapidjson]|A fast JSON parser/generator for C++|MIT license|
+|[SelbaWard][selba]|A collection of drawable C++ objects for use with SFML|zlib license|
+|[Sol][sol]|C++ binding library to Lua|MIT License|
+|[spdlog][spdlog]|Logging library|MIT license|
+|[DG Snippets][dg]|Misc public domain functions|Public domain license|
+
 
 ## Credits
 
@@ -53,7 +59,12 @@ This project is using code from the [c-raycaster project][cray] - the raycaster 
 [cray]: https://github.com/ckinvents/c-raycaster "c-raycaster project by ckinvents"
 
 [sfml]: https://www.sfml-dev.org/download/sfml/2.5.1/ "Simple and Fast Media Library - 2D graphics C++ library"
-[sol]: https://github.com/ThePhD/sol "C++ binding library to Lua"
+[cereal]: https://uscilab.github.io/cereal/ "C++11 library for serialization"
 [lua]: https://www.lua.org/download.html "Scripting language"
-[spdlog]: https://github.com/gabime/spdlog "Logging library"
 [physfs]: https://www.icculus.org/physfs/ "Archive support for games"
+[physpp]: https://github.com/kahowell/physfs-cpp "C++ wrapper for PhysicsFS"
+[rapidjson]: https://rapidjson.org/ "A fast JSON parser/generator for C++"
+[selba]: https://github.com/Hapaxia/SelbaWard "A collection of drawable C++ objects for use with SFML"
+[sol]: https://github.com/ThePhD/sol "C++ binding library to Lua"
+[spdlog]: https://github.com/gabime/spdlog "Logging library"
+[dg]: https://github.com/DanielGibson/Snippets/ "Misc public domain functions"
