@@ -231,7 +231,6 @@ bool Application::handle_input()
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::LAlt) && sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
     {
-        m_fullscreen = !m_fullscreen;
         toggle_fullscreen();
     }
     return keep_running;
@@ -253,6 +252,7 @@ void Application::toggle_fullscreen()
             , sf::Style::Default
         );
     }
+    m_fullscreen = !m_fullscreen;
 }
 
 void Application::event()
