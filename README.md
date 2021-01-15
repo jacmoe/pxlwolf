@@ -16,6 +16,10 @@
 
 # pxlwolf
 Wolfenstein-like raycast engine
+
+**ACHTUNG!** Project is currently being ported from SDL to SFML, and the raycaster doesn't work (yet)
+
+
 ## Screenshots
 ### Main window 
 ![PixelWolf][pxlwolf]
