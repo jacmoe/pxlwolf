@@ -61,7 +61,8 @@ Everything, except sfml-audio, is linked statically, even on Windows.
 Compiled using MSVC 2019 on Windows, and the default compiler (GCC, I guess, or maybe clang?) on Linux.
 
 ### External dependencies
-[SFML 2.5.1][sfml]
+|[SFML 2.5.1][sfml]|Simple and Fast Multimedia Library|zlib license|
+
 ### Bundled dependencies
 |Library|Description|License|
 |-------|-----------|-------|
