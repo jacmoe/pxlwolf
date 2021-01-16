@@ -54,11 +54,15 @@ add_subdirectory(3rdparty/Lua)
 
 add_subdirectory(3rdparty/physfs)
 
+set(THOR_SHARED_LIBS FALSE)
+add_subdirectory(3rdparty/thor)
+
 set(3RD_PARTY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty)
 set(SPDLOG_INCLUDE_DIR ${3RD_PARTY_DIR}/spdlog/include)
 set(SOL_INCLUDE_DIR ${3RD_PARTY_DIR}/sol2)
 set(LUA_INCLUDE_DIR ${3RD_PARTY_DIR}/Lua/include)
 set(PHYSFS_INCLUDE_DIR ${3RD_PARTY_DIR}/physfs/src)
+set(THOR_INCLUDE_DIR ${3RD_PARTY_DIR}/thor/include)
 set(SelbaWardDir ${3RD_PARTY_DIR}/SelbaWard)
 set(IncludeDir code/include/)
 
@@ -68,6 +72,7 @@ include_directories(
     ${LUA_INCLUDE_DIR}
     ${SOL_INCLUDE_DIR}
     ${PHYSFS_INCLUDE_DIR}
+    ${THOR_INCLUDE_DIR}
     ${SFML_INCLUDE_DIRS}
     ${SelbaWardDir}
     ${IncludeDir}

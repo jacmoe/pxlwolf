@@ -1,0 +1,3 @@
+[submodule "3rdparty/thor"]
+	path = 3rdparty/thor
+	url = https://github.com/Bromeon/Thor
