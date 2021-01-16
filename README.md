@@ -52,6 +52,7 @@ Pxlwolf uses the [LDtk Level Designer Toolkit][ldtk_link] to create and edit lev
 |[SelbaWard][selba]|A collection of drawable C++ objects for use with SFML|zlib license|
 |[Sol][sol]|C++ binding library to Lua|MIT License|
 |[spdlog][spdlog]|Logging library|MIT license|
+|[Thor][thor]|SFML extension library (lives in a git module)|zlib license|
 |[DG Snippets][dg]|Misc public domain functions|Public domain license|
 
 
@@ -77,4 +78,5 @@ This project is using code from the [c-raycaster project][cray] - the raycaster 
 [selba]: https://github.com/Hapaxia/SelbaWard "A collection of drawable C++ objects for use with SFML"
 [sol]: https://github.com/ThePhD/sol "C++ binding library to Lua"
 [spdlog]: https://github.com/gabime/spdlog "Logging library"
+[thor]: https://github.com/Bromeon/Thor "SFML extension library"
 [dg]: https://github.com/DanielGibson/Snippets/ "Misc public domain functions"
