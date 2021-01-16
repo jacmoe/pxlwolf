@@ -24,6 +24,10 @@ Seriously overengineered Wolfenstein-like raycast engine
 - [Screenshots](#Screenshots)
   - [PixelWolf](#PixelWolf)
   - [Level Editing in LDtk](#Level-Editing-in-LDtk)
+- [Goals](#Goals)
+- [Features](#Goals)
+  - [Implemented features](#Implemented-features)
+  - [Planned features](#Planned-features)
 - [Dependencies](#Dependencies)
   - [External dependencies](#External-dependencies)
   - [Bundled dependencies](#Bundled-dependencies)
@@ -37,6 +41,17 @@ Seriously overengineered Wolfenstein-like raycast engine
 Pxlwolf uses the [LDtk Level Designer Toolkit][ldtk_link] to create and edit levels.
 ![LDTK][ldtk]
 
+
+## Goals
+- Explore raycasting, including height-mapping and animated tiles.
+- Learn how to use modern C++ features, and move from C++98 to C++17 and beyond.
+- Create a complete game, and not just a tech demo.
+- Use third-party code whenever possible, but keep things simple.
+
+## Features
+Here I will write the features of PixelWolf down as I implement them.
+### Implemented
+### Planned
 
 ## Dependencies
 PixelWolf is being developed on Linux and Windows, and the build system is based on CMake.
