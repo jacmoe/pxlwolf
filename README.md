@@ -15,9 +15,9 @@
     #
 
 # pxlwolf
-Wolfenstein-like raycast engine
+Seriously overengineered Wolfenstein-like raycast engine
 
-**ACHTUNG!** Project is currently being ported from SDL to SFML, and the raycaster doesn't work (yet)
+**ACHTUNG!** Project is currently being ported from SDL to SFML, and the raycaster hasn't beeen ported (yet)
 
 ## TOC
 
@@ -39,6 +39,12 @@ Pxlwolf uses the [LDtk Level Designer Toolkit][ldtk_link] to create and edit lev
 
 
 ## Dependencies
+PixelWolf is being developed on Linux and Windows, and the build system is based on CMake.
+
+Everything, except sfml-audio, is linked statically, even on Windows.
+
+Compiled using MSVC 2019 on Windows, and the default compiler (GCC, I guess, or maybe clang?) on Linux.
+
 ### External dependencies
 [SFML 2.5.1][sfml]
 ### Bundled dependencies
