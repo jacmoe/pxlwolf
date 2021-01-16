@@ -65,8 +65,7 @@ bool Pixelator::addBuffer(const std::string name)
 	m_buffers.emplace_back();
 
     unsigned int index = m_buffer_map[m_current_buffer];
-
-    std::vector<sf::Uint8> newPixels(m_buffers[index].size.x * m_buffers[index].size.y * 4u);
+    std::vector<sf::Uint8> newPixels(static_cast<sf::Uint8>(m_buffers[index].size.x * m_buffers[index].size.y) * 4u);
     sf::Uint8* ptr = &newPixels[0];
     sf::Uint8* end = ptr + newPixels.size();
     while (ptr < end)
@@ -133,7 +132,7 @@ void Pixelator::setSize(const sf::Vector2f size)
 {
     unsigned int index = m_buffer_map[m_current_buffer];
 	m_buffers[index].size = size;
-    std::vector<sf::Uint8> newPixels(m_buffers[index].size.x * m_buffers[index].size.y * 4u);
+    std::vector<sf::Uint8> newPixels(static_cast<sf::Uint8>(m_buffers[index].size.x * m_buffers[index].size.y) * 4u);
     sf::Uint8* ptr = &newPixels[0];
     sf::Uint8* end = ptr + newPixels.size();
     while (ptr < end)
@@ -151,7 +150,7 @@ void Pixelator::setSize(const sf::Vector2f size)
 void Pixelator::setPixel(unsigned int x, unsigned int y, const sf::Color& color)
 {
     unsigned int index = m_buffer_map[m_current_buffer];
-    sf::Uint8* pixel = &m_buffers[index].pixels[(x + y * m_buffers[index].size.x) * 4];
+    sf::Uint8* pixel = &m_buffers[index].pixels[static_cast<sf::Uint8>((x + y * m_buffers[index].size.x)) * 4];
     *pixel++ = color.r;
     *pixel++ = color.g;
     *pixel++ = color.b;
@@ -161,7 +160,7 @@ void Pixelator::setPixel(unsigned int x, unsigned int y, const sf::Color& color)
 sf::Color Pixelator::getPixel(unsigned int x, unsigned int y) const
 {
     unsigned int index = m_buffer_map.at(m_current_buffer);
-    const sf::Uint8* pixel = &m_buffers[index].pixels[(x + y * m_buffers[index].size.x) * 4];
+    const sf::Uint8* pixel = &m_buffers[index].pixels[static_cast<sf::Uint8>((x + y * m_buffers[index].size.x)) * 4];
     return sf::Color(pixel[0], pixel[1], pixel[2], pixel[3]);
 }
 
@@ -182,7 +181,7 @@ const sf::Uint8* Pixelator::getPixelsPtr() const
 void Pixelator::fill(sf::Color color)
 {
     unsigned int index = m_buffer_map.at(m_current_buffer);
-    std::vector<sf::Uint8> newPixels(m_buffers[index].size.x * m_buffers[index].size.y * 4);
+    std::vector<sf::Uint8> newPixels(static_cast<sf::Uint8>(m_buffers[index].size.x * m_buffers[index].size.y * 4));
     sf::Uint8* ptr = &newPixels[0];
     sf::Uint8* end = ptr + newPixels.size();
     while (ptr < end)
@@ -199,7 +198,7 @@ void Pixelator::fill(sf::Color color)
 void Pixelator::clear()
 {
     unsigned int index = m_buffer_map.at(m_current_buffer);
-    std::vector<sf::Uint8> newPixels(m_buffers[index].size.x * m_buffers[index].size.y * 4);
+    std::vector<sf::Uint8> newPixels(static_cast<sf::Uint8>(m_buffers[index].size.x * m_buffers[index].size.y * 4));
     sf::Uint8* ptr = &newPixels[0];
     sf::Uint8* end = ptr + newPixels.size();
     while (ptr < end)
@@ -231,22 +230,22 @@ void Pixelator::copy(const std::string name, unsigned int destX, unsigned int de
     {
         srcRect.left   = 0;
         srcRect.top    = 0;
-        srcRect.width  = m_buffers[m_buffer_map[name]].size.x;
-        srcRect.height = m_buffers[m_buffer_map[name]].size.y;
+        srcRect.width  = static_cast<int>(m_buffers[m_buffer_map[name]].size.x);
+        srcRect.height = static_cast<int>(m_buffers[m_buffer_map[name]].size.y);
     }
     else
     {
         if (srcRect.left   < 0) srcRect.left = 0;
         if (srcRect.top    < 0) srcRect.top  = 0;
-        if (srcRect.width  > static_cast<int>(m_buffers[m_buffer_map[name]].size.x)) srcRect.width  = m_buffers[m_buffer_map[name]].size.x;
-        if (srcRect.height > static_cast<int>(m_buffers[m_buffer_map[name]].size.y)) srcRect.height = m_buffers[m_buffer_map[name]].size.y;
+        if (srcRect.width  > static_cast<int>(m_buffers[m_buffer_map[name]].size.x)) srcRect.width  = static_cast<int>(m_buffers[m_buffer_map[name]].size.x);
+        if (srcRect.height > static_cast<int>(m_buffers[m_buffer_map[name]].size.y)) srcRect.height = static_cast<int>(m_buffers[m_buffer_map[name]].size.y);
     }
 
     // Then find the valid bounds of the destination rectangle
     int width  = srcRect.width;
     int height = srcRect.height;
-    if (destX + width  > m_buffers[m_buffer_map[m_current_buffer]].size.x) width  = m_buffers[m_buffer_map[m_current_buffer]].size.x - destX;
-    if (destY + height > m_buffers[m_buffer_map[m_current_buffer]].size.y) height = m_buffers[m_buffer_map[m_current_buffer]].size.y - destY;
+    if (destX + width  > m_buffers[m_buffer_map[m_current_buffer]].size.x) width  = static_cast<int>(m_buffers[m_buffer_map[m_current_buffer]].size.x) - destX;
+    if (destY + height > m_buffers[m_buffer_map[m_current_buffer]].size.y) height = static_cast<int>(m_buffers[m_buffer_map[m_current_buffer]].size.y) - destY;
 
     // Make sure the destination area is valid
     if ((width <= 0) || (height <= 0))
