@@ -62,6 +62,7 @@ set(SPDLOG_INCLUDE_DIR ${3RD_PARTY_DIR}/spdlog/include)
 set(SOL_INCLUDE_DIR ${3RD_PARTY_DIR}/sol2)
 set(LUA_INCLUDE_DIR ${3RD_PARTY_DIR}/Lua/include)
 set(PHYSFS_INCLUDE_DIR ${3RD_PARTY_DIR}/physfs/src)
+set(STATEMAN_DIR ${3RD_PARTY_DIR}/SFML-StateMachine)
 set(THOR_INCLUDE_DIR ${3RD_PARTY_DIR}/thor/include)
 set(SelbaWardDir ${3RD_PARTY_DIR}/SelbaWard)
 set(IncludeDir code/include/)
@@ -73,6 +74,7 @@ include_directories(
     ${SOL_INCLUDE_DIR}
     ${PHYSFS_INCLUDE_DIR}
     ${THOR_INCLUDE_DIR}
+    ${STATEMAN_DIR}/include
     ${SFML_INCLUDE_DIRS}
     ${SelbaWardDir}
     ${IncludeDir}

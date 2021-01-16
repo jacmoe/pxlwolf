@@ -23,10 +23,11 @@ set(Sources
     ./src/ImageAtlas.cpp
     ./src/Map.cpp
     #./src/Mechanics.cpp
-    ${3RD_PARTY_DIR}/physfs.cpp
     ./src/Pixelator.cpp
     #./src/RayCaster.cpp
     ./src/utils.cpp
+    ${3RD_PARTY_DIR}/physfs.cpp
+    ${STATEMAN_DIR}/src/StateMachine.cpp
 )
 
 set(Includes
@@ -42,6 +43,8 @@ set(Includes
     ../${IncludeDir}/Pixelator.hpp
     #../${IncludeDir}/RayCaster.hpp
     ../${IncludeDir}/utils.hpp
+    ${STATEMAN_DIR}/include/StateMachine/State.hpp
+    ${STATEMAN_DIR}/include/StateMachine/StateMachine.hpp
 )
 
 if (WIN32)
