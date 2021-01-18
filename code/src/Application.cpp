@@ -32,21 +32,21 @@
 const sf::Time Application::m_time_per_frame = sf::seconds(1.f/60.f);
 
 Application::Application()
-    : m_running(false)
-    , m_scale(0)
-    , m_width(0)
-    , m_height(0)
-    , m_fullscreen(false)
-    , m_renderwindow(nullptr)
+    : m_fullscreen(false)
     , m_font_name("assets/fonts/MedievalSharp-Bold.ttf")
     , m_font_size(16)
     , m_font_color({255, 255, 255, 255})
     , m_font()
-    , m_text()
+    , m_scale(0)
+    , m_width(0)
+    , m_height(0)
+    , m_frames_per_second(0)
+    , m_renderwindow(nullptr)
+    , m_pixelator()
     , m_stats_update_time()
     , m_stats_num_frames(0)
-    , m_frames_per_second(0)
-    , m_pixelator()
+    , m_running(false)
+    , m_text()
 {}
 
 Application::~Application()
@@ -111,7 +111,6 @@ void Application::setup_logging()
 	// Create console sink and file sink
     auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
 	auto file_sink = std::make_shared<spdlog::sinks::basic_file_sink_mt>(logfile_name, true);
-	spdlog::sinks_init_list sink_list = { file_sink, console_sink };
 	// Make the logger use both the console and the file sink
     m_pxllogger = std::make_shared<spdlog::logger>("multi_sink", spdlog::sinks_init_list({console_sink, file_sink}));
 	// Set the standard logger so that we can use it freely everywhere
