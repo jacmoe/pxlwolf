@@ -56,9 +56,9 @@ Here I will write the features of PixelWolf down as I implement them.
 ## Dependencies
 PixelWolf is being developed on Linux and Windows, and the build system is based on CMake.
 
-Everything, except sfml-audio, is linked statically, even on Windows.
+Everything, except sfml-audio, is linked statically on Windows.
 
-Compiled using MSVC 2019 on Windows, and the default compiler (GCC, I guess, or maybe clang?) on Linux.
+Compiled using MSVC 2019 on Windows, and GCC 9.3 on Linux.
 
 ### External dependencies
 |Library|Description|License|
