@@ -1,5 +1,5 @@
 #include "StateMachine/StateMachine.hpp"
-#include <SFML\System\Time.hpp>
+#include <SFML/System/Time.hpp>
 #include <algorithm>
 
 namespace sm {

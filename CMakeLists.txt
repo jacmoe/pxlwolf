@@ -54,7 +54,9 @@ add_subdirectory(3rdparty/Lua)
 
 add_subdirectory(3rdparty/physfs)
 
+if(WIN32)
 set(THOR_SHARED_LIBS FALSE)
+endif(WIN32)
 add_subdirectory(3rdparty/thor)
 
 set(3RD_PARTY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty)
