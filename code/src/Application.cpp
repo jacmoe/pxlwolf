@@ -185,7 +185,7 @@ bool Application::init(const std::string title, const int width, const int heigh
         return false;
     }
 
-    m_pixelator.setSize(sf::Vector2f(static_cast<float>(m_width), static_cast<float>(m_height)));
+    m_pixelator.setSize(sf::Vector2i(static_cast<float>(m_width), static_cast<float>(m_height)));
 
 	SPDLOG_INFO("PixelWolf initialized.");
     return true;

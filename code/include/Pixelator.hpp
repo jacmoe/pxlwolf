@@ -26,7 +26,7 @@ class Pixelator
 public:
 	Pixelator();
 
-	void setSize(const sf::Vector2f size);
+	void setSize(const sf::Vector2i size);
 
 	// Pixel
 	void setPixel(unsigned int x, unsigned int y, const sf::Color& color);
@@ -57,7 +57,7 @@ private:
 	// buffers
 	struct Buffer
 	{
-		sf::Vector2f size;
+		sf::Vector2i size;
 		std::vector<sf::Uint8> pixels;
 	};
 	std::vector<Buffer> m_buffers;

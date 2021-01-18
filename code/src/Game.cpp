@@ -53,6 +53,8 @@ bool Game::OnUserCreate()
     sf::Image image;
     image.create(atlas.GetImageDimensions().x, atlas.GetImageDimensions().y, atlas.GetPixels(7));
 
+    m_pixelator.setSize(sf::Vector2i(m_width, m_height));
+
     for(unsigned int px = 0; px < image.getSize().x; px++ )
     {
         for(unsigned int py = 0; py < image.getSize().y; py++ )
