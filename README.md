@@ -77,7 +77,7 @@ Compiled using MSVC 2019 on Windows, and GCC 9.3 on Linux.
 |[Sol][sol]|C++ binding library to Lua|MIT License|
 |[spdlog][spdlog]|Logging library|MIT license|
 |[SFML-StateMachine][state]|State manager for SFML|MIT license|
-|[Thor][thor]|SFML extension library (lives in a git module)|zlib license|
+|[Thor][thor]|SFML extension library|zlib license|
 |[DG Snippets][dg]|Misc public domain functions|Public domain license|
 
 
