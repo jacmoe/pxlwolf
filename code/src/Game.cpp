@@ -48,12 +48,18 @@ bool Game::OnUserCreate()
         }
     }
 
+    m_action_map["test"] = thor::Action(sf::Mouse::Left, thor::Action::Hold);
+
     return true;
 }
 
 bool Game::OnUserUpdate(sf::Time elapsedTime)
 {
     write_text("Hello from PixelWolf! Time is : " + std::to_string(elapsedTime.asSeconds()) + " Frames per second : " + std::to_string(m_frames_per_second));
+
+    if (m_action_map.isActive("test"))
+        write_text("Left mouse button down!!");
+
     return true;
 }
 
