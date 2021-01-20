@@ -204,7 +204,7 @@ bool Map::load(const std::string& file_name, const std::string& level_name, bool
 
 const MapElement& Map::get_wall_element(const unsigned int element)
 {
-	return wall_elements[element];
+	return wall_elements[element - 1];
 }
 
 int Map::get_wall_entry(int tile_x, int tile_y)
