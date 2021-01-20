@@ -40,6 +40,16 @@ double Map::deg2rad (double degrees) {
     return degrees * 4.0 * atan (1.0) / 180.0;
 }
 
+RGB colorConverter(int hexValue)
+{
+  RGB rgbColor;
+  rgbColor.r = ((hexValue >> 16) & 0xFF);  // Extract the RR byte
+  rgbColor.g = ((hexValue >> 8) & 0xFF);   // Extract the GG byte
+  rgbColor.b = ((hexValue) & 0xFF);        // Extract the BB byte
+
+  return rgbColor; 
+}
+
 bool Map::load(const std::string& file_name, const std::string& level_name, bool from_zip)
 {
     rapidjson::Document document;
@@ -66,6 +76,31 @@ bool Map::load(const std::string& file_name, const std::string& level_name, bool
 		rapidjson::IStreamWrapper isw(fp);
 	    document.ParseStream(isw);
 	}
+
+    const rapidjson::Value& layers = document["defs"]["layers"];
+    for (rapidjson::Value::ConstValueIterator itr = layers.Begin(); itr != layers.End(); ++itr)
+    {
+        std::string layer_identifier = (*itr)["identifier"].GetString();
+		SPDLOG_INFO("Layer definition for {} found.", layer_identifier);
+		if(layer_identifier == "Walls")
+		{
+			const rapidjson::Value& wall_values = (*itr)["intGridValues"];
+			for (rapidjson::Value::ConstValueIterator itr = wall_values.Begin(); itr != wall_values.End(); ++itr)
+			{
+				std::string wall_identifier = (*itr)["identifier"].GetString();
+				std::string wall_color = (*itr)["color"].GetString();
+				std::replace(wall_color.begin(), wall_color.end(), '#', 'x');
+				wall_color = "0" + wall_color;
+				SPDLOG_INFO("Wall '{}' has color {}", wall_identifier, wall_color);
+				unsigned int x = std::stoul(wall_color, nullptr, 16);
+				RGB result = colorConverter(x);
+				SPDLOG_INFO("Color '{}' is r {}, g {}, b {}", x, result.r, result.g, result.b);
+				wall_elements.push_back({wall_identifier, sf::Color(result.r, result.g, result.b, 255)});
+			}
+		}
+
+	}
+
 
     const rapidjson::Value& levels = document["levels"];
     for (rapidjson::Value::ConstValueIterator itr = levels.Begin(); itr != levels.End(); ++itr)
@@ -165,6 +200,11 @@ bool Map::load(const std::string& file_name, const std::string& level_name, bool
 		if(fp) fp.close();
 	}
     return level_found;
+}
+
+const MapElement& Map::get_wall_element(const unsigned int element)
+{
+	return wall_elements[element];
 }
 
 int Map::get_wall_entry(int tile_x, int tile_y)

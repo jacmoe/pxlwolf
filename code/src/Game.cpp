@@ -48,6 +48,8 @@ bool Game::OnUserCreate()
         }
     }
 
+    m_pixelator.fill(map.get_wall_element(1).color);
+
     m_action_map["test"] = thor::Action(sf::Mouse::Left, thor::Action::Hold);
 
     return true;

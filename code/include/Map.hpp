@@ -18,6 +18,13 @@
 #include <vector>
 #include <list>
 #include <string>
+#include <SFML/Graphics/Color.hpp>
+
+struct MapElement
+{
+    std::string name;
+    sf::Color color;
+};
 
 class Map
 {
@@ -32,10 +39,13 @@ public:
     const std::vector<int>& get_ceiling();
     const bool is_initialized();
 
+    const MapElement& get_wall_element(const unsigned int element);
+
 private:
     std::vector<int> walls;
     std::vector<int> floor;
     std::vector<int> ceiling;
+    std::vector<MapElement> wall_elements;
     std::list<std::string> level_names;
     int map_width;
     int map_height;
@@ -47,3 +57,11 @@ private:
     int get_wall_entry(int tile_x, int tile_y);
     double deg2rad (double degrees);
 };
+
+struct RGB
+{
+    double r;
+    double g;
+    double b;
+};
+RGB colorConverter(int hexValue);
