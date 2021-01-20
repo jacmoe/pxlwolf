@@ -28,23 +28,8 @@ Game::~Game()
 
 bool Game::OnUserCreate()
 {
-	SPDLOG_INFO("Testing Lua . . .");
-
-    sol::state lua{};
-    lua.open_libraries(sol::lib::base);
-
-    lua.script("print('Hello World from Lua!')");
-
-	SPDLOG_INFO("Testing Maploading . . .");
-
-	SPDLOG_INFO("Initializing PhysFS.");
-	PhysFS::init (nullptr);
-	PhysFS::mount("assets.zip", "", 1);
-
     Map map;
-    map.load("assets/levels/levels.ldtk", "Level1", true);
-
-	SPDLOG_INFO("Testing ImageAtlas . . .");
+    map.load("assets/levels/levels.ldtk", "Level1");
 
     ImageAtlas atlas;
 
@@ -63,53 +48,6 @@ bool Game::OnUserCreate()
         }
     }
 
-    //m_pixelator.fill(sf::Color::Red);
-
-    // int bufnum = m_pixelator.copy();
-
-    SPDLOG_INFO("Pixelators current buffer index is '{}'", m_pixelator.getActiveBuffer());
-
-    unsigned int bufnum = m_pixelator.addBuffer("test_buffer");
-
-    SPDLOG_INFO("Added a Pixelator buffer with name '{}'", bufnum);
-
-    SPDLOG_INFO("Pixelator has {} buffers", m_pixelator.getNumberOfBuffers());
-
-    SPDLOG_INFO("Pixelators current buffer index is '{}'", m_pixelator.getActiveBuffer());
-
-    m_pixelator.removeBuffer("test_buffer");
-
-    SPDLOG_INFO("Pixelator has {} buffers", m_pixelator.getNumberOfBuffers());
-
-    SPDLOG_INFO("Trying to remove active buffer . . .");
-    m_pixelator.removeBuffer("primary");
-
-    m_pixelator.addBuffer("second_buffer");
-    m_pixelator.setActiveBuffer("second_buffer");
-    m_pixelator.fill(sf::Color::Blue);
-
-    m_pixelator.setActiveBuffer("primaryy");
-
-    SPDLOG_INFO("Pixelator has {} buffers", m_pixelator.getNumberOfBuffers());
-
-    SPDLOG_INFO("Pixelators current buffer is '{}'", m_pixelator.getActiveBuffer());
-
-    SPDLOG_INFO("Trying to add a buffer that already exsists . . .");
-    m_pixelator.addBuffer("second_buffer");
-
-    SPDLOG_INFO("Swapping between primary and second_buffer . . .");
-
-    m_pixelator.swapBuffer("primary");
-
-    SPDLOG_INFO("Switching to primary buffer");
-
-    m_pixelator.setActiveBuffer("primary");
-
-    m_pixelator.clear();
-
-    m_pixelator.copy("second_buffer", 0, 0, m_pixelator.getSize("second_buffer"));
-    write_text("Hello from PixelWolf!");
-
     return true;
 }
 
@@ -126,6 +64,5 @@ bool Game::OnUserRender()
 
 bool Game::OnUserDestroy()
 {
-	PhysFS::deinit();
     return true;
 }

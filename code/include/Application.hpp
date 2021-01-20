@@ -20,6 +20,7 @@
 #include "spdlog/spdlog.h"
 #include <SFML/Graphics.hpp>
 #include "Pixelator.hpp"
+#include "thor/Input/ActionMap.hpp"
 
 class Application : private sf::NonCopyable
 {
@@ -51,6 +52,8 @@ class Application : private sf::NonCopyable
         Pixelator m_pixelator;
         sf::Texture m_rendertexture;
 
+        thor::ActionMap<std::string> m_action_map;
+
     private:
 		static const sf::Time m_time_per_frame;
 		sf::Time m_stats_update_time;
@@ -61,7 +64,7 @@ class Application : private sf::NonCopyable
         std::shared_ptr<spdlog::logger> m_pxllogger;
         sf::Sprite m_rendersprite;
         sf::Text m_text;
-        
+
         void setup_working_directory();
         void setup_logging();
         bool load_font();
@@ -69,6 +72,5 @@ class Application : private sf::NonCopyable
         void event();
         void update(sf::Time elapsedTime);
         void render();
-        bool handle_input();
         void toggle_fullscreen();
 };

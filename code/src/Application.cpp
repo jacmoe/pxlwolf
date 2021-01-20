@@ -43,6 +43,7 @@ Application::Application()
     , m_frames_per_second(0)
     , m_renderwindow(nullptr)
     , m_pixelator()
+    , m_action_map()
     , m_stats_update_time()
     , m_stats_num_frames(0)
     , m_running(false)
@@ -186,6 +187,9 @@ bool Application::init(const std::string title, const int width, const int heigh
 
     m_pixelator.setSize(sf::Vector2i(static_cast<float>(m_width), static_cast<float>(m_height)));
 
+    m_action_map["quit"] = thor::Action(sf::Keyboard::LControl) && thor::Action(sf::Keyboard::Q);
+    m_action_map["toggle_fullscreen"] = thor::Action(sf::Keyboard::LAlt) && thor::Action(sf::Keyboard::Enter);
+
 	SPDLOG_INFO("PixelWolf initialized.");
     return true;
 }
@@ -212,27 +216,11 @@ void Application::run()
             update(m_time_per_frame);
 
             OnUserUpdate(m_time_per_frame);
-            
-            m_running = handle_input();
 		}
 
         render();
     }
     OnUserDestroy();
-}
-
-bool Application::handle_input()
-{
-    bool keep_running = true;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) && sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
-    {
-        keep_running = false;
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::LAlt) && sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
-    {
-        toggle_fullscreen();
-    }
-    return keep_running;
 }
 
 void Application::toggle_fullscreen()
@@ -256,11 +244,20 @@ void Application::toggle_fullscreen()
 
 void Application::event()
 {
-    sf::Event event;
+     sf::Event event;
     while (m_renderwindow.get()->pollEvent(event))
     {
         if (event.type == sf::Event::Closed)
             m_renderwindow.get()->close();
+
+        m_action_map.pushEvent(event);
+
+        if (m_action_map.isActive("quit"))
+            m_running = false;
+
+        if (m_action_map.isActive("toggle_fullscreen"))
+            toggle_fullscreen();
+
     }
 }
 
