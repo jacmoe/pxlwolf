@@ -57,11 +57,3 @@ private:
     int get_wall_entry(int tile_x, int tile_y);
     double deg2rad (double degrees);
 };
-
-struct RGB
-{
-    double r;
-    double g;
-    double b;
-};
-RGB colorConverter(int hexValue);

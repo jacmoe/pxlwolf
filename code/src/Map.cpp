@@ -40,16 +40,6 @@ double Map::deg2rad (double degrees) {
     return degrees * 4.0 * atan (1.0) / 180.0;
 }
 
-RGB colorConverter(int hexValue)
-{
-  RGB rgbColor;
-  rgbColor.r = ((hexValue >> 16) & 0xFF);  // Extract the RR byte
-  rgbColor.g = ((hexValue >> 8) & 0xFF);   // Extract the GG byte
-  rgbColor.b = ((hexValue) & 0xFF);        // Extract the BB byte
-
-  return rgbColor; 
-}
-
 bool Map::load(const std::string& file_name, const std::string& level_name, bool from_zip)
 {
     rapidjson::Document document;
@@ -92,10 +82,12 @@ bool Map::load(const std::string& file_name, const std::string& level_name, bool
 				std::replace(wall_color.begin(), wall_color.end(), '#', 'x');
 				wall_color = "0" + wall_color;
 				SPDLOG_INFO("Wall '{}' has color {}", wall_identifier, wall_color);
-				unsigned int x = std::stoul(wall_color, nullptr, 16);
-				RGB result = colorConverter(x);
-				SPDLOG_INFO("Color '{}' is r {}, g {}, b {}", x, result.r, result.g, result.b);
-				wall_elements.push_back({wall_identifier, sf::Color(result.r, result.g, result.b, 255)});
+				unsigned int wall_color_int = std::stoul(wall_color, nullptr, 16);
+				double r = ((wall_color_int >> 16) & 0xFF);  // Extract the RR byte
+				double g = ((wall_color_int >> 8) & 0xFF);   // Extract the GG byte
+				double b = ((wall_color_int) & 0xFF);        // Extract the BB byte
+				SPDLOG_INFO("Color '{}' is r {}, g {}, b {}", wall_color_int, r, g, b);
+				wall_elements.push_back({wall_identifier, sf::Color(r, g, b, 255)});
 			}
 		}
 
