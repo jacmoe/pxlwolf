@@ -40,15 +40,7 @@ bool Game::OnUserCreate()
 
     m_pixelator.setSize(sf::Vector2i(m_width, m_height));
 
-    for(unsigned int px = 0; px < image.getSize().x; px++ )
-    {
-        for(unsigned int py = 0; py < image.getSize().y; py++ )
-        {
-            m_pixelator.setPixel(px, py, image.getPixel(px, py));
-        }
-    }
-
-    m_pixelator.fill(map.get_wall_element(1).color);
+    m_pixelator.copy(image, 0, 0, sf::IntRect(0, 0, image.getSize().x, image.getSize().y));
 
     m_action_map["test"] = thor::Action(sf::Mouse::Left, thor::Action::Hold);
 
