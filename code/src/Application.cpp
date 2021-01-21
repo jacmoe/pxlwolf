@@ -167,8 +167,6 @@ bool Application::init(const std::string title, const int width, const int heigh
         ));
     }
 
-    m_rendersprite.setScale(m_scale, m_scale);
-
     if (!m_renderwindow)
     {
         SPDLOG_ERROR("Error creating window");
@@ -178,6 +176,17 @@ bool Application::init(const std::string title, const int width, const int heigh
     m_rendertexture.create(m_width, m_height);
 
     m_rendersprite.setTexture(m_rendertexture);
+
+    if(m_fullscreen)
+    {
+        m_rendersprite.setScale(
+        (m_renderwindow.get()->getView().getSize().x / m_rendersprite.getLocalBounds().width), 
+        (m_renderwindow.get()->getView().getSize().y / m_rendersprite.getLocalBounds().height));
+    }
+    else
+    {
+        m_rendersprite.setScale(m_scale, m_scale);
+    }
 
     if(!load_font())
     {
@@ -231,6 +240,9 @@ void Application::toggle_fullscreen()
             sf::VideoMode(m_width * static_cast<unsigned int>(m_scale), m_height * static_cast<unsigned int>(m_scale)), m_title
             , sf::Style::Fullscreen
         );
+        m_rendersprite.setScale(
+        (m_renderwindow.get()->getView().getSize().x / m_rendersprite.getLocalBounds().width), 
+        (m_renderwindow.get()->getView().getSize().y / m_rendersprite.getLocalBounds().height));
     }
     else
     {
@@ -238,6 +250,7 @@ void Application::toggle_fullscreen()
             sf::VideoMode(m_width * static_cast<unsigned int>(m_scale), m_height * static_cast<unsigned int>(m_scale)), m_title
             , sf::Style::Default
         );
+        m_rendersprite.setScale(m_scale, m_scale);
     }
     m_fullscreen = !m_fullscreen;
 }

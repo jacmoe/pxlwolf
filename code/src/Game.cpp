@@ -31,7 +31,33 @@ bool Game::OnUserCreate()
     Map map;
     map.load("assets/levels/levels.ldtk", "Level1");
 
-    m_pixelator.randomize();
+    ImageAtlas atlas;
+
+    atlas.Init("assets/textures/sjswalls2.bmp", 4, 3);
+
+    m_pixelator.addBuffer("secondary");
+
+    m_pixelator.setActiveBuffer("secondary");
+
+    m_pixelator.copy(atlas.GetPixels(7), atlas.GetImageDimensions(), 0, 0, sf::IntRect(0, 0, atlas.GetImageDimensions().x, atlas.GetImageDimensions().y));
+
+    m_pixelator.setActiveBuffer("primary");
+
+    m_pixelator.drawColumn(100, 2, 50, sf::Color::Blue);
+
+    m_pixelator.drawRow(10, 10, 200, sf::Color::Red);
+
+    m_pixelator.drawFilledRect(sf::IntRect(10, 10, 10, 10), sf::Color::Cyan);
+
+    m_pixelator.drawLine(sf::Vector2i(10,10), sf::Vector2i(200, 80), sf::Color::Magenta);
+
+    m_pixelator.drawCircle(sf::Vector2i(100,100), 80, sf::Color::Blue);
+
+    m_pixelator.drawRect(sf::IntRect(60, 60, 100, 100), sf::Color::White);
+
+    m_pixelator.setActiveBuffer("secondary");
+
+    m_pixelator.copy("primary", 0, 0, true);
 
     m_action_map["test"] = thor::Action(sf::Mouse::Left, thor::Action::Hold);
 
