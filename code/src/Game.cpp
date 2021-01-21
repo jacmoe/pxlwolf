@@ -41,6 +41,8 @@ bool Game::OnUserCreate()
 
     m_pixelator.drawRow(10, 10, 200, sf::Color::Red);
 
+    m_pixelator.drawRect(sf::IntRect(10, 10, 10, 10), sf::Color::Cyan);
+
     m_action_map["test"] = thor::Action(sf::Mouse::Left, thor::Action::Hold);
 
     return true;

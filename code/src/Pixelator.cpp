@@ -183,6 +183,21 @@ void Pixelator::drawRow(unsigned int x, unsigned int y, unsigned int length, con
     }
 }
 
+// draw a rect defined by left, top, width, height
+void Pixelator::drawRect(const sf::IntRect& rect, const sf::Color& color)
+{
+    if (rect.left < getSize().width)
+    {
+        for (uint32_t i = rect.left; i < rect.left + rect.width; i++)
+        {
+            if (i < getSize().width)
+            {
+                drawColumn(i, rect.top, rect.height, color);
+            }
+        }
+    }
+}
+
 sf::Color Pixelator::getPixel(unsigned int x, unsigned int y) const
 {
     unsigned int index = m_buffer_map.at(m_current_buffer);
