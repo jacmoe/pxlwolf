@@ -317,6 +317,23 @@ void Pixelator::fill(sf::Color color)
     m_buffers[index].pixels.swap(newPixels);
 }
 
+void Pixelator::randomize()
+{
+    unsigned int index = m_buffer_map.at(m_current_buffer);
+    std::vector<sf::Uint8> newPixels(m_buffers[index].size.x * m_buffers[index].size.y * 4);
+    sf::Uint8* ptr = &newPixels[0];
+    sf::Uint8* end = ptr + newPixels.size();
+    while (ptr < end)
+    {
+        *ptr++ = rand() % 255;
+        *ptr++ = rand() % 255;
+        *ptr++ = rand() % 255;
+        *ptr++ = rand() % 255;
+    }
+    // Commit the new pixel buffer
+    m_buffers[index].pixels.swap(newPixels);
+}
+
 void Pixelator::clear()
 {
     unsigned int index = m_buffer_map.at(m_current_buffer);

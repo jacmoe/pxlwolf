@@ -41,6 +41,7 @@ public:
 	void drawRect(const sf::IntRect rect, const sf::Color& color);
 
 	void fill(sf::Color color);
+	void randomize();
 	void clear();
 
 	// Buffers
