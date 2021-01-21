@@ -41,9 +41,13 @@ bool Game::OnUserCreate()
 
     m_pixelator.drawRow(10, 10, 200, sf::Color::Red);
 
-    m_pixelator.drawRect(sf::IntRect(10, 10, 10, 10), sf::Color::Cyan);
+    m_pixelator.drawFilledRect(sf::IntRect(10, 10, 10, 10), sf::Color::Cyan);
 
     m_pixelator.drawLine(sf::Vector2i(10,10), sf::Vector2i(200, 80), sf::Color::Magenta);
+
+    m_pixelator.drawCircle(sf::Vector2i(100,100), 80, sf::Color::Blue);
+
+    m_pixelator.drawRect(sf::IntRect(60, 60, 100, 100), sf::Color::White);
 
     m_action_map["test"] = thor::Action(sf::Mouse::Left, thor::Action::Hold);
 

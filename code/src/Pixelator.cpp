@@ -184,7 +184,7 @@ void Pixelator::drawRow(unsigned int x, unsigned int y, unsigned int length, con
 }
 
 // draw a rect defined by left, top, width, height
-void Pixelator::drawRect(const sf::IntRect& rect, const sf::Color& color)
+void Pixelator::drawFilledRect(const sf::IntRect& rect, const sf::Color& color)
 {
     if (rect.left < getSize().width)
     {
@@ -239,6 +239,44 @@ void Pixelator::drawLine(const sf::Vector2i& start, const sf::Vector2i& end, con
             d += ax;
         }
     }
+}
+
+// https://en.wikipedia.org/wiki/Midpoint_circle_algorithm
+void Pixelator::drawCircle(const sf::Vector2i& coord, const int radius, const sf::Color& color)
+{
+    int x = radius;
+    int y = 0;
+    int decisionOver2 = 1 - x;  // Decision criterion divided by 2 evaluated at x=r, y=0
+
+    while (x >= y) {
+        setPixel(x + coord.x,  y + coord.y, color);
+        setPixel(y + coord.x,  x + coord.y, color);
+        setPixel(-x + coord.x,  y + coord.y, color);
+        setPixel(-y + coord.x,  x + coord.y, color);
+        setPixel(-x + coord.x, -y + coord.y, color);
+        setPixel(-y + coord.x, -x + coord.y, color);
+        setPixel(x + coord.x, -y + coord.y, color);
+        setPixel(y + coord.x, -x + coord.y, color);
+        y++;
+
+        if (decisionOver2 <= 0) {
+            decisionOver2 += 2 * y + 1;  // Change in decision criterion for y -> y+1
+        } else {
+            x--;
+            decisionOver2 += 2 * (y - x) + 1;  // Change for y -> y+1, x -> x-1
+        }
+    }
+}
+
+// left top width height
+void Pixelator::drawRect(const sf::IntRect rect, const sf::Color& color)
+{
+    int right = rect.left + rect.width;
+    int bottom = rect.top + rect.height;
+    drawLine(sf::Vector2i(rect.left, rect.top), sf::Vector2i(right, rect.top), color);
+    drawLine(sf::Vector2i(rect.left, bottom), sf::Vector2i(right, bottom), color);
+    drawLine(sf::Vector2i(rect.left, rect.top), sf::Vector2i(rect.left, bottom), color);
+    drawLine(sf::Vector2i(right, rect.top), sf::Vector2i(right, bottom), color);
 }
 
 sf::Color Pixelator::getPixel(unsigned int x, unsigned int y) const
