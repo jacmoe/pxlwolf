@@ -71,10 +71,10 @@ bool Pixelator::addBuffer(const std::string name)
     sf::Uint8* end = ptr + newPixels.size();
     while (ptr < end)
     {
-        *ptr++ = sf::Color::Black.r;
-        *ptr++ = sf::Color::Black.g;
-        *ptr++ = sf::Color::Black.b;
-        *ptr++ = sf::Color::Black.a;
+        *ptr++ = sf::Color::Transparent.r;
+        *ptr++ = sf::Color::Transparent.g;
+        *ptr++ = sf::Color::Transparent.b;
+        *ptr++ = sf::Color::Transparent.a;
     }
     // Commit the new pixel buffer
     m_buffers[newBufferIndex].pixels.swap(newPixels);
@@ -138,10 +138,10 @@ void Pixelator::setSize(const sf::Vector2i size)
     sf::Uint8* end = ptr + newPixels.size();
     while (ptr < end)
     {
-        *ptr++ = sf::Color::Black.r;
-        *ptr++ = sf::Color::Black.g;
-        *ptr++ = sf::Color::Black.b;
-        *ptr++ = sf::Color::Black.a;
+        *ptr++ = sf::Color::Transparent.r;
+        *ptr++ = sf::Color::Transparent.g;
+        *ptr++ = sf::Color::Transparent.b;
+        *ptr++ = sf::Color::Transparent.a;
     }
     // Commit the new pixel buffer
     m_buffers[index].pixels.swap(newPixels);
@@ -350,6 +350,16 @@ void Pixelator::copy(const sf::Image& source, unsigned int destX, unsigned int d
 void Pixelator::copy(const std::string name, unsigned int destX, unsigned int destY, const sf::IntRect& sourceRect, bool applyAlpha)
 {
     copy(&m_buffers[m_buffer_map[name]].pixels[0], m_buffers[m_buffer_map[name]].size, destX, destY, sourceRect, applyAlpha);
+}
+
+// copies everything from another buffer
+void Pixelator::copy(const std::string name, unsigned int x, unsigned int y, bool applyAlpha)
+{
+    sf::IntRect sourceRect;
+    sourceRect.left = sourceRect.top = 0;
+    sourceRect.width = m_buffers[m_buffer_map[name]].size.x;
+    sourceRect.height = m_buffers[m_buffer_map[name]].size.y;
+    copy(&m_buffers[m_buffer_map[name]].pixels[0], m_buffers[m_buffer_map[name]].size, x, y, sourceRect, applyAlpha);
 }
 
 // copies from raw pixels

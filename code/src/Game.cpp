@@ -35,7 +35,13 @@ bool Game::OnUserCreate()
 
     atlas.Init("assets/textures/sjswalls2.bmp", 4, 3);
 
+    m_pixelator.addBuffer("second_buffer");
+
+    m_pixelator.setActiveBuffer("second_buffer");
+
     m_pixelator.copy(atlas.GetPixels(7), atlas.GetImageDimensions(), 0, 0, sf::IntRect(0, 0, atlas.GetImageDimensions().x, atlas.GetImageDimensions().y));
+
+    m_pixelator.setActiveBuffer("primary");
 
     m_pixelator.drawColumn(100, 2, 50, sf::Color::Blue);
 
@@ -48,6 +54,10 @@ bool Game::OnUserCreate()
     m_pixelator.drawCircle(sf::Vector2i(100,100), 80, sf::Color::Blue);
 
     m_pixelator.drawRect(sf::IntRect(60, 60, 100, 100), sf::Color::White);
+
+    m_pixelator.setActiveBuffer("second_buffer");
+
+    m_pixelator.copy("primary", 0, 0, true);
 
     m_action_map["test"] = thor::Action(sf::Mouse::Left, thor::Action::Hold);
 

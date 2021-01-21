@@ -53,6 +53,7 @@ public:
 	bool swapBuffer(const std::string name);
 
 	// copy pixels from a source
+	void copy(const std::string name, unsigned int x = 0, unsigned int y = 0, bool applyAlpha = false);
 	void copy(const std::string name, unsigned int destX, unsigned int destY, const sf::IntRect& sourceRect, bool applyAlpha = false);
 	void copy(const sf::Image& source, unsigned int destX, unsigned int destY, const sf::IntRect& sourceRect, bool applyAlpha = false);
 	void copy(const sf::Uint8* source_pixels, const sf::Vector2i buffer_size, unsigned int destX, unsigned int destY, const sf::IntRect& sourceRect, bool applyAlpha = false);
