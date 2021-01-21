@@ -43,6 +43,8 @@ bool Game::OnUserCreate()
 
     m_pixelator.drawRect(sf::IntRect(10, 10, 10, 10), sf::Color::Cyan);
 
+    m_pixelator.drawLine(sf::Vector2i(10,10), sf::Vector2i(200, 80), sf::Color::Magenta);
+
     m_action_map["test"] = thor::Action(sf::Mouse::Left, thor::Action::Hold);
 
     return true;

@@ -198,6 +198,49 @@ void Pixelator::drawRect(const sf::IntRect& rect, const sf::Color& color)
     }
 }
 
+// Doom's version of Bresenham
+void Pixelator::drawLine(const sf::Vector2i& start, const sf::Vector2i& end, const sf::Color& color)
+{
+    int dx = end.x - start.x;
+    int ax = 2 * abs(dx);
+    int sx = dx < 0 ? -1 : 1;
+
+    int dy = end.y - start.y;
+    int ay = 2 * abs(dy);
+    int sy = dy < 0 ? -1 : 1;
+
+    int x = start.x;
+    int y = start.y;
+
+    if (ax > ay) {
+        int d = ay - ax / 2;
+        while (1) {
+            setPixel(x, y, color);
+            if (x == end.x) return;
+
+            if (d >= 0) {
+                y += sy;
+                d -= ax;
+            }
+            x += sx;
+            d += ay;
+        }
+    } else {
+        int d = ax - ay / 2;
+        while (1) {
+            setPixel(x, y, color);
+            if (y == end.y) return;
+
+            if (d >= 0) {
+                x += sx;
+                d -= ay;
+            }
+            y += sy;
+            d += ax;
+        }
+    }
+}
+
 sf::Color Pixelator::getPixel(unsigned int x, unsigned int y) const
 {
     unsigned int index = m_buffer_map.at(m_current_buffer);

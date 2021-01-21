@@ -36,6 +36,7 @@ public:
 	void drawColumn(unsigned int x, unsigned int y, unsigned int height, const sf::Color& color);
 	void drawRow(unsigned int x, unsigned int y, unsigned int length, const sf::Color& color);
 	void drawRect(const sf::IntRect& rect, const sf::Color& color);
+	void drawLine(const sf::Vector2i& start, const sf::Vector2i& end, const sf::Color& color);
 
 	void fill(sf::Color color);
 	void clear();
