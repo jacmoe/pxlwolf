@@ -47,7 +47,7 @@ public:
 
 	void copy(const std::string name, unsigned int destX, unsigned int destY, const sf::IntRect& sourceRect, bool applyAlpha = false);
 	void copy(const sf::Image& source, unsigned int destX, unsigned int destY, const sf::IntRect& sourceRect, bool applyAlpha = false);
-	void copy(const sf::Uint8* pixels, unsigned int destX, unsigned int destY, const sf::IntRect& sourceRect, bool applyAlpha = false);
+	void copy(const sf::Uint8* source_pixels, const sf::Vector2i buffer_size, unsigned int destX, unsigned int destY, const sf::IntRect& sourceRect, bool applyAlpha = false);
 
 	sf::IntRect getSize() { return getSize(m_current_buffer); }
 	sf::IntRect getSize(const std::string name);

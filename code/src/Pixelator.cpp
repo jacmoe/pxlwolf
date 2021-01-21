@@ -296,9 +296,81 @@ void Pixelator::copy(const sf::Image& source, unsigned int destX, unsigned int d
     }
 }
 
-void Pixelator::copy(const sf::Uint8* pixels, unsigned int destX, unsigned int destY, const sf::IntRect& sourceRect, bool applyAlpha)
+void Pixelator::copy(const sf::Uint8* source_pixels, const sf::Vector2i buffer_size, unsigned int destX, unsigned int destY, const sf::IntRect& sourceRect, bool applyAlpha)
 {
-    // todo
+    // Make sure that both images are valid
+    if ((buffer_size.x == 0) || (buffer_size.y == 0) || (m_buffers[m_buffer_map[m_current_buffer]].size.x == 0) || (m_buffers[m_buffer_map[m_current_buffer]].size.y == 0))
+        return;
+
+    // Adjust the source rectangle
+    sf::IntRect srcRect = sourceRect;
+    if (srcRect.width == 0 || (srcRect.height == 0))
+    {
+        srcRect.left   = 0;
+        srcRect.top    = 0;
+        srcRect.width  = buffer_size.x;
+        srcRect.height = buffer_size.y;
+    }
+    else
+    {
+        if (srcRect.left   < 0) srcRect.left = 0;
+        if (srcRect.top    < 0) srcRect.top  = 0;
+        if (srcRect.width  > static_cast<int>(buffer_size.x)) srcRect.width  = buffer_size.x;
+        if (srcRect.height > static_cast<int>(buffer_size.y)) srcRect.height = buffer_size.y;
+    }
+
+    // Then find the valid bounds of the destination rectangle
+    int width  = srcRect.width;
+    int height = srcRect.height;
+    if (destX + width  > m_buffers[m_buffer_map[m_current_buffer]].size.x) width  = m_buffers[m_buffer_map[m_current_buffer]].size.x - destX;
+    if (destY + height > m_buffers[m_buffer_map[m_current_buffer]].size.y) height = m_buffers[m_buffer_map[m_current_buffer]].size.y - destY;
+
+    // Make sure the destination area is valid
+    if ((width <= 0) || (height <= 0))
+        return;
+
+    // Precompute as much as possible
+    int          pitch     = width * 4;
+    int          rows      = height;
+    int          srcStride = static_cast<int>(buffer_size.x * 4u);
+    int          dstStride = static_cast<int>(m_buffers[m_buffer_map[m_current_buffer]].size.x * 4u);
+    const sf::Uint8* srcPixels = source_pixels;
+    sf::Uint8*       dstPixels = &m_buffers[m_buffer_map[m_current_buffer]].pixels[0] + (destX + destY * static_cast<int>(m_buffers[m_buffer_map[m_current_buffer]].size.x)) * 4u;
+
+    // Copy the pixels
+    if (applyAlpha)
+    {
+        // Interpolation using alpha values, pixel by pixel (slower)
+        for (int i = 0; i < rows; ++i)
+        {
+            for (int j = 0; j < width; ++j)
+            {
+                // Get a direct pointer to the components of the current pixel
+                const sf::Uint8* src = srcPixels + j * 4;
+                sf::Uint8*       dst = dstPixels + j * 4;
+
+                // Interpolate RGBA components using the alpha value of the source pixel
+                sf::Uint8 alpha = src[3];
+                dst[0] = (src[0] * alpha + dst[0] * (255 - alpha)) / 255;
+                dst[1] = (src[1] * alpha + dst[1] * (255 - alpha)) / 255;
+                dst[2] = (src[2] * alpha + dst[2] * (255 - alpha)) / 255;
+                dst[3] = alpha + dst[3] * (255 - alpha) / 255;
+            }
+
+            srcPixels += srcStride;
+            dstPixels += dstStride;
+        }
+    }
+    else
+    {
+        // Optimized copy ignoring alpha values, row by row (faster)
+        for (int i = 0; i < rows; ++i)
+        {
+            std::memcpy(dstPixels, srcPixels, pitch);
+            srcPixels += srcStride;
+            dstPixels += dstStride;
+        }
+    }
 }
 
 void Pixelator::copy(const std::string name, unsigned int destX, unsigned int destY, const sf::IntRect& sourceRect, bool applyAlpha)

@@ -35,12 +35,7 @@ bool Game::OnUserCreate()
 
     atlas.Init("assets/textures/sjswalls2.bmp", 4, 3);
 
-    sf::Image image;
-    image.create(atlas.GetImageDimensions().x, atlas.GetImageDimensions().y, atlas.GetPixels(7));
-
-    m_pixelator.setSize(sf::Vector2i(m_width, m_height));
-
-    m_pixelator.copy(image, 0, 0, sf::IntRect(0, 0, image.getSize().x, image.getSize().y));
+    m_pixelator.copy(atlas.GetPixels(7), atlas.GetImageDimensions(), 0, 0, sf::IntRect(0, 0, atlas.GetImageDimensions().x, atlas.GetImageDimensions().y));
 
     m_action_map["test"] = thor::Action(sf::Mouse::Left, thor::Action::Hold);
 
