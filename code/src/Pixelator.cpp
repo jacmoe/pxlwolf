@@ -158,6 +158,31 @@ void Pixelator::setPixel(unsigned int x, unsigned int y, const sf::Color& color)
     *pixel++ = color.a;
 }
 
+void Pixelator::drawColumn(unsigned int x, unsigned int y, unsigned int height, const sf::Color& color)
+{
+   if (y < 0)
+    {
+        height = height + y;
+        y = 0;
+    }
+    if (y + height > m_buffers[m_buffer_map[m_current_buffer]].size.y)
+    {
+        height = m_buffers[m_buffer_map[m_current_buffer]].size.y - y;
+    }
+    for (int32_t i = y; i < y + height; i++)
+    {
+        setPixel(x, i, color);
+    }
+}
+
+void Pixelator::drawRow(unsigned int x, unsigned int y, unsigned int length, const sf::Color& color)
+{
+    for (int32_t i = x; i < length; i++)
+    {
+        setPixel(i, y, color);
+    }
+}
+
 sf::Color Pixelator::getPixel(unsigned int x, unsigned int y) const
 {
     unsigned int index = m_buffer_map.at(m_current_buffer);
@@ -174,7 +199,7 @@ const sf::Uint8* Pixelator::getPixelsPtr() const
     }
     else
     {
-        //err() << "Trying to access the pixels of an empty image" << std::endl;
+        SPDLOG_ERROR("Trying to access the pixels of an empty image");
         return NULL;
     }
 }

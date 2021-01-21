@@ -28,10 +28,13 @@ public:
 
 	void setSize(const sf::Vector2i size);
 
-	// Pixel
+	// Pixels
 	void setPixel(unsigned int x, unsigned int y, const sf::Color& color);
 	sf::Color getPixel(unsigned int x, unsigned int y) const;
 	const sf::Uint8* getPixelsPtr() const;
+
+	void drawColumn(unsigned int x, unsigned int y, unsigned int height, const sf::Color& color);
+	void drawRow(unsigned int x, unsigned int y, unsigned int length, const sf::Color& color);
 
 	void fill(sf::Color color);
 	void clear();
@@ -45,10 +48,12 @@ public:
 
 	bool swapBuffer(const std::string name);
 
+	// copy pixels from a source
 	void copy(const std::string name, unsigned int destX, unsigned int destY, const sf::IntRect& sourceRect, bool applyAlpha = false);
 	void copy(const sf::Image& source, unsigned int destX, unsigned int destY, const sf::IntRect& sourceRect, bool applyAlpha = false);
 	void copy(const sf::Uint8* source_pixels, const sf::Vector2i buffer_size, unsigned int destX, unsigned int destY, const sf::IntRect& sourceRect, bool applyAlpha = false);
 
+	// get the size (width and height) of a buffer
 	sf::IntRect getSize() { return getSize(m_current_buffer); }
 	sf::IntRect getSize(const std::string name);
 

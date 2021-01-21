@@ -37,6 +37,10 @@ bool Game::OnUserCreate()
 
     m_pixelator.copy(atlas.GetPixels(7), atlas.GetImageDimensions(), 0, 0, sf::IntRect(0, 0, atlas.GetImageDimensions().x, atlas.GetImageDimensions().y));
 
+    m_pixelator.drawColumn(100, 2, 50, sf::Color::Blue);
+
+    m_pixelator.drawRow(10, 10, 200, sf::Color::Red);
+
     m_action_map["test"] = thor::Action(sf::Mouse::Left, thor::Action::Hold);
 
     return true;
