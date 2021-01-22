@@ -55,7 +55,8 @@ class Application : private sf::NonCopyable
         thor::ActionMap<std::string> m_action_map;
 
     private:
-		static const sf::Time m_time_per_frame;
+		float m_aspect_ratio;
+        static const sf::Time m_time_per_frame;
 		sf::Time m_stats_update_time;
 		std::size_t m_stats_num_frames;
         bool m_running;

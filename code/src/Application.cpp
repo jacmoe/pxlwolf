@@ -40,6 +40,7 @@ Application::Application()
     , m_scale(0)
     , m_width(0)
     , m_height(0)
+    , m_aspect_ratio(360/240)
     , m_frames_per_second(0)
     , m_renderwindow(nullptr)
     , m_pixelator()
@@ -145,6 +146,7 @@ bool Application::init(const std::string title, const int width, const int heigh
     m_scale = scale;
     m_title = title;
     m_fullscreen = fullscreen;
+    m_aspect_ratio = static_cast<float>(m_width) / static_cast<float>(m_height);
 
     setup_working_directory();
 
@@ -179,13 +181,16 @@ bool Application::init(const std::string title, const int width, const int heigh
 
     if(m_fullscreen)
     {
+        float offset = (m_renderwindow.get()->getView().getSize().x - (m_renderwindow.get()->getView().getSize().y * m_aspect_ratio)) / 2;
         m_rendersprite.setScale(
-        (m_renderwindow.get()->getView().getSize().x / m_rendersprite.getLocalBounds().width), 
+        ((m_renderwindow.get()->getView().getSize().y * m_aspect_ratio) / m_rendersprite.getLocalBounds().width), 
         (m_renderwindow.get()->getView().getSize().y / m_rendersprite.getLocalBounds().height));
+        m_rendersprite.setPosition(sf::Vector2f(offset, 0));
     }
     else
     {
         m_rendersprite.setScale(m_scale, m_scale);
+        m_rendersprite.setPosition(sf::Vector2f(0, 0));
     }
 
     if(!load_font())
@@ -194,12 +199,13 @@ bool Application::init(const std::string title, const int width, const int heigh
         return false;
     }
 
-    m_pixelator.setSize(sf::Vector2i(static_cast<float>(m_width), static_cast<float>(m_height)));
+    m_pixelator.setSize(sf::Vector2i(m_width, m_height));
 
     m_action_map["quit"] = thor::Action(sf::Keyboard::LControl) && thor::Action(sf::Keyboard::Q);
     m_action_map["toggle_fullscreen"] = thor::Action(sf::Keyboard::LAlt) && thor::Action(sf::Keyboard::Enter);
 
 	SPDLOG_INFO("PixelWolf initialized.");
+	SPDLOG_INFO("Aspect ratio : {}", m_aspect_ratio);
     return true;
 }
 
@@ -240,9 +246,11 @@ void Application::toggle_fullscreen()
             sf::VideoMode(m_width * static_cast<unsigned int>(m_scale), m_height * static_cast<unsigned int>(m_scale)), m_title
             , sf::Style::Fullscreen
         );
+        float offset = (m_renderwindow.get()->getView().getSize().x - (m_renderwindow.get()->getView().getSize().y * m_aspect_ratio)) / 2;
         m_rendersprite.setScale(
-        (m_renderwindow.get()->getView().getSize().x / m_rendersprite.getLocalBounds().width), 
+        ((m_renderwindow.get()->getView().getSize().y * m_aspect_ratio) / m_rendersprite.getLocalBounds().width), 
         (m_renderwindow.get()->getView().getSize().y / m_rendersprite.getLocalBounds().height));
+        m_rendersprite.setPosition(sf::Vector2f(offset, 0));
     }
     else
     {
@@ -251,6 +259,7 @@ void Application::toggle_fullscreen()
             , sf::Style::Default
         );
         m_rendersprite.setScale(m_scale, m_scale);
+        m_rendersprite.setPosition(sf::Vector2f(0, 0));
     }
     m_fullscreen = !m_fullscreen;
 }
