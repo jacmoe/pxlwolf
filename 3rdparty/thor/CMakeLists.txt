@@ -48,7 +48,7 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 include_directories(${PROJECT_SOURCE_DIR}/extlibs/aurora/include)
 
 # Predefined configuration options
-set(THOR_SHARED_LIBS TRUE CACHE BOOL "Build shared libraries (use shared SFML librares)")
+set(THOR_SHARED_LIBS FALSE CACHE BOOL "Build shared libraries (use shared SFML librares)")
 set(THOR_BUILD_EXAMPLES FALSE CACHE BOOL "Build example projects")
 set(THOR_BUILD_DOC FALSE CACHE BOOL "Create HTML documentation (requires Doxygen)")
 
