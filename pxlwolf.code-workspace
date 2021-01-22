@@ -86,7 +86,10 @@
 			"xstring": "cpp",
 			"xtree": "cpp",
 			"bitset": "cpp",
-			"cstdarg": "cpp"
+			"cstdarg": "cpp",
+			"complex": "cpp",
+			"queue": "cpp",
+			"typeindex": "cpp"
 		}
 	}
 }

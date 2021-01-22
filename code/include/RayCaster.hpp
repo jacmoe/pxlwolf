@@ -23,11 +23,11 @@ struct Camera;
 class RayCaster
 {
 public:
-    RayCaster(Map& map, Pixelator& pixelator);
+    RayCaster(std::shared_ptr<Map> map, std::shared_ptr<Pixelator> pixelator);
 
-    void drawMinimap(const Camera& camera, int blockSize);
+    void drawMinimap(const std::string owner, const std::string name, const Camera& camera, int blockSize);
 
 private:
-    Map& m_map;
-    Pixelator m_pixelator;
+    std::shared_ptr<Map> m_map;
+    std::shared_ptr<Pixelator> m_pixelator;
 };

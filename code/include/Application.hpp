@@ -31,6 +31,7 @@ class Application : private sf::NonCopyable
         bool init(const std::string title, const int width, const int height, const float scale = 1.0f, const bool fullscreen = false);
         void run();
 
+    protected:
 		virtual bool OnUserCreate();
 		virtual bool OnUserUpdate(sf::Time elapsedTime);
 		virtual bool OnUserRender();
@@ -49,7 +50,7 @@ class Application : private sf::NonCopyable
 		std::size_t m_frames_per_second;
 
         std::unique_ptr<sf::RenderWindow> m_renderwindow;
-        Pixelator m_pixelator;
+        std::shared_ptr<Pixelator> m_pixelator;
         sf::Texture m_rendertexture;
 
         thor::ActionMap<std::string> m_action_map;

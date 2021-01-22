@@ -207,7 +207,9 @@ bool Application::init(const std::string title, const int width, const int heigh
         m_text.setPosition(sf::Vector2f(m_text_old_position.x + m_render_offset, m_text_old_position.y));
     }
 
-    m_pixelator.setSize(sf::Vector2i(m_width, m_height));
+    m_pixelator = std::make_shared<Pixelator>();
+
+    m_pixelator.get()->setSize(sf::Vector2i(m_width, m_height));
 
     m_action_map["quit"] = thor::Action(sf::Keyboard::LControl) && thor::Action(sf::Keyboard::Q);
     m_action_map["toggle_fullscreen"] = thor::Action(sf::Keyboard::LAlt) && thor::Action(sf::Keyboard::Enter);
@@ -312,7 +314,7 @@ void Application::render()
 
     OnUserRender();
 
-    m_rendertexture.update(m_pixelator.getPixelsPtr());
+    m_rendertexture.update(m_pixelator.get()->getPixelsPtr());
 
     m_renderwindow.get()->draw(m_rendersprite);
     m_renderwindow.get()->draw(m_text);

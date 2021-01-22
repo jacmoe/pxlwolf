@@ -17,6 +17,9 @@
 
 #include "Application.hpp"
 #include "Pixelator.hpp"
+#include "ImageAtlas.hpp"
+#include "Map.hpp"
+
 #include <SFML/Graphics.hpp>
 
 struct Camera
@@ -53,8 +56,13 @@ public:
 	Game();
 	~Game();
 
+protected:
 	bool OnUserCreate() override;
 	bool OnUserUpdate(sf::Time elapsedTime) override;
 	bool OnUserRender() override;
 	bool OnUserDestroy() override;
+
+private:
+    std::shared_ptr<Map> m_map;
+    std::shared_ptr<ImageAtlas> m_atlas;
 };

@@ -14,13 +14,15 @@
 #   MIT License
 #*/
 #include "Game.hpp"
-#include "ImageAtlas.hpp"
 #include "lua_main.hpp"
-#include "Map.hpp"
 #include "physfs.hpp"
+#include "RayCaster.hpp"
 
 Game::Game()
-{}
+{
+    m_map = std::make_shared<Map>();
+    m_atlas = std::make_shared<ImageAtlas>();
+}
 
 Game::~Game()
 {
@@ -28,79 +30,42 @@ Game::~Game()
 
 bool Game::OnUserCreate()
 {
-    Map map;
-    map.load("assets/levels/levels.ldtk", "Level1");
+    m_map.get()->load("assets/levels/levels.ldtk", "Level1");
 
-    ImageAtlas atlas;
+    m_atlas.get()->Init("assets/textures/sjswalls2.bmp", 4, 3);
 
-    atlas.Init("assets/textures/sjswalls2.bmp", 4, 3);
+    m_pixelator.get()->addBuffer("secondary");
 
-    m_pixelator.addBuffer("secondary");
+    m_pixelator.get()->setActiveBuffer("secondary");
 
-    m_pixelator.setActiveBuffer("secondary");
+    m_pixelator.get()->copy(m_atlas.get()->GetPixels(7), m_atlas.get()->GetImageDimensions(), 0, 0, sf::IntRect(0, 0, m_atlas.get()->GetImageDimensions().x, m_atlas.get()->GetImageDimensions().y));
 
-    m_pixelator.copy(atlas.GetPixels(7), atlas.GetImageDimensions(), 0, 0, sf::IntRect(0, 0, atlas.GetImageDimensions().x, atlas.GetImageDimensions().y));
+    m_pixelator.get()->setActiveBuffer("primary");
 
-    m_pixelator.setActiveBuffer("primary");
+    m_pixelator.get()->drawColumn(100, 2, 50, sf::Color::Blue);
 
-    m_pixelator.drawColumn(100, 2, 50, sf::Color::Blue);
+    m_pixelator.get()->drawRow(10, 10, 200, sf::Color::Red);
 
-    m_pixelator.drawRow(10, 10, 200, sf::Color::Red);
+    m_pixelator.get()->drawFilledRect(sf::IntRect(10, 10, 10, 10), sf::Color::Cyan);
 
-    m_pixelator.drawFilledRect(sf::IntRect(10, 10, 10, 10), sf::Color::Cyan);
+    m_pixelator.get()->drawLine(sf::Vector2i(10,10), sf::Vector2i(200, 80), sf::Color::Magenta);
 
-    m_pixelator.drawLine(sf::Vector2i(10,10), sf::Vector2i(200, 80), sf::Color::Magenta);
+    m_pixelator.get()->drawCircle(sf::Vector2i(100,100), 80, sf::Color::Blue);
 
-    m_pixelator.drawCircle(sf::Vector2i(100,100), 80, sf::Color::Blue);
+    m_pixelator.get()->drawRect(sf::IntRect(60, 60, 100, 100), sf::Color::White);
 
-    m_pixelator.drawRect(sf::IntRect(60, 60, 100, 100), sf::Color::White);
+    m_pixelator.get()->setActiveBuffer("secondary");
 
-    m_pixelator.setActiveBuffer("secondary");
-
-    m_pixelator.copy("primary", 0, 0, true);
+    m_pixelator.get()->copy("primary", 0, 0, true);
 
     m_action_map["test"] = thor::Action(sf::Mouse::Left, thor::Action::Hold);
 
-    m_pixelator.addBuffer("minimap");
-    m_pixelator.setActiveBuffer("minimap");
-    m_pixelator.setSize(sf::Vector2i(map.width() * 2, map.height() * 2));
+    RayCaster raycaster(m_map, m_pixelator);
 
-    //void RaycasterEngine::drawMinimap(PixBuffer* buffer, Camera* camera, unsigned int width, unsigned int height, Map* map, int blockSize)
-    int blockSize = 2;
-    int row, col;
-    sf::IntRect mapRect;
-    mapRect.width = map.width() * blockSize;
-    mapRect.height = map.height() * blockSize;
-    sf::IntRect blockRect;
-    blockRect.width = blockSize;
-    blockRect.height = blockSize;
+    Camera camera;
+    raycaster.drawMinimap("secondary", "minimap", camera, 2);
 
-    int p_x = map.player_position().x;
-    int p_y = map.player_position().y;
-
-    /* Draw map tiles */
-    for(row = 0; row < map.height(); row++)
-    {
-        for(col = 0; col < map.width(); col++)
-        {
-            blockRect.left = mapRect.left + col * blockSize;
-            blockRect.top = mapRect.top + row * blockSize;
-            if(map.get_walls()[row * map.width() + col] > 0)
-            {
-                sf::Color blockcolor = map.get_wall_element(map.get_walls()[row * map.width() + col]).color;
-                m_pixelator.drawFilledRect(blockRect, blockcolor);
-            }
-            if(p_y == row && p_x == col)
-            {
-                /* Draw the player */
-                sf::Color sepiaPink = {221,153,153,255};
-                m_pixelator.drawFilledRect(blockRect, sepiaPink);
-            }
-        }
-    }
-
-    m_pixelator.setActiveBuffer("primary");
-    m_pixelator.copy("minimap", 200, 0, true);
+    m_pixelator.get()->copy("minimap", 200, 0, true);
 
     return true;
 }
