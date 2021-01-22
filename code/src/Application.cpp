@@ -41,6 +41,8 @@ Application::Application()
     , m_width(0)
     , m_height(0)
     , m_aspect_ratio(360/240)
+    , m_text_old_position(0.0f,0.0f)
+    , m_render_offset(0.0f)
     , m_frames_per_second(0)
     , m_renderwindow(nullptr)
     , m_pixelator()
@@ -129,6 +131,7 @@ bool Application::load_font()
         m_text.setFont(m_font);
         m_text.setFillColor(m_font_color);
         m_text.setPosition(10.f, 10.f);
+        m_text_old_position = sf::Vector2f(10.f, 10.f);
         m_text.setCharacterSize(m_font_size);
         m_text.setString(m_title);
     }
@@ -181,11 +184,11 @@ bool Application::init(const std::string title, const int width, const int heigh
 
     if(m_fullscreen)
     {
-        float offset = (m_renderwindow.get()->getView().getSize().x - (m_renderwindow.get()->getView().getSize().y * m_aspect_ratio)) / 2;
+        m_render_offset = (m_renderwindow.get()->getView().getSize().x - (m_renderwindow.get()->getView().getSize().y * m_aspect_ratio)) / 2;
         m_rendersprite.setScale(
         ((m_renderwindow.get()->getView().getSize().y * m_aspect_ratio) / m_rendersprite.getLocalBounds().width), 
         (m_renderwindow.get()->getView().getSize().y / m_rendersprite.getLocalBounds().height));
-        m_rendersprite.setPosition(sf::Vector2f(offset, 0));
+        m_rendersprite.setPosition(sf::Vector2f(m_render_offset, 0));
     }
     else
     {
@@ -197,6 +200,11 @@ bool Application::init(const std::string title, const int width, const int heigh
     {
         SPDLOG_ERROR("Error loading font");
         return false;
+    }
+
+    if(m_fullscreen)
+    {
+        m_text.setPosition(sf::Vector2f(m_text.getPosition().x + m_render_offset, m_text.getPosition().y));
     }
 
     m_pixelator.setSize(sf::Vector2i(m_width, m_height));
@@ -246,11 +254,13 @@ void Application::toggle_fullscreen()
             sf::VideoMode(m_width * static_cast<unsigned int>(m_scale), m_height * static_cast<unsigned int>(m_scale)), m_title
             , sf::Style::Fullscreen
         );
-        float offset = (m_renderwindow.get()->getView().getSize().x - (m_renderwindow.get()->getView().getSize().y * m_aspect_ratio)) / 2;
+        m_render_offset = (m_renderwindow.get()->getView().getSize().x - (m_renderwindow.get()->getView().getSize().y * m_aspect_ratio)) / 2;
         m_rendersprite.setScale(
         ((m_renderwindow.get()->getView().getSize().y * m_aspect_ratio) / m_rendersprite.getLocalBounds().width), 
         (m_renderwindow.get()->getView().getSize().y / m_rendersprite.getLocalBounds().height));
-        m_rendersprite.setPosition(sf::Vector2f(offset, 0));
+        m_rendersprite.setPosition(sf::Vector2f(m_render_offset, 0));
+        m_text_old_position = m_text.getPosition();
+        m_text.setPosition(sf::Vector2f(m_text.getPosition().x + m_render_offset, m_text.getPosition().y));
     }
     else
     {
@@ -260,6 +270,7 @@ void Application::toggle_fullscreen()
         );
         m_rendersprite.setScale(m_scale, m_scale);
         m_rendersprite.setPosition(sf::Vector2f(0, 0));
+        m_text.setPosition(m_text_old_position);
     }
     m_fullscreen = !m_fullscreen;
 }

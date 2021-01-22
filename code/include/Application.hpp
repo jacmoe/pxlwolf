@@ -56,6 +56,8 @@ class Application : private sf::NonCopyable
 
     private:
 		float m_aspect_ratio;
+        float m_render_offset;
+        sf::Vector2f m_text_old_position;
         static const sf::Time m_time_per_frame;
 		sf::Time m_stats_update_time;
 		std::size_t m_stats_num_frames;
