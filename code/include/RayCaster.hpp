@@ -25,7 +25,7 @@ class RayCaster
 public:
     RayCaster(std::shared_ptr<Map> map, std::shared_ptr<Pixelator> pixelator);
 
-    void drawMinimap(const std::string owner, const std::string name, const Camera& camera, int blockSize);
+    void drawMinimap(const std::string& owner, const std::string& name, const Camera& camera, int blockSize);
 
 private:
     std::shared_ptr<Map> m_map;
