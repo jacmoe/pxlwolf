@@ -20,7 +20,7 @@
 #include "spdlog/spdlog.h"
 #include <SFML/Graphics.hpp>
 #include "Pixelator.hpp"
-#include "thor/Input/ActionMap.hpp"
+#include "Thor/Input/ActionMap.hpp"
 
 class Application : private sf::NonCopyable
 {
