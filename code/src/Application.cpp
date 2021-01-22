@@ -204,7 +204,7 @@ bool Application::init(const std::string title, const int width, const int heigh
 
     if(m_fullscreen)
     {
-        m_text.setPosition(sf::Vector2f(m_text.getPosition().x + m_render_offset, m_text.getPosition().y));
+        m_text.setPosition(sf::Vector2f(m_text_old_position.x + m_render_offset, m_text_old_position.y));
     }
 
     m_pixelator.setSize(sf::Vector2i(m_width, m_height));
@@ -259,8 +259,7 @@ void Application::toggle_fullscreen()
         ((m_renderwindow.get()->getView().getSize().y * m_aspect_ratio) / m_rendersprite.getLocalBounds().width), 
         (m_renderwindow.get()->getView().getSize().y / m_rendersprite.getLocalBounds().height));
         m_rendersprite.setPosition(sf::Vector2f(m_render_offset, 0));
-        m_text_old_position = m_text.getPosition();
-        m_text.setPosition(sf::Vector2f(m_text.getPosition().x + m_render_offset, m_text.getPosition().y));
+        m_text.setPosition(sf::Vector2f(m_text_old_position.x + m_render_offset, m_text_old_position.y));
     }
     else
     {
