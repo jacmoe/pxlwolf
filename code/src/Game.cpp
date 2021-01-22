@@ -61,19 +61,16 @@ bool Game::OnUserCreate()
 
     m_action_map["test"] = thor::Action(sf::Mouse::Left, thor::Action::Hold);
 
+    m_pixelator.addBuffer("minimap");
+    m_pixelator.setActiveBuffer("minimap");
+    m_pixelator.setSize(sf::Vector2i(map.width() * 2, map.height() * 2));
+
     //void RaycasterEngine::drawMinimap(PixBuffer* buffer, Camera* camera, unsigned int width, unsigned int height, Map* map, int blockSize)
-    int height = m_height;
-    int width = m_width;
     int blockSize = 2;
     int row, col;
-    float mapGridSquareSize = (float)height / (float)blockSize;
-    int mapXOffset = (width - height) / 2;
-    int mapYOffset = (height - height) / 2;
     sf::IntRect mapRect;
     mapRect.width = map.width() * blockSize;
     mapRect.height = map.height() * blockSize;
-    mapRect.left = width - mapRect.width;
-    mapRect.top = 0;
     sf::IntRect blockRect;
     blockRect.width = blockSize;
     blockRect.height = blockSize;
@@ -102,7 +99,8 @@ bool Game::OnUserCreate()
         }
     }
 
-
+    m_pixelator.setActiveBuffer("primary");
+    m_pixelator.copy("minimap", 200, 0, true);
 
     return true;
 }
