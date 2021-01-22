@@ -14,3 +14,20 @@
 #   MIT License
 #*/
 #pragma once
+
+#include "Map.hpp"
+#include "Pixelator.hpp"
+
+struct Camera;
+
+class RayCaster
+{
+public:
+    RayCaster(Map& map, Pixelator& pixelator);
+
+    void drawMinimap(const Camera& camera, int blockSize);
+
+private:
+    Map& m_map;
+    Pixelator m_pixelator;
+};

@@ -24,7 +24,7 @@ set(Sources
     ./src/Map.cpp
     #./src/Mechanics.cpp
     ./src/Pixelator.cpp
-    #./src/RayCaster.cpp
+    ./src/RayCaster.cpp
     ./src/utils.cpp
     ${3RD_PARTY_DIR}/physfs.cpp
     ${STATEMAN_DIR}/src/StateMachine.cpp
@@ -41,7 +41,7 @@ set(Includes
     #../${IncludeDir}/Mechanics.hpp
     ${3RD_PARTY_DIR}/physfs.hpp
     ../${IncludeDir}/Pixelator.hpp
-    #../${IncludeDir}/RayCaster.hpp
+    ../${IncludeDir}/RayCaster.hpp
     ../${IncludeDir}/utils.hpp
     ${STATEMAN_DIR}/include/StateMachine/State.hpp
     ${STATEMAN_DIR}/include/StateMachine/StateMachine.hpp
