@@ -109,7 +109,9 @@ endif()
 
 # Find SFML. Note: this handles all dependencies, libraries and include directories.
 if(NOT THOR_SHARED_LIBS)
-	#set(SFML_STATIC_LIBRARIES TRUE)
+	if(WIN32)
+		set(SFML_STATIC_LIBRARIES TRUE)
+	endif()
 endif()
 find_package(SFML 2.5 COMPONENTS audio graphics window system REQUIRED)
 
