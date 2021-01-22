@@ -22,7 +22,6 @@ set(Sources
     ./src/Game.cpp
     ./src/ImageAtlas.cpp
     ./src/Map.cpp
-    #./src/Mechanics.cpp
     ./src/Pixelator.cpp
     ./src/RayCaster.cpp
     ./src/utils.cpp
@@ -38,7 +37,6 @@ set(Includes
     ../${IncludeDir}/ImageAtlas.hpp
     ${3RD_PARTY_DIR}/lua_main.hpp
     ../${IncludeDir}/Map.hpp
-    #../${IncludeDir}/Mechanics.hpp
     ${3RD_PARTY_DIR}/physfs.hpp
     ../${IncludeDir}/Pixelator.hpp
     ../${IncludeDir}/RayCaster.hpp
