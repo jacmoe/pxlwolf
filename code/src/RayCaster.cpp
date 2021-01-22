@@ -14,16 +14,12 @@
 #   MIT License
 #*/
 #include "RayCaster.hpp"
-// #include <SFML/Graphics/Color.hpp>
-// #include <SFML/Graphics/Rect.hpp>
-// #include <SFML/System/Vector2.hpp>
+#include "Game.hpp"
 
 RayCaster::RayCaster(std::shared_ptr<Map> map, std::shared_ptr<Pixelator> pixelator)
 : m_map(map)
 , m_pixelator(pixelator)
-{
-    //
-}
+{}
 
 void RayCaster::drawMinimap(const std::string owner, const std::string name, const Camera& camera, int blockSize)
 {
@@ -40,8 +36,8 @@ void RayCaster::drawMinimap(const std::string owner, const std::string name, con
     blockRect.width = blockSize;
     blockRect.height = blockSize;
 
-    int p_x = map->player_position().x;
-    int p_y = map->player_position().y;
+    int p_x = static_cast<int>(camera.x);
+    int p_y = static_cast<int>(camera.y);
 
     /* Draw map tiles */
     for(row = 0; row < map->height(); row++)

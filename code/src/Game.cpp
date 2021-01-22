@@ -67,6 +67,8 @@ bool Game::OnUserCreate()
     RayCaster raycaster(m_map, m_pixelator);
 
     Camera camera;
+    camera.x = m_map.get()->player_start().x;
+    camera.y = m_map.get()->player_start().y;
     raycaster.drawMinimap("secondary", "minimap", camera, 2);
 
     pixelator->copy("minimap", 200, 0, true);

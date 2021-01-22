@@ -44,7 +44,7 @@ public:
 
     const int width() { return map_width; }
     const int height() { return map_height; }
-    const sf::Vector2f player_position() { return m_player_position; }
+    const sf::Vector2f player_start() { return m_player_start; }
 
 private:
     std::vector<int> walls;
@@ -54,7 +54,7 @@ private:
     std::list<std::string> level_names;
     int map_width;
     int map_height;
-    sf::Vector2f m_player_position;
+    sf::Vector2f m_player_start;
     double m_player_heading;
     bool initialized;
 

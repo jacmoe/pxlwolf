@@ -27,7 +27,7 @@
 Map::Map()
 : map_width(0)
 , map_height(0)
-, m_player_position(0.0, 0.0)
+, m_player_start(0.0, 0.0)
 , m_player_heading(0.0)
 , initialized(false)
 {}
@@ -122,10 +122,10 @@ bool Map::load(const std::string& file_name, const std::string& level_name, bool
 						std::string identifier = (*itr)["__identifier"].GetString();
 						if(identifier == "PlayerStart")
 						{
-							m_player_position.x = (*itr)["__grid"].GetArray()[0].GetFloat() + 0.5f;
-							m_player_position.y = (*itr)["__grid"].GetArray()[1].GetFloat() + 0.5f;
+							m_player_start.x = (*itr)["__grid"].GetArray()[0].GetFloat() + 0.5f;
+							m_player_start.y = (*itr)["__grid"].GetArray()[1].GetFloat() + 0.5f;
 							m_player_heading = static_cast<double>(deg2rad((*itr)["fieldInstances"].GetArray()[0]["__value"].GetDouble()));
-							SPDLOG_INFO("PlayerStart : ({}, {}), and angle is {}", m_player_position.x, m_player_position.y, m_player_heading);
+							SPDLOG_INFO("PlayerStart : ({}, {}), and angle is {}", m_player_start.x, m_player_start.y, m_player_heading);
 						}
 					}
 				} // if layer type is Entities
