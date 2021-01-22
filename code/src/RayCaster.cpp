@@ -27,31 +27,32 @@ RayCaster::RayCaster(std::shared_ptr<Map> map, std::shared_ptr<Pixelator> pixela
 
 void RayCaster::drawMinimap(const std::string owner, const std::string name, const Camera& camera, int blockSize)
 {
+    Map* map = m_map.get();
     m_pixelator.get()->addBuffer(name);
     m_pixelator.get()->setActiveBuffer(name);
-    m_pixelator.get()->setSize(sf::Vector2i(m_map.get()->width() * 2, m_map.get()->height() * 2));
+    m_pixelator.get()->setSize(sf::Vector2i(map->width() * 2, map->height() * 2));
 
     int row, col;
     sf::IntRect mapRect;
-    mapRect.width = m_map.get()->width() * blockSize;
-    mapRect.height = m_map.get()->height() * blockSize;
+    mapRect.width = map->width() * blockSize;
+    mapRect.height = map->height() * blockSize;
     sf::IntRect blockRect;
     blockRect.width = blockSize;
     blockRect.height = blockSize;
 
-    int p_x = m_map.get()->player_position().x;
-    int p_y = m_map.get()->player_position().y;
+    int p_x = map->player_position().x;
+    int p_y = map->player_position().y;
 
     /* Draw map tiles */
-    for(row = 0; row < m_map.get()->height(); row++)
+    for(row = 0; row < map->height(); row++)
     {
-        for(col = 0; col < m_map.get()->width(); col++)
+        for(col = 0; col < map->width(); col++)
         {
             blockRect.left = mapRect.left + col * blockSize;
             blockRect.top = mapRect.top + row * blockSize;
-            if(m_map.get()->get_walls()[row * m_map.get()->width() + col] > 0)
+            if(map->get_walls()[row * map->width() + col] > 0)
             {
-                sf::Color blockcolor = m_map.get()->get_wall_element(m_map.get()->get_walls()[row * m_map.get()->width() + col]).color;
+                sf::Color blockcolor = map->get_wall_element(map->get_walls()[row * map->width() + col]).color;
                 m_pixelator.get()->drawFilledRect(blockRect, blockcolor);
             }
             if(p_y == row && p_x == col)
