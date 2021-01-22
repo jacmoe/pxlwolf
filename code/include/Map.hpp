@@ -19,6 +19,7 @@
 #include <list>
 #include <string>
 #include <SFML/Graphics/Color.hpp>
+#include <SFML/System/Vector2.hpp>
 
 struct MapElement
 {
@@ -41,6 +42,10 @@ public:
 
     const MapElement& get_wall_element(const unsigned int element);
 
+    const int width() { return map_width; }
+    const int height() { return map_height; }
+    const sf::Vector2f player_position() { return m_player_position; }
+
 private:
     std::vector<int> walls;
     std::vector<int> floor;
@@ -49,9 +54,8 @@ private:
     std::list<std::string> level_names;
     int map_width;
     int map_height;
-    float player_x;
-    float player_y;
-    float player_heading;
+    sf::Vector2f m_player_position;
+    double m_player_heading;
     bool initialized;
 
     int get_wall_entry(int tile_x, int tile_y);

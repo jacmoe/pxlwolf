@@ -61,6 +61,49 @@ bool Game::OnUserCreate()
 
     m_action_map["test"] = thor::Action(sf::Mouse::Left, thor::Action::Hold);
 
+    //void RaycasterEngine::drawMinimap(PixBuffer* buffer, Camera* camera, unsigned int width, unsigned int height, Map* map, int blockSize)
+    int height = m_height;
+    int width = m_width;
+    int blockSize = 2;
+    int row, col;
+    float mapGridSquareSize = (float)height / (float)blockSize;
+    int mapXOffset = (width - height) / 2;
+    int mapYOffset = (height - height) / 2;
+    sf::IntRect mapRect;
+    mapRect.width = map.width() * blockSize;
+    mapRect.height = map.height() * blockSize;
+    mapRect.left = width - mapRect.width;
+    mapRect.top = 0;
+    sf::IntRect blockRect;
+    blockRect.width = blockSize;
+    blockRect.height = blockSize;
+
+    int p_x = map.player_position().x;
+    int p_y = map.player_position().y;
+
+    /* Draw map tiles */
+    for(row = 0; row < map.height(); row++)
+    {
+        for(col = 0; col < map.width(); col++)
+        {
+            blockRect.left = mapRect.left + col * blockSize;
+            blockRect.top = mapRect.top + row * blockSize;
+            if(map.get_walls()[row * map.width() + col] > 0)
+            {
+                sf::Color blockcolor = map.get_wall_element(map.get_walls()[row * map.width() + col]).color;
+                m_pixelator.drawFilledRect(blockRect, blockcolor);
+            }
+            if(p_y == row && p_x == col)
+            {
+                /* Draw the player */
+                sf::Color sepiaPink = {221,153,153,255};
+                m_pixelator.drawFilledRect(blockRect, sepiaPink);
+            }
+        }
+    }
+
+
+
     return true;
 }
 

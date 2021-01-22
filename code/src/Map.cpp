@@ -27,9 +27,8 @@
 Map::Map()
 : map_width(0)
 , map_height(0)
-, player_x(0.0f)
-, player_y(0.0f)
-, player_heading(0.0f)
+, m_player_position(0.0, 0.0)
+, m_player_heading(0.0)
 , initialized(false)
 {}
 
@@ -123,10 +122,10 @@ bool Map::load(const std::string& file_name, const std::string& level_name, bool
 						std::string identifier = (*itr)["__identifier"].GetString();
 						if(identifier == "PlayerStart")
 						{
-							player_x = (*itr)["__grid"].GetArray()[0].GetFloat() + 0.5f;
-							player_y = (*itr)["__grid"].GetArray()[1].GetFloat() + 0.5f;
-							player_heading = static_cast<float>(deg2rad((*itr)["fieldInstances"].GetArray()[0]["__value"].GetFloat()));
-							SPDLOG_INFO("PlayerStart : ({}, {}), and angle is {}", player_x, player_y, player_heading);
+							m_player_position.x = (*itr)["__grid"].GetArray()[0].GetFloat() + 0.5f;
+							m_player_position.y = (*itr)["__grid"].GetArray()[1].GetFloat() + 0.5f;
+							m_player_heading = static_cast<double>(deg2rad((*itr)["fieldInstances"].GetArray()[0]["__value"].GetDouble()));
+							SPDLOG_INFO("PlayerStart : ({}, {}), and angle is {}", m_player_position.x, m_player_position.y, m_player_heading);
 						}
 					}
 				} // if layer type is Entities
