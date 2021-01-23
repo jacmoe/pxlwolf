@@ -17,6 +17,7 @@
 
 #include "Map.hpp"
 #include "Pixelator.hpp"
+#include <memory>
 
 struct Camera;
 
