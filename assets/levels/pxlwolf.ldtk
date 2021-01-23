@@ -218,7 +218,7 @@
 			"bgPivotX": 0.5,
 			"bgPivotY": 0.5,
 			"__bgPos": null,
-			"externalRelPath": "levels/0000-Level1.ldtkl",
+			"externalRelPath": "pxlwolf/0000-Level1.ldtkl",
 			"layerInstances": null,
 			"__neighbours": [{ "levelUid": 8, "dir": "w" }]
 		},
@@ -236,7 +236,7 @@
 			"bgPivotX": 0.5,
 			"bgPivotY": 0.5,
 			"__bgPos": null,
-			"externalRelPath": "levels/0001-Level2.ldtkl",
+			"externalRelPath": "pxlwolf/0001-Level2.ldtkl",
 			"layerInstances": null,
 			"__neighbours": [{ "levelUid": 7, "dir": "e" }]
 		}
