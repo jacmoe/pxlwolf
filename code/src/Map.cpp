@@ -113,21 +113,13 @@ bool Map::init(const std::string& file_name, bool from_zip)
     return true;
 }
 
-bool check_key(std::unordered_map<std::string, std::string> l, std::string key) 
-{ 
-    if (l.find(key) == l.end()) 
-        return false; 
-  
-    return true; 
-}
-
 bool Map::load_level(const std::string& level_name, bool from_zip)
 {
-    if(!check_key(m_level_map, level_name))
-    {
+    if (m_level_map.find(level_name) == m_level_map.end())
+	{
         SPDLOG_ERROR("Level '{}' does not exist!", level_name);
         return false;
-    }
+	}
 
 	std::string level_file = "assets/levels/" + m_level_map[level_name];
     rapidjson::Document document;
@@ -225,7 +217,7 @@ bool Map::load_level(const std::string& level_name, bool from_zip)
 
 	} // for layer instances
 	
-	SPDLOG_INFO("Level '{}' initialized.", level_name);
+	SPDLOG_INFO("Level '{}' loaded.", level_name);
 	m_loaded = true;
 
 	if(from_zip)
