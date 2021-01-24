@@ -69,6 +69,7 @@ Compiled using MSVC 2019 on Windows, and GCC 9.3 on Linux.
 |Library|Description|License|
 |-------|-----------|-------|
 |[cereal][cereal]|C++11 library for serialization|BSD license|
+|[enTT][entt]|C++ entity component system|MIT license|
 |[Lua 5.4][lua]|Scripting language|zlib License|
 |[PhysicsFS ][physfs]|Archive support for games|zlib license|
 |[PhysFS++][physpp]|C++ wrapper for PhysicsFS|zlib license|
@@ -96,6 +97,7 @@ This project is using code from the [c-raycaster project][cray] - the raycaster 
 
 [sfml]: https://www.sfml-dev.org/download/sfml/2.5.1/ "Simple and Fast Media Library - 2D graphics C++ library"
 [cereal]: https://uscilab.github.io/cereal/ "C++11 library for serialization"
+[entt]: https://github.com/skypjack/entt "C++ entity component system"
 [lua]: https://www.lua.org/download.html "Scripting language"
 [physfs]: https://www.icculus.org/physfs/ "Archive support for games"
 [physpp]: https://github.com/kahowell/physfs-cpp "C++ wrapper for PhysicsFS"
