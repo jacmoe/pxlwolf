@@ -37,16 +37,16 @@ public:
     bool init(const std::string& file_name, bool from_zip = false);
     bool load_level(const std::string& level_name, bool from_zip = false);
 
-    const std::vector<int>& get_walls();
-    const std::vector<int>& get_floor();
-    const std::vector<int>& get_ceiling();
+    inline const std::vector<int>& walls() { return m_walls; }
+    inline const std::vector<int>& floor() { return m_floor; }
+    inline const std::vector<int>& ceiling() { return m_ceiling; }
     inline const bool initialized() { return m_initialized; }
     inline const bool loaded() { return m_loaded; }
 
-    const WallElement& get_wall_element(const unsigned int element);
+    inline const WallElement& wall_element(const unsigned int element) { return m_wall_elements[element - 1]; }
 
-    const int width() { return m_map_width; }
-    const int height() { return m_map_height; }
+    inline const int width() { return m_map_width; }
+    inline const int height() { return m_map_height; }
     inline const sf::Vector2f player_start() { return m_player_start; }
 
 private:

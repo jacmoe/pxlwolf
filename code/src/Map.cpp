@@ -237,28 +237,8 @@ bool Map::load_level(const std::string& level_name, bool from_zip)
     return true;
 }
 
-const WallElement& Map::get_wall_element(const unsigned int element)
-{
-	return m_wall_elements[element - 1];
-}
-
 int Map::get_wall_entry(int tile_x, int tile_y)
 {
     int item = int(tile_y) * m_map_width + int(tile_x);
     return m_walls[item];
-}
-
-const std::vector<int>& Map::get_walls()
-{
-    return m_walls;
-}
-
-const std::vector<int>& Map::get_floor()
-{
-    return m_floor;
-}
-
-const std::vector<int>& Map::get_ceiling()
-{
-    return m_ceiling;
 }

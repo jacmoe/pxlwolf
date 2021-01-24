@@ -46,9 +46,9 @@ void RayCaster::drawMinimap(const std::string& owner, const std::string& name, c
         {
             blockRect.left = mapRect.left + col * blockSize;
             blockRect.top = mapRect.top + row * blockSize;
-            if(map->get_walls()[row * map->width() + col] > 0)
+            if(map->walls()[row * map->width() + col] > 0)
             {
-                sf::Color blockcolor = map->get_wall_element(map->get_walls()[row * map->width() + col]).color;
+                sf::Color blockcolor = map->wall_element(map->walls()[row * map->width() + col]).color;
                 m_pixelator.get()->drawFilledRect(blockRect, blockcolor);
             }
             if(p_y == row && p_x == col)
