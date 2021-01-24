@@ -25,11 +25,12 @@
 #include <fstream>
 
 Map::Map()
-: map_width(0)
-, map_height(0)
+: m_map_width(0)
+, m_map_height(0)
 , m_player_start(0.0, 0.0)
 , m_player_heading(0.0)
-, initialized(false)
+, m_initialized(false)
+, m_loaded(false)
 {}
 
 Map::~Map()
@@ -39,11 +40,10 @@ double Map::deg2rad (double degrees) {
     return degrees * 4.0 * atan (1.0) / 180.0;
 }
 
-bool Map::load(const std::string& file_name, const std::string& level_name, bool from_zip)
+bool Map::init(const std::string& file_name, bool from_zip)
 {
     rapidjson::Document document;
 	std::fstream fp;
-	bool level_found = false;
 
     if(from_zip)
 	{
@@ -86,103 +86,23 @@ bool Map::load(const std::string& file_name, const std::string& level_name, bool
 				double g = ((wall_color_int >> 8) & 0xFF);   // Extract the GG byte
 				double b = ((wall_color_int) & 0xFF);        // Extract the BB byte
 				SPDLOG_INFO("Color '{}' is r {}, g {}, b {}", wall_color_int, r, g, b);
-				wall_elements.push_back({wall_identifier, sf::Color(r, g, b, 255)});
+				m_wall_elements.push_back({wall_identifier, sf::Color(r, g, b, 255)});
 			}
 		}
 
 	}
 
-
     const rapidjson::Value& levels = document["levels"];
     for (rapidjson::Value::ConstValueIterator itr = levels.Begin(); itr != levels.End(); ++itr)
     {
-        std::string level_name_ = (*itr)["identifier"].GetString();
-		bool found = false;
-		for (std::string level : level_names)
-		{
-			if(level == level_name_) found = true;
-		}
-		if(!found)
-		{
-			level_names.push_back(level_name_);
-		}
-		if(level_name_ == level_name)
-		{
-			level_found = true;
-			SPDLOG_INFO("Loading level '{}'", level_name);
-			const rapidjson::Value& layerInstances = (*itr)["layerInstances"];
-			for (rapidjson::Value::ConstValueIterator itr = layerInstances.Begin(); itr != layerInstances.End(); ++itr)
-			{
-				std::string layer_type = (*itr)["__type"].GetString();
-				if(layer_type == "Entities")
-				{
-					const rapidjson::Value& entityInstances = (*itr)["entityInstances"];
-					for (rapidjson::Value::ConstValueIterator itr = entityInstances.Begin(); itr != entityInstances.End(); ++itr)
-					{
-						std::string identifier = (*itr)["__identifier"].GetString();
-						if(identifier == "PlayerStart")
-						{
-							m_player_start.x = (*itr)["__grid"].GetArray()[0].GetFloat() + 0.5f;
-							m_player_start.y = (*itr)["__grid"].GetArray()[1].GetFloat() + 0.5f;
-							m_player_heading = static_cast<double>(deg2rad((*itr)["fieldInstances"].GetArray()[0]["__value"].GetDouble()));
-							SPDLOG_INFO("PlayerStart : ({}, {}), and angle is {}", m_player_start.x, m_player_start.y, m_player_heading);
-						}
-					}
-				} // if layer type is Entities
-				if(layer_type == "IntGrid")
-				{
-					map_width = (*itr)["__cWid"].GetInt();
-					map_height = (*itr)["__cHei"].GetInt();
+        std::string level_name = (*itr)["identifier"].GetString();
+        std::string level_path = (*itr)["externalRelPath"].GetString();
+		SPDLOG_INFO("Found level {} in {}", level_name, level_path);
+		m_level_map.insert({ level_name, level_path});
+    }
 
-					std::string identifier = (*itr)["__identifier"].GetString();
-					SPDLOG_INFO("Parsing IntGrid '{}' . . .", identifier);
-
-					// Set the size of walls, floor and ceiling vectors and fill it with zeroes.
-					// For debugging purposes, only zero out if found
-					if(identifier == "Walls")
-					{
-						walls.assign(map_width * map_height, 0);
-					}
-					if(identifier == "Floor")
-					{
-						floor.assign(map_width * map_height, 0);
-					}
-					if(identifier == "Ceiling")
-					{
-						ceiling.assign(map_width * map_height, 0);
-					}
-
-					const rapidjson::Value& initGrid = (*itr)["intGrid"];
-
-					for (rapidjson::Value::ConstValueIterator itr = initGrid.Begin(); itr != initGrid.End(); ++itr)
-					{
-						if(identifier == "Walls")
-						{
-							// Add one to wall values so that zero becomes walkable area
-							walls[(*itr)["coordId"].GetInt()] = (*itr)["v"].GetInt() + 1;
-						}
-						if(identifier == "Floor")
-						{
-							// Add one to floor values because LDtk starts from zero
-							floor[(*itr)["coordId"].GetInt()] = (*itr)["v"].GetInt() + 1;
-						}
-						if(identifier == "Ceiling")
-						{
-							// Add one to ceiling values because LDtk starts from zero
-							ceiling[(*itr)["coordId"].GetInt()] = (*itr)["v"].GetInt() + 1;
-						}
-					}
-				} // if layer type is IntGrid
-
-			} // for layer instances
-		} // If level_name == ...
-    } // all levels
-	
-	if(level_found)
-	{
-		SPDLOG_INFO("Level '{}' initialized.", level_name);
-		initialized = true;
-	}
+	SPDLOG_INFO("File '{}' initialized.", file_name);
+	m_initialized = true;
 
 	if(from_zip)
 	{
@@ -190,36 +110,155 @@ bool Map::load(const std::string& file_name, const std::string& level_name, bool
 	} else {
 		if(fp) fp.close();
 	}
-    return level_found;
+    return true;
 }
 
-const MapElement& Map::get_wall_element(const unsigned int element)
+bool check_key(std::unordered_map<std::string, std::string> l, std::string key) 
+{ 
+    if (l.find(key) == l.end()) 
+        return false; 
+  
+    return true; 
+}
+
+bool Map::load_level(const std::string& level_name, bool from_zip)
 {
-	return wall_elements[element - 1];
+    if(!check_key(m_level_map, level_name))
+    {
+        SPDLOG_ERROR("Level '{}' does not exist!", level_name);
+        return false;
+    }
+
+	std::string level_file = "assets/levels/" + m_level_map[level_name];
+    rapidjson::Document document;
+	std::fstream fp;
+
+    if(from_zip)
+	{
+		PhysFS::ifstream fp(level_file);
+		if(!fp)
+		{
+			SPDLOG_ERROR("Was unable to load '{}' from zip", level_file);
+			return false;
+		}
+		rapidjson::IStreamWrapper isw(fp);
+	   document.ParseStream(isw);
+	} else {
+		fp.open(level_file, std::fstream::in);
+		if(!fp)
+		{
+			SPDLOG_ERROR("Was unable to load '{}'", level_file);
+			return false;
+		}
+		rapidjson::IStreamWrapper isw(fp);
+	    document.ParseStream(isw);
+	}
+
+	SPDLOG_INFO("Loading level '{}'", level_name);
+
+    m_map_width = document["pxWid"].GetInt();
+    m_map_height = document["pxHei"].GetInt();
+
+    const rapidjson::Value& layerInstances = document["layerInstances"];
+	for (rapidjson::Value::ConstValueIterator itr = layerInstances.Begin(); itr != layerInstances.End(); ++itr)
+	{
+		std::string layer_type = (*itr)["__type"].GetString();
+		if(layer_type == "Entities")
+		{
+			const rapidjson::Value& entityInstances = (*itr)["entityInstances"];
+			for (rapidjson::Value::ConstValueIterator itr = entityInstances.Begin(); itr != entityInstances.End(); ++itr)
+			{
+				std::string identifier = (*itr)["__identifier"].GetString();
+				if(identifier == "PlayerStart")
+				{
+					m_player_start.x = (*itr)["__grid"].GetArray()[0].GetFloat() + 0.5f;
+					m_player_start.y = (*itr)["__grid"].GetArray()[1].GetFloat() + 0.5f;
+					m_player_heading = static_cast<double>(deg2rad((*itr)["fieldInstances"].GetArray()[0]["__value"].GetDouble()));
+					SPDLOG_INFO("PlayerStart : ({}, {}), and angle is {}", m_player_start.x, m_player_start.y, m_player_heading);
+				}
+			}
+		} // if layer type is Entities
+		if(layer_type == "IntGrid")
+		{
+			m_map_width = (*itr)["__cWid"].GetInt();
+			m_map_height = (*itr)["__cHei"].GetInt();
+
+			std::string identifier = (*itr)["__identifier"].GetString();
+			SPDLOG_INFO("Parsing IntGrid '{}' . . .", identifier);
+
+			// Set the size of walls, floor and ceiling vectors and fill it with zeroes.
+			// For debugging purposes, only zero out if found
+			if(identifier == "Walls")
+			{
+				m_walls.assign(m_map_width * m_map_height, 0);
+			}
+			if(identifier == "Floor")
+			{
+				m_floor.assign(m_map_width * m_map_height, 0);
+			}
+			if(identifier == "Ceiling")
+			{
+				m_ceiling.assign(m_map_width * m_map_height, 0);
+			}
+
+			const rapidjson::Value& initGrid = (*itr)["intGrid"];
+
+			for (rapidjson::Value::ConstValueIterator itr = initGrid.Begin(); itr != initGrid.End(); ++itr)
+			{
+				if(identifier == "Walls")
+				{
+					// Add one to wall values so that zero becomes walkable area
+					m_walls[(*itr)["coordId"].GetInt()] = (*itr)["v"].GetInt() + 1;
+				}
+				if(identifier == "Floor")
+				{
+					// Add one to floor values because LDtk starts from zero
+					m_floor[(*itr)["coordId"].GetInt()] = (*itr)["v"].GetInt() + 1;
+				}
+				if(identifier == "Ceiling")
+				{
+					// Add one to ceiling values because LDtk starts from zero
+					m_ceiling[(*itr)["coordId"].GetInt()] = (*itr)["v"].GetInt() + 1;
+				}
+			}
+		} // if layer type is IntGrid
+
+	} // for layer instances
+	
+	SPDLOG_INFO("Level '{}' initialized.", level_name);
+	m_loaded = true;
+
+	if(from_zip)
+	{
+		// I am probably leaving resources dangling, oh no . . . ;)
+	} else {
+		if(fp) fp.close();
+	}
+    return true;
+}
+
+const WallElement& Map::get_wall_element(const unsigned int element)
+{
+	return m_wall_elements[element - 1];
 }
 
 int Map::get_wall_entry(int tile_x, int tile_y)
 {
-    int item = int(tile_y) * map_width + int(tile_x);
-    return walls[item];
+    int item = int(tile_y) * m_map_width + int(tile_x);
+    return m_walls[item];
 }
 
 const std::vector<int>& Map::get_walls()
 {
-    return walls;
+    return m_walls;
 }
 
 const std::vector<int>& Map::get_floor()
 {
-    return floor;
+    return m_floor;
 }
 
 const std::vector<int>& Map::get_ceiling()
 {
-    return ceiling;
-}
-
-const bool Map::is_initialized()
-{
-	return initialized;
+    return m_ceiling;
 }

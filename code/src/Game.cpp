@@ -33,7 +33,9 @@ bool Game::OnUserCreate()
     ImageAtlas* atlas = m_atlas.get();
     Pixelator* pixelator = m_pixelator.get();
 
-    m_map.get()->load("assets/levels/levels.ldtk", "Level1");
+    m_map.get()->init("assets/levels/pxlwolf.ldtk");
+
+    m_map.get()->load_level("Level1");
 
     atlas->Init("assets/textures/sjswalls2.bmp", 4, 3);
 
@@ -66,12 +68,15 @@ bool Game::OnUserCreate()
 
     RayCaster raycaster(m_map, m_pixelator);
 
-    Camera camera;
-    camera.x = m_map.get()->player_start().x;
-    camera.y = m_map.get()->player_start().y;
-    raycaster.drawMinimap("secondary", "minimap", camera, 2);
+    if(m_map->loaded())
+    {
+        Camera camera;
+        camera.x = m_map.get()->player_start().x;
+        camera.y = m_map.get()->player_start().y;
+        raycaster.drawMinimap("secondary", "minimap", camera, 2);
 
-    pixelator->copy("minimap", 200, 0, true);
+        pixelator->copy("minimap", 200, 0, true);
+    }
 
     return true;
 }
