@@ -86,8 +86,8 @@ Compiled using MSVC 2019 on Windows, and GCC 9.3 on Linux.
 This project is using code from the [c-raycaster project][cray] - the raycaster and a lot of the pixel related functionality is borrowed from the project. It also uses code from Herrecito's [2.5D Raycaster engine][herrecito] in C. And the overall structure of the project is lifted from Balantkissdev's [Raycaster engine][balantkiss].
 
 
-[pxlwolf]: https://github.com/jacmoe/pxlwolf/raw/main/Screenshot.jpg "Screenshot of PixelWolf"
-[ldtk]: https://github.com/jacmoe/pxlwolf/raw/main/LevelEditing.jpg "Level editing in LDTK"
+[pxlwolf]: https://github.com/jacmoe/pxlwolf/raw/main/screenshots/Screenshot.jpg "Screenshot of PixelWolf"
+[ldtk]: https://github.com/jacmoe/pxlwolf/raw/main/screenshots/LevelEditing.jpg "Level editing in LDTK"
 [ldtk_link]: https://ldtk.io/ "LDtk Level Designer Toolkit"
 
 [herrecito]: https://github.com/herrecito/engine "Herrecito's 2.5D Raycaster engine in C"
