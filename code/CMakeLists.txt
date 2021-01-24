@@ -28,7 +28,6 @@ set(Sources
     ./src/systems.cpp
     ./src/utils.cpp
     ${3RD_PARTY_DIR}/physfs.cpp
-    ${STATEMAN_DIR}/src/StateMachine.cpp
 )
 
 set(Includes
@@ -45,8 +44,6 @@ set(Includes
     ../${IncludeDir}/RayCaster.hpp
     ../${IncludeDir}/systems.hpp
     ../${IncludeDir}/utils.hpp
-    ${STATEMAN_DIR}/include/StateMachine/State.hpp
-    ${STATEMAN_DIR}/include/StateMachine/StateMachine.hpp
 )
 
 if (WIN32)

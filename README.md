@@ -77,7 +77,6 @@ Compiled using MSVC 2019 on Windows, and GCC 9.3 on Linux.
 |[SelbaWard][selba]|A collection of drawable C++ objects for use with SFML|zlib license|
 |[Sol][sol]|C++ binding library to Lua|MIT License|
 |[spdlog][spdlog]|Logging library|MIT license|
-|[SFML-StateMachine][state]|State manager for SFML|MIT license|
 |[Thor][thor]|SFML extension library|zlib license|
 |[DG Snippets][dg]|Misc public domain functions|Public domain license|
 
@@ -105,6 +104,5 @@ This project is using code from the [c-raycaster project][cray] - the raycaster 
 [selba]: https://github.com/Hapaxia/SelbaWard "A collection of drawable C++ objects for use with SFML"
 [sol]: https://github.com/ThePhD/sol "C++ binding library to Lua"
 [spdlog]: https://github.com/gabime/spdlog "Logging library"
-[state]: https://github.com/astewartau/SFML-StateMachine "State manager for SFML"
 [thor]: https://github.com/Bromeon/Thor "SFML extension library"
 [dg]: https://github.com/DanielGibson/Snippets/ "Misc public domain functions"
