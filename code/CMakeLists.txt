@@ -18,12 +18,14 @@ set(TARGET_NAME pxlwolf)
 set(Sources
     ./main.cpp
     ./src/Application.cpp
+    ./src/components.cpp
     ./src/dbg_console.cpp
     ./src/Game.cpp
     ./src/ImageAtlas.cpp
     ./src/Map.cpp
     ./src/Pixelator.cpp
     ./src/RayCaster.cpp
+    ./src/systems.cpp
     ./src/utils.cpp
     ${3RD_PARTY_DIR}/physfs.cpp
     ${STATEMAN_DIR}/src/StateMachine.cpp
@@ -31,6 +33,7 @@ set(Sources
 
 set(Includes
     ../${IncludeDir}/Application.hpp
+    ../${IncludeDir}/components.hpp
     ../${IncludeDir}/dbg_console.hpp
     ${3RD_PARTY_DIR}/DG_misc.hpp
     ../${IncludeDir}/Game.hpp
@@ -40,6 +43,7 @@ set(Includes
     ${3RD_PARTY_DIR}/physfs.hpp
     ../${IncludeDir}/Pixelator.hpp
     ../${IncludeDir}/RayCaster.hpp
+    ../${IncludeDir}/systems.hpp
     ../${IncludeDir}/utils.hpp
     ${STATEMAN_DIR}/include/StateMachine/State.hpp
     ${STATEMAN_DIR}/include/StateMachine/StateMachine.hpp
