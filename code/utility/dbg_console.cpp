@@ -33,6 +33,8 @@ namespace utility
         _close(_hConsole);
     }
 #else
+namespace utility
+{
     void CreateConsoleWindow()
     {
     }
