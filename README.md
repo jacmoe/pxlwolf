@@ -75,7 +75,7 @@ Compiled using MSVC 2019 on Windows, and GCC 9.3 on Linux.
 |[PhysFS++][physpp]|C++ wrapper for PhysicsFS|zlib license|
 |[RapidJSON][rapidjson]|A fast JSON parser/generator for C++|MIT license|
 |[SelbaWard][selba]|A collection of drawable C++ objects for use with SFML|zlib license|
-|[Sol][sol]|C++ binding library to Lua|MIT License|
+|[Sol][sol]|A C++11 Lua wrapper|MIT License|
 |[spdlog][spdlog]|Logging library|MIT license|
 |[Thor][thor]|SFML extension library|zlib license|
 |[DG Snippets][dg]|Misc public domain functions|Public domain license|
@@ -102,7 +102,7 @@ This project is using code from the [c-raycaster project][cray] - the raycaster 
 [physpp]: https://github.com/kahowell/physfs-cpp "C++ wrapper for PhysicsFS"
 [rapidjson]: https://rapidjson.org/ "A fast JSON parser/generator for C++"
 [selba]: https://github.com/Hapaxia/SelbaWard "A collection of drawable C++ objects for use with SFML"
-[sol]: https://github.com/ThePhD/sol "C++ binding library to Lua"
+[sol]: https://github.com/ThePhD/sol "A C++11 Lua wrapper"
 [spdlog]: https://github.com/gabime/spdlog "Logging library"
 [thor]: https://github.com/Bromeon/Thor "SFML extension library"
 [dg]: https://github.com/DanielGibson/Snippets/ "Misc public domain functions"
