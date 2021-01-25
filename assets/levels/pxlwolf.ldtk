@@ -5,10 +5,10 @@
 		"doc": "https://ldtk.io/json",
 		"schema": "https://ldtk.io/files/JSON_SCHEMA.json",
 		"appAuthor": "Sebastien 'deepnight' Benard",
-		"appVersion": "0.7.0",
+		"appVersion": "0.7.1",
 		"url": "https://ldtk.io"
 	},
-	"jsonVersion": "0.7.0",
+	"jsonVersion": "0.7.1",
 	"defaultPivotX": 0,
 	"defaultPivotY": 0,
 	"defaultGridSize": 64,
@@ -144,23 +144,6 @@
 						"defaultOverride": null
 					}
 				]
-			},
-			{
-				"identifier": "Door",
-				"uid": 9,
-				"width": 16,
-				"height": 16,
-				"color": "#D719CD",
-				"renderMode": "Cross",
-				"showName": true,
-				"tilesetId": null,
-				"tileId": null,
-				"tileRenderMode": "Stretch",
-				"maxPerLevel": 0,
-				"limitBehavior": "DiscardOldOnes",
-				"pivotX": 0,
-				"pivotY": 0,
-				"fieldDefs": []
 			},
 			{
 				"identifier": "LevelEnd",
