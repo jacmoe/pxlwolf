@@ -14,14 +14,22 @@
 #   MIT License
 #*/
 #pragma once
-// Creates a console window for a Windows program
-// It does nothing on Linux, but it is not needed since we are running in the console there anyway ;)
-#ifdef _WIN32
-#include <iostream>
-#include <windows.h>
-#include <fstream>
-#include <streambuf>
-#endif //_WIN32
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <functional>
 
-void CreateConsoleWindow();
-void closeConsoleWindow();
+namespace utility
+{
+  /*
+  * Erase all Occurrences of given substring from main string.
+  * Lifted from https://thispointer.com/how-to-remove-substrings-from-a-string-in-c/
+  */
+  void eraseAllSubStr(std::string & mainStr, const std::string & toErase);
+
+  /*
+  * Erase all Occurrences of all given substrings from main string using C++11 stuff
+  * Lifted from https://thispointer.com/how-to-remove-substrings-from-a-string-in-c/
+  */
+  void eraseSubStrings(std::string & mainStr, const std::vector<std::string> & strList);
+}

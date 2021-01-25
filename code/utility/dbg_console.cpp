@@ -13,23 +13,33 @@
 #
 #   MIT License
 #*/
-#pragma once
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <functional>
+#include "dbg_console.hpp"
+#ifdef _WIN32
+#include <io.h>
+int _hConsole;
 
-namespace utils {
-  /*
-  * Erase all Occurrences of given substring from main string.
-  * Lifted from https://thispointer.com/how-to-remove-substrings-from-a-string-in-c/
-  */
-  void eraseAllSubStr(std::string & mainStr, const std::string & toErase);
+namespace utility
+{
+    void CreateConsoleWindow()
+    {
+        AllocConsole();
+        FILE *fp;
+        freopen_s(&fp, "CONOUT$", "w", stdout);
+        freopen_s(&fp, "CONIN$", "r", stdin);
+    }
 
-  /*
-  * Erase all Occurrences of all given substrings from main string using C++11 stuff
-  * Lifted from https://thispointer.com/how-to-remove-substrings-from-a-string-in-c/
-  */
-  void eraseSubStrings(std::string & mainStr, const std::vector<std::string> & strList);
+    void closeConsoleWindow()
+    {
+        _close(_hConsole);
+    }
+#else
+    void CreateConsoleWindow()
+    {
+    }
 
+    void closeConsoleWindow()
+    {
+    }
+
+#endif //_WIN32
 }

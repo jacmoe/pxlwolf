@@ -28,31 +28,31 @@ public:
     Entity(const Entity& other) = default;
 
     template<typename T, typename... Args>
-    T& AddComponent(Args&&... args)
+    T& addComponent(Args&&... args)
     {
-        assert(!HasComponent<T>() && "Entity already has component!");
+        assert(!hasComponent<T>() && "Entity already has component!");
         T& component = m_level->m_registry.emplace<T>(m_entity_handle, std::forward<Args>(args)...);
         //m_level->OnComponentAdded<T>(*this, component);
         return component;
     }
 
     template<typename T>
-    T& GetComponent()
+    T& getComponent()
     {
-        assert(HasComponent<T>() && "Entity does not have component!");
+        assert(hasComponent<T>() && "Entity does not have component!");
         return m_level->m_registry.get<T>(m_entity_handle);
     }
 
     template<typename T>
-    bool HasComponent()
+    bool hasComponent()
     {
         return m_level->m_registry.has<T>(m_entity_handle);
     }
 
     template<typename T>
-    void RemoveComponent()
+    void removeComponent()
     {
-        assert(HasComponent<T>() && "Entity does not have component!");
+        assert(hasComponent<T>() && "Entity does not have component!");
         m_level->m_registry.remove<T>(m_entity_handle);
     }
 

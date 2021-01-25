@@ -15,50 +15,50 @@
 #
 set(TARGET_NAME pxlwolf)
 
-set(Includes
-    ../${IncludeDir}/Application.hpp
-    ../${IncludeDir}/components.hpp
-    ../${IncludeDir}/dbg_console.hpp
-    ../${IncludeDir}/Entity.hpp
-    ../${IncludeDir}/Game.hpp
-    ../${IncludeDir}/ImageAtlas.hpp
-    ../${IncludeDir}/Level.hpp
-    ../${IncludeDir}/Map.hpp
-    ../${IncludeDir}/Pixelator.hpp
-    ../${IncludeDir}/RayCaster.hpp
-    ../${IncludeDir}/utils.hpp
+set(main
+    ./main/Application.cpp
+    ./main/Application.hpp
+    ./main/Entity.cpp
+    ./main/Entity.hpp
+    ./main/Game.cpp
+    ./main/Game.hpp
+    ./main/ImageAtlas.cpp
+    ./main/ImageAtlas.hpp
+    ./main/Level.cpp
+    ./main/Level.hpp
+    ./main/Map.cpp
+    ./main/Map.hpp
+    ./main/Pixelator.cpp
+    ./main/Pixelator.hpp
+    ./main/RayCaster.cpp
+    ./main/RayCaster.hpp
+)
+
+set(utility
+    ./utility/dbg_console.cpp
+    ./utility/dbg_console.hpp
+    ./utility/utils.cpp
+    ./utility/utils.hpp
     ${3RD_PARTY_DIR}/physfs.hpp
     ${3RD_PARTY_DIR}/DG_misc.hpp
     ${3RD_PARTY_DIR}/lua_main.hpp
-)
-
-set(Sources
-    ./main.cpp
-    ./src/Application.cpp
-    ./src/dbg_console.cpp
-    ./src/Entity.cpp
-    ./src/Game.cpp
-    ./src/ImageAtlas.cpp
-    ./src/Level.cpp
-    ./src/Map.cpp
-    ./src/Pixelator.cpp
-    ./src/RayCaster.cpp
-    ./src/utils.cpp
     ${3RD_PARTY_DIR}/physfs.cpp
 )
 
 if (WIN32)
     add_executable(${TARGET_NAME}
         WIN32
-        ${Includes}
-        ${Sources}
+        ./main.cpp
+        ${main}
+        ${utility}
     )
 endif (WIN32)
 
 if (UNIX)
     add_executable(${TARGET_NAME}
-        ${Includes}
-        ${Sources}
+        ./main.cpp
+        ${main}
+        ${utility}
     )
 endif (UNIX)
 

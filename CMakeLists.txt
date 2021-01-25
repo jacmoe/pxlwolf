@@ -66,7 +66,6 @@ set(PHYSFS_INCLUDE_DIR ${3RD_PARTY_DIR}/physfs/src)
 set(THOR_INCLUDE_DIR ${3RD_PARTY_DIR}/thor/include)
 set(AURORA_INCLUDE_DIR ${3RD_PARTY_DIR}/thor/extlibs/aurora/include)
 set(SelbaWardDir ${3RD_PARTY_DIR}/SelbaWard)
-set(IncludeDir code/include/)
 
 include_directories(
     ${3RD_PARTY_DIR}
@@ -79,7 +78,10 @@ include_directories(
     ${AURORA_INCLUDE_DIR}
     ${SFML_INCLUDE_DIRS}
     ${SelbaWardDir}
-    ${IncludeDir}
+    ./code/main
+    ./code/components
+    ./code/systems
+    ./code/utility
 )
 
 add_subdirectory(code)

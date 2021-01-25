@@ -13,27 +13,27 @@
 #
 #   MIT License
 #*/
-#include "utils.hpp"
+#include "Level.hpp"
+#include "components.hpp"
+#include "Entity.hpp"
 
-/*
- * Erase all Occurrences of given substring from main string.
- */
-void utils::eraseAllSubStr(std::string & mainStr, const std::string & toErase)
+Level::Level()
 {
-    size_t pos = std::string::npos;
-    // Search for the substring in string in a loop untill nothing is found
-    while ((pos  = mainStr.find(toErase) )!= std::string::npos)
-    {
-        // If found then erase it from string
-        mainStr.erase(pos, toErase.length());
-    }
 }
-/*
- * Erase all Occurrences of all given substrings from main string using C++11 stuff
- */
-void utils::eraseSubStrings(std::string & mainStr, const std::vector<std::string> & strList)
+
+Level::~Level()
 {
-    // Iterate over the given list of substrings. For each substring call eraseAllSubStr() to
-    // remove its all occurrences from main string.
-    std::for_each(strList.begin(), strList.end(), std::bind(eraseAllSubStr, std::ref(mainStr), std::placeholders::_1));
+}
+
+Entity Level::createEntity(const std::string& name)
+{
+    Entity entity = { m_registry.create(), this };
+    auto& tag = entity.addComponent<components::TagComponent>();
+    tag.Tag = name.empty() ? "Entity" : name;
+    return entity;
+}
+
+void Level::destroyEntity(Entity entity)
+{
+    m_registry.destroy(entity);
 }

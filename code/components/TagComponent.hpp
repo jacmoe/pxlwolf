@@ -13,27 +13,19 @@
 #
 #   MIT License
 #*/
-#include "Level.hpp"
-#include "components.hpp"
-#include "Entity.hpp"
+#pragma once
 
-Level::Level()
-{
-}
+#include <string>
 
-Level::~Level()
+namespace components
 {
-}
+    struct TagComponent
+    {
+        std::string Tag;
 
-Entity Level::createEntity(const std::string& name)
-{
-    Entity entity = { m_registry.create(), this };
-    auto& tag = entity.AddComponent<TagComponent>();
-    tag.Tag = name.empty() ? "Entity" : name;
-    return entity;
-}
-
-void Level::destroyEntity(Entity entity)
-{
-    m_registry.destroy(entity);
+        TagComponent() = default;
+        TagComponent(const TagComponent&) = default;
+        TagComponent(const std::string& tag)
+            : Tag(tag) {}
+    };
 }

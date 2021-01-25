@@ -57,7 +57,7 @@ Application::~Application()
 {
 	SPDLOG_INFO("PixelWolf shutdown.");
     m_renderwindow.reset();
-	closeConsoleWindow();
+	utility::closeConsoleWindow();
 }
 
 bool Application::OnUserCreate()
@@ -97,7 +97,7 @@ void Application::setup_working_directory()
     strList.push_back("\\vsbuild\\code\\");
     strList.push_back("Release");
     strList.push_back("Debug");
-    utils::eraseSubStrings(path, strList);
+    utility::eraseSubStrings(path, strList);
     // Set a proper working directory
 	std::filesystem::current_path(path);
 }
@@ -153,7 +153,7 @@ bool Application::init(const std::string title, const int width, const int heigh
 
     setup_working_directory();
 
-	CreateConsoleWindow();
+	utility::CreateConsoleWindow();
 
     setup_logging();
 
