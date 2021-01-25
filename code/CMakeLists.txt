@@ -39,10 +39,10 @@ set(utility
     ./utility/dbg_console.hpp
     ./utility/utils.cpp
     ./utility/utils.hpp
-    ${3RD_PARTY_DIR}/physfs.hpp
     ${3RD_PARTY_DIR}/DG_misc.hpp
-    ${3RD_PARTY_DIR}/lua_main.hpp
     ${3RD_PARTY_DIR}/physfs.cpp
+    ${3RD_PARTY_DIR}/physfs.hpp
+    ${3RD_PARTY_DIR}/lua_main.hpp
 )
 
 if (WIN32)
