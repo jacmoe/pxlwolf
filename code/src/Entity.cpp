@@ -13,4 +13,9 @@
 #
 #   MIT License
 #*/
-#include "systems.hpp"
+#include "Entity.hpp"
+
+Entity::Entity(entt::entity handle, Level* level)
+    : m_entity_handle(handle), m_level(level)
+{
+}

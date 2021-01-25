@@ -14,3 +14,24 @@
 #   MIT License
 #*/
 #pragma once
+
+#include "entt.hpp"
+
+#include "Map.hpp"
+
+class Entity;
+
+class Level
+{
+public:
+    Level();
+    ~Level();
+
+    Entity createEntity(const std::string& name = std::string());
+    void destroyEntity(Entity entity);
+
+private:
+	entt::registry m_registry;
+
+    friend class Entity;
+};

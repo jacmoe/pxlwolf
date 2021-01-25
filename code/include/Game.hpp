@@ -22,8 +22,6 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "entt.hpp"
-
 struct Camera
 {
 	double x;
@@ -67,5 +65,4 @@ protected:
 private:
     std::shared_ptr<Map> m_map;
     std::shared_ptr<ImageAtlas> m_atlas;
-	entt::registry m_registry;
 };

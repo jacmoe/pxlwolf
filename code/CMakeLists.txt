@@ -15,48 +15,50 @@
 #
 set(TARGET_NAME pxlwolf)
 
-set(Sources
-    ./main.cpp
-    ./src/Application.cpp
-    ./src/components.cpp
-    ./src/dbg_console.cpp
-    ./src/Game.cpp
-    ./src/ImageAtlas.cpp
-    ./src/Map.cpp
-    ./src/Pixelator.cpp
-    ./src/RayCaster.cpp
-    ./src/systems.cpp
-    ./src/utils.cpp
-    ${3RD_PARTY_DIR}/physfs.cpp
-)
-
 set(Includes
     ../${IncludeDir}/Application.hpp
     ../${IncludeDir}/components.hpp
     ../${IncludeDir}/dbg_console.hpp
-    ${3RD_PARTY_DIR}/DG_misc.hpp
+    ../${IncludeDir}/Entity.hpp
     ../${IncludeDir}/Game.hpp
     ../${IncludeDir}/ImageAtlas.hpp
-    ${3RD_PARTY_DIR}/lua_main.hpp
+    ../${IncludeDir}/Level.hpp
     ../${IncludeDir}/Map.hpp
-    ${3RD_PARTY_DIR}/physfs.hpp
     ../${IncludeDir}/Pixelator.hpp
     ../${IncludeDir}/RayCaster.hpp
-    ../${IncludeDir}/systems.hpp
     ../${IncludeDir}/utils.hpp
+    ${3RD_PARTY_DIR}/physfs.hpp
+    ${3RD_PARTY_DIR}/DG_misc.hpp
+    ${3RD_PARTY_DIR}/lua_main.hpp
+)
+
+set(Sources
+    ./main.cpp
+    ./src/Application.cpp
+    ./src/dbg_console.cpp
+    ./src/Entity.cpp
+    ./src/Game.cpp
+    ./src/ImageAtlas.cpp
+    ./src/Level.cpp
+    ./src/Map.cpp
+    ./src/Pixelator.cpp
+    ./src/RayCaster.cpp
+    ./src/utils.cpp
+    ${3RD_PARTY_DIR}/physfs.cpp
 )
 
 if (WIN32)
     add_executable(${TARGET_NAME}
         WIN32
-        ${Sources}
         ${Includes}
+        ${Sources}
     )
 endif (WIN32)
+
 if (UNIX)
     add_executable(${TARGET_NAME}
-        ${Sources}
         ${Includes}
+        ${Sources}
     )
 endif (UNIX)
 
@@ -79,7 +81,7 @@ if (UNIX)
 endif (UNIX)
 
 if(WIN32)
-target_link_libraries(pxlwolf lua  physfs-static thor sfml-graphics sfml-system sfml-main)
+    target_link_libraries(pxlwolf lua  physfs-static thor sfml-graphics sfml-system sfml-main)
 else()
-target_link_libraries(pxlwolf lua  physfs-static thor sfml-graphics sfml-system)
+    target_link_libraries(pxlwolf lua  physfs-static thor sfml-graphics sfml-system)
 endif(WIN32)
