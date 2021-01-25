@@ -16,14 +16,14 @@
 #include "RayCaster.hpp"
 #include "Game.hpp"
 
-RayCaster::RayCaster(std::shared_ptr<Map> map, std::shared_ptr<Pixelator> pixelator)
+RayCaster::RayCaster(std::shared_ptr<utility::Map> map, std::shared_ptr<Pixelator> pixelator)
 : m_map(map)
 , m_pixelator(pixelator)
 {}
 
 void RayCaster::drawMinimap(const std::string& owner, const std::string& name, const Camera& camera, int blockSize)
 {
-    Map* map = m_map.get();
+    utility::Map* map = m_map.get();
     m_pixelator.get()->addBuffer(name);
     m_pixelator.get()->setActiveBuffer(name);
     m_pixelator.get()->setSize(sf::Vector2i(map->width() * 2, map->height() * 2));

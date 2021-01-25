@@ -63,6 +63,6 @@ protected:
 	bool OnUserDestroy() override;
 
 private:
-    std::shared_ptr<Map> m_map;
-    std::shared_ptr<ImageAtlas> m_atlas;
+    std::shared_ptr<utility::Map> m_map;
+    std::shared_ptr<utility::ImageAtlas> m_atlas;
 };

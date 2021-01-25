@@ -22,12 +22,8 @@ set(main
     ./main/Entity.hpp
     ./main/Game.cpp
     ./main/Game.hpp
-    ./main/ImageAtlas.cpp
-    ./main/ImageAtlas.hpp
     ./main/Level.cpp
     ./main/Level.hpp
-    ./main/Map.cpp
-    ./main/Map.hpp
     ./main/Pixelator.cpp
     ./main/Pixelator.hpp
     ./main/RayCaster.cpp
@@ -37,6 +33,10 @@ set(main
 set(utility
     ./utility/dbg_console.cpp
     ./utility/dbg_console.hpp
+    ./utility/ImageAtlas.cpp
+    ./utility/ImageAtlas.hpp
+    ./utility/Map.cpp
+    ./utility/Map.hpp
     ./utility/utils.cpp
     ./utility/utils.hpp
     ${3RD_PARTY_DIR}/DG_misc.hpp

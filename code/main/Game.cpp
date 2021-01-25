@@ -20,8 +20,8 @@
 
 Game::Game()
 {
-    m_map = std::make_shared<Map>();
-    m_atlas = std::make_shared<ImageAtlas>();
+    m_map = std::make_shared<utility::Map>();
+    m_atlas = std::make_shared<utility::ImageAtlas>();
 }
 
 Game::~Game()
@@ -30,7 +30,7 @@ Game::~Game()
 
 bool Game::OnUserCreate()
 {
-    ImageAtlas* atlas = m_atlas.get();
+    utility::ImageAtlas* atlas = m_atlas.get();
     Pixelator* pixelator = m_pixelator.get();
 
     m_map.get()->init("assets/levels/pxlwolf.ldtk");
