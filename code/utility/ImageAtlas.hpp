@@ -25,11 +25,14 @@ namespace utility
     public:
         ImageAtlas();
         ~ImageAtlas();
-        bool Init(const std::string& path, sf::Vector2u tile_size);
-        const sf::Uint8* GetPixels(int idx);
-        const sf::Vector2i GetImageDimensions();
-        const int GetCols();
-        const int GetRows();
+
+        bool init(const std::string& path, sf::Vector2u tile_size);
+
+        inline const sf::Uint8* getPixels(int idx) { return m_buffers[idx].getPixelsPtr(); }
+        inline const sf::Vector2i getTileSize() { return sf::Vector2i(m_width, m_height); }
+        inline const int getCols() { return m_cols; }
+        inline const int getRows() { return m_rows; }
+
     private:
         std::vector<sf::Image> m_buffers;
         int m_rows;

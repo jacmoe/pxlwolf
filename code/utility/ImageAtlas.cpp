@@ -19,12 +19,17 @@
 namespace utility
 {
     ImageAtlas::ImageAtlas()
+    : m_buffers(0)
+    , m_rows(0)
+    , m_cols(0)
+    , m_width(0)
+    , m_height(0)
     {}
 
     ImageAtlas::~ImageAtlas()
     {}
 
-    bool ImageAtlas::Init(const std::string& path, sf::Vector2u tile_size)
+    bool ImageAtlas::init(const std::string& path, sf::Vector2u tile_size)
     {
         sf::Image source_image;
         if(!source_image.loadFromFile(path))
@@ -56,25 +61,5 @@ namespace utility
             }
         }
         return true;
-    }
-
-    const sf::Uint8* ImageAtlas::GetPixels(int idx)
-    {
-        return m_buffers[idx].getPixelsPtr();
-    }
-
-    const sf::Vector2i ImageAtlas::GetImageDimensions()
-    {
-        return sf::Vector2(m_width, m_height);
-    }
-
-    const int ImageAtlas::GetCols()
-    {
-        return m_cols;
-    }
-
-    const int ImageAtlas::GetRows()
-    {
-        return m_rows;
     }
 }
