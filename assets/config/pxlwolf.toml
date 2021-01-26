@@ -1,0 +1,6 @@
+[application]
+title = "PixelWolf"
+window_width = 360
+window_height =  240
+window_scale = 2.0
+fullscreen = false

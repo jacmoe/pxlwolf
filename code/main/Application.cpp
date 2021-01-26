@@ -21,9 +21,6 @@
 #include <stdexcept>
 #include <filesystem>
 
-#define DG_MISC_IMPLEMENTATION
-#include "DG_misc.hpp"
-#include "utils.hpp"
 #include "dbg_console.hpp"
 
 #include "spdlog/sinks/basic_file_sink.h"
@@ -86,22 +83,6 @@ bool Application::write_text(const std::string text)
     return true;
 }
 
-void Application::setup_working_directory()
-{
-    // Get executable path
-	std::string path = DG_GetExecutableDir();
-    // Remove the build directory, so that we land on appropriate directory for asset loading
-	std::vector<std::string> strList;
-    strList.push_back("/build/code/");
-    strList.push_back("\\build\\code\\");
-    strList.push_back("\\vsbuild\\code\\");
-    strList.push_back("Release");
-    strList.push_back("Debug");
-    utility::eraseSubStrings(path, strList);
-    // Set a proper working directory
-	std::filesystem::current_path(path);
-}
-
 void Application::setup_logging()
 {
     std::string logfile_name = "log/pxllog.txt";
@@ -142,7 +123,7 @@ bool Application::load_font()
     return true;
 }
 
-bool Application::init(const std::string title, const int width, const int height, const float scale, const bool fullscreen)
+bool Application::init(const std::string title, int width, int height, const float scale, const bool fullscreen)
 {
     m_width = width;
     m_height = height;
@@ -150,8 +131,6 @@ bool Application::init(const std::string title, const int width, const int heigh
     m_title = title;
     m_fullscreen = fullscreen;
     m_aspect_ratio = static_cast<float>(m_width) / static_cast<float>(m_height);
-
-    setup_working_directory();
 
 	utility::CreateConsoleWindow();
 

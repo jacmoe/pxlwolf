@@ -28,7 +28,7 @@ public:
     Application();
     virtual ~Application();
 
-    bool init(const std::string title, const int width, const int height, const float scale = 1.0f, const bool fullscreen = false);
+    bool init(const std::string title, int width, int height, const float scale = 1.0f, const bool fullscreen = false);
     void run();
 
 protected:
@@ -69,7 +69,6 @@ private:
     sf::Sprite m_rendersprite;
     sf::Text m_text;
 
-    void setup_working_directory();
     void setup_logging();
     bool load_font();
 
