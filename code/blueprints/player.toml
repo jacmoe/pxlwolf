@@ -1,0 +1,14 @@
+# this is the player entity
+blueprint = "player"
+
+tag = "Player"
+
+components = ["Tag", "Transform", "Camera"]
+
+[Tag]
+
+
+[Transform]
+
+
+[Camera]
