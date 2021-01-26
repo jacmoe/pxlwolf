@@ -27,9 +27,9 @@
 void setup_working_directory()
 {
     // Get executable path
-	std::string path = DG_GetExecutableDir();
+    std::string path = DG_GetExecutableDir();
     // Remove the build directory, so that we land on appropriate directory for asset loading
-	std::vector<std::string> strList;
+    std::vector<std::string> strList;
     strList.push_back("/build/code/");
     strList.push_back("\\build\\code\\");
     strList.push_back("\\vsbuild\\code\\");
@@ -37,7 +37,7 @@ void setup_working_directory()
     strList.push_back("Debug");
     utility::eraseSubStrings(path, strList);
     // Set a proper working directory
-	std::filesystem::current_path(path);
+    std::filesystem::current_path(path);
 }
 
 int main()
