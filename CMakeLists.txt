@@ -59,6 +59,7 @@ add_subdirectory(3rdparty/thor)
 
 set(3RD_PARTY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty)
 set(SPDLOG_INCLUDE_DIR ${3RD_PARTY_DIR}/spdlog/include)
+set(TOML11_INCLUDE_DIR ${3RD_PARTY_DIR}/toml11)
 set(SOL_INCLUDE_DIR ${3RD_PARTY_DIR}/sol2)
 set(ENTT_INCLUDE_DIR ${3RD_PARTY_DIR}/entt)
 set(LUA_INCLUDE_DIR ${3RD_PARTY_DIR}/Lua/include)
@@ -70,6 +71,7 @@ set(SelbaWardDir ${3RD_PARTY_DIR}/SelbaWard)
 include_directories(
     ${3RD_PARTY_DIR}
     ${SPDLOG_INCLUDE_DIR}
+    ${TOML11_INCLUDE_DIR}
     ${ENTT_INCLUDE_DIR}
     ${LUA_INCLUDE_DIR}
     ${SOL_INCLUDE_DIR}

@@ -78,6 +78,7 @@ Compiled using MSVC 2019 on Windows, and GCC 9.3 on Linux.
 |[Sol][sol]|A C++11 Lua wrapper|MIT License|
 |[spdlog][spdlog]|Logging library|MIT license|
 |[Thor][thor]|SFML extension library|zlib license|
+|[toml11][toml11]|TOML for Modern C++|MIT license|
 |[DG Snippets][dg]|Misc public domain functions|Public domain license|
 
 
@@ -105,4 +106,5 @@ This project is using code from the [c-raycaster project][cray] - the raycaster 
 [sol]: https://github.com/ThePhD/sol "A C++11 Lua wrapper"
 [spdlog]: https://github.com/gabime/spdlog "Logging library"
 [thor]: https://github.com/Bromeon/Thor "SFML extension library"
+[toml11]: https://github.com/ToruNiina/toml11 "TOML for Modern C++"
 [dg]: https://github.com/DanielGibson/Snippets/ "Misc public domain functions"
