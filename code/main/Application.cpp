@@ -157,6 +157,9 @@ bool Application::init(const std::string title, int width, int height, const flo
         return false;
     }
 
+    m_renderwindow.get()->setKeyRepeatEnabled(false);
+    m_renderwindow.get()->setVerticalSyncEnabled(false);
+
     m_rendertexture.create(m_width, m_height);
 
     m_rendersprite.setTexture(m_rendertexture);

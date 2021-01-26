@@ -37,14 +37,13 @@ bool Game::OnUserCreate()
 
     m_map.get()->load_level("Level1");
 
-    atlas->Init("assets/textures/sjswalls2.bmp", 4, 3);
-
+    atlas->Init("assets/textures/wall.png", sf::Vector2u(64, 64));
 
     pixelator->addBuffer("secondary");
 
     pixelator->setActiveBuffer("secondary");
 
-    pixelator->copy(atlas->GetPixels(7), atlas->GetImageDimensions(), 0, 0, sf::IntRect(0, 0, atlas->GetImageDimensions().x, atlas->GetImageDimensions().y));
+    pixelator->copy(atlas->GetPixels(0), atlas->GetImageDimensions(), 0, 0, sf::IntRect(0, 0, atlas->GetImageDimensions().x, atlas->GetImageDimensions().y));
 
     pixelator->setActiveBuffer("primary");
 

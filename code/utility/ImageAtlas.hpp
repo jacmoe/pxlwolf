@@ -25,9 +25,9 @@ namespace utility
     public:
         ImageAtlas();
         ~ImageAtlas();
-        bool Init(const std::string& path, int rows, int cols);
+        bool Init(const std::string& path, sf::Vector2u tile_size);
         const sf::Uint8* GetPixels(int idx);
-        const sf::Vector2<int> GetImageDimensions();
+        const sf::Vector2i GetImageDimensions();
         const int GetCols();
         const int GetRows();
     private:
