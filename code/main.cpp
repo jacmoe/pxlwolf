@@ -46,13 +46,15 @@ int main()
 
     auto config = toml::parse("assets/config/pxlwolf.toml");
     const auto& application_config = toml::find(config, "application");
+    toml::table config_table = toml::get<toml::table>(application_config);
+
     Game game;
 
-    if(game.init(toml::find<std::string>(application_config, "title"),
-         toml::find<int>(application_config, "window_width"),
-         toml::find<int>(application_config, "window_height"),
-         toml::find<float>(application_config, "window_scale"),
-         toml::find<bool>(application_config, "fullscreen")))
+    if(game.init(config_table["title"].as_string(),
+         config_table["window_width"].as_integer(),
+         config_table["window_height"].as_integer(),
+         config_table["window_scale"].as_floating(),
+         config_table["fullscreen"].as_boolean()))
     {
         game.run();
     }
