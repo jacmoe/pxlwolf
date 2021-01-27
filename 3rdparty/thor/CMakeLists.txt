@@ -46,6 +46,8 @@ project(thor)
 add_definitions(-DTHOR_EXPORTS)
 include_directories(${PROJECT_SOURCE_DIR}/include)
 include_directories(${PROJECT_SOURCE_DIR}/extlibs/aurora/include)
+set(SFML_INCLUDE_DIRS C:/SFML/include)
+include_directories(${SFML_INCLUDE_DIRS})
 
 # Predefined configuration options
 set(THOR_SHARED_LIBS FALSE CACHE BOOL "Build shared libraries (use shared SFML librares)")

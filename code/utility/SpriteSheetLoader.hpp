@@ -19,8 +19,8 @@
 #include <string>
 #include <unordered_map>
 #include <SFML/Graphics.hpp>
-#include "thor/Animations/FrameAnimation.hpp"
-#include "thor/Animations/AnimationMap.hpp"
+#include "Thor/Animations/FrameAnimation.hpp"
+#include "Thor/Animations/AnimationMap.hpp"
 
 namespace utility
 {

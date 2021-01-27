@@ -1,24 +1,24 @@
 /////////////////////////////////////////////////////////////////////////////////
 //
 // Aurora C++ Library
-// Copyright (c) 2012-2016 Jan Haller
-//
+// Copyright (c) 2012-2015 Jan Haller
+// 
 // This software is provided 'as-is', without any express or implied
 // warranty. In no event will the authors be held liable for any damages
 // arising from the use of this software.
-//
+// 
 // Permission is granted to anyone to use this software for any purpose,
 // including commercial applications, and to alter it and redistribute it
 // freely, subject to the following restrictions:
-//
+// 
 // 1. The origin of this software must not be misrepresented; you must not
 //    claim that you wrote the original software. If you use this software
 //    in a product, an acknowledgment in the product documentation would be
 //    appreciated but is not required.
-//
+// 
 // 2. Altered source versions must be plainly marked as such, and must not be
 //    misrepresented as being the original software.
-//
+// 
 // 3. This notice may not be removed or altered from any source distribution.
 //
 /////////////////////////////////////////////////////////////////////////////////
@@ -108,10 +108,10 @@ Result* dynamicGet(Tuple& t, std::size_t i)
 
 /// @brief Transform one tuple into another
 /// @details Transforms each element of a tuple using a given function.
-/// @tparam Transformer Class that has a method <tt>static R transform(T element)</tt> that takes an element of the source tuple and
-///  returns a corresponding value of the new tuple. @c transform() can be a function template to account for different element types.
+/// @tparam Transformer Class that has a method <i>static R transform(T element)</i> that takes an element of the source tuple and
+///  returns a corresponding value of the new tuple. @a transform() can be a function template to account for different element types.
 /// @param src Input tuple being transformed.
-/// @return Output tuple, result of the transform. Has the same size as @c src, but possibly different element types.
+/// @return Output tuple, result of the transform. Has the same size as @a src, but possibly different element types.
 /// @details Example code:
 /// @code
 /// struct ToDouble
@@ -121,7 +121,7 @@ Result* dynamicGet(Tuple& t, std::size_t i)
 /// 		return 2.5 * i;
 /// 	}
 /// };
-///
+/// 
 /// auto tuple = std::make_tuple(1, 2, 4);
 /// auto result = aurora::tupleTransform<ToDouble>(tuple);
 /// @endcode
@@ -132,7 +132,7 @@ auto tupleTransform(const SrcTuple& src) -> AURORA_AUTO_RETURN
 )
 
 /// @brief Return the first element of a tuple
-///
+/// 
 template <typename Tuple>
 auto tupleFront(Tuple&& t) -> AURORA_AUTO_RETURN
 (
@@ -140,7 +140,7 @@ auto tupleFront(Tuple&& t) -> AURORA_AUTO_RETURN
 )
 
 /// @brief Return the last element of a tuple
-///
+/// 
 template <typename Tuple>
 auto tupleBack(Tuple&& t) -> AURORA_AUTO_RETURN
 (
