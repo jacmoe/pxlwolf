@@ -6,6 +6,86 @@ height = 64
 filename = "assets/sprites/orc.png"
 
 [[animation]]
-name = "stand"
+name = "stand_back"
 frames = [0,1,2,3,4,5,6]
+duration = 1.0
+
+[[animation]]
+name = "stand_front_left"
+frames = [12,13,14,15,16,17,18]
+duration = 1.0
+
+[[animation]]
+name = "stand_front"
+frames = [24,25,26,27,28,29,30]
+duration = 1.0
+
+[[animation]]
+name = "stand_front_right"
+frames = [36,37,38,39,40,41,42]
+duration = 1.0
+
+[[animation]]
+name = "attack_back"
+frames = [48,49,50,51,52,53,54,55]
+duration = 1.0
+
+[[animation]]
+name = "attack_front_left"
+frames = [60,61,62,63,64,65,66,67]
+duration = 1.0
+
+[[animation]]
+name = "attack_front"
+frames = [72,73,74,75,76,77,78,79]
+duration = 1.0
+
+[[animation]]
+name = "attack_front_right"
+frames = [84,85,86,87,88,89,90,91]
+duration = 1.0
+
+[[animation]]
+name = "idle_back"
+frames = [96,97,98,99,100,101]
+duration = 1.0
+
+[[animation]]
+name = "idle_front_left"
+frames = [108,109,110,111,112,113]
+duration = 1.0
+
+[[animation]]
+name = "idle_front"
+frames = [120,121,122,123,124,125]
+duration = 1.0
+
+[[animation]]
+name = "idle_front_right"
+frames = [132,133,134,135,136,137]
+duration = 1.0
+
+[[animation]]
+name = "walk_back"
+frames = [144,145,146,147,148,149,150,151,152,153,154,155]
+duration = 1.0
+
+[[animation]]
+name = "walk_front_left"
+frames = [156,157,158,159,160,161,162,163,164,165,166,167]
+duration = 1.0
+
+[[animation]]
+name = "walk_front"
+frames = [168,169,170,171,172,173,174,175,176,177,178,179]
+duration = 1.0
+
+[[animation]]
+name = "walk_front_right"
+frames = [180,181,182,183,184,185,186,187,188,189,190,191]
+duration = 1.0
+
+[[animation]]
+name = "die"
+frames = [192,193,194,195,196,197]
 duration = 1.0
