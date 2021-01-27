@@ -83,8 +83,8 @@ namespace utility
                 animation.addFrame(1.0f, raw_frames[frame.as_integer()]);
                 SPDLOG_INFO("Adding frame number {}", frame.as_integer());
             }
-            m_animations.addAnimation(animation_name, animation, sf::seconds(1.f));
-            SPDLOG_INFO("Added '{}' animation to animation map", animation_name);
+            m_animations.addAnimation(animation_name, animation, sf::seconds(animations.at("duration").as_floating()));
+            SPDLOG_INFO("Added '{}' animation to animation map. Duration : {} seconds", animation_name , animations.at("duration").as_floating());
         }
         return true;
     }
