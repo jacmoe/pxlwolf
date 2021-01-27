@@ -15,12 +15,12 @@
 #*/
 #include "SpriteSheetLoader.hpp"
 #include "spdlog/spdlog.h"
+#include "toml.hpp"
 
 namespace utility
 {
     SpriteSheetLoader::SpriteSheetLoader()
-    : m_raw_frames(0)
-    , m_animations(0)
+    : m_animations()
     , m_rows(0)
     , m_cols(0)
     , m_width(0)
@@ -30,10 +30,20 @@ namespace utility
     SpriteSheetLoader::~SpriteSheetLoader()
     {}
 
-    bool SpriteSheetLoader::load(const std::string& path, sf::Vector2u tile_size)
+    bool SpriteSheetLoader::load(const std::string& sprite_definition_file)
     {
+        auto sprite_definition = toml::parse(sprite_definition_file);
+        const auto& image_info = toml::find(sprite_definition, "image");
+        toml::table image_table = toml::get<toml::table>(image_info);
+
+        sf::Vector2u tile_size;
+        tile_size.x = image_table["width"].as_integer();
+        tile_size.y = image_table["height"].as_integer();
+
+        std::string image_path = image_table["filename"].as_string();
+
         sf::Image source_image;
-        if(!source_image.loadFromFile(path))
+        if(!source_image.loadFromFile(image_path))
         {
             return false;
         }
@@ -50,22 +60,32 @@ namespace utility
         SPDLOG_INFO("source image dimensions : width {}, height {}", source_image.getSize().x, source_image.getSize().y);
         SPDLOG_INFO("m_width = {}, m_height = {}", m_width, m_height);
 
+        std::vector<sf::IntRect> raw_frames;
+
         for (unsigned y = 0; y < cols; ++y)
         {
             for (unsigned x = 0; x < rows; ++x)
             {
-                m_raw_frames.emplace_back(x * m_width, y * m_height, m_width, m_height);
+                raw_frames.emplace_back(x * m_width, y * m_height, m_width, m_height);
             }
         }
-        SPDLOG_INFO("Added {} raw frames.", m_raw_frames.size());
+        SPDLOG_INFO("Added {} raw frames.", raw_frames.size());
 
-        thor::FrameAnimation animation;
-        for (unsigned anis = 0; anis < 6; ++anis)
+        const auto animation_table = toml::find<std::vector<toml::table>>(sprite_definition, "animation");
+
+        for(const auto& animations: animation_table)
         {
-            animation.addFrame(1.0f, m_raw_frames[anis]);
+            thor::FrameAnimation animation;
+            std::string animation_name = animations.at("name").as_string();
+            const auto& frames = animations.at("frames").as_array();
+            for(const auto& frame :  frames)
+            {
+                animation.addFrame(1.0f, raw_frames[frame.as_integer()]);
+                SPDLOG_INFO("Adding frame number {}", frame.as_integer());
+            }
+            m_animations.addAnimation(animation_name, animation, sf::seconds(1.f));
+            SPDLOG_INFO("Added '{}' animation to animation map", animation_name);
         }
-        m_animations.insert({ "stand_back", animation});
-
         return true;
     }
 }

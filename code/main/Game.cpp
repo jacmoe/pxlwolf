@@ -42,7 +42,7 @@ bool Game::OnUserCreate()
 
     utility::SpriteSheetLoader sprite_loader;
 
-    sprite_loader.load("assets/sprites/orc.png", sf::Vector2u(64, 64));
+    sprite_loader.load("assets/sprites/orc.toml");
 
     pixelator->addBuffer("secondary");
 

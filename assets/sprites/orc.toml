@@ -1,0 +1,11 @@
+# orc sprite defintion
+
+[image]
+width = 64
+height = 64
+filename = "assets/sprites/orc.png"
+
+[[animation]]
+name = "stand"
+frames = [0,1,2,3,4,5,6]
+duration = 1.0
