@@ -1,8 +1,8 @@
 # orc sprite defintion
 
 [image]
-width = 64
-height = 64
+tile_width = 64
+tile_height = 64
 filename = "assets/sprites/orc.png"
 
 [[animation]]

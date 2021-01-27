@@ -37,8 +37,8 @@ namespace utility
         toml::table image_table = toml::get<toml::table>(image_info);
 
         sf::Vector2u tile_size;
-        tile_size.x = image_table["width"].as_integer();
-        tile_size.y = image_table["height"].as_integer();
+        tile_size.x = image_table["tile_width"].as_integer();
+        tile_size.y = image_table["tile_height"].as_integer();
 
         std::string image_path = image_table["filename"].as_string();
 
