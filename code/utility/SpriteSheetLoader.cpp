@@ -20,6 +20,7 @@ namespace utility
 {
     SpriteSheetLoader::SpriteSheetLoader()
     : m_raw_frames(0)
+    , m_animations(0)
     , m_rows(0)
     , m_cols(0)
     , m_width(0)
@@ -57,6 +58,14 @@ namespace utility
             }
         }
         SPDLOG_INFO("Added {} raw frames.", m_raw_frames.size());
+
+        thor::FrameAnimation animation;
+        for (unsigned anis = 0; anis < 6; ++anis)
+        {
+            animation.addFrame(1.0f, m_raw_frames[anis]);
+        }
+        m_animations.insert({ "stand_back", animation});
+
         return true;
     }
 }
