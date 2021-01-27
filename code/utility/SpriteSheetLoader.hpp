@@ -20,21 +20,16 @@
 
 namespace utility
 {
-    class ImageAtlas
+    class SpriteSheetLoader
     {
     public:
-        ImageAtlas();
-        ~ImageAtlas();
+        SpriteSheetLoader();
+        ~SpriteSheetLoader();
 
         bool load(const std::string& path, sf::Vector2u tile_size);
 
-        inline const sf::Uint8* getPixels(int idx) { return m_buffers[idx].getPixelsPtr(); }
-        inline const sf::Vector2i getTileSize() { return sf::Vector2i(m_width, m_height); }
-        inline const int getCols() { return m_cols; }
-        inline const int getRows() { return m_rows; }
-
     private:
-        std::vector<sf::Image> m_buffers;
+        std::vector<sf::IntRect> m_raw_frames;
         int m_rows;
         int m_cols;
         int m_width;

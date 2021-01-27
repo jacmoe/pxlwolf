@@ -115,7 +115,7 @@ namespace utility
 		return true;
 	}
 
-	bool Map::load_level(const std::string& level_name, bool from_zip)
+	bool Map::load(const std::string& level_name, bool from_zip)
 	{
 		if (m_level_map.find(level_name) == m_level_map.end())
 		{

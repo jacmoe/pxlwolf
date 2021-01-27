@@ -37,7 +37,7 @@ namespace utility
         ~Map();
 
         bool init(const std::string& file_name, bool from_zip = false);
-        bool load_level(const std::string& level_name, bool from_zip = false);
+        bool load(const std::string& level_name, bool from_zip = false);
 
         inline const std::vector<int>& walls() { return m_walls; }
         inline const std::vector<int>& floor() { return m_floor; }
