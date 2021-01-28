@@ -69,6 +69,7 @@ private:
     std::shared_ptr<utility::ImageAtlas> m_atlas;
 
     utility::SpriteSheetLoader m_sprite_loader;
+	thor::AnimationMap<sf::Sprite, std::string> m_animation_map;
     thor::Animator<sf::Sprite, std::string> m_animator;
 	sf::Sprite m_anim_sprite;
     sf::Texture m_sprite_texture;

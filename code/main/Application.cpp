@@ -294,12 +294,12 @@ void Application::render()
 {
     m_renderwindow.get()->clear(sf::Color::Black);
 
-    OnUserRender();
-
     m_rendertexture.update(m_pixelator.get()->getPixelsPtr());
 
     m_renderwindow.get()->draw(m_rendersprite);
     m_renderwindow.get()->draw(m_text);
+
+    OnUserRender();
 
     m_renderwindow.get()->display();
 }

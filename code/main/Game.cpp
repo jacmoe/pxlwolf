@@ -19,6 +19,7 @@
 #include "RayCaster.hpp"
 
 Game::Game()
+: m_animator(m_animation_map)
 {
     m_map = std::make_shared<utility::Map>();
     m_atlas = std::make_shared<utility::ImageAtlas>();
@@ -41,7 +42,89 @@ bool Game::OnUserCreate()
 
     m_sprite_loader.load("assets/sprites/orc.toml");
 
-    m_animator.addAnimation("stand_back", m_sprite_loader.getAnimations().at("stand_back").first ,m_sprite_loader.getAnimations().at("stand_back").second);
+    m_animation_map.addAnimation("stand_back", 
+        m_sprite_loader.getAnimations().at("stand_back").first ,
+        m_sprite_loader.getAnimations().at("stand_back").second);
+
+    m_animation_map.addAnimation("stand_front_left", 
+        m_sprite_loader.getAnimations().at("stand_front_left").first ,
+        m_sprite_loader.getAnimations().at("stand_front_left").second);
+
+    m_animation_map.addAnimation("stand_front", 
+        m_sprite_loader.getAnimations().at("stand_front").first ,
+        m_sprite_loader.getAnimations().at("stand_front").second);
+
+    m_animation_map.addAnimation("stand_front_right", 
+        m_sprite_loader.getAnimations().at("stand_front_right").first ,
+        m_sprite_loader.getAnimations().at("stand_front_right").second);
+
+    m_animation_map.addAnimation("attack_back", 
+        m_sprite_loader.getAnimations().at("attack_back").first ,
+        m_sprite_loader.getAnimations().at("attack_back").second);
+
+    m_animation_map.addAnimation("attack_front_left", 
+        m_sprite_loader.getAnimations().at("attack_front_left").first ,
+        m_sprite_loader.getAnimations().at("attack_front_left").second);
+
+    m_animation_map.addAnimation("attack_front", 
+        m_sprite_loader.getAnimations().at("attack_front").first ,
+        m_sprite_loader.getAnimations().at("attack_front").second);
+
+    m_animation_map.addAnimation("attack_front_right", 
+        m_sprite_loader.getAnimations().at("attack_front_right").first ,
+        m_sprite_loader.getAnimations().at("attack_front_right").second);
+
+    m_animation_map.addAnimation("walk_back", 
+        m_sprite_loader.getAnimations().at("walk_back").first ,
+        m_sprite_loader.getAnimations().at("walk_back").second);
+
+    m_animation_map.addAnimation("walk_front_left", 
+        m_sprite_loader.getAnimations().at("walk_front_left").first ,
+        m_sprite_loader.getAnimations().at("walk_front_left").second);
+
+    m_animation_map.addAnimation("walk_front", 
+        m_sprite_loader.getAnimations().at("walk_front").first ,
+        m_sprite_loader.getAnimations().at("walk_front").second);
+
+    m_animation_map.addAnimation("walk_front_right", 
+        m_sprite_loader.getAnimations().at("walk_front_right").first ,
+        m_sprite_loader.getAnimations().at("walk_front_right").second);
+
+    m_animation_map.addAnimation("punch_back", 
+        m_sprite_loader.getAnimations().at("punch_back").first ,
+        m_sprite_loader.getAnimations().at("punch_back").second);
+
+    m_animation_map.addAnimation("punch_front_left", 
+        m_sprite_loader.getAnimations().at("punch_front_left").first ,
+        m_sprite_loader.getAnimations().at("punch_front_left").second);
+
+    m_animation_map.addAnimation("punch_front", 
+        m_sprite_loader.getAnimations().at("punch_front").first ,
+        m_sprite_loader.getAnimations().at("punch_front").second);
+
+    m_animation_map.addAnimation("punch_front_right", 
+        m_sprite_loader.getAnimations().at("punch_front_right").first ,
+        m_sprite_loader.getAnimations().at("punch_front_right").second);
+
+    m_animation_map.addAnimation("idle_back", 
+        m_sprite_loader.getAnimations().at("idle_back").first ,
+        m_sprite_loader.getAnimations().at("idle_back").second);
+
+    m_animation_map.addAnimation("idle_front_left", 
+        m_sprite_loader.getAnimations().at("idle_front_left").first ,
+        m_sprite_loader.getAnimations().at("idle_front_left").second);
+
+    m_animation_map.addAnimation("idle_front", 
+        m_sprite_loader.getAnimations().at("idle_front").first ,
+        m_sprite_loader.getAnimations().at("idle_front").second);
+
+    m_animation_map.addAnimation("idle_front_right", 
+        m_sprite_loader.getAnimations().at("idle_front_right").first ,
+        m_sprite_loader.getAnimations().at("idle_front_right").second);
+
+    m_animation_map.addAnimation("roll", 
+        m_sprite_loader.getAnimations().at("roll").first ,
+        m_sprite_loader.getAnimations().at("roll").second);
 
     m_sprite_texture.loadFromFile("assets/sprites/orc.png");
     m_anim_sprite.setTexture(m_sprite_texture);
@@ -84,15 +167,15 @@ bool Game::OnUserCreate()
 
         pixelator->copy("minimap", 200, 0, true);
     }
+    m_anim_sprite.setScale(sf::Vector2f(10,10));
+    m_animator.play() << "roll";
 
     return true;
 }
 
 bool Game::OnUserUpdate(sf::Time elapsedTime)
 {
-    if(!m_animator.isPlayingAnimation())
-        m_animator.playAnimation("stand_back");
-
+    m_animator.queue() << "roll";
     m_animator.update(elapsedTime);
     m_animator.animate(m_anim_sprite);
 
@@ -100,6 +183,9 @@ bool Game::OnUserUpdate(sf::Time elapsedTime)
 
     if (m_action_map.isActive("test"))
         write_text("Left mouse button down!!");
+
+    // sf::IntRect sprite_rect =  m_anim_sprite.getTextureRect();
+    // SPDLOG_INFO("Sprite rect is : {},{},{},{}", sprite_rect.left, sprite_rect.top, sprite_rect.width, sprite_rect.height);    
 
     return true;
 }

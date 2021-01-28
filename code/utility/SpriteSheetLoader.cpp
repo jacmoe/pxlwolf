@@ -62,11 +62,14 @@ namespace utility
 
         std::vector<sf::IntRect> raw_frames;
 
-        for (unsigned y = 0; y < cols; ++y)
+        // unsigned int count = 0;
+        for (unsigned y = 0; y < cols; y++)
         {
-            for (unsigned x = 0; x < rows; ++x)
+            for (unsigned x = 0; x < rows; x++)
             {
                 raw_frames.emplace_back(x * m_width, y * m_height, m_width, m_height);
+                // SPDLOG_INFO("Adding raw frame {} : {},{} with rect : {},{},{},{}", count, x, y, x * m_width, y * m_height, m_width, m_height);
+                // count++;
             }
         }
         SPDLOG_INFO("Added {} raw frames.", raw_frames.size());
