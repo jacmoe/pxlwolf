@@ -72,7 +72,6 @@ namespace utility
                 // count++;
             }
         }
-        SPDLOG_INFO("Added {} raw frames.", raw_frames.size());
 
         const auto animation_table = toml::find<std::vector<toml::table>>(sprite_definition, "animation");
 
@@ -84,10 +83,10 @@ namespace utility
             for(const auto& frame :  frames)
             {
                 animation.addFrame(1.0f, raw_frames[frame.as_integer()]);
-                SPDLOG_INFO("Frame with intrect {},{},{},{} added.", raw_frames[frame.as_integer()].left, raw_frames[frame.as_integer()].top, raw_frames[frame.as_integer()].width, raw_frames[frame.as_integer()].height);
+                // SPDLOG_INFO("Frame with intrect {},{},{},{} added.", raw_frames[frame.as_integer()].left, raw_frames[frame.as_integer()].top, raw_frames[frame.as_integer()].width, raw_frames[frame.as_integer()].height);
             }
             m_animations.insert( { animation_name, std::make_pair(animation, sf::seconds(animations.at("duration").as_floating())) } );
-            SPDLOG_INFO("Added '{}' animation to animation map. Duration : {} seconds. {} frames.", animation_name , animations.at("duration").as_floating(), frames.size());
+            SPDLOG_INFO("Added '{}'. Duration : {} seconds. {} frames.", animation_name , animations.at("duration").as_floating(), frames.size());
         }
         return true;
     }
