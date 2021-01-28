@@ -17,7 +17,6 @@
 #include "lua_main.hpp"
 #include "physfs.hpp"
 #include "RayCaster.hpp"
-#include "SpriteSheetLoader.hpp"
 
 Game::Game()
 {
@@ -40,9 +39,13 @@ bool Game::OnUserCreate()
 
     atlas->load("assets/textures/wall.png", sf::Vector2u(64, 64));
 
-    utility::SpriteSheetLoader sprite_loader;
+    m_sprite_loader.load("assets/sprites/orc.toml");
 
-    sprite_loader.load("assets/sprites/orc.toml");
+    m_animator.addAnimation("stand_back", m_sprite_loader.getAnimations().at("stand_back").first ,m_sprite_loader.getAnimations().at("stand_back").second);
+
+    m_sprite_texture.loadFromFile("assets/sprites/orc.png");
+    m_anim_sprite.setTexture(m_sprite_texture);
+    m_anim_sprite.setPosition(sf::Vector2f(19,19));
 
     pixelator->addBuffer("secondary");
 
@@ -87,6 +90,12 @@ bool Game::OnUserCreate()
 
 bool Game::OnUserUpdate(sf::Time elapsedTime)
 {
+    if(!m_animator.isPlayingAnimation())
+        m_animator.playAnimation("stand_back");
+
+    m_animator.update(elapsedTime);
+    m_animator.animate(m_anim_sprite);
+
     write_text("Hello from PixelWolf! Time is : " + std::to_string(elapsedTime.asSeconds()) + " Frames per second : " + std::to_string(m_frames_per_second));
 
     if (m_action_map.isActive("test"))
@@ -97,6 +106,7 @@ bool Game::OnUserUpdate(sf::Time elapsedTime)
 
 bool Game::OnUserRender()
 {
+    m_renderwindow.get()->draw(m_anim_sprite);
     return true;
 }
 

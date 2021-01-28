@@ -21,6 +21,8 @@
 #include "Map.hpp"
 
 #include <SFML/Graphics.hpp>
+#include "SpriteSheetLoader.hpp"
+#include "Thor/Animations/Animator.hpp"
 
 struct Camera
 {
@@ -65,4 +67,9 @@ protected:
 private:
     std::shared_ptr<utility::Map> m_map;
     std::shared_ptr<utility::ImageAtlas> m_atlas;
+
+    utility::SpriteSheetLoader m_sprite_loader;
+    thor::Animator<sf::Sprite, std::string> m_animator;
+	sf::Sprite m_anim_sprite;
+    sf::Texture m_sprite_texture;
 };

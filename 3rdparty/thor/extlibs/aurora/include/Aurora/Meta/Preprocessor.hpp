@@ -1,24 +1,24 @@
 /////////////////////////////////////////////////////////////////////////////////
 //
 // Aurora C++ Library
-// Copyright (c) 2012-2015 Jan Haller
-// 
+// Copyright (c) 2012-2016 Jan Haller
+//
 // This software is provided 'as-is', without any express or implied
 // warranty. In no event will the authors be held liable for any damages
 // arising from the use of this software.
-// 
+//
 // Permission is granted to anyone to use this software for any purpose,
 // including commercial applications, and to alter it and redistribute it
 // freely, subject to the following restrictions:
-// 
+//
 // 1. The origin of this software must not be misrepresented; you must not
 //    claim that you wrote the original software. If you use this software
 //    in a product, an acknowledgment in the product documentation would be
 //    appreciated but is not required.
-// 
+//
 // 2. Altered source versions must be plainly marked as such, and must not be
 //    misrepresented as being the original software.
-// 
+//
 // 3. This notice may not be removed or altered from any source distribution.
 //
 /////////////////////////////////////////////////////////////////////////////////
@@ -35,7 +35,7 @@
 // - Detect empty arguments: Exploit property of function-style macros that are not substituted without an argument list
 // - Get rid of garbage passed as part of argument: Forward to VA macro that consumes all arguments
 //
-// Notes: 
+// Notes:
 // - Preprocessor metaprogramming is a whole different approach than anything else from C++; nothing is intuitive
 // - AURORA_PP_AT() can be implemented without O(n^2) helper macros, e.g. in <boost/preprocessor/array/elem.hpp>
 // - Passing __VA_ARGS__ to non-variadic macros does not work reliably
@@ -64,14 +64,14 @@
 /// @brief Concatenate two expressions (evaluated ## operator)
 /// @details This macro does the same as the built-in ## preprocessor operator, however the arguments are expanded before concatenation.
 /// @code
-/// #define FIRST  [evaluated 1st] 
-/// #define SECOND [evaluated 2nd] 
+/// #define FIRST  [evaluated 1st]
+/// #define SECOND [evaluated 2nd]
 /// #define LAZY_CAT() FIRST ## SECOND
 /// #define EXP_CAT()  AURORA_PP_CAT(FIRST, SECOND)
-/// 
+///
 /// // Comparison between ## and Aurora's catenation macro
 /// LAZY_CAT()  // generates FIRSTSECOND
-/// EXP_CAT()   // generates [evaluated 1st][evaluated 2nd] 
+/// EXP_CAT()   // generates [evaluated 1st][evaluated 2nd]
 /// @endcode
 /// @hideinitializer
 #define AURORA_PP_CAT(a, b)				AURORA_PP_CAT_IMPL(a, b)
@@ -89,7 +89,7 @@
 /// #define MACRO(expr) [evaluated expr]
 /// #define LAZY_STRINGIZE(expr) #expr
 /// #define EXP_STRINGIZE(expr)  AURORA_PP_STRINGIZE(expr)
-/// 
+///
 /// // Comparison between # and Aurora's stringize macro
 /// LAZY_STRINGIZE(MACRO(42))  // generates "MACRO(42)"
 /// EXP_STRINGIZE(MACRO(42))   // generates "[evaluated 42]"
@@ -119,9 +119,9 @@
 #define AURORA_PP_IF_IMPL(condition, trueCase, falseCase)	AURORA_PP_IF_IMPL2(condition, trueCase, falseCase)
 
 /// @brief Conditional evaluation
-/// @details If @a condition evaluates to a positive number, then the expression will be replaced with @a trueCase. If @a condition is zero,
-///  then it will be @a falseCase.
-/// @n@n When you use function style macros for @a trueCase and @a falseCase, put the argument list after the invocation, i.e. AURORA_PP_IF(...)(args)
+/// @details If @c condition evaluates to a positive number, then the expression will be replaced with @c trueCase. If @c condition is zero,
+///  then it will be @c falseCase.
+/// @n@n When you use function style macros for @c trueCase and @c falseCase, put the argument list after the invocation, i.e. AURORA_PP_IF(...)(args)
 /// @code
 /// AURORA_PP_IF(0, true, false) == false
 /// AURORA_PP_IF(1, true, false) == true
@@ -142,11 +142,11 @@
 
 /// @brief Apply a macro repeated times
 /// @param n Number of invocations
-/// @param macro Macro with signature <i>macro(index)</i>, where @a index is a number from 0 to n-1.
+/// @param macro Macro with signature <tt>macro(index)</tt>, where @c index is a number from 0 to n-1.
 /// @details Invokes the macro n times, passing it the indices from 0 to n-1 in this order.
 /// @code
 /// #define GENERATOR(index) [index]
-/// 
+///
 /// AURORA_PP_ENUMERATE(4, GENERATOR)
 /// // generates:
 /// [0] [1] [2] [3]
@@ -165,12 +165,12 @@
 
 /// @brief Apply a macro repeated times, comma-separated
 /// @param n Number of invocations
-/// @param macro Macro with signature <i>macro(index)</i>, where @a index is a number from 0 to n-1.
+/// @param macro Macro with signature <tt>macro(index)</tt>, where @c index is a number from 0 to n-1.
 /// @details Invokes the macro n times, passing it the indices from 0 to n-1 in this order. Puts a comma
 ///  between each invocation.
 /// @code
 /// #define GENERATOR(index) [index]
-/// 
+///
 /// AURORA_PP_ENUMERATE_COMMA(4, GENERATOR)
 /// // generates:
 /// [0], [1], [2], [3]
@@ -235,14 +235,14 @@
 #define AURORA_PP_FOREACH_SIZED(macro, size, tuple)	AURORA_PP_CAT(AURORA_PP_FOREACH_, size) (macro, size, tuple)
 
 /// @brief Apply macro for each element in tuple
-/// @param macro Macro with signature <i>macro(value, index)</i>, where @a value is the current element of the tuple and
-///  @a index is its index as a number from 0 to n-1.
+/// @param macro Macro with signature <tt>macro(value, index)</tt>, where @c value is the current element of the tuple and
+///  @c index is its index as a number from 0 to n-1.
 /// @param tuple Parenthesized tuple, such as (a, b, c). May be empty.
 /// @details Applies a macro repeated times, passing it every element in a tuple.
 /// @code
 /// #define MACRO(value, index)  [index]->value
 /// #define TUPLE                (first, second, third)
-/// 
+///
 /// AURORA_PP_FOREACH(MACRO, TUPLE)
 /// // generates:
 /// [0]->first
@@ -264,8 +264,8 @@
 #define AURORA_PP_FOREACH_DATA_SIZED(macro, size, tuple, data)	AURORA_PP_CAT(AURORA_PP_FOREACH_DATA_, size) (macro, size, tuple, data)
 
 /// @brief Apply macro for each element in tuple, with additional argument
-/// @param macro Macro with signature <i>macro(value, index, data)</i>, where @a value is the current element of the tuple, 
-///  @a index is its index as a number from 0 to n-1, and @a data is the additional argument being forwarded.
+/// @param macro Macro with signature <tt>macro(value, index, data)</tt>, where @c value is the current element of the tuple,
+///  @c index is its index as a number from 0 to n-1, and @c data is the additional argument being forwarded.
 /// @param tuple Parenthesized tuple, such as (a, b, c). May be empty.
 /// @param data Additional argument to forward.
 /// @details Applies a macro repeated times, passing it every element in a tuple. Additional data can be specified that doesn't affect the repetition, but is
@@ -273,7 +273,7 @@
 /// @code
 /// #define MACRO(value, index, data)  [index]->(value, data)
 /// #define TUPLE                      (first, second, third)
-/// 
+///
 /// AURORA_PP_FOREACH_DATA(MACRO, TUPLE, 42)
 /// // generates:
 /// [0]->(first, 42)
