@@ -82,7 +82,7 @@ namespace utility
             {
                 animation.addFrame(1.0f, raw_frames[frame.as_integer()]);
             }
-            m_animations.addAnimation(animation_name, animation, sf::seconds(animations.at("duration").as_floating()));
+            m_animations.insert( { animation_name, std::make_pair(animation, sf::seconds(animations.at("duration").as_floating())) } );
             SPDLOG_INFO("Added '{}' animation to animation map. Duration : {} seconds. {} frames.", animation_name , animations.at("duration").as_floating(), frames.size());
         }
         return true;

@@ -20,7 +20,6 @@
 #include <unordered_map>
 #include <SFML/Graphics.hpp>
 #include "Thor/Animations/FrameAnimation.hpp"
-#include "Thor/Animations/AnimationMap.hpp"
 
 namespace utility
 {
@@ -32,10 +31,10 @@ namespace utility
 
         bool load(const std::string& sprite_definition_file);
 
-        inline const thor::AnimationMap<sf::Sprite, std::string> getAnimations() { return m_animations; }
+        inline const std::unordered_map<std::string, std::pair<thor::FrameAnimation, sf::Time>> getAnimations() { return m_animations; }
 
     private:
-        thor::AnimationMap<sf::Sprite, std::string> m_animations;
+        std::unordered_map<std::string, std::pair<thor::FrameAnimation, sf::Time>> m_animations;
         int m_rows;
         int m_cols;
         int m_width;
