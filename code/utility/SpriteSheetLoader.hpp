@@ -31,7 +31,7 @@ namespace utility
 
         bool load(const std::string& sprite_definition_file);
 
-        inline const std::unordered_map<std::string, std::pair<thor::FrameAnimation, sf::Time>> getAnimations() { return m_animations; }
+        inline const auto& getAnimations() { return m_animations; }
 
     private:
         std::unordered_map<std::string, std::pair<thor::FrameAnimation, sf::Time>> m_animations;
