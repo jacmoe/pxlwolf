@@ -40,7 +40,9 @@ Seriously overengineered Wolfenstein-like raycast engine
 ### Level Editing in LDtk
 Pxlwolf uses the [LDtk Level Designer Toolkit][ldtk_link] to create and edit levels.
 ![LDTK][ldtk]
-
+Pxlwolf uses the [LDtk Level Designer Toolkit][ldtk_link] to create and edit levels.
+![Wolfenstein Levels][ldtklevels]
+First four levels of Wolfenstein 3D.
 
 ## Goals
 - Explore raycasting, including height-mapping and animated tiles.
@@ -89,6 +91,8 @@ This project is using code from the [c-raycaster project][cray] - the raycaster 
 
 [pxlwolf]: https://github.com/jacmoe/pxlwolf/raw/main/screenshots/Screenshot.jpg "Screenshot of PixelWolf"
 [ldtk]: https://github.com/jacmoe/pxlwolf/raw/main/screenshots/LevelEditing.jpg "Level editing in LDTK"
+[ldtklevels]: https://github.com/jacmoe/pxlwolf/raw/main/screenshots/ldtklevels.png "First four levels of Wolf3d"
+
 [ldtk_link]: https://ldtk.io/ "LDtk Level Designer Toolkit"
 
 [herrecito]: https://github.com/herrecito/engine "Herrecito's 2.5D Raycaster engine in C"
