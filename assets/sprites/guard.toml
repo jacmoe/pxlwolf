@@ -1,0 +1,49 @@
+# guard sprite defintion
+
+[image]
+tile_width = 128
+tile_height = 128
+filename = "assets/sprites/guard.png"
+
+[[animation]]
+# 0,0 - 1 frame
+name = "stand_front"
+frames = [0]
+duration = 1.0
+
+[[animation]]
+# 1,0 - 1 frame
+name = "stand_left"
+frames = [1]
+duration = 1.0
+
+[[animation]]
+# 2,0 - 1 frame
+name = "stand_right"
+frames = [2]
+duration = 1.0
+
+[[animation]]
+# 3,0 - 2 frames
+name = "walk_back"
+frames = [3,4]
+duration = 1.0
+
+[[animation]]
+# 5,0 - 1 frame
+name = "walk_right"
+frames = [5]
+duration = 1.0
+
+[[animation]]
+# 6,0 - 1 frame
+name = "achtung_left"
+frames = [6]
+duration = 1.0
+
+[[animation]]
+# 0,1 - 1 frame
+name = "run_rotate"
+frames = [7]
+duration = 1.0
+
