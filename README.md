@@ -40,9 +40,8 @@ Seriously overengineered Wolfenstein-like raycast engine
 ### Level Editing in LDtk
 Pxlwolf uses the [LDtk Level Designer Toolkit][ldtk_link] to create and edit levels.
 ![LDTK][ldtk]
-Pxlwolf uses the [LDtk Level Designer Toolkit][ldtk_link] to create and edit levels.
-![Wolfenstein Levels][ldtklevels]
 First four levels of Wolfenstein 3D.
+![Wolfenstein Levels][ldtklevels]
 
 ## Goals
 - Explore raycasting, including height-mapping and animated tiles.
