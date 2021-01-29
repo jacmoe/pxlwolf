@@ -19,7 +19,7 @@
 #include <string>
 #include <unordered_map>
 #include <SFML/Graphics.hpp>
-#include "Thor/Animations/FrameAnimation.hpp"
+#include "RectAnimation.hpp"
 
 namespace utility
 {
@@ -34,7 +34,7 @@ namespace utility
         inline const auto& getAnimations() { return m_animations; }
 
     private:
-        std::unordered_map<std::string, std::pair<thor::FrameAnimation, sf::Time>> m_animations;
+        std::unordered_map<std::string, std::pair<utility::RectAnimation, sf::Time>> m_animations;
         int m_rows;
         int m_cols;
         int m_width;

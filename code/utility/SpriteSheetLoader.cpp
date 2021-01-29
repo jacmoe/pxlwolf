@@ -77,7 +77,7 @@ namespace utility
 
         for(const auto& animations: animation_table)
         {
-            thor::FrameAnimation animation;
+            utility::RectAnimation animation;
             std::string animation_name = animations.at("name").as_string();
             const auto& frames = animations.at("frames").as_array();
             for(const auto& frame :  frames)

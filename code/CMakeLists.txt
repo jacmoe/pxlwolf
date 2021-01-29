@@ -37,6 +37,8 @@ set(utility
     ./utility/ImageAtlas.hpp
     ./utility/Map.cpp
     ./utility/Map.hpp
+    ./utility/RectAnimation.cpp
+    ./utility/RectAnimation.hpp
     ./utility/SpriteSheetLoader.cpp
     ./utility/SpriteSheetLoader.hpp
     ./utility/utils.cpp
