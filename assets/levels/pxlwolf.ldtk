@@ -14,7 +14,7 @@
 	"defaultGridSize": 64,
 	"bgColor": "#7F8093",
 	"defaultLevelBgColor": "#7F8093",
-	"nextUid": 14,
+	"nextUid": 15,
 	"minifyJson": false,
 	"externalLevels": true,
 	"exportTiled": false,
@@ -82,7 +82,8 @@
 					{ "identifier": "Wood", "color": "#C37153" },
 					{ "identifier": "Wood_Eagle", "color": "#C37153" },
 					{ "identifier": "Wood_Hitler", "color": "#C37153" },
-					{ "identifier": "Blue", "color": "#341CE3" }
+					{ "identifier": "Blue", "color": "#341CE3" },
+					{ "identifier": "Steel", "color": "#00F5FF" }
 				],
 				"autoTilesetDefUid": null,
 				"autoRuleGroups": [],
@@ -222,7 +223,25 @@
 			"__bgPos": null,
 			"externalRelPath": "pxlwolf/0001-Level2.ldtkl",
 			"layerInstances": null,
-			"__neighbours": [{ "levelUid": 7, "dir": "e" }]
+			"__neighbours": [ { "levelUid": 7, "dir": "e" }, { "levelUid": 14, "dir": "w" } ]
+		},
+		{
+			"identifier": "Level3",
+			"uid": 14,
+			"worldX": -3072,
+			"worldY": -512,
+			"pxWid": 1024,
+			"pxHei": 1024,
+			"__bgColor": "#7F8093",
+			"bgColor": null,
+			"bgRelPath": null,
+			"bgPos": null,
+			"bgPivotX": 0.5,
+			"bgPivotY": 0.5,
+			"__bgPos": null,
+			"externalRelPath": "pxlwolf/0002-Level3.ldtkl",
+			"layerInstances": null,
+			"__neighbours": [{ "levelUid": 8, "dir": "e" }]
 		}
 	]
 }
