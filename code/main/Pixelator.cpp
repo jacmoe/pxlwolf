@@ -17,30 +17,30 @@
 #include "spdlog/spdlog.h"
 
 sf::Color commodoreColorPallette[16] = {
-	{0,0,0,255},		// Black
-	{255,255,255,255},	// White
-	{136,0,0,255},		// Red
-	{170,255,238,255},	// Cyan
-	{204,68,204,255},	// Purple
-	{0,204,85,255},		// Green
-	{0,0,170,255},		// Blue
-	{238,238,119,255},	// Yellow
-	{221,136,85,255},	// Orange
-	{102,68,0,255},		// Brown
-	{255,119,119,255},	// Light red
-	{51,51,51,255},		// Dark grey
-	{119,119,119,255},	// Grey
-	{170,255,102,255},	// Light green
-	{0,136,255,255},	// Light blue
-	{187,187,187,255}	// Light grey
+    {0,0,0,255},		// Black
+    {255,255,255,255},	// White
+    {136,0,0,255},		// Red
+    {170,255,238,255},	// Cyan
+    {204,68,204,255},	// Purple
+    {0,204,85,255},		// Green
+    {0,0,170,255},		// Blue
+    {238,238,119,255},	// Yellow
+    {221,136,85,255},	// Orange
+    {102,68,0,255},		// Brown
+    {255,119,119,255},	// Light red
+    {51,51,51,255},		// Dark grey
+    {119,119,119,255},	// Grey
+    {170,255,102,255},	// Light green
+    {0,136,255,255},	// Light blue
+    {187,187,187,255}	// Light grey
 };
 
 Pixelator::Pixelator()
     : m_current_buffer("primary")
-	, m_buffers()
+    , m_buffers()
 {
-	m_buffers.emplace_back();
-    setSize(sf::Vector2i(360.0f, 240.0f));
+    m_buffers.emplace_back();
+    setSize(sf::Vector2i(360, 240));
     m_buffer_map.insert({"primary", 0});
 }
 
@@ -60,9 +60,9 @@ bool Pixelator::addBuffer(const std::string name)
         return false;
     }
 
-	const unsigned int newBufferIndex{ static_cast<unsigned int>(m_buffers.size()) };
+    const unsigned int newBufferIndex{ static_cast<unsigned int>(m_buffers.size()) };
     m_buffer_map.insert({name, newBufferIndex});
-	m_buffers.emplace_back();
+    m_buffers.emplace_back();
 
     unsigned int index = m_buffer_map[m_current_buffer];
 
@@ -90,7 +90,7 @@ bool Pixelator::removeBuffer(const std::string name)
         SPDLOG_ERROR("Attempting to remove a buffer that doesn't exist!");
         return false;
     }
-	assert(m_buffer_map[name] < m_buffers.size());
+    assert(m_buffer_map[name] < m_buffers.size());
     if(m_current_buffer == name)
     {
         // Can't remove current buffer! Raise error here.
@@ -109,7 +109,7 @@ void Pixelator::setActiveBuffer(const std::string name)
         SPDLOG_ERROR("Attempting to use a buffer name that doesn't exist!");
         return;
     }
-	assert(m_buffer_map[name] < m_buffers.size());
+    assert(m_buffer_map[name] < m_buffers.size());
     m_current_buffer = name;
 }
 
@@ -131,8 +131,13 @@ bool Pixelator::swapBuffer(const std::string name)
 
 void Pixelator::setSize(const sf::Vector2i size)
 {
-    unsigned int index = m_buffer_map[m_current_buffer];
-	m_buffers[index].size = size;
+    setSize(m_current_buffer, size);
+}
+
+void Pixelator::setSize(const std::string& name, const sf::Vector2i size)
+{
+    unsigned int index = m_buffer_map[name];
+    m_buffers[index].size = size;
     std::vector<sf::Uint8> newPixels(m_buffers[index].size.x * m_buffers[index].size.y * 4u);
     sf::Uint8* ptr = &newPixels[0];
     sf::Uint8* end = ptr + newPixels.size();
@@ -336,7 +341,12 @@ void Pixelator::randomize()
 
 void Pixelator::clear()
 {
-    unsigned int index = m_buffer_map.at(m_current_buffer);
+    clear(m_current_buffer);
+}
+
+void Pixelator::clear(const std::string& name)
+{
+    unsigned int index = m_buffer_map.at(name);
     std::vector<sf::Uint8> newPixels(m_buffers[index].size.x * m_buffers[index].size.y * 4);
     sf::Uint8* ptr = &newPixels[0];
     sf::Uint8* end = ptr + newPixels.size();

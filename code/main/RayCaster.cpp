@@ -19,7 +19,9 @@
 RayCaster::RayCaster(std::shared_ptr<utility::Map> map, std::shared_ptr<Pixelator> pixelator)
 : m_map(map)
 , m_pixelator(pixelator)
-{}
+{
+    initDepthBuffer(m_map->width(), m_map->height());
+}
 
 /** RaycasterEngine::generateAngleValues
  * @brief Creates a pregenerated list of angle offsets for Camera
@@ -143,4 +145,46 @@ double RayCaster::getInterDist(double dx, double dy, double xi, double yi, doubl
         *newY = coordY + 1;
     }
     return minDist;
+}
+
+void RayCaster::initDepthBuffer(uint32_t width, uint32_t height)
+{
+    Pixelator* pixelator = m_pixelator.get();
+    pixelator->addBuffer("pixelBuffer");
+    pixelator->setSize("pixelBuffer", sf::Vector2i(width, height));
+
+    pixelator->addBuffer("alphaBuffer");
+    pixelator->setSize("alphaBuffer", sf::Vector2i(width, height));
+
+    m_pixel_depth.assign(width * height, INFINITY);
+    m_alpha_depth.assign(width * height, INFINITY);
+
+    m_width = width;
+    m_height = height;
+}
+
+void RayCaster::resetDepthBuffer()
+{
+    Pixelator* pixelator = m_pixelator.get();
+    pixelator->clear("pixelBuffer");
+    pixelator->clear("alphaBuffer");
+    m_pixel_depth.assign(m_width * m_height, INFINITY);
+    m_alpha_depth.assign(m_width * m_height, INFINITY);
+}
+
+double RayCaster::getDepth(uint32_t x, uint32_t y, uint8_t layer)
+{
+    return layer ? m_alpha_depth[m_width * y + x] : m_pixel_depth[m_width * y + x];
+}
+
+void RayCaster::setDepth(uint32_t x, uint32_t y, uint8_t layer, double depth)
+{
+    if (layer)
+    {
+        m_alpha_depth[m_width * y + x] = depth;
+    }
+    else
+    {
+        m_pixel_depth[m_width * y + x] = depth;
+    }
 }
