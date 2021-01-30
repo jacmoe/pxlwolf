@@ -273,3 +273,64 @@ void RayCaster::setDepth(uint32_t x, uint32_t y, uint8_t layer, double depth)
         m_pixel_depth[m_width * y + x] = depth;
     }
 }
+
+/** RaycasterEngine::renderBuffer
+ * @brief Merges opaque and alpha layers of buffer for rendering
+ * 
+ * @param buffer Buffer to render
+ */
+void RayCaster::renderBuffer()
+{
+    sf::Color pixel;
+    for (uint32_t i = 0; i < m_width; i++)
+    {
+        for (uint32_t j = 0; j < m_height; j++)
+        {
+            if (getDepth(i, j, BL_BASE) > getDepth(i, j, BL_ALPHA))
+            {
+                pixel = m_pixelator.get()->getPixel("alphaBuffer", i, j);
+                m_pixelator.get()->setPixel("alphaBuffer", i, j, pixel);
+            }
+        }
+    }
+}
+
+void RayCaster::drawTextureColumn(uint32_t x, int32_t y,
+                              int32_t h, double depth,
+                             uint8_t tileNum, double alphaNum, 
+                             uint32_t column, double fadePercent, 
+                             sf::Color targetColor)
+{
+    if (y + h < 0 || fadePercent > 1.0)
+    {
+        return;  // Sorry, messy fix but it works
+    }
+    int32_t offH = h;
+    int32_t offY = 0;
+    if (y < 0)
+    {
+        offY = -y;
+        h = h + y;
+        y = 0;
+    }
+    if (y + h > m_height)
+    {
+        h = m_height - y;
+    }
+
+    for (int32_t i = 0; i < h; i++)
+    {
+        // Calculate pixel to draw from texture
+        // uint32_t pix = texture->pixData[\
+        //     tileNum*texture->tileWidth*texture->tileHeight + \
+        //     (uint32_t)floor(((double)(offY + i)/(double)offH) * \
+        //     (texture->tileHeight)) * texture->tileWidth + column];
+         uint32_t pix = toIntColor(sf::Color::Red.r, sf::Color::Red.g, sf::Color::Red.b, sf::Color::Red.a);
+        if (pix & 0xFF)
+        {
+            pix = pixelGradientShader(pix, fadePercent, targetColor);
+            m_pixelator.get()->setPixel("depthBuffer", x, i+y, toSFMLColor(pix));
+            //m_pixelator.get()->setPixel("depthBuffer", x, i+y, pix, alphaNum, depth);
+        }
+    }
+}

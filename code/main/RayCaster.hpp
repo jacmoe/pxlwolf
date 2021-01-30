@@ -53,6 +53,13 @@ private:
 
     void drawPixel(uint32_t x, uint32_t y, uint32_t color, double alphaNum, double depth);
 
+    void renderBuffer();
+    void drawTextureColumn(uint32_t x, int32_t y,
+                              int32_t h, double depth,
+                             uint8_t tileNum, double alphaNum, 
+                             uint32_t column, double fadePercent, 
+                             sf::Color targetColor);
+
     double getInterDist(double dx, double dy, double xi, double yi, double coordX, double coordY, double* newX, double* newY, uint8_t* side);
     uint32_t toIntColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a);
     sf::Color toSFMLColor(uint32_t pixColor);
