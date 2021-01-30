@@ -102,6 +102,23 @@ sf::Color RayCaster::toSFMLColor(uint32_t pixColor)
     return newColor;
 }
 
+uint32_t RayCaster::pixelGradientShader(uint32_t pixel, double percent, sf::Color target)
+{
+    sf::Uint8 r = (pixel & 0x00ff0000) >> 16;
+    sf::Uint8 g = (pixel & 0x0000ff00) >> 8;
+    sf::Uint8 b = (pixel & 0x000000ff);
+    sf::Uint8 a = (pixel & 0xff000000) >> 24;
+    int dr = target.r - r;
+    int dg = target.g - g;
+    int db = target.b - b;
+    int da = target.a - a;
+    r += (int)((double)dr * percent);
+    g += (int)((double)dg * percent);
+    b += (int)((double)db * percent);
+    a += (int)((double)da * percent);
+    return toIntColor(r,g,b,a);
+}
+
 /**
  * @brief 
  * 
