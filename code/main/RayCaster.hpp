@@ -34,6 +34,12 @@ private:
     std::shared_ptr<utility::Map> m_map;
     std::shared_ptr<Pixelator> m_pixelator;
 
+    enum BufferLayer
+    {
+        BL_BASE,
+        BL_ALPHA
+    };
+
     std::vector<double> m_pixel_depth;
     std::vector<double> m_alpha_depth;
 
@@ -45,5 +51,9 @@ private:
     double getDepth(uint32_t x, uint32_t y, uint8_t layer);
     void setDepth(uint32_t x, uint32_t y, uint8_t layer, double depth);
 
+    void drawPixel(uint32_t x, uint32_t y, uint32_t color, double alphaNum, double depth);
+
     double getInterDist(double dx, double dy, double xi, double yi, double coordX, double coordY, double* newX, double* newY, uint8_t* side);
+    uint32_t toIntColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a);
+    sf::Color toSFMLColor(uint32_t pixColor);
 };

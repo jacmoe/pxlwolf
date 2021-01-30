@@ -31,6 +31,7 @@ public:
 
     // Pixels
     void setPixel(unsigned int x, unsigned int y, const sf::Color& color);
+    void setPixel(const std::string& name, unsigned int x, unsigned int y, const sf::Color& color);
     sf::Color getPixel(unsigned int x, unsigned int y) const;
     const sf::Uint8* getPixelsPtr() const;
 

@@ -155,7 +155,12 @@ void Pixelator::setSize(const std::string& name, const sf::Vector2i size)
 
 void Pixelator::setPixel(unsigned int x, unsigned int y, const sf::Color& color)
 {
-    unsigned int index = m_buffer_map[m_current_buffer];
+    setPixel(m_current_buffer, x, y, color);
+}
+
+void Pixelator::setPixel(const std::string& name, unsigned int x, unsigned int y, const sf::Color& color)
+{
+    unsigned int index = m_buffer_map[name];
     sf::Uint8* pixel = &m_buffers[index].pixels[(x + y * m_buffers[index].size.x) * 4];
     *pixel++ = color.r;
     *pixel++ = color.g;

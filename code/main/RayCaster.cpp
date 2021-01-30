@@ -87,6 +87,74 @@ void RayCaster::drawMinimap(const std::string& owner, const std::string& name, c
     m_pixelator.get()->setActiveBuffer(owner);
 }
 
+uint32_t RayCaster::toIntColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
+{
+    return ((uint32_t)r << 3*8 | (uint32_t)g << 2*8 | (uint32_t)b << 8 | (uint32_t)a);
+}
+
+sf::Color RayCaster::toSFMLColor(uint32_t pixColor)
+{
+    sf::Uint8 r = (pixColor & 0x00ff0000) >> 16;
+    sf::Uint8 g = (pixColor & 0x0000ff00) >> 8;
+    sf::Uint8 b = (pixColor & 0x000000ff);
+    sf::Uint8 a = (pixColor & 0xff000000) >> 24;
+    sf::Color newColor = {r, g, b, a};
+    return newColor;
+}
+
+/**
+ * @brief 
+ * 
+ * @param buffer 
+ * @param x 
+ * @param y 
+ * @param color 
+ * @param alphaNum 
+ * @param depth 
+ */
+void RayCaster::drawPixel(uint32_t x, uint32_t y, uint32_t color, double alphaNum, double depth)
+{
+    if (x >= 0 && x < m_width && y >= 0 && y < m_height)
+    {
+        // Keep pixel in alpha layer
+        if (alphaNum < 1 || (color & 0xff) < 255)
+        {
+            // If new alpha in front
+            double pixDepth = getDepth(x, y, BL_ALPHA);
+            if (pixDepth > depth)
+            {
+                setDepth(x, y, BL_ALPHA, depth);
+                if (pixDepth == INFINITY)
+                {
+                    sf::Color alphaColor = toSFMLColor(color);
+                    alphaColor.a *= alphaNum;
+                    m_pixelator.get()->setPixel("alphaBuffer", x, y, alphaColor);
+                }
+                else
+                {
+                    m_pixelator.get()->setPixel("alphaBuffer", x, y, toSFMLColor(color));
+                }
+            }
+            else
+            {
+                m_pixelator.get()->setPixel("alphaBuffer", x, y, toSFMLColor(color));
+                //PixelRenderer::drawPix(buffer->alphaBuffer, x, y, PixelRenderer::blendAlpha(color, PixelRenderer::getPix(buffer->alphaBuffer, x, y), 1));
+            }
+        }
+        // For opaque layer
+        else
+        {
+            // If new pixel in front
+            if (getDepth(x, y, BL_BASE) > depth)
+            {
+                setDepth(x, y, BL_BASE, depth);
+                m_pixelator.get()->setPixel("pixelBuffer", x, y, toSFMLColor(color));
+                //PixelRenderer::drawPix(buffer->pixelBuffer, x, y, color);
+            }
+        }
+    }
+}
+
 /** getInterDist
  * @brief Compute linear interpolation of ray intersect with wall
  * 
