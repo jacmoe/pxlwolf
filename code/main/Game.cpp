@@ -36,7 +36,7 @@ bool Game::OnUserCreate()
 
     m_map.get()->init("assets/levels/pxlwolf.ldtk");
 
-    m_map.get()->load("Level1");
+    m_map.get()->load("Level4");
 
     atlas->load("assets/textures/wall.png", sf::Vector2u(64, 64));
 

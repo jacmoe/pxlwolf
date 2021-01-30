@@ -26,9 +26,13 @@ class RayCaster
 public:
     RayCaster(std::shared_ptr<utility::Map> map, std::shared_ptr<Pixelator> pixelator);
 
+    void generateAngleValues(uint32_t width, Camera* camera);
+
     void drawMinimap(const std::string& owner, const std::string& name, const Camera& camera, int blockSize);
 
 private:
     std::shared_ptr<utility::Map> m_map;
     std::shared_ptr<Pixelator> m_pixelator;
+
+    double getInterDist(double dx, double dy, double xi, double yi, double coordX, double coordY, double* newX, double* newY, uint8_t* side);
 };
