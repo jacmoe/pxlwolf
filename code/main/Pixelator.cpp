@@ -291,14 +291,24 @@ void Pixelator::drawRect(const sf::IntRect rect, const sf::Color& color)
 
 sf::Color Pixelator::getPixel(unsigned int x, unsigned int y) const
 {
-    unsigned int index = m_buffer_map.at(m_current_buffer);
+    return getPixel(m_current_buffer, x, y);
+}
+
+sf::Color Pixelator::getPixel(const std::string& name, unsigned int x, unsigned int y) const
+{
+    unsigned int index = m_buffer_map.at(name);
     const sf::Uint8* pixel = &m_buffers[index].pixels[(x + y * m_buffers[index].size.x) * 4];
     return sf::Color(pixel[0], pixel[1], pixel[2], pixel[3]);
 }
 
 const sf::Uint8* Pixelator::getPixelsPtr() const
 {
-    unsigned int index = m_buffer_map.at(m_current_buffer);
+    return getPixelsPtr(m_current_buffer);
+}
+
+const sf::Uint8* Pixelator::getPixelsPtr(const std::string& name) const
+{
+    unsigned int index = m_buffer_map.at(name);
     if (!m_buffers[index].pixels.empty())
     {
         return &m_buffers[index].pixels[0];

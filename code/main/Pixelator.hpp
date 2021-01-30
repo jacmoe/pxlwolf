@@ -33,7 +33,9 @@ public:
     void setPixel(unsigned int x, unsigned int y, const sf::Color& color);
     void setPixel(const std::string& name, unsigned int x, unsigned int y, const sf::Color& color);
     sf::Color getPixel(unsigned int x, unsigned int y) const;
+    sf::Color getPixel(const std::string& name, unsigned int x, unsigned int y) const;
     const sf::Uint8* getPixelsPtr() const;
+    const sf::Uint8* getPixelsPtr(const std::string& name) const;
 
     void drawColumn(unsigned int x, unsigned int y, unsigned int height, const sf::Color& color);
     void drawRow(unsigned int x, unsigned int y, unsigned int length, const sf::Color& color);
