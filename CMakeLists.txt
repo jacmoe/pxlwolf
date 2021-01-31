@@ -35,51 +35,37 @@ if(UNIX)
     include_directories(${PNG_INCLUDE_DIR})
 endif(UNIX)
 
-if(WIN32)
-set(SFML_DIR C:/SFML/lib/cmake/SFML)
-set(SFML_STATIC_LIBRARIES TRUE)
-find_package(SFML 2 COMPONENTS system window graphics audio main)
-endif(WIN32)
-
 if(UNIX)
 find_package(SFML 2 COMPONENTS system window graphics audio)
 endif(UNIX)
 
 if(WIN32)
 include_directories(${WinSDK})
-set(SFML_INCLUDE_DIRS C:/SFML/include)
 endif(WIN32)
 
 add_subdirectory(3rdparty/Lua)
 
 add_subdirectory(3rdparty/physfs)
 
-set(THOR_SHARED_LIBS FALSE)
-add_subdirectory(3rdparty/thor)
+set(COSTUMIZE_BUILD TRUE)
+set(USE_AUDIO FALSE)
+set(USE_MSVC_RUNTIME_LIBRARY_DLL FALSE)
+add_subdirectory(3rdparty/raylib)
 
 set(3RD_PARTY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty)
-set(SPDLOG_INCLUDE_DIR ${3RD_PARTY_DIR}/spdlog/include)
 set(TOML11_INCLUDE_DIR ${3RD_PARTY_DIR}/toml11)
 set(SOL_INCLUDE_DIR ${3RD_PARTY_DIR}/sol2)
 set(ENTT_INCLUDE_DIR ${3RD_PARTY_DIR}/entt)
 set(LUA_INCLUDE_DIR ${3RD_PARTY_DIR}/Lua/include)
 set(PHYSFS_INCLUDE_DIR ${3RD_PARTY_DIR}/physfs/src)
-set(THOR_INCLUDE_DIR ${3RD_PARTY_DIR}/thor/include)
-set(AURORA_INCLUDE_DIR ${3RD_PARTY_DIR}/thor/extlibs/aurora/include)
-set(SelbaWardDir ${3RD_PARTY_DIR}/SelbaWard)
 
 include_directories(
     ${3RD_PARTY_DIR}
-    ${SPDLOG_INCLUDE_DIR}
     ${TOML11_INCLUDE_DIR}
     ${ENTT_INCLUDE_DIR}
     ${LUA_INCLUDE_DIR}
     ${SOL_INCLUDE_DIR}
     ${PHYSFS_INCLUDE_DIR}
-    ${THOR_INCLUDE_DIR}
-    ${AURORA_INCLUDE_DIR}
-    ${SFML_INCLUDE_DIRS}
-    ${SelbaWardDir}
     ./code/main
     ./code/components
     ./code/systems

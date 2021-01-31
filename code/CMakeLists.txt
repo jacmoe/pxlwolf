@@ -16,56 +16,41 @@
 set(TARGET_NAME pxlwolf)
 
 set(main
-    ./main/Application.cpp
-    ./main/Application.hpp
-    ./main/Entity.cpp
-    ./main/Entity.hpp
-    ./main/Game.cpp
-    ./main/Game.hpp
-    ./main/Level.cpp
-    ./main/Level.hpp
-    ./main/Pixelator.cpp
-    ./main/Pixelator.hpp
-    ./main/RayCaster.cpp
-    ./main/RayCaster.hpp
+    # ./main/Application.cpp
+    # ./main/Application.hpp
+    # ./main/Entity.cpp
+    # ./main/Entity.hpp
+    # ./main/Game.cpp
+    # ./main/Game.hpp
+    # ./main/Level.cpp
+    # ./main/Level.hpp
+    # ./main/Pixelator.cpp
+    # ./main/Pixelator.hpp
+    # ./main/RayCaster.cpp
+    # ./main/RayCaster.hpp
 )
 
 set(utility
-    ./utility/dbg_console.cpp
-    ./utility/dbg_console.hpp
-    ./utility/ImageAtlas.cpp
-    ./utility/ImageAtlas.hpp
-    ./utility/Map.cpp
-    ./utility/Map.hpp
-    ./utility/RectAnimation.cpp
-    ./utility/RectAnimation.hpp
-    ./utility/SpriteSheetLoader.cpp
-    ./utility/SpriteSheetLoader.hpp
+    # ./utility/ImageAtlas.cpp
+    # ./utility/ImageAtlas.hpp
+    # ./utility/Map.cpp
+    # ./utility/Map.hpp
+    # ./utility/RectAnimation.cpp
+    # ./utility/RectAnimation.hpp
+    # ./utility/SpriteSheetLoader.cpp
+    # ./utility/SpriteSheetLoader.hpp
     ./utility/utils.cpp
     ./utility/utils.hpp
-    ${3RD_PARTY_DIR}/DG_misc.hpp
-    ${3RD_PARTY_DIR}/physfs.cpp
-    ${3RD_PARTY_DIR}/physfs.hpp
-    ${3RD_PARTY_DIR}/lua_main.hpp
+    # ${3RD_PARTY_DIR}/physfs.cpp
+    # ${3RD_PARTY_DIR}/physfs.hpp
+    # ${3RD_PARTY_DIR}/lua_main.hpp
 )
 
-if (WIN32)
-    add_executable(${TARGET_NAME}
-        WIN32
-        ./main.cpp
-        ${main}
-        ${utility}
-    )
-endif (WIN32)
-
-if (UNIX)
-    add_executable(${TARGET_NAME}
-        ./main.cpp
-        ${main}
-        ${utility}
-    )
-endif (UNIX)
-
+add_executable(${TARGET_NAME}
+    ./main.cpp
+    ${main}
+    ${utility}
+)
 
 if (UNIX)
     target_link_libraries(${TARGET_NAME} stdc++fs)
@@ -84,8 +69,4 @@ if (UNIX)
             )
 endif (UNIX)
 
-if(WIN32)
-    target_link_libraries(pxlwolf lua  physfs-static thor sfml-graphics sfml-system sfml-main)
-else()
-    target_link_libraries(pxlwolf lua  physfs-static thor sfml-graphics sfml-system)
-endif(WIN32)
+target_link_libraries(pxlwolf lua  physfs-static raylib)

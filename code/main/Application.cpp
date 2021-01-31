@@ -52,9 +52,9 @@ Application::Application()
 
 Application::~Application()
 {
-	SPDLOG_INFO("PixelWolf shutdown.");
+    SPDLOG_INFO("PixelWolf shutdown.");
     m_renderwindow.reset();
-	utility::closeConsoleWindow();
+    utility::closeConsoleWindow();
 }
 
 bool Application::OnUserCreate()
@@ -93,15 +93,15 @@ void Application::setup_logging()
         std::remove(logfile_name.c_str());
     }
 
-	// Create console sink and file sink
+    // Create console sink and file sink
     auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
-	auto file_sink = std::make_shared<spdlog::sinks::basic_file_sink_mt>(logfile_name, true);
-	// Make the logger use both the console and the file sink
+    auto file_sink = std::make_shared<spdlog::sinks::basic_file_sink_mt>(logfile_name, true);
+    // Make the logger use both the console and the file sink
     m_pxllogger = std::make_shared<spdlog::logger>("multi_sink", spdlog::sinks_init_list({console_sink, file_sink}));
-	// Set the standard logger so that we can use it freely everywhere
+    // Set the standard logger so that we can use it freely everywhere
     spdlog::set_default_logger(m_pxllogger);
-	// Set the format pattern - [Loglevel] [Function] [Line] message
-	spdlog::set_pattern("[%l] [%!] [line %#] %v");
+    // Set the format pattern - [Loglevel] [Function] [Line] message
+    spdlog::set_pattern("[%l] [%!] [line %#] %v");
 }
 
 bool Application::load_font()
@@ -132,7 +132,7 @@ bool Application::init(const std::string title, int width, int height, const flo
     m_fullscreen = fullscreen;
     m_aspect_ratio = static_cast<float>(m_width) / static_cast<float>(m_height);
 
-	utility::CreateConsoleWindow();
+    utility::CreateConsoleWindow();
 
     setup_logging();
 
@@ -196,8 +196,8 @@ bool Application::init(const std::string title, int width, int height, const flo
     m_action_map["quit"] = thor::Action(sf::Keyboard::LControl) && thor::Action(sf::Keyboard::Q);
     m_action_map["toggle_fullscreen"] = thor::Action(sf::Keyboard::LAlt) && thor::Action(sf::Keyboard::Enter);
 
-	SPDLOG_INFO("PixelWolf initialized.");
-	SPDLOG_INFO("Aspect ratio : {}", m_aspect_ratio);
+    SPDLOG_INFO("PixelWolf initialized.");
+    SPDLOG_INFO("Aspect ratio : {}", m_aspect_ratio);
     return true;
 }
 
@@ -207,23 +207,23 @@ void Application::run()
 
     if (!OnUserCreate()) m_running = false;
 
-	sf::Clock clock;
-	sf::Time timeSinceLastUpdate = sf::Time::Zero;
+    sf::Clock clock;
+    sf::Time timeSinceLastUpdate = sf::Time::Zero;
 
     while ((m_renderwindow.get()->isOpen()) && m_running)
     {
-		sf::Time elapsedTime = clock.restart();
-		timeSinceLastUpdate += elapsedTime;
-		while (timeSinceLastUpdate > m_time_per_frame)
-		{
-			timeSinceLastUpdate -= m_time_per_frame;
+        sf::Time elapsedTime = clock.restart();
+        timeSinceLastUpdate += elapsedTime;
+        while (timeSinceLastUpdate > m_time_per_frame)
+        {
+            timeSinceLastUpdate -= m_time_per_frame;
 
             event();
 
             update(m_time_per_frame);
 
             OnUserUpdate(m_time_per_frame);
-		}
+        }
 
         render();
     }
@@ -279,15 +279,15 @@ void Application::event()
 
 void Application::update(sf::Time elapsedTime)
 {
-	m_stats_update_time += elapsedTime;
-	m_stats_num_frames += 1;
+    m_stats_update_time += elapsedTime;
+    m_stats_num_frames += 1;
 
-	if (m_stats_update_time >= sf::seconds(1.0f))
-	{
+    if (m_stats_update_time >= sf::seconds(1.0f))
+    {
         m_frames_per_second = m_stats_num_frames;
-		m_stats_update_time -= sf::seconds(1.0f);
-		m_stats_num_frames = 0;
-	}
+        m_stats_update_time -= sf::seconds(1.0f);
+        m_stats_num_frames = 0;
+    }
 }
 
 void Application::render()
