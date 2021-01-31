@@ -17,7 +17,7 @@
 # pxlwolf
 Seriously overengineered Wolfenstein-like raycast engine
 
-**ACHTUNG!** Project is currently being ported from SDL to SFML, and the raycaster hasn't beeen ported (yet)
+**ACHTUNG!** Project is currently being ported from SFML to Raylib, and the raycaster hasn't beeen ported (yet)
 
 ## TOC
 
@@ -57,14 +57,12 @@ Here I will write the features of PixelWolf down as I implement them.
 ## Dependencies
 PixelWolf is being developed on Linux and Windows, and the build system is based on CMake.
 
-Everything, except sfml-audio, is linked statically on Windows.
-
 Compiled using MSVC 2019 on Windows, and GCC 9.3 on Linux.
 
 ### External dependencies
 |Library|Description|License|
 |-------|-----------|-------|
-|[SFML 2.5.1][sfml]|Simple and Fast Multimedia Library|zlib license|
+|[Raylib][raylib]|Simple and easy-to-use videogame programming library|zlib license|
 
 ### Bundled dependencies
 |Library|Description|License|
@@ -75,12 +73,9 @@ Compiled using MSVC 2019 on Windows, and GCC 9.3 on Linux.
 |[PhysicsFS ][physfs]|Archive support for games|zlib license|
 |[PhysFS++][physpp]|C++ wrapper for PhysicsFS|zlib license|
 |[RapidJSON][rapidjson]|A fast JSON parser/generator for C++|MIT license|
-|[SelbaWard][selba]|A collection of drawable C++ objects for use with SFML|zlib license|
+|[Raylib-cpp][raycpp]|C++ Object Oriented Wrapper for raylib |zlib license|
 |[Sol][sol]|A C++11 Lua wrapper|MIT License|
-|[spdlog][spdlog]|Logging library|MIT license|
-|[Thor][thor]|SFML extension library|zlib license|
 |[toml11][toml11]|TOML for Modern C++|MIT license|
-|[DG Snippets][dg]|Misc public domain functions|Public domain license|
 
 
 ## Credits
@@ -98,16 +93,13 @@ This project is using code from the [c-raycaster project][cray] - the raycaster 
 [balantkiss]: https://github.com/balintkissdev/raycaster-engine "Balantkissdev's Raycaster engine"
 [cray]: https://github.com/ckinvents/c-raycaster "c-raycaster project by ckinvents"
 
-[sfml]: https://www.sfml-dev.org/download/sfml/2.5.1/ "Simple and Fast Media Library - 2D graphics C++ library"
+[raylib]: https://www.raylib.com/ "Simple and easy-to-use videogames programming library"
 [cereal]: https://uscilab.github.io/cereal/ "C++11 library for serialization"
 [entt]: https://github.com/skypjack/entt "C++ entity component system"
 [lua]: https://www.lua.org/download.html "Scripting language"
 [physfs]: https://www.icculus.org/physfs/ "Archive support for games"
 [physpp]: https://github.com/kahowell/physfs-cpp "C++ wrapper for PhysicsFS"
 [rapidjson]: https://rapidjson.org/ "A fast JSON parser/generator for C++"
-[selba]: https://github.com/Hapaxia/SelbaWard "A collection of drawable C++ objects for use with SFML"
+[raylibcpp]: https://github.com/RobLoach/raylib-cpp "C++ Object Oriented Wrapper for raylib"
 [sol]: https://github.com/ThePhD/sol "A C++11 Lua wrapper"
-[spdlog]: https://github.com/gabime/spdlog "Logging library"
-[thor]: https://github.com/Bromeon/Thor "SFML extension library"
 [toml11]: https://github.com/ToruNiina/toml11 "TOML for Modern C++"
-[dg]: https://github.com/DanielGibson/Snippets/ "Misc public domain functions"
