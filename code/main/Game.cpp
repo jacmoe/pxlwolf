@@ -17,6 +17,7 @@
 #include "lua_main.hpp"
 #include "physfs.hpp"
 #include "RayCaster.hpp"
+#include "Thor/Math.hpp"
 
 Game::Game()
 : m_animator(m_animation_map)
@@ -31,13 +32,14 @@ Game::~Game()
 
 bool Game::OnUserCreate()
 {
-    utility::ImageAtlas* atlas = m_atlas.get();
+    //utility::ImageAtlas* atlas = m_atlas.get();
     Pixelator* pixelator = m_pixelator.get();
 
     m_map.get()->init("assets/levels/pxlwolf.ldtk");
 
     m_map.get()->load("Level4");
 
+#if 0
     atlas->load("assets/textures/wall.png", sf::Vector2u(64, 64));
 
     m_sprite_loader.load("assets/sprites/orc.toml");
@@ -149,35 +151,46 @@ bool Game::OnUserCreate()
     pixelator->drawCircle(sf::Vector2i(100,100), 80, sf::Color::Blue);
 
     pixelator->drawRect(sf::IntRect(60, 60, 100, 100), sf::Color::White);
-
-    pixelator->setActiveBuffer("secondary");
-
-    pixelator->copy("primary", 0, 0, true);
-
+#endif
     m_action_map["test"] = thor::Action(sf::Mouse::Left, thor::Action::Hold);
 
-    RayCaster raycaster(m_map, m_pixelator);
+    RayCaster raycaster(m_width, m_height, m_map, m_pixelator);
 
     if(m_map->loaded())
     {
         Camera camera;
         camera.x = m_map.get()->player_start().x;
         camera.y = m_map.get()->player_start().y;
-        raycaster.drawMinimap("secondary", "minimap", camera, 2);
+        camera.angle = m_map.get()->player_heading();
+        camera.dist = 36;
+        camera.fov = thor::Pi / 2;
+        camera.h = 0;
+
+        raycaster.generateAngleValues(m_width, &camera);
+
+        raycaster.resetDepthBuffer();
+
+        raycaster.raycastRender(&camera, 0.01);
+
+        raycaster.renderBuffer();
+
+        raycaster.drawMinimap("primary", "minimap", camera, 2);
+
+        pixelator->copy("pixelBuffer", 0, 0, true);
 
         pixelator->copy("minimap", 200, 0, true);
     }
-    m_anim_sprite.setScale(sf::Vector2f(10,10));
-    m_animator.play() << "roll";
+    // m_anim_sprite.setScale(sf::Vector2f(10,10));
+    // m_animator.play() << "roll";
 
     return true;
 }
 
 bool Game::OnUserUpdate(sf::Time elapsedTime)
 {
-    m_animator.queue() << "roll";
-    m_animator.update(elapsedTime);
-    m_animator.animate(m_anim_sprite);
+    // m_animator.queue() << "roll";
+    // m_animator.update(elapsedTime);
+    // m_animator.animate(m_anim_sprite);
 
     write_text("Hello from PixelWolf! Time is : " + std::to_string(elapsedTime.asSeconds()) + " Frames per second : " + std::to_string(m_frames_per_second));
 
@@ -192,7 +205,9 @@ bool Game::OnUserUpdate(sf::Time elapsedTime)
 
 bool Game::OnUserRender()
 {
-    m_renderwindow.get()->draw(m_anim_sprite);
+    // m_pixelator.get()->copy("pixelBuffer", 0, 0, true);
+
+    // m_renderwindow.get()->draw(m_anim_sprite);
     return true;
 }
 

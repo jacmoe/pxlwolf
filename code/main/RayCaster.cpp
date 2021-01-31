@@ -15,12 +15,15 @@
 #*/
 #include "RayCaster.hpp"
 #include "Game.hpp"
+#include "spdlog/spdlog.h"
 
-RayCaster::RayCaster(std::shared_ptr<utility::Map> map, std::shared_ptr<Pixelator> pixelator)
+RayCaster::RayCaster(uint32_t width, uint32_t height, std::shared_ptr<utility::Map> map, std::shared_ptr<Pixelator> pixelator)
 : m_map(map)
 , m_pixelator(pixelator)
+, m_width(width)
+, m_height(height)
 {
-    initDepthBuffer(m_map->width(), m_map->height());
+    initDepthBuffer();
 }
 
 /** RaycasterEngine::generateAngleValues
@@ -129,7 +132,7 @@ uint32_t RayCaster::pixelGradientShader(uint32_t pixel, double percent, sf::Colo
  * @param alphaNum 
  * @param depth 
  */
-void RayCaster::drawPixel(uint32_t x, uint32_t y, uint32_t color, double alphaNum, double depth)
+void RayCaster::setPixelAlphaDepth(uint32_t x, uint32_t y, uint32_t color, double alphaNum, double depth)
 {
     if (x >= 0 && x < m_width && y >= 0 && y < m_height)
     {
@@ -232,20 +235,19 @@ double RayCaster::getInterDist(double dx, double dy, double xi, double yi, doubl
     return minDist;
 }
 
-void RayCaster::initDepthBuffer(uint32_t width, uint32_t height)
+void RayCaster::initDepthBuffer()
 {
     Pixelator* pixelator = m_pixelator.get();
     pixelator->addBuffer("pixelBuffer");
-    pixelator->setSize("pixelBuffer", sf::Vector2i(width, height));
+    pixelator->setSize("pixelBuffer", sf::Vector2i(m_width, m_height));
 
     pixelator->addBuffer("alphaBuffer");
-    pixelator->setSize("alphaBuffer", sf::Vector2i(width, height));
+    pixelator->setSize("alphaBuffer", sf::Vector2i(m_width, m_height));
 
-    m_pixel_depth.assign(width * height, INFINITY);
-    m_alpha_depth.assign(width * height, INFINITY);
+    m_pixel_depth.assign(m_width * m_height, INFINITY);
+    m_alpha_depth.assign(m_width * m_height, INFINITY);
 
-    m_width = width;
-    m_height = height;
+    SPDLOG_INFO("Depthbuffer initialized.");
 }
 
 void RayCaster::resetDepthBuffer()
@@ -255,6 +257,7 @@ void RayCaster::resetDepthBuffer()
     pixelator->clear("alphaBuffer");
     m_pixel_depth.assign(m_width * m_height, INFINITY);
     m_alpha_depth.assign(m_width * m_height, INFINITY);
+    SPDLOG_INFO("Depthbuffer reset.");
 }
 
 double RayCaster::getDepth(uint32_t x, uint32_t y, uint8_t layer)
@@ -289,7 +292,7 @@ void RayCaster::renderBuffer()
             if (getDepth(i, j, BL_BASE) > getDepth(i, j, BL_ALPHA))
             {
                 pixel = m_pixelator.get()->getPixel("alphaBuffer", i, j);
-                m_pixelator.get()->setPixel("alphaBuffer", i, j, pixel);
+                m_pixelator.get()->setPixel("pixelBuffer", i, j, pixel);
             }
         }
     }
@@ -325,12 +328,166 @@ void RayCaster::drawTextureColumn(uint32_t x, int32_t y,
         //     tileNum*texture->tileWidth*texture->tileHeight + \
         //     (uint32_t)floor(((double)(offY + i)/(double)offH) * \
         //     (texture->tileHeight)) * texture->tileWidth + column];
-         uint32_t pix = toIntColor(sf::Color::Red.r, sf::Color::Red.g, sf::Color::Red.b, sf::Color::Red.a);
+         uint32_t pix = toIntColor(sf::Color::White.r, sf::Color::White.g, sf::Color::White.b, sf::Color::White.a);
         if (pix & 0xFF)
         {
             pix = pixelGradientShader(pix, fadePercent, targetColor);
-            m_pixelator.get()->setPixel("depthBuffer", x, i+y, toSFMLColor(pix));
-            //m_pixelator.get()->setPixel("depthBuffer", x, i+y, pix, alphaNum, depth);
+            setPixelAlphaDepth(x, i+y, pix, alphaNum, depth);
+        }
+    }
+}
+
+//! RayBuffer dependent
+void RayCaster::raycastRender(Camera* camera, double resolution)
+{
+    // Establish starting angle and sweep per column
+    double startAngle = camera->angle - camera->fov / 2.0;
+    double adjFactor = m_width / (2 * tan(camera->fov / 2));
+    double scaleFactor = (double)m_width / (double)m_height * 2.4;
+    double rayAngle = startAngle;
+    
+    utility::Map* map = m_map.get();
+
+    // Sweeeeep for each column
+    #pragma omp parallel for schedule(dynamic,1) private(rayAngle)
+    for (uint32_t i = 0; i < m_width; i++)
+    {
+        rayAngle = startAngle + camera->angleValues[i];
+        double rayX = camera->x;
+        double rayY = camera->y;
+        double rayStepX = (resolution) * cos(rayAngle);
+        double rayStepY = (resolution) * sin(rayAngle);
+        double stepLen = (resolution) / scaleFactor;
+        double rayLen = 0;
+        int rayStep = 0;
+        int rayOffX = 0;
+        int rayOffY = 0;
+        int collisions = 0;
+        while (rayLen < camera->dist && collisions < 3)
+        {
+            int coordX = (int)floor(rayX+rayOffX);
+            int coordY = (int)floor(rayY+rayOffY);
+            if ((coordX >= 0.0 && coordY >= 0.0) && (coordX < map->width() && coordY < map->height()) && (map->walls()[coordY * map->width() + coordX] != 0))
+            {
+                uint8_t mapTile = map->walls()[coordY * map->width() + coordX];
+                sf::Color colorDat = {0,0,0,255};
+                if (rayLen != 0)
+                {
+                    uint8_t side;
+                    double newX;
+                    double newY;
+                    double rayLen = sqrt(getInterDist(rayStepX, rayStepY, camera->x + rayOffX, camera->y + rayOffY, (double)coordX, (double)coordY, &newX, &newY, &side))/scaleFactor;
+                    uint32_t texCoord;
+                    if (side > 1)
+                    {
+                        texCoord = (uint32_t)floor((newX - coordX) * 64);// * texData->tileWidth);
+                    }
+                    else
+                    {
+                        texCoord = (uint32_t)floor((newY - coordY) * 64);// * texData->tileWidth);
+                    }
+                    double depth = (double)(rayLen * cos(rayAngle - camera->angle));
+                    //double colorGrad = (depth) / camera->dist;
+                    //* Note: This is an awful mess but it is a temporary fix to get around rounding issues
+                    int32_t drawHeight = (int32_t)ceil((double)m_height / (depth * 5));
+                    int32_t wallHeight = (int32_t)round(-camera->h * drawHeight);
+                    int32_t startY = m_height / 2 - drawHeight / 2 - wallHeight;
+                    int32_t offsetStartY = m_height / 2 - drawHeight / 2;
+                    int32_t deltaY = m_height - offsetStartY * 2;
+                    //SDL_Color fadeColor = {77,150,154,255};
+                    double colorGrad;
+                    double fogConstant = 1.5/5;
+                    if (rayLen < (camera->dist*fogConstant))
+                    {
+                        colorGrad = (rayLen) / (camera->dist*fogConstant);
+                    }
+                    else
+                    {
+                        colorGrad = 1.0;
+                    }
+                    sf::Color FOG_COLOR = {50,20,50,255};
+                    drawTextureColumn(
+                        i, startY, deltaY, depth,
+                        mapTile - 1, 1.0, 
+                        texCoord, colorGrad, FOG_COLOR
+                    );
+                    // Check for texture column transparency
+                    bool hasAlpha = false;
+                    // for (uint32_t p = 0; p < texData->tileHeight; p++)
+                    // {
+                    //     if ((texData->pixData[(mapTile-1)*texData->tileWidth*texData->tileHeight+texCoord+(texData->tileWidth*p)] & 0xFF) < 0xFF)
+                    //     {
+                    //         collisions++;
+                    //         if (side == 0) // Hit from left
+                    //         {
+                    //             rayX += 1;
+                    //             rayY += rayStepY * (1.0/rayStepX);
+                    //         }
+                    //         else if (side == 1) // Hit from right
+                    //         {
+                    //             rayX -= 1;
+                    //             rayY -= rayStepY * (1.0/rayStepX);
+                    //         }
+                    //         else if (side == 2) // Hit from top
+                    //         {
+                    //             rayX += rayStepX * (1.0/rayStepY);
+                    //             rayY += 1;
+                    //         }
+                    //         else // Hit from bottom
+                    //         {
+                    //             rayX -= rayStepX * (1.0/rayStepY);
+                    //             rayY -= 1;
+                    //         }
+                    //         if (rayX+rayOffX < -map->border)
+                    //         {
+                    //             rayOffX += map->width + map->border * 2;
+                    //         }
+                    //         else if (rayX+rayOffX >= map->width + map->border)
+                    //         {
+                    //             rayOffX -= map->width + map->border * 2;
+                    //         }
+                    //         if (rayY+rayOffY < -map->border)
+                    //         {
+                    //             rayOffY += map->height + map->border*2;
+                    //         }
+                    //         else if (rayY+rayOffY >= map->height + map->border)
+                    //         {
+                    //             rayOffY -= map->height + map->border*2;
+                    //         }
+                    //         rayLen = sqrt((rayX-camera->x)*(rayX-camera->x) + (rayY-camera->y)*(rayY-camera->y));
+                    //         rayStep++;
+                    //         hasAlpha = 1;
+                    //         break;
+                    //     }
+                    // }
+                    if (hasAlpha)
+                    {
+                        continue;
+                    }
+                }
+                break;
+            }
+            rayX += rayStepX;
+            rayY += rayStepY;
+            int map_border = 2;
+            if (rayX+rayOffX < - map_border)
+            {
+                rayOffX += map->width() + map_border * 2;
+            }
+            else if (rayX+rayOffX >= map->width() + map_border)
+            {
+                rayOffX -= map->width() + map_border * 2;
+            }
+            if (rayY+rayOffY < -map_border)
+            {
+                rayOffY += map->height() + map_border*2;
+            }
+            else if (rayY+rayOffY >= map->height() + map_border)
+            {
+                rayOffY -= map->height() + map_border * 2;
+            }
+            rayStep++;
+            rayLen += stepLen;
         }
     }
 }

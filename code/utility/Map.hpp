@@ -50,6 +50,7 @@ namespace utility
         inline const int width() { return m_map_width; }
         inline const int height() { return m_map_height; }
         inline const sf::Vector2f player_start() { return m_player_start; }
+        inline const double player_heading() { return m_player_heading; }
 
     private:
         std::vector<int> m_walls;

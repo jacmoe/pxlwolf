@@ -24,11 +24,17 @@ struct Camera;
 class RayCaster
 {
 public:
-    RayCaster(std::shared_ptr<utility::Map> map, std::shared_ptr<Pixelator> pixelator);
+    RayCaster(uint32_t width, uint32_t height, std::shared_ptr<utility::Map> map, std::shared_ptr<Pixelator> pixelator);
+
+    void resetDepthBuffer();
 
     void generateAngleValues(uint32_t width, Camera* camera);
 
     void drawMinimap(const std::string& owner, const std::string& name, const Camera& camera, int blockSize);
+
+    void raycastRender(Camera* camera, double resolution);
+
+    void renderBuffer();
 
 private:
     std::shared_ptr<utility::Map> m_map;
@@ -46,14 +52,12 @@ private:
     uint32_t m_width;
     uint32_t m_height;
 
-    void initDepthBuffer(uint32_t width, uint32_t height);
-    void resetDepthBuffer();
+    void initDepthBuffer();
     double getDepth(uint32_t x, uint32_t y, uint8_t layer);
     void setDepth(uint32_t x, uint32_t y, uint8_t layer, double depth);
 
-    void drawPixel(uint32_t x, uint32_t y, uint32_t color, double alphaNum, double depth);
+    void setPixelAlphaDepth(uint32_t x, uint32_t y, uint32_t color, double alphaNum, double depth);
 
-    void renderBuffer();
     void drawTextureColumn(uint32_t x, int32_t y,
                               int32_t h, double depth,
                              uint8_t tileNum, double alphaNum, 
