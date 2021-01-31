@@ -52,25 +52,6 @@ int main(void)
 {
     setup_working_directory();
 
-    // std::string logfile_name = "log/pxllog.txt";
-    
-    // // Remove old log file
-    // if(std::filesystem::exists(logfile_name))
-    // {
-    //     std::remove(logfile_name.c_str());
-    // }
-
-    // std::shared_ptr<spdlog::logger> m_pxllogger;
-    // // Create console sink and file sink
-    // auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
-    // auto file_sink = std::make_shared<spdlog::sinks::basic_file_sink_mt>(logfile_name, true);
-    // // Make the logger use both the console and the file sink
-    // m_pxllogger = std::make_shared<spdlog::logger>("multi_sink", spdlog::sinks_init_list({console_sink, file_sink}));
-    // // Set the standard logger so that we can use it freely everywhere
-    // spdlog::set_default_logger(m_pxllogger);
-    // // Set the format pattern - [Loglevel] [Function] [Line] message
-    // spdlog::set_pattern("[%l] [%!] [line %#] %v");
-
     auto config = toml::parse("assets/config/pxlwolf.toml");
     const auto& application_config = toml::find(config, "application");
     toml::table config_table = toml::get<toml::table>(application_config);
@@ -84,12 +65,19 @@ int main(void)
 
     raylib::InitWindow(screenWidth * scale, screenHeight * scale, title.c_str());
 
+    raylib::InitAudioDevice();                  // Initialize audio device
+    raylib::Music music = raylib::LoadMusicStream("assets/music/mini1111.xm");
+    music.looping = false;
+
+    PlayMusicStream(music);
+
     raylib::SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
     //--------------------------------------------------------------------------------------
 
     // Main game loop
     while (!raylib::WindowShouldClose())    // Detect window close button or ESC key
     {
+        raylib::UpdateMusicStream(music);      // Update music buffer with new stream data
         // Update
         //----------------------------------------------------------------------------------
         // TODO: Update your variables here
@@ -109,6 +97,8 @@ int main(void)
 
     // De-Initialization
     //--------------------------------------------------------------------------------------
+    raylib::UnloadMusicStream(music);          // Unload music stream buffers from RAM
+    raylib::CloseAudioDevice();     // Close audio device (music streaming is automatically stopped)
     raylib::CloseWindow();        // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 

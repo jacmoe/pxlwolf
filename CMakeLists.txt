@@ -48,7 +48,7 @@ add_subdirectory(3rdparty/Lua)
 add_subdirectory(3rdparty/physfs)
 
 set(COSTUMIZE_BUILD TRUE)
-set(USE_AUDIO FALSE)
+#set(USE_AUDIO FALSE)
 set(USE_MSVC_RUNTIME_LIBRARY_DLL FALSE)
 add_subdirectory(3rdparty/raylib)
 
