@@ -39,9 +39,9 @@ if(UNIX)
 find_package(SFML 2 COMPONENTS system window graphics audio)
 endif(UNIX)
 
-if(WIN32)
-include_directories(${WinSDK})
-endif(WIN32)
+# if(WIN32)
+# include_directories(${WinSDK})
+# endif(WIN32)
 
 add_subdirectory(3rdparty/Lua)
 
@@ -53,6 +53,7 @@ set(USE_MSVC_RUNTIME_LIBRARY_DLL FALSE)
 add_subdirectory(3rdparty/raylib)
 
 set(3RD_PARTY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty)
+set(RAYLIBCPP_INCLUDE_DIR ${3RD_PARTY_DIR}/raylib-cpp)
 set(TOML11_INCLUDE_DIR ${3RD_PARTY_DIR}/toml11)
 set(SOL_INCLUDE_DIR ${3RD_PARTY_DIR}/sol2)
 set(ENTT_INCLUDE_DIR ${3RD_PARTY_DIR}/entt)
@@ -61,6 +62,7 @@ set(PHYSFS_INCLUDE_DIR ${3RD_PARTY_DIR}/physfs/src)
 
 include_directories(
     ${3RD_PARTY_DIR}
+    ${RAYLIBCPP_INCLUDE_DIR}
     ${TOML11_INCLUDE_DIR}
     ${ENTT_INCLUDE_DIR}
     ${LUA_INCLUDE_DIR}
