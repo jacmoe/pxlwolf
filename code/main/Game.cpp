@@ -153,34 +153,24 @@ bool Game::OnUserCreate()
     pixelator->drawRect(sf::IntRect(60, 60, 100, 100), sf::Color::White);
 #endif
 
-    m_action_map["forward"] = thor::Action(sf::Keyboard::W);
-    m_action_map["backward"] = thor::Action(sf::Keyboard::S);
-    m_action_map["strafe_left"] = thor::Action(sf::Keyboard::D);
-    m_action_map["strafe_right"] = thor::Action(sf::Keyboard::A);
-
     if(m_map->loaded())
     {
-        m_camera.x = m_map.get()->player_start().x;
-        m_camera.y = m_map.get()->player_start().y;
-        m_camera.angle = m_map.get()->player_heading();
-        m_camera.dist = 36;
-        m_camera.fov = thor::Pi / 2;
-        m_camera.h = 0;
+        init_player(m_map.get()->player_start().x, m_map.get()->player_start().y, m_map.get()->player_heading(), thor::Pi / 2, 36);
 
         m_raycaster.init(m_width, m_height, m_map, m_pixelator);
 
-        m_raycaster.generateAngleValues(m_width, &m_camera);
+        m_raycaster.generateAngleValues(m_width, &m_player.camera);
 
         m_raycaster.resetDepthBuffer();
 
-        m_raycaster.raycastRender(&m_camera, 0.01);
+        m_raycaster.raycastRender(&m_player.camera, 0.01);
 
         m_raycaster.renderBuffer();
 
         pixelator->addBuffer("minimap");
         pixelator->setSize("minimap", sf::Vector2i(m_map.get()->width() * 2, m_map.get()->height() * 2));
 
-        m_raycaster.drawMinimap("minimap", m_camera, 2);
+        m_raycaster.drawMinimap("minimap", m_player.camera, 2);
 
         pixelator->copy("pixelBuffer", 0, 0, true);
 
@@ -189,7 +179,59 @@ bool Game::OnUserCreate()
     // m_anim_sprite.setScale(sf::Vector2f(10,10));
     // m_animator.play() << "roll";
 
+    m_action_map["forward"] = thor::Action(sf::Keyboard::W);
+    m_action_map["backward"] = thor::Action(sf::Keyboard::S);
+    m_action_map["l_strafe"] = thor::Action(sf::Keyboard::A);
+    m_action_map["r_strafe"] = thor::Action(sf::Keyboard::D);
+    m_action_map["jump"] = thor::Action(sf::Keyboard::Space);
+    m_action_map["crouch"] = thor::Action(sf::Keyboard::LControl);
+    m_action_map["sprint"] = thor::Action(sf::Keyboard::LShift);
+    m_action_map["pause"] = thor::Action(sf::Keyboard::Pause);
+    m_action_map["kill"] = thor::Action(sf::Keyboard::K);
+    m_action_map["respawn"] = thor::Action(sf::Keyboard::R);
+    m_action_map["map"] = thor::Action(sf::Keyboard::M);
+
     return true;
+}
+
+void Game::init_player(double x, double y, double angle, double fov, double viewDist)
+{
+    m_player.x = x;
+    m_player.y = y;
+    m_player.h = 0;
+    m_player.angle = angle;
+    m_player.health = 100; //PLACEHOLDER
+    m_player.state = 1; //PLACEHOLDER
+    m_player.spacePressed = 0;
+    m_player.timer = 0;
+    m_player.camera.x = m_player.x;
+    m_player.camera.y = m_player.y;
+    m_player.camera.angle = m_player.angle;
+    m_player.camera.dist = viewDist;
+    m_player.camera.fov = fov;
+    m_player.camera.h = m_player.h;
+}
+
+void Game::update_player(sf::Time elapsedTime)
+{
+    int borderWidth = 2;
+
+    // Jump test
+    m_player.h += m_player.velH * elapsedTime.asSeconds();
+    if (m_player.state && (m_action_map.isActive("jump")) && !m_player.h)
+    {
+        m_player.velH = 2.8;
+    }
+    if (m_player.h < m_player.groundH)
+    {
+        m_player.velH = 0;
+        m_player.h = m_player.groundH;
+    }
+    else if (m_player.h > m_player.groundH)
+    {
+        m_player.velH -= 9.8 * elapsedTime.asSeconds();
+    }
+
 }
 
 bool Game::OnUserUpdate(sf::Time elapsedTime)
@@ -198,23 +240,11 @@ bool Game::OnUserUpdate(sf::Time elapsedTime)
     // m_animator.update(elapsedTime);
     // m_animator.animate(m_anim_sprite);
 
-    if (m_action_map.isActive("forward"))
-    {
-    }
-    if (m_action_map.isActive("backward"))
-    {
+    update_player(elapsedTime);
 
-    }
-    if (m_action_map.isActive("strafe_left"))
-    {
-
-    }
-    if (m_action_map.isActive("strafe_right"))
-    {
-
-    }
-
-    // sf::Vector2i mousePos = sf::Mouse::getPosition();
+    // const sf::RenderWindow* window = m_renderwindow.get();
+    // sf::Mouse::setPosition(sf::Vector2i(m_width / 2, m_height / 2), *window);
+    // sf::Vector2i mousePos = sf::Mouse::getPosition(*window);
     // m_camera.angle += 0.1 * elapsedTime.asMilliseconds() * mousePos.x;
 
     if(m_map->loaded())
@@ -223,11 +253,11 @@ bool Game::OnUserUpdate(sf::Time elapsedTime)
 
         m_raycaster.resetDepthBuffer();
 
-        m_raycaster.raycastRender(&m_camera, 0.01);
+        m_raycaster.raycastRender(&m_player.camera, 0.01);
 
         m_raycaster.renderBuffer();
 
-        m_raycaster.drawMinimap("minimap", m_camera, 2);
+        m_raycaster.drawMinimap("minimap", m_player.camera, 2);
 
         m_pixelator.get()->copy("pixelBuffer", 0, 0, true);
 

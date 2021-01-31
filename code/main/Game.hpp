@@ -51,6 +51,7 @@ struct Player
     uint8_t state;
     double timer;
     uint8_t spacePressed;
+	Camera camera;
 };
 
 class Game : public Application
@@ -74,6 +75,9 @@ private:
     thor::Animator<sf::Sprite, std::string> m_animator;
 	sf::Sprite m_anim_sprite;
     sf::Texture m_sprite_texture;
-	Camera m_camera;
+	Player m_player;
 	RayCaster m_raycaster;
+
+	void init_player(double x, double y, double angle, double fov, double viewDist);
+	void update_player(sf::Time elapsedTime);
 };
