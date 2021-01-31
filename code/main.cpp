@@ -18,13 +18,42 @@
 #include <fstream>
 #include <filesystem>
 #include <memory>
+#include <ctime>
+#include <cstdio>
 
 #include "toml.hpp"
 #include "utils.hpp"
 #include "physfs.hpp"
-namespace raylib
+
+#include "raylib-cpp.hpp"
+
+
+// Custom logging funtion
+void LogCustom(int msgType, const char *text, va_list args)
 {
-#include "raylib.h"
+    FILE* logFile;
+    logFile = fopen("log/pxllog.txt","a");
+    char buffer[500] = { 0 };
+
+    char timeStr[64] = { 0 };
+    time_t now = time(NULL);
+    struct tm *tm_info = localtime(&now);
+
+    strftime(timeStr, sizeof(timeStr), "%Y-%m-%d %H:%M:%S", tm_info);
+    fprintf(logFile, "[%s] ", timeStr);
+
+    switch (msgType)
+    {
+        case LOG_INFO: fputs("[INFO] : ", logFile); break;
+        case LOG_ERROR: fputs("[ERROR]: ", logFile); break;
+        case LOG_WARNING: fputs("[WARN] : ", logFile); break;
+        case LOG_DEBUG: fputs("[DEBUG]: ", logFile); break;
+        default: break;
+    }
+
+    vfprintf(logFile,text, args);
+    fputs("\n",logFile);
+    fclose(logFile);
 }
 
 void setup_working_directory()
@@ -44,13 +73,34 @@ void setup_working_directory()
 
     std::string  message = "Current working directory is now " + path;
 
-    raylib::TraceLog(raylib::LOG_INFO, message.c_str());
+    TraceLog(LOG_INFO, message.c_str());
     std::cout << path << std::endl;
 }
+
+class Pixelate
+{
+public:
+    Pixelate() = default;
+
+private:
+    std::vector<Color> m_pixels;
+    unsigned int m_width;
+    unsigned int m_height;
+    float m_scale;
+};
+
 
 int main(void)
 {
     setup_working_directory();
+
+    // Remove old log file
+    if(std::filesystem::exists("log/pxllog.txt"))
+    {
+        std::remove("log/pxllog.txt");
+    }
+
+    SetTraceLogCallback(LogCustom);
 
     auto config = toml::parse("assets/config/pxlwolf.toml");
     const auto& application_config = toml::find(config, "application");
@@ -63,21 +113,19 @@ int main(void)
     const float scale = config_table["window_scale"].as_floating();
     const std::string title = config_table["title"].as_string();
 
-    raylib::InitWindow(screenWidth * scale, screenHeight * scale, title.c_str());
+    raylib::Window window(screenWidth * scale, screenHeight * scale, title.c_str());
 
-    raylib::InitAudioDevice();                  // Initialize audio device
-    raylib::Music music = raylib::LoadMusicStream("assets/music/mini1111.xm");
-    music.looping = false;
+    raylib::AudioDevice audiodevice;
+    raylib::Music music("assets/music/mini1111.xm");
+    music.Play();
 
-    PlayMusicStream(music);
-
-    raylib::SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
+    SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
     //--------------------------------------------------------------------------------------
 
     // Main game loop
-    while (!raylib::WindowShouldClose())    // Detect window close button or ESC key
+    while (!WindowShouldClose())    // Detect window close button or ESC key
     {
-        raylib::UpdateMusicStream(music);      // Update music buffer with new stream data
+        music.Update();      // Update music buffer with new stream data
         // Update
         //----------------------------------------------------------------------------------
         // TODO: Update your variables here
@@ -85,23 +133,15 @@ int main(void)
 
         // Draw
         //----------------------------------------------------------------------------------
-        raylib::BeginDrawing();
+        BeginDrawing();
 
-        raylib::ClearBackground(raylib::RAYWHITE);
+        ClearBackground(RAYWHITE);
 
-        raylib::DrawText("Congrats!", 10, 10, 20, raylib::LIGHTGRAY);
+        DrawText("Congrats!", 10, 10, 20, LIGHTGRAY);
 
-        raylib::EndDrawing();
+        EndDrawing();
         //----------------------------------------------------------------------------------
     }
-
-    // De-Initialization
-    //--------------------------------------------------------------------------------------
-    raylib::UnloadMusicStream(music);          // Unload music stream buffers from RAM
-    raylib::CloseAudioDevice();     // Close audio device (music streaming is automatically stopped)
-    raylib::CloseWindow();        // Close window and OpenGL context
-    //--------------------------------------------------------------------------------------
-
     return 0;
 }
 #endif
