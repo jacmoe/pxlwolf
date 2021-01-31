@@ -73,7 +73,7 @@ Compiled using MSVC 2019 on Windows, and GCC 9.3 on Linux.
 |[PhysicsFS ][physfs]|Archive support for games|zlib license|
 |[PhysFS++][physpp]|C++ wrapper for PhysicsFS|zlib license|
 |[RapidJSON][rapidjson]|A fast JSON parser/generator for C++|MIT license|
-|[Raylib-cpp][raycpp]|C++ Object Oriented Wrapper for raylib |zlib license|
+|[Raylib-cpp][raylibcpp]|C++ Object Oriented Wrapper for raylib |zlib license|
 |[Sol][sol]|A C++11 Lua wrapper|MIT License|
 |[toml11][toml11]|TOML for Modern C++|MIT license|
 
