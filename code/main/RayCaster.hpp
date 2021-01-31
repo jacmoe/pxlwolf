@@ -24,13 +24,15 @@ struct Camera;
 class RayCaster
 {
 public:
-    RayCaster(uint32_t width, uint32_t height, std::shared_ptr<utility::Map> map, std::shared_ptr<Pixelator> pixelator);
+    RayCaster() = default;
+
+    void init(uint32_t width, uint32_t height, std::shared_ptr<utility::Map> map, std::shared_ptr<Pixelator> pixelator);
 
     void resetDepthBuffer();
 
     void generateAngleValues(uint32_t width, Camera* camera);
 
-    void drawMinimap(const std::string& owner, const std::string& name, const Camera& camera, int blockSize);
+    void drawMinimap(const std::string& buffer_name, const Camera& camera, int blockSize);
 
     void raycastRender(Camera* camera, double resolution);
 

@@ -38,9 +38,11 @@ public:
     const sf::Uint8* getPixelsPtr(const std::string& name) const;
 
     void drawColumn(unsigned int x, unsigned int y, unsigned int height, const sf::Color& color);
+    void drawColumn(const std::string& name, unsigned int x, unsigned int y, unsigned int height, const sf::Color& color);
     void drawRow(unsigned int x, unsigned int y, unsigned int length, const sf::Color& color);
     void drawRect(const sf::IntRect rect, const sf::Color& color);
     void drawFilledRect(const sf::IntRect& rect, const sf::Color& color);
+    void drawFilledRect(const std::string& name, const sf::IntRect& rect, const sf::Color& color);
     void drawLine(const sf::Vector2i& start, const sf::Vector2i& end, const sf::Color& color);
     void drawCircle(const sf::Vector2i& coord, const int radius, const sf::Color& color);
 

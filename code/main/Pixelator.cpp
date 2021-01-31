@@ -170,6 +170,11 @@ void Pixelator::setPixel(const std::string& name, unsigned int x, unsigned int y
 
 void Pixelator::drawColumn(unsigned int x, unsigned int y, unsigned int height, const sf::Color& color)
 {
+    drawColumn(m_current_buffer, x, y, height, color);
+}
+
+void Pixelator::drawColumn(const std::string& name, unsigned int x, unsigned int y, unsigned int height, const sf::Color& color)
+{
    if (y < 0)
     {
         height = height + y;
@@ -181,7 +186,7 @@ void Pixelator::drawColumn(unsigned int x, unsigned int y, unsigned int height, 
     }
     for (int32_t i = y; i < y + height; i++)
     {
-        setPixel(x, i, color);
+        setPixel(name, x, i, color);
     }
 }
 
@@ -196,13 +201,18 @@ void Pixelator::drawRow(unsigned int x, unsigned int y, unsigned int length, con
 // draw a rect defined by left, top, width, height
 void Pixelator::drawFilledRect(const sf::IntRect& rect, const sf::Color& color)
 {
+    drawFilledRect(m_current_buffer, rect, color);
+}
+
+void Pixelator::drawFilledRect(const std::string& name, const sf::IntRect& rect, const sf::Color& color)
+{
     if (rect.left < getSize().width)
     {
         for (uint32_t i = rect.left; i < rect.left + rect.width; i++)
         {
             if (i < getSize().width)
             {
-                drawColumn(i, rect.top, rect.height, color);
+                drawColumn(name, i, rect.top, rect.height, color);
             }
         }
     }

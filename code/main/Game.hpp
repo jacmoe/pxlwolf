@@ -19,6 +19,7 @@
 #include "Pixelator.hpp"
 #include "ImageAtlas.hpp"
 #include "Map.hpp"
+#include "RayCaster.hpp"
 
 #include <SFML/Graphics.hpp>
 #include "SpriteSheetLoader.hpp"
@@ -73,4 +74,6 @@ private:
     thor::Animator<sf::Sprite, std::string> m_animator;
 	sf::Sprite m_anim_sprite;
     sf::Texture m_sprite_texture;
+	Camera m_camera;
+	RayCaster m_raycaster;
 };

@@ -17,12 +17,12 @@
 #include "Game.hpp"
 #include "spdlog/spdlog.h"
 
-RayCaster::RayCaster(uint32_t width, uint32_t height, std::shared_ptr<utility::Map> map, std::shared_ptr<Pixelator> pixelator)
-: m_map(map)
-, m_pixelator(pixelator)
-, m_width(width)
-, m_height(height)
+void RayCaster::init(uint32_t width, uint32_t height, std::shared_ptr<utility::Map> map, std::shared_ptr<Pixelator> pixelator)
 {
+    m_map = map;
+    m_pixelator = pixelator;
+    m_width = width;
+    m_height = height;
     initDepthBuffer();
 }
 
@@ -49,12 +49,9 @@ void RayCaster::generateAngleValues(uint32_t width, Camera* camera)
     }
 }
 
-void RayCaster::drawMinimap(const std::string& owner, const std::string& name, const Camera& camera, int blockSize)
+void RayCaster::drawMinimap(const std::string& buffer_name, const Camera& camera, int blockSize)
 {
     utility::Map* map = m_map.get();
-    m_pixelator.get()->addBuffer(name);
-    m_pixelator.get()->setActiveBuffer(name);
-    m_pixelator.get()->setSize(sf::Vector2i(map->width() * 2, map->height() * 2));
 
     int row, col;
     sf::IntRect mapRect;
@@ -77,17 +74,16 @@ void RayCaster::drawMinimap(const std::string& owner, const std::string& name, c
             if(map->walls()[row * map->width() + col] > 0)
             {
                 sf::Color blockcolor = map->wall_element(map->walls()[row * map->width() + col]).color;
-                m_pixelator.get()->drawFilledRect(blockRect, blockcolor);
+                m_pixelator.get()->drawFilledRect(buffer_name, blockRect, blockcolor);
             }
             if(p_y == row && p_x == col)
             {
                 /* Draw the player */
                 sf::Color sepiaPink = {221,153,153,255};
-                m_pixelator.get()->drawFilledRect(blockRect, sepiaPink);
+                m_pixelator.get()->drawFilledRect(buffer_name, blockRect, sepiaPink);
             }
         }
     }
-    m_pixelator.get()->setActiveBuffer(owner);
 }
 
 uint32_t RayCaster::toIntColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
@@ -257,7 +253,6 @@ void RayCaster::resetDepthBuffer()
     pixelator->clear("alphaBuffer");
     m_pixel_depth.assign(m_width * m_height, INFINITY);
     m_alpha_depth.assign(m_width * m_height, INFINITY);
-    SPDLOG_INFO("Depthbuffer reset.");
 }
 
 double RayCaster::getDepth(uint32_t x, uint32_t y, uint8_t layer)

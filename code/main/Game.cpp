@@ -16,11 +16,11 @@
 #include "Game.hpp"
 #include "lua_main.hpp"
 #include "physfs.hpp"
-#include "RayCaster.hpp"
 #include "Thor/Math.hpp"
 
 Game::Game()
 : m_animator(m_animation_map)
+, m_raycaster()
 {
     m_map = std::make_shared<utility::Map>();
     m_atlas = std::make_shared<utility::ImageAtlas>();
@@ -152,29 +152,35 @@ bool Game::OnUserCreate()
 
     pixelator->drawRect(sf::IntRect(60, 60, 100, 100), sf::Color::White);
 #endif
-    m_action_map["test"] = thor::Action(sf::Mouse::Left, thor::Action::Hold);
 
-    RayCaster raycaster(m_width, m_height, m_map, m_pixelator);
+    m_action_map["forward"] = thor::Action(sf::Keyboard::W);
+    m_action_map["backward"] = thor::Action(sf::Keyboard::S);
+    m_action_map["strafe_left"] = thor::Action(sf::Keyboard::D);
+    m_action_map["strafe_right"] = thor::Action(sf::Keyboard::A);
 
     if(m_map->loaded())
     {
-        Camera camera;
-        camera.x = m_map.get()->player_start().x;
-        camera.y = m_map.get()->player_start().y;
-        camera.angle = m_map.get()->player_heading();
-        camera.dist = 36;
-        camera.fov = thor::Pi / 2;
-        camera.h = 0;
+        m_camera.x = m_map.get()->player_start().x;
+        m_camera.y = m_map.get()->player_start().y;
+        m_camera.angle = m_map.get()->player_heading();
+        m_camera.dist = 36;
+        m_camera.fov = thor::Pi / 2;
+        m_camera.h = 0;
 
-        raycaster.generateAngleValues(m_width, &camera);
+        m_raycaster.init(m_width, m_height, m_map, m_pixelator);
 
-        raycaster.resetDepthBuffer();
+        m_raycaster.generateAngleValues(m_width, &m_camera);
 
-        raycaster.raycastRender(&camera, 0.01);
+        m_raycaster.resetDepthBuffer();
 
-        raycaster.renderBuffer();
+        m_raycaster.raycastRender(&m_camera, 0.01);
 
-        raycaster.drawMinimap("primary", "minimap", camera, 2);
+        m_raycaster.renderBuffer();
+
+        pixelator->addBuffer("minimap");
+        pixelator->setSize("minimap", sf::Vector2i(m_map.get()->width() * 2, m_map.get()->height() * 2));
+
+        m_raycaster.drawMinimap("minimap", m_camera, 2);
 
         pixelator->copy("pixelBuffer", 0, 0, true);
 
@@ -192,11 +198,41 @@ bool Game::OnUserUpdate(sf::Time elapsedTime)
     // m_animator.update(elapsedTime);
     // m_animator.animate(m_anim_sprite);
 
-    write_text("Hello from PixelWolf! Time is : " + std::to_string(elapsedTime.asSeconds()) + " Frames per second : " + std::to_string(m_frames_per_second));
+    if (m_action_map.isActive("forward"))
+    {
+    }
+    if (m_action_map.isActive("backward"))
+    {
 
-    if (m_action_map.isActive("test"))
-        write_text("Left mouse button down!!");
+    }
+    if (m_action_map.isActive("strafe_left"))
+    {
 
+    }
+    if (m_action_map.isActive("strafe_right"))
+    {
+
+    }
+
+    // sf::Vector2i mousePos = sf::Mouse::getPosition();
+    // m_camera.angle += 0.1 * elapsedTime.asMilliseconds() * mousePos.x;
+
+    if(m_map->loaded())
+    {
+        m_pixelator.get()->clear();
+
+        m_raycaster.resetDepthBuffer();
+
+        m_raycaster.raycastRender(&m_camera, 0.01);
+
+        m_raycaster.renderBuffer();
+
+        m_raycaster.drawMinimap("minimap", m_camera, 2);
+
+        m_pixelator.get()->copy("pixelBuffer", 0, 0, true);
+
+        m_pixelator.get()->copy("minimap", 200, 0, true);
+    }
     // sf::IntRect sprite_rect =  m_anim_sprite.getTextureRect();
     // SPDLOG_INFO("Sprite rect is : {},{},{},{}", sprite_rect.left, sprite_rect.top, sprite_rect.width, sprite_rect.height);    
 
