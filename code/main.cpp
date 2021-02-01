@@ -107,8 +107,6 @@ int main(void)
 // Disable TOML conversion warnings
 # pragma warning(disable: 4244)
 #endif
-    // Initialization
-    //--------------------------------------------------------------------------------------
     const int screenWidth = config_table["window_width"].as_integer();
     const int screenHeight = config_table["window_height"].as_integer();
     const float scale = config_table["window_scale"].as_integer();
