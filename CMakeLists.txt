@@ -29,15 +29,18 @@ set(CMAKE_CXX_STANDARD 17)
 
 if(MSVC)
     add_definitions(-D_CRT_SECURE_NO_WARNINGS)
-endif()
+endif(MSVC)
 
 add_subdirectory(3rdparty/Lua)
 
 add_subdirectory(3rdparty/physfs)
 
 set(COSTUMIZE_BUILD TRUE)
-#set(USE_AUDIO FALSE)
-set(USE_MSVC_RUNTIME_LIBRARY_DLL FALSE)
+
+if(MSVC)
+    set(USE_MSVC_RUNTIME_LIBRARY_DLL FALSE)
+endif(MSVC)
+
 add_subdirectory(3rdparty/raylib)
 
 set(3RD_PARTY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty)

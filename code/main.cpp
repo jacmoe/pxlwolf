@@ -32,7 +32,7 @@
 void LogCustom(int msgType, const char *text, va_list args)
 {
     FILE* logFile;
-    logFile = fopen("log/pxllog.txt","a");
+    logFile = fopen("log/pxllog.txt","a+");
 
     char timeStr[64] = { 0 };
     time_t now = time(NULL);
@@ -72,7 +72,7 @@ void setup_working_directory()
     std::string path = std::filesystem::current_path().generic_string();
     // Remove the build directory, so that we land on appropriate directory for asset loading
     std::vector<std::string> strList;
-    strList.push_back("/build/code/");
+    strList.push_back("/build/code");
     strList.push_back("\\build\\code\\");
     strList.push_back("\\vsbuild\\code\\");
     strList.push_back("Release");
@@ -95,8 +95,10 @@ int main(void)
         std::remove("log/pxllog.txt");
     }
 
+#if defined(_WIN32)
     // Set up custom logging
     SetTraceLogCallback(LogCustom);
+#endif
 
     auto config = toml::parse("assets/config/pxlwolf.toml");
     const auto& application_config = toml::find(config, "application");

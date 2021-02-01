@@ -151,15 +151,13 @@ void Application::run()
 
 void Application::event()
 {
-    bool fullscreen_pressed = false;
-    
-    if ((IsKeyDown(KEY_LEFT_ALT) && IsKeyPressed(KEY_ENTER)) && !fullscreen_pressed)
+#if defined(_WIN32)
+    if (IsKeyDown(KEY_LEFT_ALT) && IsKeyPressed(KEY_ENTER))
     {
-        fullscreen_pressed = true;
         m_fullscreen = !m_fullscreen;
         toggle_fullscreen();
     }
-
+#endif
     // // Update virtual mouse (clamped mouse value behind game screen)
     // m_mouse_position = GetMousePosition();
     // if(m_fullscreen)
