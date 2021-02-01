@@ -47,6 +47,7 @@ protected:
 private:
     std::string m_title;
     bool m_running;
+    Font m_font;
 
     Vector2 m_mouse_position;
     Vector2 m_virtual_mouse_position = { 0 };

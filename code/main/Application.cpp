@@ -44,6 +44,7 @@ Application::Application()
     , m_fullscreen(false)
     , m_title("")
     , m_running(false)
+    , m_font()
 {}
 
 Application::~Application()
@@ -105,6 +106,8 @@ bool Application::init(const std::string title, int width, int height, float sca
         m_framebuffer_scale = min((float)GetScreenWidth() / m_width, (float)GetScreenHeight() / m_height);
     }
 
+    m_font = LoadFont("assets/fonts/MedievalSharp-Bold.ttf");
+
     TraceLog(LOG_INFO,"PixelWolf initialized.");
 
     return true;
@@ -141,6 +144,7 @@ void Application::run()
     OnUserDestroy();
 
     UnloadRenderTexture(m_render_texture);
+    UnloadFont(m_font);
 
     CloseWindow();
 }
@@ -179,29 +183,29 @@ void Application::event()
 
 void Application::toggle_fullscreen()
 {
+    UnloadRenderTexture(m_render_texture);
+    UnloadFont(m_font);
+    CloseWindow();
+
     if(m_fullscreen)
     {
-        UnloadRenderTexture(m_render_texture);
-        CloseWindow();
         TraceLog(LOG_INFO,"[toggle_fullscreen] Recreating fullscreen window.");
         SetConfigFlags(FLAG_FULLSCREEN_MODE);
         InitWindow(m_width * m_scale, m_height * m_scale, m_title.c_str());
         SetWindowMinSize(GetMonitorWidth(0), GetMonitorHeight(0));
-        m_render_texture = LoadRenderTexture(m_width, m_height);
-        SetTextureFilter(m_render_texture.texture, FILTER_POINT);
     }
     else
     {
-        ClearWindowState(FLAG_FULLSCREEN_MODE);
-        UnloadRenderTexture(m_render_texture);
-        CloseWindow();
         TraceLog(LOG_INFO,"[toggle_fullscreen] Recreating normal window.");
+        ClearWindowState(FLAG_FULLSCREEN_MODE);
         SetConfigFlags(FLAG_VSYNC_HINT);
         InitWindow(m_width * m_scale, m_height * m_scale, m_title.c_str());
         SetWindowMinSize(m_width, m_height);
-        m_render_texture = LoadRenderTexture(m_width, m_height);
-        SetTextureFilter(m_render_texture.texture, FILTER_POINT);
     }
+
+    m_render_texture = LoadRenderTexture(m_width, m_height);
+    SetTextureFilter(m_render_texture.texture, FILTER_POINT);
+    m_font = LoadFont("assets/fonts/MedievalSharp-Bold.ttf");
 }
 
 void Application::update(double elapsedTime)
@@ -229,6 +233,8 @@ void Application::render()
     }
 
     DrawFPS(10, 10);
+
+    DrawTextEx(m_font, "PixelWolf", { 50, 50 }, 20, 0, RAYWHITE);
     // DrawText(TextFormat("Default Mouse: [%i , %i]", (int)m_mouse_position.x, (int)m_mouse_position.y), 50, 120, 20, GREEN);
     // DrawText(TextFormat("Virtual Mouse: [%i , %i]", (int)m_virtual_mouse_position.x, (int)m_virtual_mouse_position.y), 50, 150, 20, YELLOW);
 
