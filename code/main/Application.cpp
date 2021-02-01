@@ -21,40 +21,34 @@
 #include <stdexcept>
 #include <filesystem>
 
-#include "dbg_console.hpp"
+#define max(a, b) ((a)>(b)? (a) : (b))
+#define min(a, b) ((a)<(b)? (a) : (b))
 
-#include "spdlog/sinks/basic_file_sink.h"
-#include "spdlog/sinks/stdout_color_sinks.h"
+// Clamp Vector2 value with min and max and return a new vector2
+// NOTE: Required for virtual mouse, to clamp inside virtual game size
+Vector2 ClampValue(Vector2 value, Vector2 min, Vector2 max)
+{
+    Vector2 result = value;
+    result.x = (result.x > max.x)? max.x : result.x;
+    result.x = (result.x < min.x)? min.x : result.x;
+    result.y = (result.y > max.y)? max.y : result.y;
+    result.y = (result.y < min.y)? min.y : result.y;
+    return result;
+}
 
-const sf::Time Application::m_time_per_frame = sf::seconds(1.f/60.f);
 
 Application::Application()
-    : m_fullscreen(false)
-    , m_font_name("assets/fonts/MedievalSharp-Bold.ttf")
-    , m_font_size(16)
-    , m_font_color({255, 255, 255, 255})
-    , m_font()
-    , m_scale(0)
+    : m_scale(0)
     , m_width(0)
     , m_height(0)
-    , m_aspect_ratio(360/240)
-    , m_text_old_position(0.0f,0.0f)
-    , m_render_offset(0.0f)
-    , m_frames_per_second(0)
-    , m_renderwindow(nullptr)
-    , m_pixelator()
-    , m_action_map()
-    , m_stats_update_time()
-    , m_stats_num_frames(0)
+    , m_fullscreen(false)
+    , m_title("")
     , m_running(false)
-    , m_text()
 {}
 
 Application::~Application()
 {
-    SPDLOG_INFO("PixelWolf shutdown.");
-    m_renderwindow.reset();
-    utility::closeConsoleWindow();
+    TraceLog(LOG_INFO,"PixelWolf shutdown.");
 }
 
 bool Application::OnUserCreate()
@@ -62,7 +56,7 @@ bool Application::OnUserCreate()
     return true;
 }
 
-bool Application::OnUserUpdate(sf::Time elapsedTime)
+bool Application::OnUserUpdate(double elapsedTime)
 {
     return true;
 }
@@ -77,127 +71,42 @@ bool Application::OnUserRender()
     return true;
 }
 
-bool Application::write_text(const std::string text)
-{
-    m_text.setString(text);
-    return true;
-}
-
-void Application::setup_logging()
-{
-    std::string logfile_name = "log/pxllog.txt";
-    
-    // Remove old log file
-    if(std::filesystem::exists(logfile_name))
-    {
-        std::remove(logfile_name.c_str());
-    }
-
-    // Create console sink and file sink
-    auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
-    auto file_sink = std::make_shared<spdlog::sinks::basic_file_sink_mt>(logfile_name, true);
-    // Make the logger use both the console and the file sink
-    m_pxllogger = std::make_shared<spdlog::logger>("multi_sink", spdlog::sinks_init_list({console_sink, file_sink}));
-    // Set the standard logger so that we can use it freely everywhere
-    spdlog::set_default_logger(m_pxllogger);
-    // Set the format pattern - [Loglevel] [Function] [Line] message
-    spdlog::set_pattern("[%l] [%!] [line %#] %v");
-}
-
-bool Application::load_font()
-{
-    if(std::filesystem::exists(m_font_name))
-    {
-        m_font.loadFromFile(m_font_name);
-        m_text.setFont(m_font);
-        m_text.setFillColor(m_font_color);
-        m_text.setPosition(10.f, 10.f);
-        m_text_old_position = sf::Vector2f(10.f, 10.f);
-        m_text.setCharacterSize(m_font_size);
-        m_text.setString(m_title);
-    }
-    else
-    {
-        return false;
-    }
-    return true;
-}
-
-bool Application::init(const std::string title, int width, int height, const float scale, const bool fullscreen)
+bool Application::init(const std::string title, int width, int height, float scale, const bool fullscreen)
 {
     m_width = width;
     m_height = height;
     m_scale = scale;
     m_title = title;
     m_fullscreen = fullscreen;
-    m_aspect_ratio = static_cast<float>(m_width) / static_cast<float>(m_height);
-
-    utility::CreateConsoleWindow();
-
-    setup_logging();
 
     if(m_fullscreen)
     {
-        m_renderwindow.reset(new sf::RenderWindow(
-            sf::VideoMode(m_width * static_cast<unsigned int>(m_scale), m_height * static_cast<unsigned int>(m_scale)), m_title
-            , sf::Style::Fullscreen
-        ));
+        SetConfigFlags(FLAG_FULLSCREEN_MODE);
     }
     else
     {
-        m_renderwindow.reset(new sf::RenderWindow(
-            sf::VideoMode(m_width * static_cast<unsigned int>(m_scale), m_height * static_cast<unsigned int>(m_scale)), m_title
-            , sf::Style::Default
-        ));
+        SetConfigFlags(FLAG_VSYNC_HINT);
     }
 
-    if (!m_renderwindow)
-    {
-        SPDLOG_ERROR("Error creating window");
-        return false;
-    }
+    InitWindow(m_width * m_scale, m_height * m_scale, m_title.c_str());
+    SetWindowMinSize(m_width, m_height);
+    m_render_texture = LoadRenderTexture(m_width, m_height);
+    SetTextureFilter(m_render_texture.texture, FILTER_POINT);
 
-    m_renderwindow.get()->setKeyRepeatEnabled(false);
-    m_renderwindow.get()->setVerticalSyncEnabled(false);
+    SetTargetFPS(60);
 
-    m_rendertexture.create(m_width, m_height);
-
-    m_rendersprite.setTexture(m_rendertexture);
-
+    // Compute required framebuffer scaling
     if(m_fullscreen)
     {
-        m_render_offset = (m_renderwindow.get()->getView().getSize().x - (m_renderwindow.get()->getView().getSize().y * m_aspect_ratio)) / 2;
-        m_rendersprite.setScale(
-        ((m_renderwindow.get()->getView().getSize().y * m_aspect_ratio) / m_rendersprite.getLocalBounds().width), 
-        (m_renderwindow.get()->getView().getSize().y / m_rendersprite.getLocalBounds().height));
-        m_rendersprite.setPosition(sf::Vector2f(m_render_offset, 0));
+        m_framebuffer_scale = min((float)GetMonitorWidth(0) / m_width, (float)GetMonitorHeight(0) / m_height);
     }
     else
     {
-        m_rendersprite.setScale(m_scale, m_scale);
-        m_rendersprite.setPosition(sf::Vector2f(0, 0));
+        m_framebuffer_scale = min((float)GetScreenWidth() / m_width, (float)GetScreenHeight() / m_height);
     }
 
-    if(!load_font())
-    {
-        SPDLOG_ERROR("Error loading font");
-        return false;
-    }
+    TraceLog(LOG_INFO,"PixelWolf initialized.");
 
-    if(m_fullscreen)
-    {
-        m_text.setPosition(sf::Vector2f(m_text_old_position.x + m_render_offset, m_text_old_position.y));
-    }
-
-    m_pixelator = std::make_shared<Pixelator>();
-
-    m_pixelator.get()->setSize(sf::Vector2i(m_width, m_height));
-
-    m_action_map["quit"] = thor::Action(sf::Keyboard::LControl) && thor::Action(sf::Keyboard::Q);
-    m_action_map["toggle_fullscreen"] = thor::Action(sf::Keyboard::LAlt) && thor::Action(sf::Keyboard::Enter);
-
-    SPDLOG_INFO("PixelWolf initialized.");
-    SPDLOG_INFO("Aspect ratio : {}", m_aspect_ratio);
     return true;
 }
 
@@ -207,99 +116,137 @@ void Application::run()
 
     if (!OnUserCreate()) m_running = false;
 
-    sf::Clock clock;
-    sf::Time timeSinceLastUpdate = sf::Time::Zero;
-
-    while ((m_renderwindow.get()->isOpen()) && m_running)
+    while (!WindowShouldClose() && m_running)
     {
-        sf::Time elapsedTime = clock.restart();
-        timeSinceLastUpdate += elapsedTime;
-        while (timeSinceLastUpdate > m_time_per_frame)
+        // Compute required framebuffer scaling
+        if(m_fullscreen)
         {
-            timeSinceLastUpdate -= m_time_per_frame;
-
-            event();
-
-            update(m_time_per_frame);
-
-            OnUserUpdate(m_time_per_frame);
+            m_framebuffer_scale = min((float)GetMonitorWidth(0) / m_width, (float)GetMonitorHeight(0) / m_height);
         }
+        else
+        {
+            m_framebuffer_scale = min((float)GetScreenWidth() / m_width, (float)GetScreenHeight() / m_height);
+        }
+
+        double elapsedTime = 0.1;
+
+        event();
+
+        update(elapsedTime);
+
+        OnUserUpdate(elapsedTime);
 
         render();
     }
     OnUserDestroy();
+
+    UnloadRenderTexture(m_render_texture);
+
+    CloseWindow();
+}
+
+void Application::event()
+{
+    bool fullscreen_pressed = false;
+    
+    if ((IsKeyDown(KEY_LEFT_ALT) && IsKeyPressed(KEY_ENTER)) && !fullscreen_pressed)
+    {
+        fullscreen_pressed = true;
+        m_fullscreen = !m_fullscreen;
+        toggle_fullscreen();
+    }
+
+    // // Update virtual mouse (clamped mouse value behind game screen)
+    // m_mouse_position = GetMousePosition();
+    // if(m_fullscreen)
+    // {
+    //     m_virtual_mouse_position.x = (m_mouse_position.x - (GetMonitorWidth(0) - (m_width * m_framebuffer_scale)) * 0.5f) / m_framebuffer_scale;
+    //     m_virtual_mouse_position.y = (m_mouse_position.y - (GetMonitorHeight(0) - (m_height * m_framebuffer_scale)) * 0.5f) / m_framebuffer_scale;
+    // }
+    // else
+    // {
+    //     m_virtual_mouse_position.x = (m_mouse_position.x - (GetScreenWidth() - (m_width * m_framebuffer_scale)) * 0.5f) / m_framebuffer_scale;
+    //     m_virtual_mouse_position.y = (m_mouse_position.y - (GetScreenHeight() - (m_height * m_framebuffer_scale)) * 0.5f) / m_framebuffer_scale;
+    // }
+
+    // m_virtual_mouse_position = ClampValue(m_virtual_mouse_position, { 0, 0 }, { static_cast<float>(m_width), static_cast<float>(m_height) }); 
+
+    // Apply the same transformation as the virtual mouse to the real mouse (i.e. to work with raygui)
+    //SetMouseOffset(-(GetScreenWidth() - (m_width*m_framebuffer_scale))*0.5f, -(GetScreenHeight() - (m_height*m_framebuffer_scale))*0.5f);
+    //SetMouseScale(1/m_framebuffer_scale, 1/m_framebuffer_scale);
+    //----------------------------------------------------------------------------------
 }
 
 void Application::toggle_fullscreen()
 {
     if(m_fullscreen)
     {
-        m_renderwindow.get()->create(
-            sf::VideoMode(m_width * static_cast<unsigned int>(m_scale), m_height * static_cast<unsigned int>(m_scale)), m_title
-            , sf::Style::Fullscreen
-        );
-        m_render_offset = (m_renderwindow.get()->getView().getSize().x - (m_renderwindow.get()->getView().getSize().y * m_aspect_ratio)) / 2;
-        m_rendersprite.setScale(
-        ((m_renderwindow.get()->getView().getSize().y * m_aspect_ratio) / m_rendersprite.getLocalBounds().width), 
-        (m_renderwindow.get()->getView().getSize().y / m_rendersprite.getLocalBounds().height));
-        m_rendersprite.setPosition(sf::Vector2f(m_render_offset, 0));
-        m_text.setPosition(sf::Vector2f(m_text_old_position.x + m_render_offset, m_text_old_position.y));
+        UnloadRenderTexture(m_render_texture);
+        CloseWindow();
+        TraceLog(LOG_INFO,"[toggle_fullscreen] Recreating fullscreen window.");
+        SetConfigFlags(FLAG_FULLSCREEN_MODE);
+        InitWindow(m_width * m_scale, m_height * m_scale, m_title.c_str());
+        SetWindowMinSize(GetMonitorWidth(0), GetMonitorHeight(0));
+        m_render_texture = LoadRenderTexture(m_width, m_height);
+        SetTextureFilter(m_render_texture.texture, FILTER_POINT);
     }
     else
     {
-        m_renderwindow.get()->create(
-            sf::VideoMode(m_width * static_cast<unsigned int>(m_scale), m_height * static_cast<unsigned int>(m_scale)), m_title
-            , sf::Style::Default
-        );
-        m_rendersprite.setScale(m_scale, m_scale);
-        m_rendersprite.setPosition(sf::Vector2f(0, 0));
-        m_text.setPosition(m_text_old_position);
-    }
-    m_fullscreen = !m_fullscreen;
-}
-
-void Application::event()
-{
-     sf::Event event;
-    while (m_renderwindow.get()->pollEvent(event))
-    {
-        if (event.type == sf::Event::Closed)
-            m_renderwindow.get()->close();
-
-        m_action_map.pushEvent(event);
-
-        if (m_action_map.isActive("quit"))
-            m_running = false;
-
-        if (m_action_map.isActive("toggle_fullscreen"))
-            toggle_fullscreen();
-
+        ClearWindowState(FLAG_FULLSCREEN_MODE);
+        UnloadRenderTexture(m_render_texture);
+        CloseWindow();
+        TraceLog(LOG_INFO,"[toggle_fullscreen] Recreating normal window.");
+        SetConfigFlags(FLAG_VSYNC_HINT);
+        InitWindow(m_width * m_scale, m_height * m_scale, m_title.c_str());
+        SetWindowMinSize(m_width, m_height);
+        m_render_texture = LoadRenderTexture(m_width, m_height);
+        SetTextureFilter(m_render_texture.texture, FILTER_POINT);
     }
 }
 
-void Application::update(sf::Time elapsedTime)
+void Application::update(double elapsedTime)
 {
-    m_stats_update_time += elapsedTime;
-    m_stats_num_frames += 1;
-
-    if (m_stats_update_time >= sf::seconds(1.0f))
-    {
-        m_frames_per_second = m_stats_num_frames;
-        m_stats_update_time -= sf::seconds(1.0f);
-        m_stats_num_frames = 0;
-    }
 }
 
 void Application::render()
 {
-    m_renderwindow.get()->clear(sf::Color::Black);
-
-    m_rendertexture.update(m_pixelator.get()->getPixelsPtr());
-
-    m_renderwindow.get()->draw(m_rendersprite);
-    m_renderwindow.get()->draw(m_text);
+    BeginDrawing();
+    ClearBackground(BLACK);
 
     OnUserRender();
 
-    m_renderwindow.get()->display();
+    BeginTextureMode(m_render_texture);
+
+    ClearBackground(RAYWHITE);
+
+    int tick = 0;
+    int sw = GetScreenWidth();
+    for(int x = 0; x < GetScreenWidth(); ++x)
+    {
+        for(int y = 0; y < GetScreenHeight(); ++y)
+        {
+            Color color = { GetRandomValue(0, 255), GetRandomValue(0, 255), GetRandomValue(0, 255), GetRandomValue(0, 255) };
+            DrawPixel(x, y, color);
+        }
+    }
+
+    // DrawText("If executed inside a window,\nyou can resize the window,\nand see the screen scaling!", 10, 25, 20, WHITE);
+
+    // DrawText(TextFormat("Default Mouse: [%i , %i]", (int)m_mouse_position.x, (int)m_mouse_position.y), 50, 120, 20, GREEN);
+    // DrawText(TextFormat("Virtual Mouse: [%i , %i]", (int)m_virtual_mouse_position.x, (int)m_virtual_mouse_position.y), 50, 150, 20, YELLOW);
+
+    EndTextureMode();
+
+    int screen_width = GetScreenWidth();
+    int screen_height = GetScreenHeight();
+    if(m_fullscreen) {
+        screen_width = GetMonitorWidth(0);
+        screen_height = GetMonitorHeight(0);
+    }
+    // Draw RenderTexture2D to window, properly scaled
+    DrawTexturePro(m_render_texture.texture, { 0.0f, 0.0f, (float)m_render_texture.texture.width, (float)-m_render_texture.texture.height },
+        { (screen_width - ((float)m_width * m_framebuffer_scale)) * 0.5f, (screen_height - ((float)m_height * m_framebuffer_scale)) * 0.5f,
+        (float)m_width * m_framebuffer_scale, (float)m_height * m_framebuffer_scale }, { 0, 0 }, 0.0f, WHITE);
+
+    EndDrawing();
 }

@@ -23,9 +23,12 @@
 #include "toml.hpp"
 #include "utils.hpp"
 #include "physfs.hpp"
-#include "raylib-cpp.hpp"
+#include "raylib.h"
+
+#include "Game.hpp"
 
 // Custom logging funtion
+// Logs to both file and console
 void LogCustom(int msgType, const char *text, va_list args)
 {
     FILE* logFile;
@@ -36,6 +39,7 @@ void LogCustom(int msgType, const char *text, va_list args)
     struct tm *tm_info = localtime(&now);
 
     strftime(timeStr, sizeof(timeStr), "%Y-%m-%d %H:%M:%S", tm_info);
+    printf("[%s] ", timeStr);
     fprintf(logFile, "[%s] ", timeStr);
 
     switch (msgType)
@@ -46,9 +50,19 @@ void LogCustom(int msgType, const char *text, va_list args)
         case LOG_DEBUG: fputs("[DEBUG]: ", logFile); break;
         default: break;
     }
+    switch (msgType)
+    {
+        case LOG_INFO: printf("[INFO] : "); break;
+        case LOG_ERROR: printf("[ERROR]: "); break;
+        case LOG_WARNING: printf("[WARN] : "); break;
+        case LOG_DEBUG: printf("[DEBUG]: "); break;
+        default: break;
+    }
 
     vfprintf(logFile,text, args);
+    vprintf(text, args);
     fputs("\n",logFile);
+    printf("\n");
     fclose(logFile);
 }
 
@@ -68,9 +82,7 @@ void setup_working_directory()
     std::filesystem::current_path(path);
 
     std::string  message = "Current working directory is now " + path;
-
     TraceLog(LOG_INFO, message.c_str());
-    std::cout << path << std::endl;
 }
 
 int main(void)
@@ -83,47 +95,35 @@ int main(void)
         std::remove("log/pxllog.txt");
     }
 
+    // Set up custom logging
     SetTraceLogCallback(LogCustom);
 
     auto config = toml::parse("assets/config/pxlwolf.toml");
     const auto& application_config = toml::find(config, "application");
     toml::table config_table = toml::get<toml::table>(application_config);
 
+#if defined(_MSC_VER)
+# pragma warning(push)
+// Disable TOML conversion warnings
+# pragma warning(disable: 4244)
+#endif
     // Initialization
     //--------------------------------------------------------------------------------------
     const int screenWidth = config_table["window_width"].as_integer();
     const int screenHeight = config_table["window_height"].as_integer();
-    const float scale = config_table["window_scale"].as_floating();
+    const float scale = config_table["window_scale"].as_integer();
     const std::string title = config_table["title"].as_string();
+    const bool fullscreen = config_table["fullscreen"].as_boolean();
+#if defined(_MSC_VER)
+# pragma warning(pop)
+#endif
 
-    raylib::Window window(screenWidth * static_cast<int>(scale), screenHeight * static_cast<int>(scale), title.c_str());
+    Game game;
 
-    raylib::AudioDevice audiodevice;
-    raylib::Music music("assets/music/mini1111.xm");
-    music.Play();
-
-    SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
-    //--------------------------------------------------------------------------------------
-
-    // Main game loop
-    while (!WindowShouldClose())    // Detect window close button or ESC key
+    if(game.init(title, screenWidth, screenHeight, scale, fullscreen))
     {
-        music.Update();      // Update music buffer with new stream data
-        // Update
-        //----------------------------------------------------------------------------------
-        // TODO: Update your variables here
-        //----------------------------------------------------------------------------------
-
-        // Draw
-        //----------------------------------------------------------------------------------
-        BeginDrawing();
-
-        ClearBackground(RAYWHITE);
-
-        DrawText("Congrats!", 10, 10, 20, LIGHTGRAY);
-
-        EndDrawing();
-        //----------------------------------------------------------------------------------
+        game.run();
     }
+
     return 0;
 }

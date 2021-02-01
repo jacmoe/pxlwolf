@@ -27,21 +27,9 @@ endif()
 
 set(CMAKE_CXX_STANDARD 17)
 
-if(UNIX)
-    set(THREADS_PREFER_PTHREAD_FLAD ON)
-    find_package(Threads REQUIRED)
-    find_package(X11 REQUIRED)
-    find_package(PNG REQUIRED)
-    include_directories(${PNG_INCLUDE_DIR})
-endif(UNIX)
-
-if(UNIX)
-find_package(SFML 2 COMPONENTS system window graphics audio)
-endif(UNIX)
-
-# if(WIN32)
-# include_directories(${WinSDK})
-# endif(WIN32)
+if(MSVC)
+    add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+endif()
 
 add_subdirectory(3rdparty/Lua)
 
@@ -53,6 +41,7 @@ set(USE_MSVC_RUNTIME_LIBRARY_DLL FALSE)
 add_subdirectory(3rdparty/raylib)
 
 set(3RD_PARTY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty)
+set(RAYLIB_INCLUDE_DIR ${3RD_PARTY_DIR}/raylib/src)
 set(RAYLIBCPP_INCLUDE_DIR ${3RD_PARTY_DIR}/raylib-cpp)
 set(TOML11_INCLUDE_DIR ${3RD_PARTY_DIR}/toml11)
 set(SOL_INCLUDE_DIR ${3RD_PARTY_DIR}/sol2)
@@ -62,6 +51,7 @@ set(PHYSFS_INCLUDE_DIR ${3RD_PARTY_DIR}/physfs/src)
 
 include_directories(
     ${3RD_PARTY_DIR}
+    ${RAYLIB_INCLUDE_DIR}
     ${RAYLIBCPP_INCLUDE_DIR}
     ${TOML11_INCLUDE_DIR}
     ${ENTT_INCLUDE_DIR}
