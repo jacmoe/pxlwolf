@@ -219,19 +219,16 @@ void Application::render()
 
     ClearBackground(RAYWHITE);
 
-    int tick = 0;
-    int sw = GetScreenWidth();
     for(int x = 0; x < GetScreenWidth(); ++x)
     {
         for(int y = 0; y < GetScreenHeight(); ++y)
         {
-            Color color = { GetRandomValue(0, 255), GetRandomValue(0, 255), GetRandomValue(0, 255), GetRandomValue(0, 255) };
+            Color color = { static_cast<unsigned char>(GetRandomValue(0, 255)), static_cast<unsigned char>(GetRandomValue(0, 255)), static_cast<unsigned char>(GetRandomValue(0, 255)), static_cast<unsigned char>(GetRandomValue(0, 255)) };
             DrawPixel(x, y, color);
         }
     }
 
-    // DrawText("If executed inside a window,\nyou can resize the window,\nand see the screen scaling!", 10, 25, 20, WHITE);
-
+    DrawFPS(10, 10);
     // DrawText(TextFormat("Default Mouse: [%i , %i]", (int)m_mouse_position.x, (int)m_mouse_position.y), 50, 120, 20, GREEN);
     // DrawText(TextFormat("Virtual Mouse: [%i , %i]", (int)m_virtual_mouse_position.x, (int)m_virtual_mouse_position.y), 50, 150, 20, YELLOW);
 
