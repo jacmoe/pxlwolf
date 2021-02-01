@@ -19,15 +19,14 @@
 #include <list>
 #include <string>
 #include <unordered_map>
-#include <SFML/Graphics/Color.hpp>
-#include <SFML/System/Vector2.hpp>
+#include "raylib.h"
 
 namespace utility
 {
     struct WallElement
     {
         std::string name;
-        sf::Color color;
+        Color color;
     };
 
     class Map
@@ -49,7 +48,7 @@ namespace utility
 
         inline const int width() { return m_map_width; }
         inline const int height() { return m_map_height; }
-        inline const sf::Vector2f player_start() { return m_player_start; }
+        inline const Vector2 player_start() { return m_player_start; }
         inline const double player_heading() { return m_player_heading; }
 
     private:
@@ -60,7 +59,7 @@ namespace utility
         std::unordered_map<std::string, std::string> m_level_map;
         int m_map_width;
         int m_map_height;
-        sf::Vector2f m_player_start;
+        Vector2 m_player_start;
         double m_player_heading;
         bool m_initialized;
         bool m_loaded;

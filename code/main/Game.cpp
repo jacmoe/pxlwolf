@@ -14,6 +14,7 @@
 #   MIT License
 #*/
 #include "Game.hpp"
+#include "Map.hpp"
 
 Game::Game()
 {
@@ -25,6 +26,9 @@ Game::~Game()
 
 bool Game::OnUserCreate()
 {
+    utility::Map map;
+    map.init("assets/levels/pxlwolf.ldtk");
+    map.load("Level4");
     return true;
 }
 

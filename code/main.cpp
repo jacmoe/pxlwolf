@@ -76,6 +76,7 @@ void setup_working_directory()
     strList.push_back("\\build\\code\\");
     strList.push_back("\\vsbuild\\code\\");
     strList.push_back("Release");
+    strList.push_back("RelWidthDebInfo");
     strList.push_back("Debug");
     utility::eraseSubStrings(path, strList);
     // Set a proper working directory

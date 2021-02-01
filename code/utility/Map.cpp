@@ -18,7 +18,6 @@
 #include "rapidjson/document.h"
 #include "rapidjson/istreamwrapper.h"
 #include "physfs.hpp"
-#include "spdlog/spdlog.h"
 
 #include <algorithm>
 #include <iostream>
@@ -29,7 +28,7 @@ namespace utility
     Map::Map()
     : m_map_width(0)
     , m_map_height(0)
-    , m_player_start(0.0, 0.0)
+    , m_player_start( { 0.0, 0.0 })
     , m_player_heading(0.0)
     , m_initialized(false)
     , m_loaded(false)
@@ -52,7 +51,7 @@ namespace utility
             PhysFS::ifstream fp(file_name);
             if(!fp)
             {
-                SPDLOG_ERROR("Was unable to load '{}' from zip", file_name);
+                TraceLog(LOG_ERROR,"Was unable to load '%s' from zip", file_name.c_str());
                 return false;
             }
             rapidjson::IStreamWrapper isw(fp);
@@ -61,7 +60,7 @@ namespace utility
             fp.open(file_name, std::fstream::in);
             if(!fp)
             {
-                SPDLOG_ERROR("Was unable to load '{}'", file_name);
+                TraceLog(LOG_ERROR,"Was unable to load '%s'", file_name.c_str());
                 return false;
             }
             rapidjson::IStreamWrapper isw(fp);
@@ -72,7 +71,7 @@ namespace utility
         for (rapidjson::Value::ConstValueIterator itr = layers.Begin(); itr != layers.End(); ++itr)
         {
             std::string layer_identifier = (*itr)["identifier"].GetString();
-            SPDLOG_INFO("Layer definition for {} found.", layer_identifier);
+            TraceLog(LOG_INFO,"Layer definition for %s found.", layer_identifier.c_str());
             if(layer_identifier == "Walls")
             {
                 const rapidjson::Value& wall_values = (*itr)["intGridValues"];
@@ -82,13 +81,13 @@ namespace utility
                     std::string wall_color = (*itr)["color"].GetString();
                     std::replace(wall_color.begin(), wall_color.end(), '#', 'x');
                     wall_color = "0" + wall_color;
-                    SPDLOG_INFO("Wall '{}' has color {}", wall_identifier, wall_color);
+                    TraceLog(LOG_INFO,"Wall '%s' has color %s", wall_identifier.c_str(), wall_color.c_str());
                     unsigned int wall_color_int = std::stoul(wall_color, nullptr, 16);
-                    double r = ((wall_color_int >> 16) & 0xFF);  // Extract the RR byte
-                    double g = ((wall_color_int >> 8) & 0xFF);   // Extract the GG byte
-                    double b = ((wall_color_int) & 0xFF);        // Extract the BB byte
-                    SPDLOG_INFO("Color '{}' is r {}, g {}, b {}", wall_color_int, r, g, b);
-                    m_wall_elements.push_back({wall_identifier, sf::Color(r, g, b, 255)});
+                    unsigned char r = ((wall_color_int >> 16) & 0xFF);  // Extract the RR byte
+                    unsigned char g = ((wall_color_int >> 8) & 0xFF);   // Extract the GG byte
+                    unsigned char b = ((wall_color_int) & 0xFF);        // Extract the BB byte
+                    TraceLog(LOG_INFO,"Color '%d' is r %d, g %d, b %d", wall_color_int, r, g, b);
+                    m_wall_elements.push_back({wall_identifier, {r, g, b, 255}});
                 }
             }
 
@@ -99,11 +98,11 @@ namespace utility
         {
             std::string level_name = (*itr)["identifier"].GetString();
             std::string level_path = (*itr)["externalRelPath"].GetString();
-            SPDLOG_INFO("Found level {} in {}", level_name, level_path);
+            TraceLog(LOG_INFO,"Found level %s in %s", level_name.c_str(), level_path.c_str());
             m_level_map.insert({ level_name, level_path});
         }
 
-        SPDLOG_INFO("File '{}' initialized.", file_name);
+        TraceLog(LOG_INFO,"File '%s' initialized.", file_name.c_str());
         m_initialized = true;
 
         if(from_zip)
@@ -119,7 +118,7 @@ namespace utility
     {
         if (m_level_map.find(level_name) == m_level_map.end())
         {
-            SPDLOG_ERROR("Level '{}' does not exist!", level_name);
+            TraceLog(LOG_ERROR,"Level '%s' does not exist!", level_name.c_str());
             return false;
         }
 
@@ -132,7 +131,7 @@ namespace utility
             PhysFS::ifstream fp(level_file);
             if(!fp)
             {
-                SPDLOG_ERROR("Was unable to load '{}' from zip", level_file);
+                TraceLog(LOG_ERROR,"Was unable to load '%s' from zip", level_file.c_str());
                 return false;
             }
             rapidjson::IStreamWrapper isw(fp);
@@ -141,14 +140,14 @@ namespace utility
             fp.open(level_file, std::fstream::in);
             if(!fp)
             {
-                SPDLOG_ERROR("Was unable to load '{}'", level_file);
+                TraceLog(LOG_ERROR,"Was unable to load '%s'", level_file.c_str());
                 return false;
             }
             rapidjson::IStreamWrapper isw(fp);
             document.ParseStream(isw);
         }
 
-        SPDLOG_INFO("Loading level '{}'", level_name);
+        TraceLog(LOG_INFO,"Loading level '%s'", level_name.c_str());
 
         m_map_width = document["pxWid"].GetInt();
         m_map_height = document["pxHei"].GetInt();
@@ -168,7 +167,7 @@ namespace utility
                         m_player_start.x = (*itr)["__grid"].GetArray()[0].GetFloat() + 0.5f;
                         m_player_start.y = (*itr)["__grid"].GetArray()[1].GetFloat() + 0.5f;
                         m_player_heading = static_cast<double>(deg2rad((*itr)["fieldInstances"].GetArray()[0]["__value"].GetDouble()));
-                        SPDLOG_INFO("PlayerStart : ({}, {}), and angle is {}", m_player_start.x, m_player_start.y, m_player_heading);
+                        TraceLog(LOG_INFO,"PlayerStart : (%f, %f), and angle is %f", m_player_start.x, m_player_start.y, m_player_heading);
                     }
                 }
             } // if layer type is Entities
@@ -178,7 +177,7 @@ namespace utility
                 m_map_height = (*itr)["__cHei"].GetInt();
 
                 std::string identifier = (*itr)["__identifier"].GetString();
-                SPDLOG_INFO("Parsing IntGrid '{}' . . .", identifier);
+                TraceLog(LOG_INFO,"Parsing IntGrid '%s' . . .", identifier.c_str());
 
                 // Set the size of walls, floor and ceiling vectors and fill it with zeroes.
                 // For debugging purposes, only zero out if found
@@ -219,7 +218,7 @@ namespace utility
 
         } // for layer instances
         
-        SPDLOG_INFO("Level '{}' loaded.", level_name);
+        TraceLog(LOG_INFO,"Level '%s' loaded.", level_name.c_str());
         m_loaded = true;
 
         if(from_zip)

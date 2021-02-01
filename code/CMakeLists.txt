@@ -33,16 +33,16 @@ set(main
 set(utility
     # ./utility/ImageAtlas.cpp
     # ./utility/ImageAtlas.hpp
-    # ./utility/Map.cpp
-    # ./utility/Map.hpp
+    ./utility/Map.cpp
+    ./utility/Map.hpp
     # ./utility/RectAnimation.cpp
     # ./utility/RectAnimation.hpp
     # ./utility/SpriteSheetLoader.cpp
     # ./utility/SpriteSheetLoader.hpp
     ./utility/utils.cpp
     ./utility/utils.hpp
-    # ${3RD_PARTY_DIR}/physfs.cpp
-    # ${3RD_PARTY_DIR}/physfs.hpp
+    ${3RD_PARTY_DIR}/physfs.cpp
+    ${3RD_PARTY_DIR}/physfs.hpp
     # ${3RD_PARTY_DIR}/lua_main.hpp
 )
 
