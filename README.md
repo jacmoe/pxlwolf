@@ -62,7 +62,10 @@ Compiled using MSVC 2019 on Windows, and GCC 9.3 on Linux.
 ### External dependencies
 |Library|Description|License|
 |-------|-----------|-------|
-|[Raylib][raylib]|Simple and easy-to-use videogame programming library|zlib license|
+|[Raylib 3.5][raylib]|Simple and easy-to-use videogame programming library|zlib license|
+
+The OpenAL runtime is required as well. Go to the OpenAL [download page][openal] if on Windows. Linux users should use their package manager.
+
 
 ### Bundled dependencies
 |Library|Description|License|
@@ -94,6 +97,7 @@ This project is using code from the [c-raycaster project][cray] - the raycaster 
 [cray]: https://github.com/ckinvents/c-raycaster "c-raycaster project by ckinvents"
 
 [raylib]: https://www.raylib.com/ "Simple and easy-to-use videogames programming library"
+[openal]: https://www.openal.org/downloads/ "Cross-platform 3D audio API"
 [cereal]: https://uscilab.github.io/cereal/ "C++11 library for serialization"
 [entt]: https://github.com/skypjack/entt "C++ entity component system"
 [lua]: https://www.lua.org/download.html "Scripting language"
