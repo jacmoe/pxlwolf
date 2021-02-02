@@ -334,14 +334,19 @@ void Pixelator::copy(const sf::Image& source, unsigned int destX, unsigned int d
 }
 */
 // copies from a buffer
-void Pixelator::copy(const std::string name, unsigned int destX, unsigned int destY, const Rectangle& sourceRect)
+void Pixelator::copy(const std::string name, unsigned int x, unsigned int y, const Rectangle& sourceRect)
 {
     if(!check_key(m_buffer_map, name))
     {
         TraceLog(LOG_ERROR,"Attempting to copy from '{}' which doesn't exist!", name.c_str());
         return;
     }
-    ImageDraw(&m_buffers[m_buffer_map[m_current_buffer]], m_buffers[m_buffer_map[name]], { 0, 0, static_cast<float>(m_buffers[m_buffer_map[m_current_buffer]].width), static_cast<float>(m_buffers[m_buffer_map[m_current_buffer]].height)}, sourceRect, BLANK);
+    ImageDraw(&m_buffers[m_buffer_map[m_current_buffer]], 
+                m_buffers[m_buffer_map[name]],
+                sourceRect,
+                {static_cast<float>(x), static_cast<float>(y),
+                    static_cast<float>(m_buffers[m_buffer_map[name]].width),
+                    static_cast<float>(m_buffers[m_buffer_map[name]].height)}, WHITE);
 }
 
 // copies everything from another buffer

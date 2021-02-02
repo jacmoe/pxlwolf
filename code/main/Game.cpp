@@ -57,7 +57,7 @@ bool Game::OnUserCreate()
 
         m_raycaster.drawMinimap("minimap", m_camera, 2);
 
-        pixelator->copy("pixelBuffer", 0, 0);
+        pixelator->copy("pixelBuffer");
 
         pixelator->copy("minimap", 200, 0);
     }
