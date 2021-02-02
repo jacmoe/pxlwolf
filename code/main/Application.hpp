@@ -20,7 +20,7 @@
 
 #include "raylib.h"
 
-// #include "Pixelator.hpp"
+#include "Pixelator.hpp"
 
 class Application
 {
@@ -43,7 +43,7 @@ protected:
     bool m_fullscreen;
 
     RenderTexture2D m_render_texture;
-    Image m_draw_buffer;
+    std::shared_ptr<Pixelator> m_pixelator;
 
 private:
     std::string m_title;

@@ -15,6 +15,8 @@
 #*/
 #include "Pixelator.hpp"
 
+#include <cassert>
+
 Color commodoreColorPallette[16] = {
     {0,0,0,255},		// Black
     {255,255,255,255},	// White
@@ -38,9 +40,16 @@ Pixelator::Pixelator()
     : m_current_buffer("primary")
     , m_buffers()
 {
-    m_buffers.emplace_back();
-    setSize(sf::Vector2i(360, 240));
+    addBuffer("primary", 360, 240);
     m_buffer_map.insert({"primary", 0});
+}
+
+Pixelator::~Pixelator()
+{
+    for (auto& img : m_buffers)
+    {
+        UnloadImage(img);
+    }
 }
 
 bool check_key(std::unordered_map<std::string, unsigned int> m, std::string key) 
@@ -51,34 +60,17 @@ bool check_key(std::unordered_map<std::string, unsigned int> m, std::string key)
     return true; 
 }
 
-bool Pixelator::addBuffer(const std::string name)
+bool Pixelator::addBuffer(const std::string name, const int width, const int height)
 {
     if(check_key(m_buffer_map, name))
     {
-        TraceLog(LOG_ERROR,"Attempting to add '{}' which already exist!", name.c_str());
+        TraceLog(LOG_ERROR,"Attempting to add '%s' which already exist!", name.c_str());
         return false;
     }
 
     const unsigned int newBufferIndex{ static_cast<unsigned int>(m_buffers.size()) };
     m_buffer_map.insert({name, newBufferIndex});
-    m_buffers.emplace_back();
-
-    unsigned int index = m_buffer_map[m_current_buffer];
-
-    std::vector<unsigned char> newPixels(m_buffers[index].size.x * m_buffers[index].size.y * 4u);
-    unsigned char* ptr = &newPixels[0];
-    unsigned char* end = ptr + newPixels.size();
-    while (ptr < end)
-    {
-        *ptr++ = BLANK.r;
-        *ptr++ = BLANK.g;
-        *ptr++ = BLANK.b;
-        *ptr++ = BLANK.a;
-    }
-    // Commit the new pixel buffer
-    m_buffers[newBufferIndex].pixels.swap(newPixels);
-    m_buffers[newBufferIndex].size = m_buffers[index].size;
-
+    m_buffers.push_back(GenImageColor(width, height, BLANK));
     return true;
 }
 
@@ -96,6 +88,8 @@ bool Pixelator::removeBuffer(const std::string name)
         TraceLog(LOG_ERROR,"Attempting to remove active buffer!");
         return false;
     }
+    unsigned int index = m_buffer_map[name];
+    UnloadImage(m_buffers[index]);
     m_buffers.erase(m_buffers.begin() + m_buffer_map[name]);
     m_buffer_map.erase(name);
     return true;
@@ -123,33 +117,39 @@ bool Pixelator::swapBuffer(const std::string name)
     unsigned int own_index = m_buffer_map[m_current_buffer];
     unsigned int swap_index = m_buffer_map[name];
 
-    m_buffers[swap_index].pixels.swap(m_buffers[own_index].pixels);
+    Image temp = m_buffers[own_index];
+    m_buffers[own_index] = m_buffers[swap_index];
+    m_buffers[swap_index] = temp;
 
     return true;
 }
 
-void Pixelator::setSize(const sf::Vector2i size)
+void Pixelator::setSize(const int width, const int height)
 {
-    setSize(m_current_buffer, size);
+    setSize(m_current_buffer, width, height);
 }
 
-void Pixelator::setSize(const std::string& name, const sf::Vector2i size)
+void Pixelator::setSize(const std::string& name, const int width, const int height)
 {
-    unsigned int index = m_buffer_map[name];
-    m_buffers[index].size = size;
-    std::vector<unsigned char> newPixels(m_buffers[index].size.x * m_buffers[index].size.y * 4u);
-    unsigned char* ptr = &newPixels[0];
-    unsigned char* end = ptr + newPixels.size();
-    while (ptr < end)
+    if(!check_key(m_buffer_map, name))
     {
-        *ptr++ = BLANK.r;
-        *ptr++ = BLANK.g;
-        *ptr++ = BLANK.b;
-        *ptr++ = BLANK.a;
+        TraceLog(LOG_ERROR,"Attempting to set the size of a buffer that doesn't exist!");
+        return;
     }
-    // Commit the new pixel buffer
-    m_buffers[index].pixels.swap(newPixels);
-    m_buffers[index].size = size;
+    unsigned int index = m_buffer_map[name];
+    UnloadImage(m_buffers[index]);
+    m_buffers[index] = GenImageColor(width, height, BLANK);
+}
+
+void* Pixelator::getData(const std::string& name)
+{
+    if(!check_key(m_buffer_map, name))
+    {
+        TraceLog(LOG_ERROR,"Attempting to get the data of a buffer that doesn't exist!");
+        return nullptr;
+    }
+    unsigned int index = m_buffer_map[name];
+    return m_buffers[index].data;
 }
 
 void Pixelator::setPixel(unsigned int x, unsigned int y, const Color& color)
@@ -160,13 +160,10 @@ void Pixelator::setPixel(unsigned int x, unsigned int y, const Color& color)
 void Pixelator::setPixel(const std::string& name, unsigned int x, unsigned int y, const Color& color)
 {
     unsigned int index = m_buffer_map[name];
-    unsigned char* pixel = &m_buffers[index].pixels[(x + y * m_buffers[index].size.x) * 4];
-    *pixel++ = color.r;
-    *pixel++ = color.g;
-    *pixel++ = color.b;
-    *pixel++ = color.a;
+    ImageDrawPixel(&m_buffers[index], x, y, color);
 }
 
+/*
 void Pixelator::drawColumn(unsigned int x, unsigned int y, unsigned int height, const Color& color)
 {
     drawColumn(m_current_buffer, x, y, height, color);
@@ -328,69 +325,44 @@ const unsigned char* Pixelator::getPixelsPtr(const std::string& name) const
         return NULL;
     }
 }
-
+*/
 void Pixelator::fill(Color color)
 {
     unsigned int index = m_buffer_map.at(m_current_buffer);
-    std::vector<unsigned char> newPixels(m_buffers[index].size.x * m_buffers[index].size.y * 4);
-    unsigned char* ptr = &newPixels[0];
-    unsigned char* end = ptr + newPixels.size();
-    while (ptr < end)
-    {
-        *ptr++ = color.r;
-        *ptr++ = color.g;
-        *ptr++ = color.b;
-        *ptr++ = color.a;
-    }
-    // Commit the new pixel buffer
-    m_buffers[index].pixels.swap(newPixels);
+    ImageClearBackground(&m_buffers[index], color);
 }
 
 void Pixelator::randomize()
 {
     unsigned int index = m_buffer_map.at(m_current_buffer);
-    std::vector<unsigned char> newPixels(m_buffers[index].size.x * m_buffers[index].size.y * 4);
-    unsigned char* ptr = &newPixels[0];
-    unsigned char* end = ptr + newPixels.size();
-    while (ptr < end)
+    Color *pixels = LoadImageColors(m_buffers[index]);
+    
+    for (int y = 0; y < m_buffers[index].height; y++)
     {
-        *ptr++ = rand() % 255;
-        *ptr++ = rand() % 255;
-        *ptr++ = rand() % 255;
-        *ptr++ = rand() % 255;
+        for (int x = 0; x < m_buffers[index].width; x++)
+        {
+            pixels[y*m_buffers[index].width + x].r = static_cast<unsigned char>(GetRandomValue(0, 255));
+            pixels[y*m_buffers[index].width + x].g = static_cast<unsigned char>(GetRandomValue(0, 255));
+            pixels[y*m_buffers[index].width + x].b = static_cast<unsigned char>(GetRandomValue(0, 255));
+            pixels[y*m_buffers[index].width + x].a = static_cast<unsigned char>(GetRandomValue(0, 255));
+        }
     }
-    // Commit the new pixel buffer
-    m_buffers[index].pixels.swap(newPixels);
-}
-
-void Pixelator::clear()
-{
-    clear(m_current_buffer);
+    RL_FREE(m_buffers[index].data);
+    m_buffers[index].data = pixels;
 }
 
 void Pixelator::clear(const std::string& name)
 {
     unsigned int index = m_buffer_map.at(name);
-    std::vector<unsigned char> newPixels(m_buffers[index].size.x * m_buffers[index].size.y * 4);
-    unsigned char* ptr = &newPixels[0];
-    unsigned char* end = ptr + newPixels.size();
-    while (ptr < end)
-    {
-        *ptr++ = BLANK.r;
-        *ptr++ = BLANK.g;
-        *ptr++ = BLANK.b;
-        *ptr++ = BLANK.a;
-    }
-    // Commit the new pixel buffer
-    m_buffers[index].pixels.swap(newPixels);
+    ImageClearBackground(&m_buffers[index], BLANK);
 }
 
 Rectangle Pixelator::getSize(const std::string name)
 {
-    Rectangle rect(0, 0, static_cast<int>(m_buffers[m_buffer_map[name]].size.x), static_cast<int>(m_buffers[m_buffer_map[name]].size.y));
+    Rectangle rect = { 0, 0, static_cast<int>(m_buffers[m_buffer_map[name]].width), static_cast<int>(m_buffers[m_buffer_map[name]].height) };
     return rect;
 }
-
+/*
 // copies from an image
 void Pixelator::copy(const sf::Image& source, unsigned int destX, unsigned int destY, const Rectangle& sourceRect, bool applyAlpha)
 {
@@ -500,3 +472,4 @@ void Pixelator::copy(const unsigned char* source_pixels, const sf::Vector2i buff
         }
     }
 }
+*/

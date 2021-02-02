@@ -25,14 +25,15 @@ class Pixelator
 {
 public:
     Pixelator();
+    ~Pixelator();
 
-    void setSize(const Vector2 size);
-    void setSize(const std::string& name, const Vector2 size);
+    void setSize(const int width, const int height);
+    void setSize(const std::string& name, const int width, const int height);
 
     // Pixels
     void setPixel(unsigned int x, unsigned int y, const Color& color);
-    void setPixel(const std::string& name, unsigned int x, unsigned int y, const sf::Color& color);
-    Color getPixel(unsigned int x, unsigned int y) const;
+    void setPixel(const std::string& name, unsigned int x, unsigned int y, const Color& color);
+/*    Color getPixel(unsigned int x, unsigned int y) const;
     Color getPixel(const std::string& name, unsigned int x, unsigned int y) const;
     const unsigned char* getPixelsPtr() const;
     const unsigned char* getPixelsPtr(const std::string& name) const;
@@ -45,14 +46,14 @@ public:
     void drawFilledRect(const std::string& name, const Rectangle& rect, const Color& color);
     void drawLine(const Vector2& start, const Vector2& end, const Color& color);
     void drawCircle(const Vector2& coord, const int radius, const Color& color);
-
+*/
     void fill(Color color);
     void randomize();
-    void clear();
+    inline void clear() { clear(m_current_buffer); }
     void clear(const std::string& name);
 
     // Buffers
-    bool addBuffer(const std::string name);
+    bool addBuffer(const std::string name, const int width, const int height);
     bool removeBuffer(const std::string name);
     void setActiveBuffer(const std::string name);
     const std::string getActiveBuffer() { return m_current_buffer; }
@@ -61,14 +62,17 @@ public:
     bool swapBuffer(const std::string name);
 
     // copy pixels from a source
-    void copy(const std::string name, unsigned int x = 0, unsigned int y = 0, bool applyAlpha = false);
-    void copy(const std::string name, unsigned int destX, unsigned int destY, const Rectangle& sourceRect, bool applyAlpha = false);
-    void copy(const Image& source, unsigned int destX, unsigned int destY, const Rectangle& sourceRect, bool applyAlpha = false);
-    void copy(const unsigned char* source_pixels, const Vector2 buffer_size, unsigned int destX, unsigned int destY, const Rectangle& sourceRect, bool applyAlpha = false);
+    // void copy(const std::string name, unsigned int x = 0, unsigned int y = 0, bool applyAlpha = false);
+    // void copy(const std::string name, unsigned int destX, unsigned int destY, const Rectangle& sourceRect, bool applyAlpha = false);
+    // void copy(const Image& source, unsigned int destX, unsigned int destY, const Rectangle& sourceRect, bool applyAlpha = false);
+    // void copy(const unsigned char* source_pixels, const Vector2 buffer_size, unsigned int destX, unsigned int destY, const Rectangle& sourceRect, bool applyAlpha = false);
 
     // get the size (width and height) of a buffer
     Rectangle getSize() { return getSize(m_current_buffer); }
     Rectangle getSize(const std::string name);
+
+    void* getData() { return getData(m_current_buffer); }
+    void* getData(const std::string& name);
 
 private:
     std::string m_current_buffer;

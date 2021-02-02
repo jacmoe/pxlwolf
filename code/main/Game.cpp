@@ -39,14 +39,7 @@ bool Game::OnUserUpdate(double elapsedTime)
 
 bool Game::OnUserRender()
 {
-    for(int x = 0; x < GetScreenWidth(); ++x)
-    {
-        for(int y = 0; y < GetScreenHeight(); ++y)
-        {
-            Color color = { static_cast<unsigned char>(GetRandomValue(0, 255)), static_cast<unsigned char>(GetRandomValue(0, 255)), static_cast<unsigned char>(GetRandomValue(0, 255)), static_cast<unsigned char>(GetRandomValue(0, 255)) };
-            ImageDrawPixel(&m_draw_buffer, x, y, color);
-        }
-    }
+    m_pixelator.get()->randomize();
 
     // DrawText(TextFormat("Default Mouse: [%i , %i]", (int)m_mouse_position.x, (int)m_mouse_position.y), 50, 120, 20, GREEN);
     // DrawText(TextFormat("Virtual Mouse: [%i , %i]", (int)m_virtual_mouse_position.x, (int)m_virtual_mouse_position.y), 50, 150, 20, YELLOW);

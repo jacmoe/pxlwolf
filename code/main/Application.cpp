@@ -43,6 +43,7 @@ Application::Application()
     , m_height(0)
     , m_fullscreen(false)
     , m_title("")
+    , m_pixelator()
     , m_running(false)
     , m_show_fps(false)
     , m_should_exit(false)
@@ -94,8 +95,10 @@ bool Application::init(const std::string title, int width, int height, float sca
     InitWindow(m_width * m_scale, m_height * m_scale, m_title.c_str());
     SetWindowMinSize(m_width, m_height);
     m_render_texture = LoadRenderTexture(m_width, m_height);
-    m_draw_buffer = GenImageColor(m_width, m_height, BLANK);
     SetTextureFilter(m_render_texture.texture, FILTER_POINT);
+
+    m_pixelator = std::make_shared<Pixelator>();
+    m_pixelator.get()->setSize(m_width, m_height);
 
     SetTargetFPS(60);
 
@@ -150,7 +153,6 @@ void Application::run()
     OnUserDestroy();
 
     UnloadRenderTexture(m_render_texture);
-    UnloadImage(m_draw_buffer);
     UnloadFont(m_font);
 
     CloseWindow();
@@ -198,7 +200,6 @@ void Application::event()
 void Application::toggle_fullscreen()
 {
     UnloadRenderTexture(m_render_texture);
-    UnloadImage(m_draw_buffer);
     UnloadFont(m_font);
     CloseWindow();
 
@@ -220,7 +221,6 @@ void Application::toggle_fullscreen()
 
     m_render_texture = LoadRenderTexture(m_width, m_height);
     SetTextureFilter(m_render_texture.texture, FILTER_POINT);
-    m_draw_buffer = GenImageColor(m_width, m_height, BLANK);
     m_font = LoadFont("assets/fonts/MedievalSharp-Bold.ttf");
 }
 
@@ -235,7 +235,7 @@ void Application::render()
 
     OnUserRender();
 
-    UpdateTexture(m_render_texture.texture, m_draw_buffer.data);
+    UpdateTexture(m_render_texture.texture, m_pixelator.get()->getData());
 
     BeginTextureMode(m_render_texture);
 
