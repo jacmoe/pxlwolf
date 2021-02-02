@@ -39,7 +39,9 @@ bool Game::OnUserUpdate(double elapsedTime)
 
 bool Game::OnUserRender()
 {
-    m_pixelator.get()->randomize();
+    Pixelator* pixelator = m_pixelator.get();
+    pixelator->randomize();
+    pixelator->drawLine({10,10}, {50, 100}, RAYWHITE);
 
     // DrawText(TextFormat("Default Mouse: [%i , %i]", (int)m_mouse_position.x, (int)m_mouse_position.y), 50, 120, 20, GREEN);
     // DrawText(TextFormat("Virtual Mouse: [%i , %i]", (int)m_virtual_mouse_position.x, (int)m_virtual_mouse_position.y), 50, 150, 20, YELLOW);

@@ -33,20 +33,20 @@ public:
     // Pixels
     void setPixel(unsigned int x, unsigned int y, const Color& color);
     void setPixel(const std::string& name, unsigned int x, unsigned int y, const Color& color);
-/*    Color getPixel(unsigned int x, unsigned int y) const;
-    Color getPixel(const std::string& name, unsigned int x, unsigned int y) const;
-    const unsigned char* getPixelsPtr() const;
-    const unsigned char* getPixelsPtr(const std::string& name) const;
+    // Color getPixel(unsigned int x, unsigned int y) const;
+    // Color getPixel(const std::string& name, unsigned int x, unsigned int y) const;
+    Color* getPixels() { return getPixels(m_current_buffer); }
+    Color* getPixels(const std::string& name);
 
-    void drawColumn(unsigned int x, unsigned int y, unsigned int height, const Color& color);
-    void drawColumn(const std::string& name, unsigned int x, unsigned int y, unsigned int height, const Color& color);
-    void drawRow(unsigned int x, unsigned int y, unsigned int length, const Color& color);
-    void drawRect(const Rectangle rect, const Color& color);
-    void drawFilledRect(const Rectangle& rect, const Color& color);
-    void drawFilledRect(const std::string& name, const Rectangle& rect, const Color& color);
+    // void drawColumn(unsigned int x, unsigned int y, unsigned int height, const Color& color);
+    // void drawColumn(const std::string& name, unsigned int x, unsigned int y, unsigned int height, const Color& color);
+    // void drawRow(unsigned int x, unsigned int y, unsigned int length, const Color& color);
+    // void drawRect(const Rectangle rect, const Color& color);
+    // void drawFilledRect(const Rectangle& rect, const Color& color);
+    // void drawFilledRect(const std::string& name, const Rectangle& rect, const Color& color);
     void drawLine(const Vector2& start, const Vector2& end, const Color& color);
-    void drawCircle(const Vector2& coord, const int radius, const Color& color);
-*/
+    // void drawCircle(const Vector2& coord, const int radius, const Color& color);
+
     void fill(Color color);
     void randomize();
     inline void clear() { clear(m_current_buffer); }
@@ -70,9 +70,6 @@ public:
     // get the size (width and height) of a buffer
     Rectangle getSize() { return getSize(m_current_buffer); }
     Rectangle getSize(const std::string name);
-
-    void* getData() { return getData(m_current_buffer); }
-    void* getData(const std::string& name);
 
 private:
     std::string m_current_buffer;

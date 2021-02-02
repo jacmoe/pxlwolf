@@ -141,17 +141,6 @@ void Pixelator::setSize(const std::string& name, const int width, const int heig
     m_buffers[index] = GenImageColor(width, height, BLANK);
 }
 
-void* Pixelator::getData(const std::string& name)
-{
-    if(!check_key(m_buffer_map, name))
-    {
-        TraceLog(LOG_ERROR,"Attempting to get the data of a buffer that doesn't exist!");
-        return nullptr;
-    }
-    unsigned int index = m_buffer_map[name];
-    return m_buffers[index].data;
-}
-
 void Pixelator::setPixel(unsigned int x, unsigned int y, const Color& color)
 {
     setPixel(m_current_buffer, x, y, color);
@@ -213,9 +202,9 @@ void Pixelator::drawFilledRect(const std::string& name, const Rectangle& rect, c
         }
     }
 }
-
+*/
 // Doom's version of Bresenham
-void Pixelator::drawLine(const sf::Vector2i& start, const sf::Vector2i& end, const Color& color)
+void Pixelator::drawLine(const Vector2& start, const Vector2& end, const Color& color)
 {
     int dx = end.x - start.x;
     int ax = 2 * abs(dx);
@@ -256,7 +245,7 @@ void Pixelator::drawLine(const sf::Vector2i& start, const sf::Vector2i& end, con
         }
     }
 }
-
+/*
 // https://en.wikipedia.org/wiki/Midpoint_circle_algorithm
 void Pixelator::drawCircle(const sf::Vector2i& coord, const int radius, const Color& color)
 {
@@ -306,26 +295,19 @@ Color Pixelator::getPixel(const std::string& name, unsigned int x, unsigned int 
     const unsigned char* pixel = &m_buffers[index].pixels[(x + y * m_buffers[index].size.x) * 4];
     return Color(pixel[0], pixel[1], pixel[2], pixel[3]);
 }
-
-const unsigned char* Pixelator::getPixelsPtr() const
-{
-    return getPixelsPtr(m_current_buffer);
-}
-
-const unsigned char* Pixelator::getPixelsPtr(const std::string& name) const
-{
-    unsigned int index = m_buffer_map.at(name);
-    if (!m_buffers[index].pixels.empty())
-    {
-        return &m_buffers[index].pixels[0];
-    }
-    else
-    {
-        TraceLog(LOG_ERROR,"Trying to access the pixels of an empty image");
-        return NULL;
-    }
-}
 */
+Color* Pixelator::getPixels(const std::string& name)
+{
+    if(!check_key(m_buffer_map, name))
+    {
+        TraceLog(LOG_ERROR,"Attempting to get the pixel data of a buffer that doesn't exist!");
+        return nullptr;
+    }
+    unsigned int index = m_buffer_map[name];
+
+    return LoadImageColors(m_buffers[index]);
+}
+
 void Pixelator::fill(Color color)
 {
     unsigned int index = m_buffer_map.at(m_current_buffer);
