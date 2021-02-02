@@ -260,18 +260,18 @@ void Pixelator::drawCircle(const sf::Vector2i& coord, const int radius, const Co
         }
     }
 }
-
-// left top width height
+*/
+// x y width height
 void Pixelator::drawRect(const Rectangle rect, const Color& color)
 {
-    int right = rect.left + rect.width;
-    int bottom = rect.top + rect.height;
-    drawLine(sf::Vector2i(rect.left, rect.top), sf::Vector2i(right, rect.top), color);
-    drawLine(sf::Vector2i(rect.left, bottom), sf::Vector2i(right, bottom), color);
-    drawLine(sf::Vector2i(rect.left, rect.top), sf::Vector2i(rect.left, bottom), color);
-    drawLine(sf::Vector2i(right, rect.top), sf::Vector2i(right, bottom), color);
+    float right = rect.x + rect.width;
+    float bottom = rect.y + rect.height;
+    drawLine({rect.x, rect.y}, {right, rect.y}, color);
+    drawLine({rect.x, bottom}, {right, bottom}, color);
+    drawLine({rect.x, rect.y}, {rect.x, bottom}, color);
+    drawLine({right, rect.y}, {right, bottom}, color);
 }
-*/
+
 Color Pixelator::getPixel(const std::string& name, unsigned int x, unsigned int y)
 {
     unsigned int index = m_buffer_map.at(name);
@@ -332,108 +332,31 @@ void Pixelator::copy(const sf::Image& source, unsigned int destX, unsigned int d
 {
     copy(source.getPixelsPtr(), sf::Vector2i(source.getSize().x, source.getSize().y), destX, destY, sourceRect, applyAlpha);
 }
-
+*/
 // copies from a buffer
-void Pixelator::copy(const std::string name, unsigned int destX, unsigned int destY, const Rectangle& sourceRect, bool applyAlpha)
+void Pixelator::copy(const std::string name, unsigned int destX, unsigned int destY, const Rectangle& sourceRect)
 {
     if(!check_key(m_buffer_map, name))
     {
         TraceLog(LOG_ERROR,"Attempting to copy from '{}' which doesn't exist!", name.c_str());
         return;
     }
-    copy(&m_buffers[m_buffer_map[name]].pixels[0], m_buffers[m_buffer_map[name]].size, destX, destY, sourceRect, applyAlpha);
+    ImageDraw(&m_buffers[m_buffer_map[m_current_buffer]], m_buffers[m_buffer_map[name]], { 0, 0, static_cast<float>(m_buffers[m_buffer_map[m_current_buffer]].width), static_cast<float>(m_buffers[m_buffer_map[m_current_buffer]].height)}, sourceRect, BLANK);
 }
 
 // copies everything from another buffer
-void Pixelator::copy(const std::string name, unsigned int x, unsigned int y, bool applyAlpha)
+void Pixelator::copy(const std::string name, unsigned int x, unsigned int y)
 {
     if(!check_key(m_buffer_map, name))
     {
         TraceLog(LOG_ERROR,"Attempting to copy from '{}' which doesn't exist!", name.c_str());
         return;
     }
-    Rectangle sourceRect;
-    sourceRect.left = sourceRect.top = 0;
-    sourceRect.width = m_buffers[m_buffer_map[name]].size.x;
-    sourceRect.height = m_buffers[m_buffer_map[name]].size.y;
-    copy(&m_buffers[m_buffer_map[name]].pixels[0], m_buffers[m_buffer_map[name]].size, x, y, sourceRect, applyAlpha);
+    ImageDraw(&m_buffers[m_buffer_map[m_current_buffer]], 
+                m_buffers[m_buffer_map[name]],
+                { 0, 0, static_cast<float>(m_buffers[m_buffer_map[name]].width),
+                    static_cast<float>(m_buffers[m_buffer_map[name]].height)},
+                {static_cast<float>(x), static_cast<float>(y),
+                    static_cast<float>(m_buffers[m_buffer_map[name]].width),
+                    static_cast<float>(m_buffers[m_buffer_map[name]].height)}, WHITE);
 }
-
-// copies from raw pixels
-void Pixelator::copy(const unsigned char* source_pixels, const sf::Vector2i buffer_size, unsigned int destX, unsigned int destY, const Rectangle& sourceRect, bool applyAlpha)
-{
-    // Make sure that both images are valid
-    if ((buffer_size.x == 0) || (buffer_size.y == 0) || (m_buffers[m_buffer_map[m_current_buffer]].size.x == 0) || (m_buffers[m_buffer_map[m_current_buffer]].size.y == 0))
-        return;
-
-    // Adjust the source rectangle
-    Rectangle srcRect = sourceRect;
-    if (srcRect.width == 0 || (srcRect.height == 0))
-    {
-        srcRect.left   = 0;
-        srcRect.top    = 0;
-        srcRect.width  = buffer_size.x;
-        srcRect.height = buffer_size.y;
-    }
-    else
-    {
-        if (srcRect.left   < 0) srcRect.left = 0;
-        if (srcRect.top    < 0) srcRect.top  = 0;
-        if (srcRect.width  > static_cast<int>(buffer_size.x)) srcRect.width  = buffer_size.x;
-        if (srcRect.height > static_cast<int>(buffer_size.y)) srcRect.height = buffer_size.y;
-    }
-
-    // Then find the valid bounds of the destination rectangle
-    int width  = srcRect.width;
-    int height = srcRect.height;
-    if (destX + width  > m_buffers[m_buffer_map[m_current_buffer]].size.x) width  = m_buffers[m_buffer_map[m_current_buffer]].size.x - destX;
-    if (destY + height > m_buffers[m_buffer_map[m_current_buffer]].size.y) height = m_buffers[m_buffer_map[m_current_buffer]].size.y - destY;
-
-    // Make sure the destination area is valid
-    if ((width <= 0) || (height <= 0))
-        return;
-
-    // Precompute as much as possible
-    int          pitch     = width * 4;
-    int          rows      = height;
-    int          srcStride = static_cast<int>(buffer_size.x * 4u);
-    int          dstStride = static_cast<int>(m_buffers[m_buffer_map[m_current_buffer]].size.x * 4u);
-    const unsigned char* srcPixels = source_pixels;
-    unsigned char*       dstPixels = &m_buffers[m_buffer_map[m_current_buffer]].pixels[0] + (destX + destY * static_cast<int>(m_buffers[m_buffer_map[m_current_buffer]].size.x)) * 4u;
-
-    // Copy the pixels
-    if (applyAlpha)
-    {
-        // Interpolation using alpha values, pixel by pixel (slower)
-        for (int i = 0; i < rows; ++i)
-        {
-            for (int j = 0; j < width; ++j)
-            {
-                // Get a direct pointer to the components of the current pixel
-                const unsigned char* src = srcPixels + j * 4;
-                unsigned char*       dst = dstPixels + j * 4;
-
-                // Interpolate RGBA components using the alpha value of the source pixel
-                unsigned char alpha = src[3];
-                dst[0] = (src[0] * alpha + dst[0] * (255 - alpha)) / 255;
-                dst[1] = (src[1] * alpha + dst[1] * (255 - alpha)) / 255;
-                dst[2] = (src[2] * alpha + dst[2] * (255 - alpha)) / 255;
-                dst[3] = alpha + dst[3] * (255 - alpha) / 255;
-            }
-
-            srcPixels += srcStride;
-            dstPixels += dstStride;
-        }
-    }
-    else
-    {
-        // Optimized copy ignoring alpha values, row by row (faster)
-        for (int i = 0; i < rows; ++i)
-        {
-            std::memcpy(dstPixels, srcPixels, pitch);
-            srcPixels += srcStride;
-            dstPixels += dstStride;
-        }
-    }
-}
-*/

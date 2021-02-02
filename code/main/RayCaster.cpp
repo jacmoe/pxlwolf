@@ -56,9 +56,13 @@ void RayCaster::drawMinimap(const std::string& buffer_name, const _Camera& camer
     Rectangle mapRect;
     mapRect.width = map->width() * blockSize;
     mapRect.height = map->height() * blockSize;
+    mapRect.x = 0;
+    mapRect.y = 0;
     Rectangle blockRect;
     blockRect.width = blockSize;
     blockRect.height = blockSize;
+    blockRect.x = 0;
+    blockRect.y = 0;
 
     int p_x = static_cast<int>(camera.x);
     int p_y = static_cast<int>(camera.y);
@@ -85,36 +89,18 @@ void RayCaster::drawMinimap(const std::string& buffer_name, const _Camera& camer
     }
 }
 
-uint32_t RayCaster::toIntColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
-{
-    return ((uint32_t)r << 3*8 | (uint32_t)g << 2*8 | (uint32_t)b << 8 | (uint32_t)a);
-}
-
-Color RayCaster::toSFMLColor(uint32_t pixColor)
-{
-    unsigned char r = (pixColor & 0x00ff0000) >> 16;
-    unsigned char g = (pixColor & 0x0000ff00) >> 8;
-    unsigned char b = (pixColor & 0x000000ff);
-    unsigned char a = (pixColor & 0xff000000) >> 24;
-    Color newColor = {r, g, b, a};
-    return newColor;
-}
-
 uint32_t RayCaster::pixelGradientShader(uint32_t pixel, double percent, Color target)
 {
-    unsigned char r = (pixel & 0x00ff0000) >> 16;
-    unsigned char g = (pixel & 0x0000ff00) >> 8;
-    unsigned char b = (pixel & 0x000000ff);
-    unsigned char a = (pixel & 0xff000000) >> 24;
-    int dr = target.r - r;
-    int dg = target.g - g;
-    int db = target.b - b;
-    int da = target.a - a;
-    r += (int)((double)dr * percent);
-    g += (int)((double)dg * percent);
-    b += (int)((double)db * percent);
-    a += (int)((double)da * percent);
-    return toIntColor(r,g,b,a);
+    Color source = GetColor(pixel);
+    int dr = target.r - source.r;
+    int dg = target.g - source.g;
+    int db = target.b - source.b;
+    int da = target.a - source.a;
+    source.r += (int)((double)dr * percent);
+    source.g += (int)((double)dg * percent);
+    source.b += (int)((double)db * percent);
+    source.a += (int)((double)da * percent);
+    return ColorToInt(source);
 }
 
 /**
@@ -141,18 +127,18 @@ void RayCaster::setPixelAlphaDepth(uint32_t x, uint32_t y, uint32_t color, doubl
                 setDepth(x, y, BL_ALPHA, depth);
                 if (pixDepth == INFINITY)
                 {
-                    Color alphaColor = toSFMLColor(color);
+                    Color alphaColor = GetColor(color);
                     alphaColor.a *= alphaNum;
                     m_pixelator.get()->setPixel("alphaBuffer", x, y, alphaColor);
                 }
                 else
                 {
-                    m_pixelator.get()->setPixel("alphaBuffer", x, y, toSFMLColor(color));
+                    m_pixelator.get()->setPixel("alphaBuffer", x, y, GetColor(color));
                 }
             }
             else
             {
-                m_pixelator.get()->setPixel("alphaBuffer", x, y, toSFMLColor(color));
+                m_pixelator.get()->setPixel("alphaBuffer", x, y, GetColor(color));
                 //PixelRenderer::drawPix(buffer->alphaBuffer, x, y, PixelRenderer::blendAlpha(color, PixelRenderer::getPix(buffer->alphaBuffer, x, y), 1));
             }
         }
@@ -163,7 +149,7 @@ void RayCaster::setPixelAlphaDepth(uint32_t x, uint32_t y, uint32_t color, doubl
             if (getDepth(x, y, BL_BASE) > depth)
             {
                 setDepth(x, y, BL_BASE, depth);
-                m_pixelator.get()->setPixel("pixelBuffer", x, y, toSFMLColor(color));
+                m_pixelator.get()->setPixel("pixelBuffer", x, y, GetColor(color));
                 //PixelRenderer::drawPix(buffer->pixelBuffer, x, y, color);
             }
         }
@@ -276,7 +262,7 @@ void RayCaster::setDepth(uint32_t x, uint32_t y, uint8_t layer, double depth)
  */
 void RayCaster::renderBuffer()
 {
-    Color pixel;
+    Color pixel = BLANK;
     for (uint32_t i = 0; i < m_width; i++)
     {
         for (uint32_t j = 0; j < m_height; j++)
@@ -320,7 +306,7 @@ void RayCaster::drawTextureColumn(uint32_t x, int32_t y,
         //     tileNum*texture->tileWidth*texture->tileHeight + \
         //     (uint32_t)floor(((double)(offY + i)/(double)offH) * \
         //     (texture->tileHeight)) * texture->tileWidth + column];
-         uint32_t pix = toIntColor(RAYWHITE.r, RAYWHITE.g, RAYWHITE.b, RAYWHITE.a);
+         uint32_t pix = ColorToInt(RAYWHITE);//toIntColor(RAYWHITE.r, RAYWHITE.g, RAYWHITE.b, RAYWHITE.a);
         if (pix & 0xFF)
         {
             pix = pixelGradientShader(pix, fadePercent, targetColor);

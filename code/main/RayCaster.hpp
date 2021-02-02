@@ -67,7 +67,5 @@ private:
                              Color targetColor);
 
     double getInterDist(double dx, double dy, double xi, double yi, double coordX, double coordY, double* newX, double* newY, uint8_t* side);
-    uint32_t toIntColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a);
-    Color toSFMLColor(uint32_t pixColor);
     uint32_t pixelGradientShader(uint32_t pixel, double percent, Color target);
 };

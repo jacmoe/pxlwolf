@@ -41,7 +41,7 @@ public:
     void drawColumn(unsigned int x, unsigned int y, unsigned int height, const Color& color) { drawColumn(m_current_buffer, x, y, height, color); }
     void drawColumn(const std::string& name, unsigned int x, unsigned int y, unsigned int height, const Color& color);
     void drawRow(unsigned int x, unsigned int y, unsigned int length, const Color& color);
-    // void drawRect(const Rectangle rect, const Color& color);
+    void drawRect(const Rectangle rect, const Color& color);
     inline void drawFilledRect(const Rectangle& rect, const Color& color) { drawFilledRect(m_current_buffer, rect, color); }
     void drawFilledRect(const std::string& name, const Rectangle& rect, const Color& color);
     void drawLine(const Vector2& start, const Vector2& end, const Color& color);
@@ -62,10 +62,8 @@ public:
     bool swapBuffer(const std::string name);
 
     // copy pixels from a source
-    // void copy(const std::string name, unsigned int x = 0, unsigned int y = 0, bool applyAlpha = false);
-    // void copy(const std::string name, unsigned int destX, unsigned int destY, const Rectangle& sourceRect, bool applyAlpha = false);
-    // void copy(const Image& source, unsigned int destX, unsigned int destY, const Rectangle& sourceRect, bool applyAlpha = false);
-    // void copy(const unsigned char* source_pixels, const Vector2 buffer_size, unsigned int destX, unsigned int destY, const Rectangle& sourceRect, bool applyAlpha = false);
+    void copy(const std::string name, unsigned int x = 0, unsigned int y = 0);
+    void copy(const std::string name, unsigned int destX, unsigned int destY, const Rectangle& sourceRect);
 
     // get the size (width and height) of a buffer
     Rectangle getSize() { return getSize(m_current_buffer); }
