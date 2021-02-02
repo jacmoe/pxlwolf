@@ -43,10 +43,13 @@ protected:
     bool m_fullscreen;
 
     RenderTexture2D m_render_texture;
+    Image m_draw_buffer;
 
 private:
     std::string m_title;
     bool m_running;
+    bool m_show_fps;
+    bool m_should_exit;
     Font m_font;
 
     Vector2 m_mouse_position;

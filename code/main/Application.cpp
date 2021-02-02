@@ -44,6 +44,8 @@ Application::Application()
     , m_fullscreen(false)
     , m_title("")
     , m_running(false)
+    , m_show_fps(false)
+    , m_should_exit(false)
     , m_font()
 {}
 
@@ -92,6 +94,7 @@ bool Application::init(const std::string title, int width, int height, float sca
     InitWindow(m_width * m_scale, m_height * m_scale, m_title.c_str());
     SetWindowMinSize(m_width, m_height);
     m_render_texture = LoadRenderTexture(m_width, m_height);
+    m_draw_buffer = GenImageColor(m_width, m_height, BLANK);
     SetTextureFilter(m_render_texture.texture, FILTER_POINT);
 
     SetTargetFPS(60);
@@ -108,6 +111,8 @@ bool Application::init(const std::string title, int width, int height, float sca
 
     m_font = LoadFont("assets/fonts/MedievalSharp-Bold.ttf");
 
+    SetExitKey(0);
+
     TraceLog(LOG_INFO,"PixelWolf initialized.");
 
     return true;
@@ -119,7 +124,8 @@ void Application::run()
 
     if (!OnUserCreate()) m_running = false;
 
-    while (!WindowShouldClose() && m_running)
+    m_should_exit = WindowShouldClose();
+    while (!m_should_exit && m_running)
     {
         // Compute required framebuffer scaling
         if(m_fullscreen)
@@ -144,6 +150,7 @@ void Application::run()
     OnUserDestroy();
 
     UnloadRenderTexture(m_render_texture);
+    UnloadImage(m_draw_buffer);
     UnloadFont(m_font);
 
     CloseWindow();
@@ -151,6 +158,10 @@ void Application::run()
 
 void Application::event()
 {
+    if (IsKeyDown(KEY_LEFT_CONTROL) && IsKeyPressed(KEY_Q))
+    {
+        m_should_exit = true;
+    }
 #if defined(_WIN32)
     if (IsKeyDown(KEY_LEFT_ALT) && IsKeyPressed(KEY_ENTER))
     {
@@ -158,6 +169,11 @@ void Application::event()
         toggle_fullscreen();
     }
 #endif
+    if (IsKeyPressed(KEY_F))
+    {
+        m_show_fps = !m_show_fps;
+    }
+
     // // Update virtual mouse (clamped mouse value behind game screen)
     // m_mouse_position = GetMousePosition();
     // if(m_fullscreen)
@@ -182,6 +198,7 @@ void Application::event()
 void Application::toggle_fullscreen()
 {
     UnloadRenderTexture(m_render_texture);
+    UnloadImage(m_draw_buffer);
     UnloadFont(m_font);
     CloseWindow();
 
@@ -203,6 +220,7 @@ void Application::toggle_fullscreen()
 
     m_render_texture = LoadRenderTexture(m_width, m_height);
     SetTextureFilter(m_render_texture.texture, FILTER_POINT);
+    m_draw_buffer = GenImageColor(m_width, m_height, BLANK);
     m_font = LoadFont("assets/fonts/MedievalSharp-Bold.ttf");
 }
 
@@ -217,24 +235,16 @@ void Application::render()
 
     OnUserRender();
 
+    UpdateTexture(m_render_texture.texture, m_draw_buffer.data);
+
     BeginTextureMode(m_render_texture);
 
-    ClearBackground(RAYWHITE);
-
-    for(int x = 0; x < GetScreenWidth(); ++x)
+    if(m_show_fps)
     {
-        for(int y = 0; y < GetScreenHeight(); ++y)
-        {
-            Color color = { static_cast<unsigned char>(GetRandomValue(0, 255)), static_cast<unsigned char>(GetRandomValue(0, 255)), static_cast<unsigned char>(GetRandomValue(0, 255)), static_cast<unsigned char>(GetRandomValue(0, 255)) };
-            DrawPixel(x, y, color);
-        }
+        DrawFPS(m_width - 80, m_height - 20);
     }
 
-    DrawFPS(10, 10);
-
-    DrawTextEx(m_font, "PixelWolf", { 50, 50 }, 20, 0, RAYWHITE);
-    // DrawText(TextFormat("Default Mouse: [%i , %i]", (int)m_mouse_position.x, (int)m_mouse_position.y), 50, 120, 20, GREEN);
-    // DrawText(TextFormat("Virtual Mouse: [%i , %i]", (int)m_virtual_mouse_position.x, (int)m_virtual_mouse_position.y), 50, 150, 20, YELLOW);
+    DrawTextEx(m_font, "PixelWolf", { 10, 10 }, 20, 0, RAYWHITE);
 
     EndTextureMode();
 
