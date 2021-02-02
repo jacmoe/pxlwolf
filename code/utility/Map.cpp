@@ -167,7 +167,7 @@ namespace utility
                         m_player_start.x = (*itr)["__grid"].GetArray()[0].GetFloat() + 0.5f;
                         m_player_start.y = (*itr)["__grid"].GetArray()[1].GetFloat() + 0.5f;
                         m_player_heading = static_cast<double>(deg2rad((*itr)["fieldInstances"].GetArray()[0]["__value"].GetDouble()));
-                        TraceLog(LOG_INFO,"PlayerStart : (%f, %f), and angle is %f", m_player_start.x, m_player_start.y, m_player_heading);
+                        TraceLog(LOG_INFO,"PlayerStart : (%.2f, %.2f), and angle is %.2f", m_player_start.x, m_player_start.y, m_player_heading);
                     }
                 }
             } // if layer type is Entities

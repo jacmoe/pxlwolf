@@ -16,7 +16,7 @@
 #include "Pixelator.hpp"
 #include "spdlog/spdlog.h"
 
-sf::Color commodoreColorPallette[16] = {
+Color commodoreColorPallette[16] = {
     {0,0,0,255},		// Black
     {255,255,255,255},	// White
     {136,0,0,255},		// Red
@@ -66,15 +66,15 @@ bool Pixelator::addBuffer(const std::string name)
 
     unsigned int index = m_buffer_map[m_current_buffer];
 
-    std::vector<sf::Uint8> newPixels(m_buffers[index].size.x * m_buffers[index].size.y * 4u);
-    sf::Uint8* ptr = &newPixels[0];
-    sf::Uint8* end = ptr + newPixels.size();
+    std::vector<unsigned char> newPixels(m_buffers[index].size.x * m_buffers[index].size.y * 4u);
+    unsigned char* ptr = &newPixels[0];
+    unsigned char* end = ptr + newPixels.size();
     while (ptr < end)
     {
-        *ptr++ = sf::Color::Transparent.r;
-        *ptr++ = sf::Color::Transparent.g;
-        *ptr++ = sf::Color::Transparent.b;
-        *ptr++ = sf::Color::Transparent.a;
+        *ptr++ = BLANK.r;
+        *ptr++ = BLANK.g;
+        *ptr++ = BLANK.b;
+        *ptr++ = BLANK.a;
     }
     // Commit the new pixel buffer
     m_buffers[newBufferIndex].pixels.swap(newPixels);
@@ -138,42 +138,42 @@ void Pixelator::setSize(const std::string& name, const sf::Vector2i size)
 {
     unsigned int index = m_buffer_map[name];
     m_buffers[index].size = size;
-    std::vector<sf::Uint8> newPixels(m_buffers[index].size.x * m_buffers[index].size.y * 4u);
-    sf::Uint8* ptr = &newPixels[0];
-    sf::Uint8* end = ptr + newPixels.size();
+    std::vector<unsigned char> newPixels(m_buffers[index].size.x * m_buffers[index].size.y * 4u);
+    unsigned char* ptr = &newPixels[0];
+    unsigned char* end = ptr + newPixels.size();
     while (ptr < end)
     {
-        *ptr++ = sf::Color::Transparent.r;
-        *ptr++ = sf::Color::Transparent.g;
-        *ptr++ = sf::Color::Transparent.b;
-        *ptr++ = sf::Color::Transparent.a;
+        *ptr++ = BLANK.r;
+        *ptr++ = BLANK.g;
+        *ptr++ = BLANK.b;
+        *ptr++ = BLANK.a;
     }
     // Commit the new pixel buffer
     m_buffers[index].pixels.swap(newPixels);
     m_buffers[index].size = size;
 }
 
-void Pixelator::setPixel(unsigned int x, unsigned int y, const sf::Color& color)
+void Pixelator::setPixel(unsigned int x, unsigned int y, const Color& color)
 {
     setPixel(m_current_buffer, x, y, color);
 }
 
-void Pixelator::setPixel(const std::string& name, unsigned int x, unsigned int y, const sf::Color& color)
+void Pixelator::setPixel(const std::string& name, unsigned int x, unsigned int y, const Color& color)
 {
     unsigned int index = m_buffer_map[name];
-    sf::Uint8* pixel = &m_buffers[index].pixels[(x + y * m_buffers[index].size.x) * 4];
+    unsigned char* pixel = &m_buffers[index].pixels[(x + y * m_buffers[index].size.x) * 4];
     *pixel++ = color.r;
     *pixel++ = color.g;
     *pixel++ = color.b;
     *pixel++ = color.a;
 }
 
-void Pixelator::drawColumn(unsigned int x, unsigned int y, unsigned int height, const sf::Color& color)
+void Pixelator::drawColumn(unsigned int x, unsigned int y, unsigned int height, const Color& color)
 {
     drawColumn(m_current_buffer, x, y, height, color);
 }
 
-void Pixelator::drawColumn(const std::string& name, unsigned int x, unsigned int y, unsigned int height, const sf::Color& color)
+void Pixelator::drawColumn(const std::string& name, unsigned int x, unsigned int y, unsigned int height, const Color& color)
 {
    if (y < 0)
     {
@@ -190,7 +190,7 @@ void Pixelator::drawColumn(const std::string& name, unsigned int x, unsigned int
     }
 }
 
-void Pixelator::drawRow(unsigned int x, unsigned int y, unsigned int length, const sf::Color& color)
+void Pixelator::drawRow(unsigned int x, unsigned int y, unsigned int length, const Color& color)
 {
     for (int32_t i = x; i < length; i++)
     {
@@ -199,12 +199,12 @@ void Pixelator::drawRow(unsigned int x, unsigned int y, unsigned int length, con
 }
 
 // draw a rect defined by left, top, width, height
-void Pixelator::drawFilledRect(const sf::IntRect& rect, const sf::Color& color)
+void Pixelator::drawFilledRect(const Rectangle& rect, const Color& color)
 {
     drawFilledRect(m_current_buffer, rect, color);
 }
 
-void Pixelator::drawFilledRect(const std::string& name, const sf::IntRect& rect, const sf::Color& color)
+void Pixelator::drawFilledRect(const std::string& name, const Rectangle& rect, const Color& color)
 {
     if (rect.left < getSize().width)
     {
@@ -219,7 +219,7 @@ void Pixelator::drawFilledRect(const std::string& name, const sf::IntRect& rect,
 }
 
 // Doom's version of Bresenham
-void Pixelator::drawLine(const sf::Vector2i& start, const sf::Vector2i& end, const sf::Color& color)
+void Pixelator::drawLine(const sf::Vector2i& start, const sf::Vector2i& end, const Color& color)
 {
     int dx = end.x - start.x;
     int ax = 2 * abs(dx);
@@ -262,7 +262,7 @@ void Pixelator::drawLine(const sf::Vector2i& start, const sf::Vector2i& end, con
 }
 
 // https://en.wikipedia.org/wiki/Midpoint_circle_algorithm
-void Pixelator::drawCircle(const sf::Vector2i& coord, const int radius, const sf::Color& color)
+void Pixelator::drawCircle(const sf::Vector2i& coord, const int radius, const Color& color)
 {
     int x = radius;
     int y = 0;
@@ -289,7 +289,7 @@ void Pixelator::drawCircle(const sf::Vector2i& coord, const int radius, const sf
 }
 
 // left top width height
-void Pixelator::drawRect(const sf::IntRect rect, const sf::Color& color)
+void Pixelator::drawRect(const Rectangle rect, const Color& color)
 {
     int right = rect.left + rect.width;
     int bottom = rect.top + rect.height;
@@ -299,24 +299,24 @@ void Pixelator::drawRect(const sf::IntRect rect, const sf::Color& color)
     drawLine(sf::Vector2i(right, rect.top), sf::Vector2i(right, bottom), color);
 }
 
-sf::Color Pixelator::getPixel(unsigned int x, unsigned int y) const
+Color Pixelator::getPixel(unsigned int x, unsigned int y) const
 {
     return getPixel(m_current_buffer, x, y);
 }
 
-sf::Color Pixelator::getPixel(const std::string& name, unsigned int x, unsigned int y) const
+Color Pixelator::getPixel(const std::string& name, unsigned int x, unsigned int y) const
 {
     unsigned int index = m_buffer_map.at(name);
-    const sf::Uint8* pixel = &m_buffers[index].pixels[(x + y * m_buffers[index].size.x) * 4];
-    return sf::Color(pixel[0], pixel[1], pixel[2], pixel[3]);
+    const unsigned char* pixel = &m_buffers[index].pixels[(x + y * m_buffers[index].size.x) * 4];
+    return Color(pixel[0], pixel[1], pixel[2], pixel[3]);
 }
 
-const sf::Uint8* Pixelator::getPixelsPtr() const
+const unsigned char* Pixelator::getPixelsPtr() const
 {
     return getPixelsPtr(m_current_buffer);
 }
 
-const sf::Uint8* Pixelator::getPixelsPtr(const std::string& name) const
+const unsigned char* Pixelator::getPixelsPtr(const std::string& name) const
 {
     unsigned int index = m_buffer_map.at(name);
     if (!m_buffers[index].pixels.empty())
@@ -330,12 +330,12 @@ const sf::Uint8* Pixelator::getPixelsPtr(const std::string& name) const
     }
 }
 
-void Pixelator::fill(sf::Color color)
+void Pixelator::fill(Color color)
 {
     unsigned int index = m_buffer_map.at(m_current_buffer);
-    std::vector<sf::Uint8> newPixels(m_buffers[index].size.x * m_buffers[index].size.y * 4);
-    sf::Uint8* ptr = &newPixels[0];
-    sf::Uint8* end = ptr + newPixels.size();
+    std::vector<unsigned char> newPixels(m_buffers[index].size.x * m_buffers[index].size.y * 4);
+    unsigned char* ptr = &newPixels[0];
+    unsigned char* end = ptr + newPixels.size();
     while (ptr < end)
     {
         *ptr++ = color.r;
@@ -350,9 +350,9 @@ void Pixelator::fill(sf::Color color)
 void Pixelator::randomize()
 {
     unsigned int index = m_buffer_map.at(m_current_buffer);
-    std::vector<sf::Uint8> newPixels(m_buffers[index].size.x * m_buffers[index].size.y * 4);
-    sf::Uint8* ptr = &newPixels[0];
-    sf::Uint8* end = ptr + newPixels.size();
+    std::vector<unsigned char> newPixels(m_buffers[index].size.x * m_buffers[index].size.y * 4);
+    unsigned char* ptr = &newPixels[0];
+    unsigned char* end = ptr + newPixels.size();
     while (ptr < end)
     {
         *ptr++ = rand() % 255;
@@ -372,34 +372,34 @@ void Pixelator::clear()
 void Pixelator::clear(const std::string& name)
 {
     unsigned int index = m_buffer_map.at(name);
-    std::vector<sf::Uint8> newPixels(m_buffers[index].size.x * m_buffers[index].size.y * 4);
-    sf::Uint8* ptr = &newPixels[0];
-    sf::Uint8* end = ptr + newPixels.size();
+    std::vector<unsigned char> newPixels(m_buffers[index].size.x * m_buffers[index].size.y * 4);
+    unsigned char* ptr = &newPixels[0];
+    unsigned char* end = ptr + newPixels.size();
     while (ptr < end)
     {
-        *ptr++ = sf::Color::Transparent.r;
-        *ptr++ = sf::Color::Transparent.g;
-        *ptr++ = sf::Color::Transparent.b;
-        *ptr++ = sf::Color::Transparent.a;
+        *ptr++ = BLANK.r;
+        *ptr++ = BLANK.g;
+        *ptr++ = BLANK.b;
+        *ptr++ = BLANK.a;
     }
     // Commit the new pixel buffer
     m_buffers[index].pixels.swap(newPixels);
 }
 
-sf::IntRect Pixelator::getSize(const std::string name)
+Rectangle Pixelator::getSize(const std::string name)
 {
-    sf::IntRect rect(0, 0, static_cast<int>(m_buffers[m_buffer_map[name]].size.x), static_cast<int>(m_buffers[m_buffer_map[name]].size.y));
+    Rectangle rect(0, 0, static_cast<int>(m_buffers[m_buffer_map[name]].size.x), static_cast<int>(m_buffers[m_buffer_map[name]].size.y));
     return rect;
 }
 
 // copies from an image
-void Pixelator::copy(const sf::Image& source, unsigned int destX, unsigned int destY, const sf::IntRect& sourceRect, bool applyAlpha)
+void Pixelator::copy(const sf::Image& source, unsigned int destX, unsigned int destY, const Rectangle& sourceRect, bool applyAlpha)
 {
     copy(source.getPixelsPtr(), sf::Vector2i(source.getSize().x, source.getSize().y), destX, destY, sourceRect, applyAlpha);
 }
 
 // copies from a buffer
-void Pixelator::copy(const std::string name, unsigned int destX, unsigned int destY, const sf::IntRect& sourceRect, bool applyAlpha)
+void Pixelator::copy(const std::string name, unsigned int destX, unsigned int destY, const Rectangle& sourceRect, bool applyAlpha)
 {
     if(!check_key(m_buffer_map, name))
     {
@@ -417,7 +417,7 @@ void Pixelator::copy(const std::string name, unsigned int x, unsigned int y, boo
         SPDLOG_ERROR("Attempting to copy from '{}' which doesn't exist!", name);
         return;
     }
-    sf::IntRect sourceRect;
+    Rectangle sourceRect;
     sourceRect.left = sourceRect.top = 0;
     sourceRect.width = m_buffers[m_buffer_map[name]].size.x;
     sourceRect.height = m_buffers[m_buffer_map[name]].size.y;
@@ -425,14 +425,14 @@ void Pixelator::copy(const std::string name, unsigned int x, unsigned int y, boo
 }
 
 // copies from raw pixels
-void Pixelator::copy(const sf::Uint8* source_pixels, const sf::Vector2i buffer_size, unsigned int destX, unsigned int destY, const sf::IntRect& sourceRect, bool applyAlpha)
+void Pixelator::copy(const unsigned char* source_pixels, const sf::Vector2i buffer_size, unsigned int destX, unsigned int destY, const Rectangle& sourceRect, bool applyAlpha)
 {
     // Make sure that both images are valid
     if ((buffer_size.x == 0) || (buffer_size.y == 0) || (m_buffers[m_buffer_map[m_current_buffer]].size.x == 0) || (m_buffers[m_buffer_map[m_current_buffer]].size.y == 0))
         return;
 
     // Adjust the source rectangle
-    sf::IntRect srcRect = sourceRect;
+    Rectangle srcRect = sourceRect;
     if (srcRect.width == 0 || (srcRect.height == 0))
     {
         srcRect.left   = 0;
@@ -463,8 +463,8 @@ void Pixelator::copy(const sf::Uint8* source_pixels, const sf::Vector2i buffer_s
     int          rows      = height;
     int          srcStride = static_cast<int>(buffer_size.x * 4u);
     int          dstStride = static_cast<int>(m_buffers[m_buffer_map[m_current_buffer]].size.x * 4u);
-    const sf::Uint8* srcPixels = source_pixels;
-    sf::Uint8*       dstPixels = &m_buffers[m_buffer_map[m_current_buffer]].pixels[0] + (destX + destY * static_cast<int>(m_buffers[m_buffer_map[m_current_buffer]].size.x)) * 4u;
+    const unsigned char* srcPixels = source_pixels;
+    unsigned char*       dstPixels = &m_buffers[m_buffer_map[m_current_buffer]].pixels[0] + (destX + destY * static_cast<int>(m_buffers[m_buffer_map[m_current_buffer]].size.x)) * 4u;
 
     // Copy the pixels
     if (applyAlpha)
@@ -475,11 +475,11 @@ void Pixelator::copy(const sf::Uint8* source_pixels, const sf::Vector2i buffer_s
             for (int j = 0; j < width; ++j)
             {
                 // Get a direct pointer to the components of the current pixel
-                const sf::Uint8* src = srcPixels + j * 4;
-                sf::Uint8*       dst = dstPixels + j * 4;
+                const unsigned char* src = srcPixels + j * 4;
+                unsigned char*       dst = dstPixels + j * 4;
 
                 // Interpolate RGBA components using the alpha value of the source pixel
-                sf::Uint8 alpha = src[3];
+                unsigned char alpha = src[3];
                 dst[0] = (src[0] * alpha + dst[0] * (255 - alpha)) / 255;
                 dst[1] = (src[1] * alpha + dst[1] * (255 - alpha)) / 255;
                 dst[2] = (src[2] * alpha + dst[2] * (255 - alpha)) / 255;
