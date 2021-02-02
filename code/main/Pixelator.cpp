@@ -179,16 +179,7 @@ void Pixelator::drawRow(unsigned int x, unsigned int y, unsigned int length, con
 
 void Pixelator::drawFilledRect(const std::string& name, const Rectangle& rect, const Color& color)
 {
-    if (rect.x < getSize().width)
-    {
-        for (uint32_t i = rect.x; i < rect.x + rect.width; i++)
-        {
-            if (i < getSize().width)
-            {
-                drawColumn(name, i, rect.y, rect.height, color);
-            }
-        }
-    }
+    ImageDrawRectangleRec(&m_buffers[m_buffer_map[name]], rect, color);
 }
 
 // Doom's version of Bresenham
