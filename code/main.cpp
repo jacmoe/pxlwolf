@@ -73,8 +73,7 @@ void setup_working_directory()
     // Remove the build directory, so that we land on appropriate directory for asset loading
     std::vector<std::string> strList;
     strList.push_back("/build/code");
-    strList.push_back("\\build\\code\\");
-    strList.push_back("\\vsbuild\\code\\");
+    strList.push_back("/vsbuild/code");
     strList.push_back("Release");
     strList.push_back("RelWidthDebInfo");
     strList.push_back("Debug");
