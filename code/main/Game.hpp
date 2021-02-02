@@ -16,6 +16,7 @@
 #pragma once
 
 #include "Application.hpp"
+#include "Map.hpp"
 
 struct _Camera
 {
@@ -57,4 +58,7 @@ protected:
     bool OnUserUpdate(double elapsedTime) override;
     bool OnUserRender() override;
     bool OnUserDestroy() override;
+
+private:
+    std::shared_ptr<utility::Map> m_map;
 };

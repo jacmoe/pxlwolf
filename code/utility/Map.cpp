@@ -116,6 +116,11 @@ namespace utility
 
     bool Map::load(const std::string& level_name, bool from_zip)
     {
+        if(!m_initialized)
+        {
+            TraceLog(LOG_ERROR,"The map should be initialized before loading a level!");
+            return false;
+        }
         if (m_level_map.find(level_name) == m_level_map.end())
         {
             TraceLog(LOG_ERROR,"Level '%s' does not exist!", level_name.c_str());

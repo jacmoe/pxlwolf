@@ -14,7 +14,6 @@
 #   MIT License
 #*/
 #include "Pixelator.hpp"
-#include "spdlog/spdlog.h"
 
 Color commodoreColorPallette[16] = {
     {0,0,0,255},		// Black
@@ -56,7 +55,7 @@ bool Pixelator::addBuffer(const std::string name)
 {
     if(check_key(m_buffer_map, name))
     {
-        SPDLOG_ERROR("Attempting to add '{}' which already exist!", name);
+        TraceLog(LOG_ERROR,"Attempting to add '{}' which already exist!", name.c_str());
         return false;
     }
 
@@ -87,14 +86,14 @@ bool Pixelator::removeBuffer(const std::string name)
 {
     if(!check_key(m_buffer_map, name))
     {
-        SPDLOG_ERROR("Attempting to remove a buffer that doesn't exist!");
+        TraceLog(LOG_ERROR,"Attempting to remove a buffer that doesn't exist!");
         return false;
     }
     assert(m_buffer_map[name] < m_buffers.size());
     if(m_current_buffer == name)
     {
         // Can't remove current buffer! Raise error here.
-        SPDLOG_ERROR("Attempting to remove active buffer!");
+        TraceLog(LOG_ERROR,"Attempting to remove active buffer!");
         return false;
     }
     m_buffers.erase(m_buffers.begin() + m_buffer_map[name]);
@@ -106,7 +105,7 @@ void Pixelator::setActiveBuffer(const std::string name)
 {
     if(!check_key(m_buffer_map, name))
     {
-        SPDLOG_ERROR("Attempting to use a buffer name that doesn't exist!");
+        TraceLog(LOG_ERROR,"Attempting to use a buffer name that doesn't exist!");
         return;
     }
     assert(m_buffer_map[name] < m_buffers.size());
@@ -117,7 +116,7 @@ bool Pixelator::swapBuffer(const std::string name)
 {
     if(!check_key(m_buffer_map, name))
     {
-        SPDLOG_ERROR("Attempting to swap with a buffer name that doesn't exist!");
+        TraceLog(LOG_ERROR,"Attempting to swap with a buffer name that doesn't exist!");
         return false;
     }
 
@@ -325,7 +324,7 @@ const unsigned char* Pixelator::getPixelsPtr(const std::string& name) const
     }
     else
     {
-        SPDLOG_ERROR("Trying to access the pixels of an empty image");
+        TraceLog(LOG_ERROR,"Trying to access the pixels of an empty image");
         return NULL;
     }
 }
@@ -403,7 +402,7 @@ void Pixelator::copy(const std::string name, unsigned int destX, unsigned int de
 {
     if(!check_key(m_buffer_map, name))
     {
-        SPDLOG_ERROR("Attempting to copy from '{}' which doesn't exist!", name);
+        TraceLog(LOG_ERROR,"Attempting to copy from '{}' which doesn't exist!", name.c_str());
         return;
     }
     copy(&m_buffers[m_buffer_map[name]].pixels[0], m_buffers[m_buffer_map[name]].size, destX, destY, sourceRect, applyAlpha);
@@ -414,7 +413,7 @@ void Pixelator::copy(const std::string name, unsigned int x, unsigned int y, boo
 {
     if(!check_key(m_buffer_map, name))
     {
-        SPDLOG_ERROR("Attempting to copy from '{}' which doesn't exist!", name);
+        TraceLog(LOG_ERROR,"Attempting to copy from '{}' which doesn't exist!", name.c_str());
         return;
     }
     Rectangle sourceRect;

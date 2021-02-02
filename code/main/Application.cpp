@@ -124,9 +124,9 @@ void Application::run()
 
     if (!OnUserCreate()) m_running = false;
 
-    m_should_exit = WindowShouldClose();
     while (!m_should_exit && m_running)
     {
+        m_should_exit = WindowShouldClose();
         // Compute required framebuffer scaling
         if(m_fullscreen)
         {
