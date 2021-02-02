@@ -68,12 +68,12 @@ void RayCaster::drawMinimap(const std::string& buffer_name, const _Camera& camer
     int p_y = static_cast<int>(camera.y);
 
     /* Draw map tiles */
-    for(row = 0; row < map->height(); row++)
+    for(row = 0; row < map->width(); row++)
     {
-        for(col = 0; col < map->width(); col++)
+        for(col = 0; col < map->height(); col++)
         {
             blockRect.x = mapRect.x + col * blockSize;
-            blockRect.y = mapRect.y + row * blockSize;
+            blockRect.y = (mapRect.height - blockSize) - row * blockSize;
             if(map->walls()[row * map->width() + col] > 0)
             {
                 Color blockcolor = map->wall_element(map->walls()[row * map->width() + col]).color;
