@@ -47,7 +47,8 @@ public:
     void drawLine(const Vector2& start, const Vector2& end, const Color& color);
     // void drawCircle(const Vector2& coord, const int radius, const Color& color);
 
-    void fill(Color color);
+    void fill(Color color) { fill(m_current_buffer, color); }
+    void fill(const std::string& name, Color color);
     void randomize();
     inline void clear() { clear(m_current_buffer); }
     void clear(const std::string& name);

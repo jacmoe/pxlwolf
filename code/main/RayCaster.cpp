@@ -73,7 +73,7 @@ void RayCaster::drawMinimap(const std::string& buffer_name, const _Camera& camer
         for(col = 0; col < map->height(); col++)
         {
             blockRect.x = mapRect.x + col * blockSize;
-            blockRect.y = (mapRect.height - blockSize) - row * blockSize;
+            blockRect.y = ((mapRect.height - blockSize) - row * blockSize);// + map->width();
             if(map->walls()[row * map->width() + col] > 0)
             {
                 Color blockcolor = map->wall_element(map->walls()[row * map->width() + col]).color;
@@ -306,7 +306,8 @@ void RayCaster::drawTextureColumn(uint32_t x, int32_t y,
         //     tileNum*texture->tileWidth*texture->tileHeight + \
         //     (uint32_t)floor(((double)(offY + i)/(double)offH) * \
         //     (texture->tileHeight)) * texture->tileWidth + column];
-         uint32_t pix = ColorToInt(RAYWHITE);//toIntColor(RAYWHITE.r, RAYWHITE.g, RAYWHITE.b, RAYWHITE.a);
+        uint32_t pix = ColorToInt(m_map.get()->wall_element(tileNum + 1).color);
+        // uint32_t pix = ColorToInt(RAYWHITE);//toIntColor(RAYWHITE.r, RAYWHITE.g, RAYWHITE.b, RAYWHITE.a);
         if (pix & 0xFF)
         {
             pix = pixelGradientShader(pix, fadePercent, targetColor);

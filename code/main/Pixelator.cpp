@@ -281,9 +281,14 @@ Color* Pixelator::getPixels(const std::string& name)
     return LoadImageColors(m_buffers[index]);
 }
 
-void Pixelator::fill(Color color)
+void Pixelator::fill(const std::string& name, Color color)
 {
-    unsigned int index = m_buffer_map.at(m_current_buffer);
+    if(!check_key(m_buffer_map, name))
+    {
+        TraceLog(LOG_ERROR,"Attempting to fill a buffer that doesn't exist!");
+        return;
+    }
+    unsigned int index = m_buffer_map.at(name);
     ImageClearBackground(&m_buffers[index], color);
 }
 
@@ -334,10 +339,10 @@ void Pixelator::copy(const std::string name, unsigned int x, unsigned int y, con
     }
     ImageDraw(&m_buffers[m_buffer_map[m_current_buffer]], 
                 m_buffers[m_buffer_map[name]],
-                sourceRect,
                 {static_cast<float>(x), static_cast<float>(y),
                     static_cast<float>(m_buffers[m_buffer_map[name]].width),
-                    static_cast<float>(m_buffers[m_buffer_map[name]].height)}, WHITE);
+                    static_cast<float>(m_buffers[m_buffer_map[name]].height)},
+                sourceRect, WHITE);
 }
 
 // copies everything from another buffer

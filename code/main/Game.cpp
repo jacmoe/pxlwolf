@@ -53,13 +53,13 @@ bool Game::OnUserCreate()
         m_raycaster.renderBuffer();
 
         pixelator->addBuffer("minimap", m_map.get()->width() * 2, m_map.get()->height() * 2);
-        // pixelator->addBuffer("minimap", m_width, m_height);
+        pixelator->fill("minimap", Fade(GOLD, 0.4f));
 
         m_raycaster.drawMinimap("minimap", m_camera, 2);
 
         pixelator->copy("pixelBuffer");
 
-        pixelator->copy("minimap", 200, 0);
+        pixelator->copy("minimap", 200, 100);
     }
 
     return true;
