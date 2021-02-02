@@ -76,7 +76,6 @@ Only the OpenAL runtime is required. Navigate to the OpenAL [download page][open
 |[PhysFS++][physpp]|C++ wrapper for PhysicsFS|zlib license|
 |[RapidJSON][rapidjson]|A fast JSON parser/generator for C++|MIT license|
 |[Raylib 3.5][raylib]|Simple and easy-to-use videogame programming library|zlib license|
-|[Raylib-cpp][raylibcpp]|C++ Object Oriented Wrapper for raylib |zlib license|
 |[Sol][sol]|A C++11 Lua wrapper|MIT License|
 |[toml11][toml11]|TOML for Modern C++|MIT license|
 
@@ -104,6 +103,5 @@ This project is using code from the [c-raycaster project][cray] - the raycaster 
 [physfs]: https://www.icculus.org/physfs/ "Archive support for games"
 [physpp]: https://github.com/kahowell/physfs-cpp "C++ wrapper for PhysicsFS"
 [rapidjson]: https://rapidjson.org/ "A fast JSON parser/generator for C++"
-[raylibcpp]: https://github.com/RobLoach/raylib-cpp "C++ Object Oriented Wrapper for raylib"
 [sol]: https://github.com/ThePhD/sol "A C++11 Lua wrapper"
 [toml11]: https://github.com/ToruNiina/toml11 "TOML for Modern C++"
