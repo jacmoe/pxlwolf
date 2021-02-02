@@ -281,6 +281,18 @@ Color* Pixelator::getPixels(const std::string& name)
     return LoadImageColors(m_buffers[index]);
 }
 
+void* Pixelator::getData(const std::string& name)
+{
+    if (!check_key(m_buffer_map, name))
+    {
+        TraceLog(LOG_ERROR, "Attempting to get the pixel data of a buffer that doesn't exist!");
+        return nullptr;
+    }
+    unsigned int index = m_buffer_map[name];
+
+    return m_buffers[index].data;
+}
+
 void Pixelator::fill(const std::string& name, Color color)
 {
     if(!check_key(m_buffer_map, name))

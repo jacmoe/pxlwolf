@@ -37,6 +37,8 @@ public:
     Color getPixel(const std::string& name, unsigned int x, unsigned int y);
     Color* getPixels() { return getPixels(m_current_buffer); }
     Color* getPixels(const std::string& name);
+    void* getData() { return getData(m_current_buffer); }
+    void* getData(const std::string& name);
 
     void drawColumn(unsigned int x, unsigned int y, unsigned int height, const Color& color) { drawColumn(m_current_buffer, x, y, height, color); }
     void drawColumn(const std::string& name, unsigned int x, unsigned int y, unsigned int height, const Color& color);

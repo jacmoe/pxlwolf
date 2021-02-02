@@ -235,7 +235,7 @@ void Application::render()
 
     OnUserRender();
 
-    UpdateTexture(m_render_texture.texture, m_pixelator.get()->getPixels());
+    UpdateTexture(m_render_texture.texture, m_pixelator.get()->getData());
 
     BeginTextureMode(m_render_texture);
 
