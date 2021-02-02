@@ -152,12 +152,6 @@ void Pixelator::setPixel(const std::string& name, unsigned int x, unsigned int y
     ImageDrawPixel(&m_buffers[index], x, y, color);
 }
 
-/*
-void Pixelator::drawColumn(unsigned int x, unsigned int y, unsigned int height, const Color& color)
-{
-    drawColumn(m_current_buffer, x, y, height, color);
-}
-
 void Pixelator::drawColumn(const std::string& name, unsigned int x, unsigned int y, unsigned int height, const Color& color)
 {
    if (y < 0)
@@ -165,9 +159,9 @@ void Pixelator::drawColumn(const std::string& name, unsigned int x, unsigned int
         height = height + y;
         y = 0;
     }
-    if (y + height > m_buffers[m_buffer_map[m_current_buffer]].size.y)
+    if (y + height > m_buffers[m_buffer_map[m_current_buffer]].height)
     {
-        height = m_buffers[m_buffer_map[m_current_buffer]].size.y - y;
+        height = m_buffers[m_buffer_map[m_current_buffer]].height - y;
     }
     for (int32_t i = y; i < y + height; i++)
     {
@@ -183,26 +177,20 @@ void Pixelator::drawRow(unsigned int x, unsigned int y, unsigned int length, con
     }
 }
 
-// draw a rect defined by left, top, width, height
-void Pixelator::drawFilledRect(const Rectangle& rect, const Color& color)
-{
-    drawFilledRect(m_current_buffer, rect, color);
-}
-
 void Pixelator::drawFilledRect(const std::string& name, const Rectangle& rect, const Color& color)
 {
-    if (rect.left < getSize().width)
+    if (rect.x < getSize().width)
     {
-        for (uint32_t i = rect.left; i < rect.left + rect.width; i++)
+        for (uint32_t i = rect.x; i < rect.x + rect.width; i++)
         {
             if (i < getSize().width)
             {
-                drawColumn(name, i, rect.top, rect.height, color);
+                drawColumn(name, i, rect.y, rect.height, color);
             }
         }
     }
 }
-*/
+
 // Doom's version of Bresenham
 void Pixelator::drawLine(const Vector2& start, const Vector2& end, const Color& color)
 {
@@ -283,19 +271,13 @@ void Pixelator::drawRect(const Rectangle rect, const Color& color)
     drawLine(sf::Vector2i(rect.left, rect.top), sf::Vector2i(rect.left, bottom), color);
     drawLine(sf::Vector2i(right, rect.top), sf::Vector2i(right, bottom), color);
 }
-
-Color Pixelator::getPixel(unsigned int x, unsigned int y) const
-{
-    return getPixel(m_current_buffer, x, y);
-}
-
-Color Pixelator::getPixel(const std::string& name, unsigned int x, unsigned int y) const
+*/
+Color Pixelator::getPixel(const std::string& name, unsigned int x, unsigned int y)
 {
     unsigned int index = m_buffer_map.at(name);
-    const unsigned char* pixel = &m_buffers[index].pixels[(x + y * m_buffers[index].size.x) * 4];
-    return Color(pixel[0], pixel[1], pixel[2], pixel[3]);
+    return GetPixelColor(&m_buffers[index], UNCOMPRESSED_R8G8B8A8);
 }
-*/
+
 Color* Pixelator::getPixels(const std::string& name)
 {
     if(!check_key(m_buffer_map, name))

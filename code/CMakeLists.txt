@@ -26,8 +26,8 @@ set(main
     # ./main/Level.hpp
     ./main/Pixelator.cpp
     ./main/Pixelator.hpp
-    # ./main/RayCaster.cpp
-    # ./main/RayCaster.hpp
+    ./main/RayCaster.cpp
+    ./main/RayCaster.hpp
 )
 
 set(utility

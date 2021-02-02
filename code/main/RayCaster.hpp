@@ -19,7 +19,7 @@
 #include "Pixelator.hpp"
 #include <memory>
 
-struct Camera;
+struct _Camera;
 
 class RayCaster
 {
@@ -30,11 +30,11 @@ public:
 
     void resetDepthBuffer();
 
-    void generateAngleValues(uint32_t width, Camera* camera);
+    void generateAngleValues(uint32_t width, _Camera* camera);
 
-    void drawMinimap(const std::string& buffer_name, const Camera& camera, int blockSize);
+    void drawMinimap(const std::string& buffer_name, const _Camera& camera, int blockSize);
 
-    void raycastRender(Camera* camera, double resolution);
+    void raycastRender(_Camera* camera, double resolution);
 
     void renderBuffer();
 
@@ -64,10 +64,10 @@ private:
                               int32_t h, double depth,
                              uint8_t tileNum, double alphaNum, 
                              uint32_t column, double fadePercent, 
-                             sf::Color targetColor);
+                             Color targetColor);
 
     double getInterDist(double dx, double dy, double xi, double yi, double coordX, double coordY, double* newX, double* newY, uint8_t* side);
     uint32_t toIntColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a);
-    sf::Color toSFMLColor(uint32_t pixColor);
-    uint32_t pixelGradientShader(uint32_t pixel, double percent, sf::Color target);
+    Color toSFMLColor(uint32_t pixColor);
+    uint32_t pixelGradientShader(uint32_t pixel, double percent, Color target);
 };

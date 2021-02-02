@@ -15,7 +15,6 @@
 #*/
 #include "RayCaster.hpp"
 #include "Game.hpp"
-#include "spdlog/spdlog.h"
 
 void RayCaster::init(uint32_t width, uint32_t height, std::shared_ptr<utility::Map> map, std::shared_ptr<Pixelator> pixelator)
 {
@@ -32,7 +31,7 @@ void RayCaster::init(uint32_t width, uint32_t height, std::shared_ptr<utility::M
  * @param width Width in pixels to generate offsets for
  * @param camera Camera for offsets
  */
-void RayCaster::generateAngleValues(uint32_t width, Camera* camera)
+void RayCaster::generateAngleValues(uint32_t width, _Camera* camera)
 {
     double adjFactor = (double)width / (2 * tan(camera->fov / 2));
     camera->angleValues[0] = atan((width / 2) / adjFactor) - atan((width / 2 - 1) / adjFactor);
@@ -49,15 +48,15 @@ void RayCaster::generateAngleValues(uint32_t width, Camera* camera)
     }
 }
 
-void RayCaster::drawMinimap(const std::string& buffer_name, const Camera& camera, int blockSize)
+void RayCaster::drawMinimap(const std::string& buffer_name, const _Camera& camera, int blockSize)
 {
     utility::Map* map = m_map.get();
 
     int row, col;
-    sf::IntRect mapRect;
+    Rectangle mapRect;
     mapRect.width = map->width() * blockSize;
     mapRect.height = map->height() * blockSize;
-    sf::IntRect blockRect;
+    Rectangle blockRect;
     blockRect.width = blockSize;
     blockRect.height = blockSize;
 
@@ -69,17 +68,17 @@ void RayCaster::drawMinimap(const std::string& buffer_name, const Camera& camera
     {
         for(col = 0; col < map->width(); col++)
         {
-            blockRect.left = mapRect.left + col * blockSize;
-            blockRect.top = mapRect.top + row * blockSize;
+            blockRect.x = mapRect.x + col * blockSize;
+            blockRect.y = mapRect.y + row * blockSize;
             if(map->walls()[row * map->width() + col] > 0)
             {
-                sf::Color blockcolor = map->wall_element(map->walls()[row * map->width() + col]).color;
+                Color blockcolor = map->wall_element(map->walls()[row * map->width() + col]).color;
                 m_pixelator.get()->drawFilledRect(buffer_name, blockRect, blockcolor);
             }
             if(p_y == row && p_x == col)
             {
                 /* Draw the player */
-                sf::Color sepiaPink = {221,153,153,255};
+                Color sepiaPink = {221,153,153,255};
                 m_pixelator.get()->drawFilledRect(buffer_name, blockRect, sepiaPink);
             }
         }
@@ -91,22 +90,22 @@ uint32_t RayCaster::toIntColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
     return ((uint32_t)r << 3*8 | (uint32_t)g << 2*8 | (uint32_t)b << 8 | (uint32_t)a);
 }
 
-sf::Color RayCaster::toSFMLColor(uint32_t pixColor)
+Color RayCaster::toSFMLColor(uint32_t pixColor)
 {
-    sf::Uint8 r = (pixColor & 0x00ff0000) >> 16;
-    sf::Uint8 g = (pixColor & 0x0000ff00) >> 8;
-    sf::Uint8 b = (pixColor & 0x000000ff);
-    sf::Uint8 a = (pixColor & 0xff000000) >> 24;
-    sf::Color newColor = {r, g, b, a};
+    unsigned char r = (pixColor & 0x00ff0000) >> 16;
+    unsigned char g = (pixColor & 0x0000ff00) >> 8;
+    unsigned char b = (pixColor & 0x000000ff);
+    unsigned char a = (pixColor & 0xff000000) >> 24;
+    Color newColor = {r, g, b, a};
     return newColor;
 }
 
-uint32_t RayCaster::pixelGradientShader(uint32_t pixel, double percent, sf::Color target)
+uint32_t RayCaster::pixelGradientShader(uint32_t pixel, double percent, Color target)
 {
-    sf::Uint8 r = (pixel & 0x00ff0000) >> 16;
-    sf::Uint8 g = (pixel & 0x0000ff00) >> 8;
-    sf::Uint8 b = (pixel & 0x000000ff);
-    sf::Uint8 a = (pixel & 0xff000000) >> 24;
+    unsigned char r = (pixel & 0x00ff0000) >> 16;
+    unsigned char g = (pixel & 0x0000ff00) >> 8;
+    unsigned char b = (pixel & 0x000000ff);
+    unsigned char a = (pixel & 0xff000000) >> 24;
     int dr = target.r - r;
     int dg = target.g - g;
     int db = target.b - b;
@@ -142,7 +141,7 @@ void RayCaster::setPixelAlphaDepth(uint32_t x, uint32_t y, uint32_t color, doubl
                 setDepth(x, y, BL_ALPHA, depth);
                 if (pixDepth == INFINITY)
                 {
-                    sf::Color alphaColor = toSFMLColor(color);
+                    Color alphaColor = toSFMLColor(color);
                     alphaColor.a *= alphaNum;
                     m_pixelator.get()->setPixel("alphaBuffer", x, y, alphaColor);
                 }
@@ -234,16 +233,14 @@ double RayCaster::getInterDist(double dx, double dy, double xi, double yi, doubl
 void RayCaster::initDepthBuffer()
 {
     Pixelator* pixelator = m_pixelator.get();
-    pixelator->addBuffer("pixelBuffer");
-    pixelator->setSize("pixelBuffer", sf::Vector2i(m_width, m_height));
+    pixelator->addBuffer("pixelBuffer", m_width, m_height);
 
-    pixelator->addBuffer("alphaBuffer");
-    pixelator->setSize("alphaBuffer", sf::Vector2i(m_width, m_height));
+    pixelator->addBuffer("alphaBuffer", m_width, m_height);
 
     m_pixel_depth.assign(m_width * m_height, INFINITY);
     m_alpha_depth.assign(m_width * m_height, INFINITY);
 
-    SPDLOG_INFO("Depthbuffer initialized.");
+    TraceLog(LOG_INFO,"Depthbuffer initialized.");
 }
 
 void RayCaster::resetDepthBuffer()
@@ -279,7 +276,7 @@ void RayCaster::setDepth(uint32_t x, uint32_t y, uint8_t layer, double depth)
  */
 void RayCaster::renderBuffer()
 {
-    sf::Color pixel;
+    Color pixel;
     for (uint32_t i = 0; i < m_width; i++)
     {
         for (uint32_t j = 0; j < m_height; j++)
@@ -297,7 +294,7 @@ void RayCaster::drawTextureColumn(uint32_t x, int32_t y,
                               int32_t h, double depth,
                              uint8_t tileNum, double alphaNum, 
                              uint32_t column, double fadePercent, 
-                             sf::Color targetColor)
+                             Color targetColor)
 {
     if (y + h < 0 || fadePercent > 1.0)
     {
@@ -323,7 +320,7 @@ void RayCaster::drawTextureColumn(uint32_t x, int32_t y,
         //     tileNum*texture->tileWidth*texture->tileHeight + \
         //     (uint32_t)floor(((double)(offY + i)/(double)offH) * \
         //     (texture->tileHeight)) * texture->tileWidth + column];
-         uint32_t pix = toIntColor(sf::Color::White.r, sf::Color::White.g, sf::Color::White.b, sf::Color::White.a);
+         uint32_t pix = toIntColor(RAYWHITE.r, RAYWHITE.g, RAYWHITE.b, RAYWHITE.a);
         if (pix & 0xFF)
         {
             pix = pixelGradientShader(pix, fadePercent, targetColor);
@@ -333,7 +330,7 @@ void RayCaster::drawTextureColumn(uint32_t x, int32_t y,
 }
 
 //! RayBuffer dependent
-void RayCaster::raycastRender(Camera* camera, double resolution)
+void RayCaster::raycastRender(_Camera* camera, double resolution)
 {
     // Establish starting angle and sweep per column
     double startAngle = camera->angle - camera->fov / 2.0;
@@ -365,7 +362,7 @@ void RayCaster::raycastRender(Camera* camera, double resolution)
             if ((coordX >= 0.0 && coordY >= 0.0) && (coordX < map->width() && coordY < map->height()) && (map->walls()[coordY * map->width() + coordX] != 0))
             {
                 uint8_t mapTile = map->walls()[coordY * map->width() + coordX];
-                sf::Color colorDat = {0,0,0,255};
+                Color colorDat = {0,0,0,255};
                 if (rayLen != 0)
                 {
                     uint8_t side;
@@ -400,7 +397,7 @@ void RayCaster::raycastRender(Camera* camera, double resolution)
                     {
                         colorGrad = 1.0;
                     }
-                    sf::Color FOG_COLOR = {50,20,50,255};
+                    Color FOG_COLOR = {50,20,50,255};
                     drawTextureColumn(
                         i, startY, deltaY, depth,
                         mapTile - 1, 1.0, 
