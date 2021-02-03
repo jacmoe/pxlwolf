@@ -19,9 +19,6 @@
 #include <vector>
 #include "raylib.h"
 
-// C64 color pallette, why not
-extern Color commodoreColorPallette[16];
-
 class Pixelator
 {
 public:
