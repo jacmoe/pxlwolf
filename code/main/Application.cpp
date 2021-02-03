@@ -42,10 +42,11 @@ Application::Application()
     , m_width(0)
     , m_height(0)
     , m_fullscreen(false)
+    , m_show_map(false)
     , m_title("")
     , m_pixelator()
     , m_running(false)
-    , m_show_fps(true)
+    , m_show_fps(false)
     , m_should_exit(false)
     , m_font()
 {}
@@ -140,7 +141,7 @@ void Application::run()
             m_framebuffer_scale = min((float)GetScreenWidth() / m_width, (float)GetScreenHeight() / m_height);
         }
 
-        double elapsedTime = 0.1;
+        double elapsedTime = GetFrameTime();
 
         event();
 
@@ -174,6 +175,14 @@ void Application::event()
     if (IsKeyPressed(KEY_F))
     {
         m_show_fps = !m_show_fps;
+    }
+    if (IsKeyPressed(KEY_M))
+    {
+        m_show_map = !m_show_map;
+    }
+    if (IsKeyDown(KEY_LEFT_CONTROL) && IsKeyPressed(KEY_P))
+    {
+        TakeScreenshot("screenshot.png");
     }
 
 }

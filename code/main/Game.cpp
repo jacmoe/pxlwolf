@@ -34,9 +34,6 @@ bool Game::OnUserCreate()
 
     Pixelator* pixelator = m_pixelator.get();
 
-    utility::ImageAtlas atlas;
-    atlas.load("assets/textures/wall.png", { 64, 64});
-
     m_camera.x = m_map.get()->player_start().x;
     m_camera.y = m_map.get()->player_start().y;
     m_camera.angle = m_map.get()->player_heading();
@@ -48,43 +45,46 @@ bool Game::OnUserCreate()
 
     m_raycaster.generateAngleValues(m_width, &m_camera);
 
-    m_raycaster.resetDepthBuffer();
-
-    m_raycaster.raycastRender(&m_camera, 0.01);
-
-    m_raycaster.renderBuffer();
-
     pixelator->addBuffer("minimap", m_map.get()->width() * 2, m_map.get()->height() * 2);
-    pixelator->fill("minimap", Fade(GOLD, 0.4f));
-
-    m_raycaster.drawMinimap("minimap", m_camera, 2);
-
-    pixelator->copy("pixelBuffer");
-
-    pixelator->copy("minimap", 200, 100);
 
     return true;
 }
 
 bool Game::OnUserUpdate(double elapsedTime)
 {
-    return true;
-}
+    m_pixelator->fill(BLACK);
+    if (IsKeyDown(KEY_D))
+    {
+        m_camera.angle += 0.8 * elapsedTime;
+    }
+    if (IsKeyDown(KEY_A))
+    {
+        m_camera.angle -= 0.8 * elapsedTime;
+    }
 
-bool Game::OnUserRender()
-{
     m_raycaster.resetDepthBuffer();
 
     m_raycaster.raycastRender(&m_camera, 0.01);
 
     m_raycaster.renderBuffer();
 
-    m_raycaster.drawMinimap("minimap", m_camera, 2);
+    if(m_show_map)
+    {
+        m_raycaster.drawMinimap("minimap", m_camera, 2);
+    }
 
     m_pixelator.get()->copy("pixelBuffer");
 
-    m_pixelator.get()->copy("minimap", 200, 100);
+    if(m_show_map)
+    {
+        m_pixelator.get()->copy("minimap", 200, 100);
+    }
 
+    return true;
+}
+
+bool Game::OnUserRender()
+{
     return true;
 }
 

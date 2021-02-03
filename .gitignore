@@ -47,3 +47,4 @@ vcpkg
 assets.zip
 *.dat
 log/pxllog.txt
+screenshot.png

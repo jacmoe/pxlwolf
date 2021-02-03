@@ -41,6 +41,7 @@ protected:
     int m_width;
     int m_height;
     bool m_fullscreen;
+    bool m_show_map;
 
     RenderTexture2D m_render_texture;
     std::shared_ptr<Pixelator> m_pixelator;
