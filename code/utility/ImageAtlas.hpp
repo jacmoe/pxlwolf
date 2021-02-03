@@ -33,14 +33,15 @@ namespace utility
         inline const int getCols() { return m_cols; }
         inline const int getRows() { return m_rows; }
 
-        Color* getPixels(int index);
-        inline Image getImage(int index) { return m_buffers[index]; }
+        Color* getPixels(int index) { return m_buffers[index]; }
+        Color getPixel(int index, int x , int y) { return m_buffers[index][y * static_cast<int>(m_width) + x]; }
 
     private:
-        std::vector<Image> m_buffers;
+        std::vector<Color*> m_buffers;
         float m_rows;
         float m_cols;
         float m_width;
         float m_height;
+        int m_format;
     };
 }

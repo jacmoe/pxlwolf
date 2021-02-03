@@ -27,9 +27,9 @@ namespace utility
 
     ImageAtlas::~ImageAtlas()
     {
-        for (auto& img : m_buffers)
+        for (auto& buff : m_buffers)
         {
-            UnloadImage(img);
+            UnloadImageColors(buff);
         }
     }
 
@@ -41,6 +41,8 @@ namespace utility
             return false;
         }
 
+        m_format = source_image.format;
+    
         const auto rows = source_image.width / tile_size.x;
         const auto cols = source_image.height / tile_size.y;
         unsigned int index = 0;
@@ -64,16 +66,10 @@ namespace utility
                     return false;
                 }
                 TraceLog(LOG_INFO,"Intrect is (%.f, %.f, %.f, %.f)", x * m_width, y * m_height, m_width, m_height);
-                m_buffers.push_back(image);
+                m_buffers.push_back(LoadImageColors(image));
             }
         }
         UnloadImage(source_image);
         return true;
-    }
-
-    Color* ImageAtlas::getPixels(int index)
-    {
-        Color* pixels = LoadImageColors(m_buffers[index]);
-        return pixels;
     }
 }
