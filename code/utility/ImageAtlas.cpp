@@ -14,7 +14,6 @@
 #   MIT License
 #*/
 #include "ImageAtlas.hpp"
-#include "spdlog/spdlog.h"
 
 namespace utility
 {
@@ -27,18 +26,23 @@ namespace utility
     {}
 
     ImageAtlas::~ImageAtlas()
-    {}
-
-    bool ImageAtlas::load(const std::string& path, sf::Vector2u tile_size)
     {
-        sf::Image source_image;
-        if(!source_image.loadFromFile(path))
+        for (auto& img : m_buffers)
+        {
+            UnloadImage(img);
+        }
+    }
+
+    bool ImageAtlas::load(const std::string& path, Vector2 tile_size)
+    {
+        Image source_image = LoadImage(path.c_str());
+        if(source_image.data == nullptr)
         {
             return false;
         }
 
-        const auto rows = source_image.getSize().x / tile_size.x;
-        const auto cols = source_image.getSize().y / tile_size.y;
+        const auto rows = source_image.width / tile_size.x;
+        const auto cols = source_image.height / tile_size.y;
         unsigned int index = 0;
 
         m_rows = rows;
@@ -46,20 +50,30 @@ namespace utility
 
         m_width =  tile_size.x;
         m_height = tile_size.y;
-        SPDLOG_INFO("source image dimensions : width {}, height {}", source_image.getSize().x, source_image.getSize().y);
-        SPDLOG_INFO("m_width = {}, m_height = {}", m_width, m_height);
+        TraceLog(LOG_INFO,"source image dimensions : width %d, height %d", source_image.width, source_image.height);
+        TraceLog(LOG_INFO,"m_width = %.f, m_height = %.f", m_width, m_height);
 
         for (unsigned y = 0; y < cols; ++y)
         {
             for (unsigned x = 0; x < rows; ++x)
             {
-                sf::Image image;
-                image.create(m_width, m_height);
-                image.copy(source_image, 0, 0, sf::IntRect(x * m_width, y * m_height, m_width, m_height));
-                SPDLOG_INFO("Intrect is ({}, {}, {}, {})", x * m_width, y * m_height, m_width, m_height);
+                Image image = ImageFromImage(source_image, { x * m_width, y * m_height, m_width, m_height });
+                if(image.height != m_height)
+                {
+                    TraceLog(LOG_ERROR, "Image wasn't created!");
+                    return false;
+                }
+                TraceLog(LOG_INFO,"Intrect is (%.f, %.f, %.f, %.f)", x * m_width, y * m_height, m_width, m_height);
                 m_buffers.push_back(image);
             }
         }
+        UnloadImage(source_image);
         return true;
+    }
+
+    Color* ImageAtlas::getPixels(int index)
+    {
+        Color* pixels = LoadImageColors(m_buffers[index]);
+        return pixels;
     }
 }

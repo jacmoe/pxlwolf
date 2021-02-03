@@ -31,8 +31,8 @@ set(main
 )
 
 set(utility
-    # ./utility/ImageAtlas.cpp
-    # ./utility/ImageAtlas.hpp
+    ./utility/ImageAtlas.cpp
+    ./utility/ImageAtlas.hpp
     ./utility/Map.cpp
     ./utility/Map.hpp
     # ./utility/RectAnimation.cpp

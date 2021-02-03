@@ -16,7 +16,8 @@
 #pragma once
 
 #include <vector>
-#include <SFML/Graphics.hpp>
+#include <string>
+#include "raylib.h"
 
 namespace utility
 {
@@ -26,18 +27,20 @@ namespace utility
         ImageAtlas();
         ~ImageAtlas();
 
-        bool load(const std::string& path, sf::Vector2u tile_size);
+        bool load(const std::string& path, Vector2 tile_size);
 
-        inline const sf::Uint8* getPixels(int idx) { return m_buffers[idx].getPixelsPtr(); }
-        inline const sf::Vector2i getTileSize() { return sf::Vector2i(m_width, m_height); }
+        inline const Vector2 getTileSize() { return { m_width, m_height }; }
         inline const int getCols() { return m_cols; }
         inline const int getRows() { return m_rows; }
 
+        Color* getPixels(int index);
+        inline Image getImage(int index) { return m_buffers[index]; }
+
     private:
-        std::vector<sf::Image> m_buffers;
-        int m_rows;
-        int m_cols;
-        int m_width;
-        int m_height;
+        std::vector<Image> m_buffers;
+        float m_rows;
+        float m_cols;
+        float m_width;
+        float m_height;
     };
 }

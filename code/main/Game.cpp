@@ -14,6 +14,7 @@
 #   MIT License
 #*/
 #include "Game.hpp"
+#include "ImageAtlas.hpp"
 
 Game::Game()
 : m_raycaster()
@@ -32,6 +33,15 @@ bool Game::OnUserCreate()
     map->load("Level4");
 
     Pixelator* pixelator = m_pixelator.get();
+
+    utility::ImageAtlas atlas;
+    atlas.load("assets/textures/wall.png", { 64, 64});
+    // Image image = LoadImage("assets/textures/wall.png");
+
+    Image image = atlas.getImage(0);
+
+    pixelator->addBuffer("test", 64, 64);
+    pixelator->copy("test", image);
 
     if(m_map->loaded())
     {
@@ -60,6 +70,8 @@ bool Game::OnUserCreate()
         pixelator->copy("pixelBuffer");
 
         pixelator->copy("minimap", 200, 100);
+
+        pixelator->copy("test");
     }
 
     return true;
@@ -72,6 +84,17 @@ bool Game::OnUserUpdate(double elapsedTime)
 
 bool Game::OnUserRender()
 {
+    m_raycaster.resetDepthBuffer();
+
+    m_raycaster.raycastRender(&m_camera, 0.01);
+
+    m_raycaster.renderBuffer();
+
+    m_raycaster.drawMinimap("minimap", m_camera, 2);
+
+    m_pixelator.get()->copy("pixelBuffer");
+
+    m_pixelator.get()->copy("minimap", 200, 100);
 
     // DrawText(TextFormat("Default Mouse: [%i , %i]", (int)m_mouse_position.x, (int)m_mouse_position.y), 50, 120, 20, GREEN);
     // DrawText(TextFormat("Virtual Mouse: [%i , %i]", (int)m_virtual_mouse_position.x, (int)m_virtual_mouse_position.y), 50, 150, 20, YELLOW);

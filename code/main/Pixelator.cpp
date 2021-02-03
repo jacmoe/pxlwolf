@@ -334,13 +334,14 @@ Rectangle Pixelator::getSize(const std::string name)
     Rectangle rect = { 0, 0, static_cast<int>(m_buffers[m_buffer_map[name]].width), static_cast<int>(m_buffers[m_buffer_map[name]].height) };
     return rect;
 }
-/*
+
 // copies from an image
-void Pixelator::copy(const sf::Image& source, unsigned int destX, unsigned int destY, const Rectangle& sourceRect, bool applyAlpha)
+void Pixelator::copy(const std::string& name, Image source)
 {
-    copy(source.getPixelsPtr(), sf::Vector2i(source.getSize().x, source.getSize().y), destX, destY, sourceRect, applyAlpha);
+    UnloadImage(m_buffers[m_buffer_map[name]]);
+    m_buffers[m_buffer_map[name]] = ImageCopy(source);
 }
-*/
+
 // copies from a buffer
 void Pixelator::copy(const std::string name, unsigned int x, unsigned int y, const Rectangle& sourceRect)
 {

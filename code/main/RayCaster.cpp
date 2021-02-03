@@ -16,6 +16,11 @@
 #include "RayCaster.hpp"
 #include "Game.hpp"
 
+RayCaster::RayCaster()
+: m_atlas()
+{
+}
+
 void RayCaster::init(uint32_t width, uint32_t height, std::shared_ptr<utility::Map> map, std::shared_ptr<Pixelator> pixelator)
 {
     m_map = map;
@@ -23,6 +28,15 @@ void RayCaster::init(uint32_t width, uint32_t height, std::shared_ptr<utility::M
     m_width = width;
     m_height = height;
     initDepthBuffer();
+
+    m_atlas.load("assets/textures/spritesheet.png", { 512, 512 });
+
+    int num_pixel_arrays = m_atlas.getCols() * m_atlas.getRows();
+
+    for(int x = 0; x < num_pixel_arrays; x++)
+    {
+        m_pixels_map.insert({ x, m_atlas.getPixels(x)});
+    }
 }
 
 /** RaycasterEngine::generateAngleValues
@@ -299,6 +313,7 @@ void RayCaster::drawTextureColumn(uint32_t x, int32_t y,
         h = m_height - y;
     }
 
+    static int stop = 0;
     for (int32_t i = 0; i < h; i++)
     {
         // Calculate pixel to draw from texture
@@ -306,8 +321,21 @@ void RayCaster::drawTextureColumn(uint32_t x, int32_t y,
         //     tileNum*texture->tileWidth*texture->tileHeight + \
         //     (uint32_t)floor(((double)(offY + i)/(double)offH) * \
         //     (texture->tileHeight)) * texture->tileWidth + column];
-        uint32_t pix = ColorToInt(m_map.get()->wall_element(tileNum + 1).color);
-        // uint32_t pix = ColorToInt(RAYWHITE);//toIntColor(RAYWHITE.r, RAYWHITE.g, RAYWHITE.b, RAYWHITE.a);
+        if(false)//(stop < 512 * 2)
+        {
+            TraceLog(LOG_INFO,"RayCaster::drawTextureColumn %d : drawing texture %d", column, tileNum);
+            TraceLog(LOG_INFO,"(double)(offY + i)/(double)offH) is %d", (int)(double)(offY + i)/(double)offH);
+            TraceLog(LOG_INFO, "offY + i is %d and offH is %d", offY + i, offH);
+            TraceLog(LOG_INFO, "I am going to get pixel at (%d, %d)", column, offY + i);
+            int number = (uint32_t)floor(((double)(offY + i)/(double)offH) * (m_atlas.getTileSize().y)) * m_atlas.getTileSize().x + column;
+            TraceLog(LOG_INFO, "I get the number %d", number);
+            TraceLog(LOG_INFO, "512 * 512 is %d", 512 * 512);
+            stop++;
+        }
+        //uint32_t pix = ColorToInt(m_map.get()->wall_element(tileNum + 1).color);
+        int number = (uint32_t)floor(((double)(offY + i)/(double)offH) * (m_atlas.getTileSize().y)) * m_atlas.getTileSize().x + column;
+        uint32_t pix = ColorToInt(m_pixels_map[tileNum][((offY + i) * static_cast<int>(m_atlas.getTileSize().x)) + column]);
+        //Color test = m_atlas.getPixel(0, 1,1);
         if (pix & 0xFF)
         {
             pix = pixelGradientShader(pix, fadePercent, targetColor);

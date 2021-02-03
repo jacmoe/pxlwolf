@@ -17,14 +17,16 @@
 
 #include "Map.hpp"
 #include "Pixelator.hpp"
+#include "ImageAtlas.hpp"
 #include <memory>
+#include <unordered_map>
 
 struct _Camera;
 
 class RayCaster
 {
 public:
-    RayCaster() = default;
+    RayCaster();
 
     void init(uint32_t width, uint32_t height, std::shared_ptr<utility::Map> map, std::shared_ptr<Pixelator> pixelator);
 
@@ -41,6 +43,8 @@ public:
 private:
     std::shared_ptr<utility::Map> m_map;
     std::shared_ptr<Pixelator> m_pixelator;
+    utility::ImageAtlas m_atlas;
+    std::unordered_map<int, Color*> m_pixels_map;
 
     enum BufferLayer
     {

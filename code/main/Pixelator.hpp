@@ -67,6 +67,8 @@ public:
     // copy pixels from a source
     void copy(const std::string name, unsigned int x = 0, unsigned int y = 0);
     void copy(const std::string name, unsigned int x, unsigned int y, const Rectangle& sourceRect);
+    void copy(const Image& source) { copy(m_current_buffer, source); }
+    void copy(const std::string& name, Image source);
 
     // get the size (width and height) of a buffer
     Rectangle getSize() { return getSize(m_current_buffer); }
