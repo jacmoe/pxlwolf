@@ -21,6 +21,17 @@ RayCaster::RayCaster()
 {
 }
 
+RayCaster::~RayCaster()
+{
+// Get an iterator pointing to begining of map
+    std::unordered_map<int, Color*>::iterator it = m_pixels_map.begin();
+// Iterate over the map using iterator
+    while (it != m_pixels_map.end())
+    {
+        UnloadImageColors(it->second);
+        it++;
+    }
+}
 void RayCaster::init(uint32_t width, uint32_t height, std::shared_ptr<utility::Map> map, std::shared_ptr<Pixelator> pixelator)
 {
     m_map = map;
@@ -334,7 +345,7 @@ void RayCaster::drawTextureColumn(uint32_t x, int32_t y,
         }
         //uint32_t pix = ColorToInt(m_map.get()->wall_element(tileNum + 1).color);
         int number = (uint32_t)floor(((double)(offY + i)/(double)offH) * (m_atlas.getTileSize().y)) * m_atlas.getTileSize().x + column;
-        uint32_t pix = ColorToInt(m_pixels_map[tileNum][((offY + i) * static_cast<int>(m_atlas.getTileSize().x)) + column]);
+        uint32_t pix = ColorToInt(m_pixels_map[tileNum][(column * static_cast<int>(m_atlas.getTileSize().x)) + (offY + i)]);
         //Color test = m_atlas.getPixel(0, 1,1);
         if (pix & 0xFF)
         {

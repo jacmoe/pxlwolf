@@ -27,6 +27,7 @@ class RayCaster
 {
 public:
     RayCaster();
+    ~RayCaster();
 
     void init(uint32_t width, uint32_t height, std::shared_ptr<utility::Map> map, std::shared_ptr<Pixelator> pixelator);
 

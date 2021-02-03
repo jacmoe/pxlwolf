@@ -45,7 +45,7 @@ Application::Application()
     , m_title("")
     , m_pixelator()
     , m_running(false)
-    , m_show_fps(false)
+    , m_show_fps(true)
     , m_should_exit(false)
     , m_font()
 {}
