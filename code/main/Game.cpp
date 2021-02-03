@@ -30,7 +30,7 @@ bool Game::OnUserCreate()
 {
     utility::Map* map = m_map.get();
     map->init("assets/levels/pxlwolf.ldtk");
-    map->load("Level1");
+    map->load("Level5");
 
     Pixelator* pixelator = m_pixelator.get();
 
