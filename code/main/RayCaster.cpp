@@ -13,6 +13,7 @@
 #
 #   MIT License
 #*/
+#include <cmath>
 #include "RayCaster.hpp"
 #include "Game.hpp"
 
