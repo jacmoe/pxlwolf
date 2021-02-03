@@ -95,7 +95,7 @@ bool Application::init(const std::string title, int width, int height, float sca
     InitWindow(m_width * m_scale, m_height * m_scale, m_title.c_str());
     SetWindowMinSize(m_width, m_height);
     m_render_texture = LoadRenderTexture(m_width, m_height);
-    SetTextureFilter(m_render_texture.texture, FILTER_POINT);
+    // SetTextureFilter(m_render_texture.texture, FILTER_POINT);
 
     m_pixelator = std::make_shared<Pixelator>();
     m_pixelator.get()->setSize(m_width, m_height);
@@ -176,25 +176,6 @@ void Application::event()
         m_show_fps = !m_show_fps;
     }
 
-    // // Update virtual mouse (clamped mouse value behind game screen)
-    // m_mouse_position = GetMousePosition();
-    // if(m_fullscreen)
-    // {
-    //     m_virtual_mouse_position.x = (m_mouse_position.x - (GetMonitorWidth(0) - (m_width * m_framebuffer_scale)) * 0.5f) / m_framebuffer_scale;
-    //     m_virtual_mouse_position.y = (m_mouse_position.y - (GetMonitorHeight(0) - (m_height * m_framebuffer_scale)) * 0.5f) / m_framebuffer_scale;
-    // }
-    // else
-    // {
-    //     m_virtual_mouse_position.x = (m_mouse_position.x - (GetScreenWidth() - (m_width * m_framebuffer_scale)) * 0.5f) / m_framebuffer_scale;
-    //     m_virtual_mouse_position.y = (m_mouse_position.y - (GetScreenHeight() - (m_height * m_framebuffer_scale)) * 0.5f) / m_framebuffer_scale;
-    // }
-
-    // m_virtual_mouse_position = ClampValue(m_virtual_mouse_position, { 0, 0 }, { static_cast<float>(m_width), static_cast<float>(m_height) }); 
-
-    // Apply the same transformation as the virtual mouse to the real mouse (i.e. to work with raygui)
-    //SetMouseOffset(-(GetScreenWidth() - (m_width*m_framebuffer_scale))*0.5f, -(GetScreenHeight() - (m_height*m_framebuffer_scale))*0.5f);
-    //SetMouseScale(1/m_framebuffer_scale, 1/m_framebuffer_scale);
-    //----------------------------------------------------------------------------------
 }
 
 void Application::toggle_fullscreen()
@@ -220,7 +201,7 @@ void Application::toggle_fullscreen()
     }
 
     m_render_texture = LoadRenderTexture(m_width, m_height);
-    SetTextureFilter(m_render_texture.texture, FILTER_POINT);
+    // SetTextureFilter(m_render_texture.texture, FILTER_POINT);
     m_font = LoadFont("assets/fonts/MedievalSharp-Bold.ttf");
 }
 

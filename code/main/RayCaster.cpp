@@ -17,20 +17,12 @@
 #include "Game.hpp"
 
 RayCaster::RayCaster()
-: m_atlas()
 {
 }
 
 RayCaster::~RayCaster()
 {
-// Get an iterator pointing to begining of map
-    std::unordered_map<int, Color*>::iterator it = m_pixels_map.begin();
-// Iterate over the map using iterator
-    while (it != m_pixels_map.end())
-    {
-        UnloadImageColors(it->second);
-        it++;
-    }
+    UnloadImageColors(m_pixels);
 }
 void RayCaster::init(uint32_t width, uint32_t height, std::shared_ptr<utility::Map> map, std::shared_ptr<Pixelator> pixelator)
 {
@@ -40,14 +32,11 @@ void RayCaster::init(uint32_t width, uint32_t height, std::shared_ptr<utility::M
     m_height = height;
     initDepthBuffer();
 
-    m_atlas.load("assets/textures/spritesheet.png", { 512, 512 });
+    Image image = LoadImage("assets/textures/spritesheet.png");
+    tex_tile_width = 512;
+    tex_tile_height = 512;
 
-    int num_pixel_arrays = m_atlas.getCols() * m_atlas.getRows();
-
-    for(int x = 0; x < num_pixel_arrays; x++)
-    {
-        m_pixels_map.insert({ x, m_atlas.getPixels(x)});
-    }
+    m_pixels = LoadImageColors(image);
 }
 
 /** RaycasterEngine::generateAngleValues
@@ -98,7 +87,7 @@ void RayCaster::drawMinimap(const std::string& buffer_name, const _Camera& camer
         for(col = 0; col < map->height(); col++)
         {
             blockRect.x = mapRect.x + col * blockSize;
-            blockRect.y = ((mapRect.height - blockSize) - row * blockSize);// + map->width();
+            blockRect.y = ((mapRect.height - blockSize) - row * blockSize);// + map->width()();
             if(map->walls()[row * map->width() + col] > 0)
             {
                 Color blockcolor = map->wall_element(map->walls()[row * map->width() + col]).color;
@@ -324,29 +313,15 @@ void RayCaster::drawTextureColumn(uint32_t x, int32_t y,
         h = m_height - y;
     }
 
-    static int stop = 0;
     for (int32_t i = 0; i < h; i++)
     {
-        // Calculate pixel to draw from texture
-        // uint32_t pix = texture->pixData[\
-        //     tileNum*texture->tileWidth*texture->tileHeight + \
-        //     (uint32_t)floor(((double)(offY + i)/(double)offH) * \
-        //     (texture->tileHeight)) * texture->tileWidth + column];
-        if(false)//(stop < 512 * 2)
-        {
-            TraceLog(LOG_INFO,"RayCaster::drawTextureColumn %d : drawing texture %d", column, tileNum);
-            TraceLog(LOG_INFO,"(double)(offY + i)/(double)offH) is %d", (int)(double)(offY + i)/(double)offH);
-            TraceLog(LOG_INFO, "offY + i is %d and offH is %d", offY + i, offH);
-            TraceLog(LOG_INFO, "I am going to get pixel at (%d, %d)", column, offY + i);
-            int number = (uint32_t)floor(((double)(offY + i)/(double)offH) * (m_atlas.getTileSize().y)) * m_atlas.getTileSize().x + column;
-            TraceLog(LOG_INFO, "I get the number %d", number);
-            TraceLog(LOG_INFO, "512 * 512 is %d", 512 * 512);
-            stop++;
-        }
-        //uint32_t pix = ColorToInt(m_map.get()->wall_element(tileNum + 1).color);
-        int number = (uint32_t)floor(((double)(offY + i)/(double)offH) * (m_atlas.getTileSize().y)) * m_atlas.getTileSize().x + column;
-        uint32_t pix = ColorToInt(m_pixels_map[tileNum][(column * static_cast<int>(m_atlas.getTileSize().x)) + (offY + i)]);
-        //Color test = m_atlas.getPixel(0, 1,1);
+        int magic_number = 
+            tileNum * tex_tile_width * tex_tile_height
+            + (uint32_t)floor(((double)(offY + i) /
+            (double)offH) * (tex_tile_height))
+             * tex_tile_width + column;
+
+        uint32_t pix = ColorToInt(m_pixels[magic_number]);
         if (pix & 0xFF)
         {
             pix = pixelGradientShader(pix, fadePercent, targetColor);
@@ -398,11 +373,11 @@ void RayCaster::raycastRender(_Camera* camera, double resolution)
                     uint32_t texCoord;
                     if (side > 1)
                     {
-                        texCoord = (uint32_t)floor((newX - coordX) * 64);// * texData->tileWidth);
+                        texCoord = (uint32_t)floor((newX - coordX) * tex_tile_width);
                     }
                     else
                     {
-                        texCoord = (uint32_t)floor((newY - coordY) * 64);// * texData->tileWidth);
+                        texCoord = (uint32_t)floor((newY - coordY) * tex_tile_height);
                     }
                     double depth = (double)(rayLen * cos(rayAngle - camera->angle));
                     //double colorGrad = (depth) / camera->dist;
@@ -423,61 +398,61 @@ void RayCaster::raycastRender(_Camera* camera, double resolution)
                     {
                         colorGrad = 1.0;
                     }
-                    Color FOG_COLOR = {50,20,50,255};
                     drawTextureColumn(
                         i, startY, deltaY, depth,
                         mapTile - 1, 1.0, 
-                        texCoord, colorGrad, FOG_COLOR
+                        texCoord, colorGrad, GOLD
                     );
                     // Check for texture column transparency
                     bool hasAlpha = false;
-                    // for (uint32_t p = 0; p < texData->tileHeight; p++)
-                    // {
-                    //     if ((texData->pixData[(mapTile-1)*texData->tileWidth*texData->tileHeight+texCoord+(texData->tileWidth*p)] & 0xFF) < 0xFF)
-                    //     {
-                    //         collisions++;
-                    //         if (side == 0) // Hit from left
-                    //         {
-                    //             rayX += 1;
-                    //             rayY += rayStepY * (1.0/rayStepX);
-                    //         }
-                    //         else if (side == 1) // Hit from right
-                    //         {
-                    //             rayX -= 1;
-                    //             rayY -= rayStepY * (1.0/rayStepX);
-                    //         }
-                    //         else if (side == 2) // Hit from top
-                    //         {
-                    //             rayX += rayStepX * (1.0/rayStepY);
-                    //             rayY += 1;
-                    //         }
-                    //         else // Hit from bottom
-                    //         {
-                    //             rayX -= rayStepX * (1.0/rayStepY);
-                    //             rayY -= 1;
-                    //         }
-                    //         if (rayX+rayOffX < -map->border)
-                    //         {
-                    //             rayOffX += map->width + map->border * 2;
-                    //         }
-                    //         else if (rayX+rayOffX >= map->width + map->border)
-                    //         {
-                    //             rayOffX -= map->width + map->border * 2;
-                    //         }
-                    //         if (rayY+rayOffY < -map->border)
-                    //         {
-                    //             rayOffY += map->height + map->border*2;
-                    //         }
-                    //         else if (rayY+rayOffY >= map->height + map->border)
-                    //         {
-                    //             rayOffY -= map->height + map->border*2;
-                    //         }
-                    //         rayLen = sqrt((rayX-camera->x)*(rayX-camera->x) + (rayY-camera->y)*(rayY-camera->y));
-                    //         rayStep++;
-                    //         hasAlpha = 1;
-                    //         break;
-                    //     }
-                    // }
+                    int border = 2;
+                    for (uint32_t p = 0; p < tex_tile_height; p++)
+                    {
+                        if (( ColorToInt(m_pixels[(mapTile-1)*tex_tile_width*tex_tile_height+texCoord+(tex_tile_width*p)]) & 0xFF) < 0xFF)
+                        {
+                            collisions++;
+                            if (side == 0) // Hit from left
+                            {
+                                rayX += 1;
+                                rayY += rayStepY * (1.0/rayStepX);
+                            }
+                            else if (side == 1) // Hit from right
+                            {
+                                rayX -= 1;
+                                rayY -= rayStepY * (1.0/rayStepX);
+                            }
+                            else if (side == 2) // Hit from top
+                            {
+                                rayX += rayStepX * (1.0/rayStepY);
+                                rayY += 1;
+                            }
+                            else // Hit from bottom
+                            {
+                                rayX -= rayStepX * (1.0/rayStepY);
+                                rayY -= 1;
+                            }
+                            if (rayX+rayOffX < -border)
+                            {
+                                rayOffX += map->width() + border * 2;
+                            }
+                            else if (rayX+rayOffX >= map->width() + border)
+                            {
+                                rayOffX -= map->width() + border * 2;
+                            }
+                            if (rayY+rayOffY < -border)
+                            {
+                                rayOffY += map->height() + border*2;
+                            }
+                            else if (rayY+rayOffY >= map->height() + border)
+                            {
+                                rayOffY -= map->height() + border*2;
+                            }
+                            rayLen = sqrt((rayX-camera->x)*(rayX-camera->x) + (rayY-camera->y)*(rayY-camera->y));
+                            rayStep++;
+                            hasAlpha = 1;
+                            break;
+                        }
+                    }
                     if (hasAlpha)
                     {
                         continue;

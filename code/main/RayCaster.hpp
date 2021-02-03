@@ -44,8 +44,7 @@ public:
 private:
     std::shared_ptr<utility::Map> m_map;
     std::shared_ptr<Pixelator> m_pixelator;
-    utility::ImageAtlas m_atlas;
-    std::unordered_map<int, Color*> m_pixels_map;
+    Color* m_pixels;
 
     enum BufferLayer
     {
@@ -58,6 +57,8 @@ private:
 
     uint32_t m_width;
     uint32_t m_height;
+    int tex_tile_width;
+    int tex_tile_height;
 
     void initDepthBuffer();
     double getDepth(uint32_t x, uint32_t y, uint8_t layer);
