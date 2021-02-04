@@ -43,8 +43,6 @@ bool Game::OnUserCreate()
 
     m_raycaster.init(m_width, m_height, m_map, m_pixelator);
 
-    m_raycaster.generateAngleValues(m_width, &m_camera);
-
     pixelator->addBuffer("minimap", m_map.get()->width() * 2, m_map.get()->height() * 2);
 
     return true;
@@ -52,6 +50,7 @@ bool Game::OnUserCreate()
 
 bool Game::OnUserUpdate(double elapsedTime)
 {
+    m_pixelator->clear();
     m_pixelator->fill(BLACK);
     if (IsKeyDown(KEY_D))
     {
@@ -62,20 +61,10 @@ bool Game::OnUserUpdate(double elapsedTime)
         m_camera.angle -= 0.8 * elapsedTime;
     }
 
-    m_raycaster.resetDepthBuffer();
-
-    m_raycaster.texRenderFloor(&m_camera, m_width, m_height, 0, 6);
-    m_raycaster.texRenderCeiling(&m_camera, m_width, m_height, 7);
-    m_raycaster.raycastRender(&m_camera, 0.01);
-
-    m_raycaster.renderBuffer();
-
     if(m_show_map)
     {
         m_raycaster.drawMinimap("minimap", m_camera, 2);
     }
-
-    m_pixelator.get()->copy("pixelBuffer");
 
     if(m_show_map)
     {
