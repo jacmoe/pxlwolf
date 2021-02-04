@@ -102,6 +102,9 @@ bool Game::OnUserUpdate(double elapsedTime)
         m_camera.planeY = oldPlaneX * sin(rotSpeed) + m_camera.planeY * cos(rotSpeed);
     }
 
+    m_pixelator.get()->clear();
+    m_pixelator.get()->clear("minimap");
+
     m_raycaster.raycast(m_camera);
 
     if(m_show_map)

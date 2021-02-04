@@ -210,12 +210,12 @@ void RayCaster::raycast(const _Camera& camera)
             Color color = m_atlas.getPixel(texNum, texX, texY);
 
             //make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
-            if(side == 1)
-            {
-                int tinted_color = ColorToInt(color);
-                tinted_color = (tinted_color >> 1) & 8355711;
-                color = GetColor(tinted_color);
-            }
+            // if(side == 1)
+            // {
+            //     int tinted_color = ColorToInt(color);
+            //     tinted_color = (tinted_color >> 1) & 8355711;
+            //     color = GetColor(tinted_color);
+            // }
             m_pixelator->setPixel(x, y, color);
         }
 
