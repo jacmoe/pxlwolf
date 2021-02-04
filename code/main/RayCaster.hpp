@@ -39,6 +39,9 @@ public:
 
     void raycastRender(_Camera* camera, double resolution);
 
+    void texRenderFloor(_Camera* camera, uint32_t width, uint32_t height, double resolution, uint8_t tileNum);
+    void texRenderCeiling(_Camera* camera, uint32_t width, uint32_t height, uint8_t tileNum);
+
     void renderBuffer();
 
 private:

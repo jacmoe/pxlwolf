@@ -64,6 +64,8 @@ bool Game::OnUserUpdate(double elapsedTime)
 
     m_raycaster.resetDepthBuffer();
 
+    m_raycaster.texRenderFloor(&m_camera, m_width, m_height, 0, 6);
+    m_raycaster.texRenderCeiling(&m_camera, m_width, m_height, 7);
     m_raycaster.raycastRender(&m_camera, 0.01);
 
     m_raycaster.renderBuffer();

@@ -485,3 +485,181 @@ void RayCaster::raycastRender(_Camera* camera, double resolution)
         }
     }
 }
+
+/** RaycasterEngine::texRenderFloor
+ * @brief Renders raycasted floor
+ * TODO: Add depth
+ * TODO: Make mappable
+ * TODO: Make multilayer
+ * TODO: Consolidate w/ floor renderer
+ * @param buffer PixBuffer to render to
+ * @param camera Camera to render from
+ * @param width Width of pixbuffer in pixels
+ * @param height Height of pixbuffer in pixels
+ * @param groundMap Tile map to render from
+ * ! Doesn't do anything atm
+ * TODO: Integrate with main map
+ * @param resolution ???
+ * TODO: Remove, does nothing
+ * @param texData Texture to render to floor
+ * @param tileNum Number of tile from texture set to render
+ * TODO: Placeholder, remove when mapping added
+ */
+void RayCaster::texRenderFloor(_Camera* camera, uint32_t width, uint32_t height, double resolution, uint8_t tileNum)
+{
+    double scaleFactor = (double)width / (double)height * 2.4;
+
+    // Get initial coordinate position at top-left of floor space
+    uint32_t startX = 0;
+    uint32_t startY = height / 2;
+
+    double pixelX;
+    double pixelY;
+    double pixelDist;
+    double pixelDepth;
+    double fadePercent;
+
+    uint32_t texX;
+    uint32_t texY;
+
+    double startAngle = camera->angle - camera->fov / 2.0;
+    double rayAngle;
+    double rayCos;
+
+    Color fadeColor = BLACK;
+    
+    // iterate through *all* pixels...
+    for (int x = startX; x < width; x++)
+    {
+        // Establish angle of column...
+        rayAngle = startAngle + camera->angleValues[x];
+        rayCos = cos(rayAngle - camera->angle);
+
+        for (int y = startY + 1; y < height; y++)
+        {
+            // Compute the distance to the pixel...
+            pixelDist = (double)height * (1 + 2 * camera->h) / (10.0 * (y-startY-1) * rayCos) * scaleFactor;
+            double fogConstant = 4.0/5;
+            pixelDepth = (pixelDist * rayCos);
+            fadePercent = pixelDist / (camera->dist * fogConstant);
+            pixelX = camera->x + pixelDist * cos(rayAngle);
+            pixelY = camera->y + pixelDist * sin(rayAngle);
+            // Wow, is that really it? The math says so...
+            int r = 74;
+            int g = 82;
+            int b = 99;
+            // if (pixelDist < camera->dist * fogConstant)
+            // {
+            // 	// Get associated coordinate pixel...
+            // 	// TODO: some grid code...
+            // 	texX = (uint32_t)floor((double)texData->tileWidth * (pixelX - floor(pixelX)));
+            // 	texY = (uint32_t)floor((double)texData->tileHeight * (pixelY - floor(pixelY)));
+            // 	uint32_t pixColor = texData->pixData[tileNum * texData->tileWidth * texData->tileHeight + texX + texY * texData->tileWidth];
+            // 	r = (int)(pixColor >> 3*8);
+            // 	g = (int)((pixColor >> 2*8) & 0xFF);
+            // 	b = (int)((pixColor >> 8) & 0xFF);
+            // 	int dr = fadeColor.r - r;
+            // 	int dg = fadeColor.g - g;
+            // 	int db = fadeColor.b - b;
+            // 	r += (int)((double)dr * fadePercent);
+            // 	g += (int)((double)dg * fadePercent);
+            // 	b += (int)((double)db * fadePercent);
+            // }
+            // else
+            // {
+            // 	r = fadeColor.r;
+            // 	g = fadeColor.g;
+            // 	b = fadeColor.b;
+            // }
+            // buffer->pixels[x + y * buffer->width] = ((uint32_t)r << 3*8 | (uint32_t)g << 2*8 | (uint32_t)b << 8 | (uint32_t)0xFF);
+            m_pixelator.get()->setPixel("pixelBuffer", x, y, GetColor(((uint32_t)r << 3*8 | (uint32_t)g << 2*8 | (uint32_t)b << 8 | (uint32_t)0xFF)));
+            // buffer->pixels[x + y * buffer->width] = ((uint32_t)r << 3*8 | (uint32_t)g << 2*8 | (uint32_t)b << 8 | (uint32_t)0xFF);
+        }
+    }
+}
+
+/** RaycasterEngine::texRenderCeiling
+ * @brief Renders raycasted ceiling
+ * TODO: See above (RaycasterEngine::texRenderFloor)
+ * @param buffer PixBuffer to render to
+ * @param camera Camera to render from
+ * @param width Width of pixbuffer in pixels
+ * @param height Height of pixbuffer in pixels
+ * @param groundMap Tile map to render from
+ * ! Doesn't do anything atm
+ * TODO: Integrate with main map
+ * @param texData Texture to render to floor
+ * @param tileNum Number of tile from texture set to render
+ * TODO: Placeholder, remove when mapping added
+ */
+void RayCaster::texRenderCeiling(_Camera* camera, uint32_t width, uint32_t height, uint8_t tileNum)
+{
+    double scaleFactor = (double)width / (double)height * 2.4;
+
+    // Get initial coordinate position at top-left of floor space
+    uint32_t startX = 0;
+    uint32_t startY = 0;
+
+    double pixelX;
+    double pixelY;
+    double pixelDist;
+    double pixelDepth;
+    double fadePercent;
+
+    uint32_t texX;
+    uint32_t texY;
+
+    double startAngle = camera->angle - camera->fov / 2.0;
+    double rayAngle;
+    double rayCos;
+
+    Color fadeColor = BLACK;
+    
+    // iterate through *all* pixels...
+    for (int x = startX; x < width; x++)
+    {
+        // Establish angle of column...
+        rayAngle = startAngle + camera->angleValues[x];
+        rayCos = cos(rayAngle - camera->angle);
+
+        for (int y = startY; y < height / 2; y++)
+        {
+            // Compute the distance to the pixel...
+            pixelDist = (double)height * (1 - 2 * camera->h) / (10.0 * (height / 2 - y) * rayCos) * scaleFactor;
+            pixelDepth = (pixelDist * rayCos);
+            double fogConstant = 4.0/5;
+            fadePercent = pixelDist / (camera->dist * fogConstant);
+            pixelX = camera->x + pixelDist * cos(rayAngle);
+            pixelY = camera->y + pixelDist * sin(rayAngle);
+            // Wow, is that really it? The math says so...
+            unsigned char r = 110;
+            unsigned char g = 118;
+            unsigned char b = 135;
+            // if (pixelDist < camera->dist * fogConstant)
+            // {
+            // 	// Get associated coordinate pixel...
+            // 	// TODO: some grid code...
+            // 	texX = (uint32_t)floor((double)texData->tileWidth * (pixelX - floor(pixelX)));
+            // 	texY = (uint32_t)floor((double)texData->tileHeight * (pixelY - floor(pixelY)));
+            // 	uint32_t pixColor = texData->pixData[tileNum * texData->tileWidth * texData->tileHeight + texX + texY * texData->tileWidth];
+            // 	r = (int)(pixColor >> 3*8);
+            // 	g = (int)((pixColor >> 2*8) & 0xFF);
+            // 	b = (int)((pixColor >> 8) & 0xFF);
+            // 	int dr = fadeColor.r - r;
+            // 	int dg = fadeColor.g - g;
+            // 	int db = fadeColor.b - b;
+            // 	r += (int)((double)dr * fadePercent);
+            // 	g += (int)((double)dg * fadePercent);
+            // 	b += (int)((double)db * fadePercent);
+            // }
+            // else
+            // {
+            // 	r = fadeColor.r;
+            // 	g = fadeColor.g;
+            // 	b = fadeColor.b;
+            // }
+            // PixelRenderer::drawPix(buffer, x, y, PixelRenderer::toPixColor(r,g,b,0xff));
+            m_pixelator.get()->setPixel("pixelBuffer", x, y, { r, g, b, 255 });
+        }
+    }
+}
