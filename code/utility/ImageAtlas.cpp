@@ -66,6 +66,7 @@ namespace utility
                     return false;
                 }
                 TraceLog(LOG_INFO,"Intrect is (%.f, %.f, %.f, %.f)", x * m_width, y * m_height, m_width, m_height);
+                TraceLog(LOG_INFO,"Image width is %d x %d", image.width, image.height);
                 m_buffers.push_back(LoadImageColors(image));
             }
         }

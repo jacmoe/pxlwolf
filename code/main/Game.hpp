@@ -25,9 +25,10 @@ struct _Camera
     double y;
     double h;
     double angle;
-    double dist;
-    double fov;
-    double angleValues[1024];
+    double dirX;
+    double dirY;
+    double planeX;
+    double planeY;
 };
 
 struct _Player

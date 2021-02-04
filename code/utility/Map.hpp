@@ -45,6 +45,7 @@ namespace utility
         inline const bool loaded() { return m_loaded; }
 
         inline const WallElement& wall_element(const unsigned int element) { return m_wall_elements[element - 1]; }
+        int get_wall_entry(int tile_x, int tile_y);
 
         inline const int width() { return m_map_width; }
         inline const int height() { return m_map_height; }
@@ -64,7 +65,6 @@ namespace utility
         bool m_initialized;
         bool m_loaded;
 
-        int get_wall_entry(int tile_x, int tile_y);
         double deg2rad (double degrees);
     };
 }

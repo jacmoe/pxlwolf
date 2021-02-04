@@ -46,7 +46,7 @@
 				{ "__identifier": "LevelEnd", "__grid": [46,43], "__pivot": [0.5,0.5], "__tile": null, "defUid": 10, "px": [744,696], "fieldInstances": [{ "__identifier": "next_level", "__value": null, "__type": "String", "defUid": 11, "realEditorValues": [] }] },
 				{ "__identifier": "PlayerStart", "__grid": [20,2], "__pivot": [0.5,0.5], "__tile": null, "defUid": 3, "px": [328,40], "fieldInstances": [{
 					"__identifier": "ViewerAngle",
-					"__value": -90,
+					"__value": 90,
 					"__type": "Float",
 					"defUid": 5,
 					"realEditorValues": [{ "id": "V_Float", "params": [-90] }]

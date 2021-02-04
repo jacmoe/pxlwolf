@@ -33,12 +33,18 @@ public:
 
     void drawMinimap(const std::string& buffer_name, const _Camera& camera, int blockSize);
 
+    void raycast(const _Camera& camera);
+
 private:
     std::shared_ptr<utility::Map> m_map;
     std::shared_ptr<Pixelator> m_pixelator;
 
+    utility::ImageAtlas m_atlas;
+
     uint32_t m_width;
     uint32_t m_height;
 
-    uint32_t pixelGradientShader(uint32_t pixel, double percent, Color target);
+    std::vector<double> m_depth_buffer;
+
+    Color pixelGradientShader(Color pixel, unsigned char amount);
 };
