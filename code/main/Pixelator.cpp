@@ -39,6 +39,45 @@ bool check_key(std::unordered_map<std::string, unsigned int> m, std::string key)
     return true; 
 }
 
+/** PixelRenderer::toPixColor
+ * @brief Returns color formatted to RGBA format
+ * @param r SDL_Color red component
+ * @param g SDL_Color green component
+ * @param b SDL_Color blue component
+ * @param a SDL_Color alpha component
+ **/
+uint32_t Pixelator::toIntColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
+{
+    return ((uint32_t)r << 3*8 | (uint32_t)g << 2*8 | (uint32_t)b << 8 | (uint32_t)a);
+}
+
+SDL_Color Pixelator::toSDLColor(uint32_t pixColor)
+{
+    int r = (int)(pixColor >> 3*8);
+    int g = (int)((pixColor >> 2*8) & 0xFF);
+    int b = (int)((pixColor >> 8) & 0xFF);
+    int a = (int)(pixColor & 0xFF);
+    SDL_Color newColor = {r, g, b, a};
+    return newColor;
+}
+
+/** to8BitColor
+ * @brief Paletizes 32bit color to 8bit color
+ * 
+ * @param colorDat Raw truecolor value to paletize
+ * @return 8 bit color value
+ */
+uint32_t Pixelator::to8BitColor(uint32_t colorDat)
+{
+    int r = (int)(colorDat >> 3*8);
+    int g = (int)((colorDat >> 2*8) & 0xFF);
+    int b = (int)((colorDat >> 8) & 0xFF);
+    int newR = (int)ceil(round((double)r / 255.0*15) * (255.0/15));
+    int newG = (int)ceil(round((double)g / 255.0*15) * (255.0/15));
+    int newB = (int)ceil(round((double)b / 255.0*15) * (255.0/15));
+    return (uint32_t)(newR) << 3*8 | (uint32_t)(newG) << 2*8 | (uint32_t)newB << 8 | (uint32_t)0xFF;
+}
+
 bool Pixelator::addBuffer(const std::string name, const int width, const int height)
 {
     if(check_key(m_buffer_map, name))

@@ -71,6 +71,10 @@ public:
     // void copy(const Image& source) { copy(m_current_buffer, source); }
     // void copy(const std::string& name, Image source);
 
+    uint32_t toIntColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a);
+    SDL_Color toSDLColor(uint32_t pixColor);
+    uint32_t to8BitColor(uint32_t colorDat);
+
 private:
     struct Buffer
     {
