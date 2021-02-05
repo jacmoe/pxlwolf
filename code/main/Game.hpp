@@ -16,8 +16,9 @@
 #pragma once
 
 #include "Application.hpp"
+#include "Map.hpp"
 
-struct _Camera
+struct Camera
 {
     double x;
     double y;
@@ -32,7 +33,7 @@ struct _Camera
     double pitch;
 };
 
-struct _Player
+struct Player
 {
     double x;
     double y;
@@ -47,7 +48,7 @@ struct _Player
     uint8_t state;
     double timer;
     uint8_t spacePressed;
-    _Camera camera;
+    Camera camera;
 };
 
 class Game : public Application
@@ -61,4 +62,7 @@ protected:
     bool OnUserUpdate(double fDeltaTime) override;
     bool OnUserRender() override;
     bool OnUserDestroy() override;
+
+private:
+    std::shared_ptr<utility::Map> m_map;
 };

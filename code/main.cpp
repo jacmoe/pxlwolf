@@ -13,6 +13,8 @@
 #
 #   MIT License
 #*/
+#define NOMINMAX
+
 #include <iostream>
 #include <fstream>
 #include <filesystem>
