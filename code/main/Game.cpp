@@ -17,6 +17,7 @@
 
 Game::Game()
 {
+    m_map = std::make_shared<utility::Map>();
 }
 
 Game::~Game()
@@ -25,6 +26,9 @@ Game::~Game()
 
 bool Game::OnUserCreate()
 {
+    utility::Map* map = m_map.get();
+    map->init("assets/levels/pxlwolf.ldtk");
+    map->load("Level1");
     return true;
 }
 

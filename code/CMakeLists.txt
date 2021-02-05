@@ -35,8 +35,8 @@ set(utility
     ./utility/dbg_console.hpp
     # ./utility/ImageAtlas.cpp
     # ./utility/ImageAtlas.hpp
-    # ./utility/Map.cpp
-    # ./utility/Map.hpp
+    ./utility/Map.cpp
+    ./utility/Map.hpp
     # ./utility/RectAnimation.cpp
     # ./utility/RectAnimation.hpp
     ./utility/SDLDeleter.hpp
@@ -44,8 +44,8 @@ set(utility
     # ./utility/SpriteSheetLoader.hpp
     ./utility/utils.cpp
     ./utility/utils.hpp
-    # ${3RD_PARTY_DIR}/physfs.cpp
-    # ${3RD_PARTY_DIR}/physfs.hpp
+    ${3RD_PARTY_DIR}/physfs.cpp
+    ${3RD_PARTY_DIR}/physfs.hpp
     # ${3RD_PARTY_DIR}/lua_main.hpp
 )
 
