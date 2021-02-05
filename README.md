@@ -67,6 +67,7 @@ Compiled using MSVC 2019 on Windows, and GCC 9.3 on Linux.
 |-------|-----------|-------|
 |[cereal][cereal]|C++11 library for serialization|BSD license|
 |[enTT][entt]|C++ entity component system|MIT license|
+|[linalg][linalg]|Single header vector math library for C++|Public domain|
 |[Lua 5.4][lua]|Scripting language|zlib License|
 |[PhysicsFS ][physfs]|Archive support for games|zlib license|
 |[PhysFS++][physpp]|C++ wrapper for PhysicsFS|zlib license|
@@ -94,6 +95,7 @@ This project is using code from the [c-raycaster project][cray] - the raycaster 
 [openal]: https://www.openal.org/downloads/ "Cross-platform 3D audio API"
 [cereal]: https://uscilab.github.io/cereal/ "C++11 library for serialization"
 [entt]: https://github.com/skypjack/entt "C++ entity component system"
+[linalg]: https://github.com/sgorsten/linalg "Single header vector math library for C++"
 [lua]: https://www.lua.org/download.html "Scripting language"
 [physfs]: https://www.icculus.org/physfs/ "Archive support for games"
 [physpp]: https://github.com/kahowell/physfs-cpp "C++ wrapper for PhysicsFS"
