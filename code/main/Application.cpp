@@ -96,7 +96,7 @@ bool Application::init(const std::string title, int width, int height, float sca
     InitWindow(m_width * m_scale, m_height * m_scale, m_title.c_str());
     SetWindowMinSize(m_width, m_height);
     m_render_texture = LoadRenderTexture(m_width, m_height);
-    // SetTextureFilter(m_render_texture.texture, FILTER_POINT);
+    SetTextureFilter(m_render_texture.texture, FILTER_POINT);
 
     m_pixelator = std::make_shared<Pixelator>();
     m_pixelator.get()->setSize(m_width, m_height);
@@ -116,6 +116,8 @@ bool Application::init(const std::string title, int width, int height, float sca
     m_font = LoadFont("assets/fonts/MedievalSharp-Bold.ttf");
 
     SetExitKey(0);
+
+    DisableCursor();
 
     TraceLog(LOG_INFO,"PixelWolf initialized.");
 
@@ -210,7 +212,7 @@ void Application::toggle_fullscreen()
     }
 
     m_render_texture = LoadRenderTexture(m_width, m_height);
-    // SetTextureFilter(m_render_texture.texture, FILTER_POINT);
+    SetTextureFilter(m_render_texture.texture, FILTER_POINT);
     m_font = LoadFont("assets/fonts/MedievalSharp-Bold.ttf");
 }
 

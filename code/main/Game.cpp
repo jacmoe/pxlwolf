@@ -45,6 +45,8 @@ bool Game::OnUserCreate()
     Vector2 vect = Vector2Rotate({(float)cos(m_camera.angle), (float)sin(m_camera.angle)}, -90);
     m_camera.planeX = vect.x;
     m_camera.planeY = vect.y * 0.66;
+    m_camera.pitch = 0; // looking up/down, expressed in screen pixels the horizon shifts
+    m_camera.z = 0; // vertical camera strafing up/down, for jumping/crouching. 0 means standard height. Expressed in screen pixels a wall at distance 1 shifts
 
     m_raycaster.init(m_width, m_height, m_map, m_pixelator);
 
@@ -59,6 +61,11 @@ bool Game::OnUserUpdate(double elapsedTime)
 
     double moveSpeed = elapsedTime * 3.0; //the constant value is in squares/second
     double rotSpeed = elapsedTime * 2.0; //the constant value is in radians/second
+    if( IsKeyDown(KEY_LEFT_SHIFT))
+    {
+        moveSpeed *= 3.0;
+    }
+
     if (IsKeyDown(KEY_W))
     {
         if(map->get_wall_entry(int(m_camera.x + m_camera.dirX * moveSpeed), int(m_camera.y)) < 1)
@@ -102,9 +109,22 @@ bool Game::OnUserUpdate(double elapsedTime)
         m_camera.planeY = oldPlaneX * sin(rotSpeed) + m_camera.planeY * cos(rotSpeed);
     }
 
+    static float prev_mouse_x = 0.0f;
+    float mouse_x = GetMousePosition().x;
+    float mouse_x_delta = mouse_x - prev_mouse_x;
+    prev_mouse_x = mouse_x;
+    m_camera.angle = atan2(m_camera.dirY, m_camera.dirX);
+    m_camera.angle -= 0.02f * moveSpeed * mouse_x_delta;
+    m_camera.dirX = cos(m_camera.angle);
+    m_camera.dirY = sin(m_camera.angle);
+    Vector2 vect = Vector2Rotate({(float)cos(m_camera.angle), (float)sin(m_camera.angle)}, -90);
+    m_camera.planeX = vect.x;
+    m_camera.planeY = vect.y * 0.66;
+
     m_pixelator.get()->clear();
     m_pixelator.get()->clear("minimap");
 
+    m_raycaster.raycastCeilingFloor(m_camera);
     m_raycaster.raycast(m_camera);
 
     if(m_show_map)

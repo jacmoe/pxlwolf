@@ -33,6 +33,7 @@ public:
 
     void drawMinimap(const std::string& buffer_name, const _Camera& camera, int blockSize);
 
+    void raycastCeilingFloor(const _Camera& camera);
     void raycast(const _Camera& camera);
 
 private:

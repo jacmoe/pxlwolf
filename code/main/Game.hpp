@@ -23,12 +23,15 @@ struct _Camera
 {
     double x;
     double y;
+    double z;
     double h;
     double angle;
     double dirX;
     double dirY;
+    double dirZ;
     double planeX;
     double planeY;
+    double pitch;
 };
 
 struct _Player

@@ -95,8 +95,8 @@ void RayCaster::raycast(const _Camera& camera)
     double planeY = camera.planeY;
     double posX = camera.x;
     double posY = camera.y;
-    double pitch = 0; // looking up/down, expressed in screen pixels the horizon shifts
-    double posZ = 0; // vertical camera strafing up/down, for jumping/crouching. 0 means standard height. Expressed in screen pixels a wall at distance 1 shifts
+    double pitch = camera.pitch; // looking up/down, expressed in screen pixels the horizon shifts
+    double posZ = camera.z; // vertical camera strafing up/down, for jumping/crouching. 0 means standard height. Expressed in screen pixels a wall at distance 1 shifts
     // WALL CASTING
     for(int x = 0; x < m_width; x++)
     {
@@ -188,23 +188,20 @@ void RayCaster::raycast(const _Camera& camera)
         else          wallX = posX + perpWallDist * rayDirX;
         wallX -= floor((wallX));
 
-        int texWidth = m_atlas.getTileSize().x;
-        int texHeight =m_atlas.getTileSize().y;
-
         //x coordinate on the texture
-        int texX = int(wallX * double(texWidth));
-        if(side == 0 && rayDirX > 0) texX = texWidth - texX - 1;
-        if(side == 1 && rayDirY < 0) texX = texWidth - texX - 1;
+        int texX = int(wallX * double(m_atlas.getTileSize().x));
+        if(side == 0 && rayDirX > 0) texX = m_atlas.getTileSize().x - texX - 1;
+        if(side == 1 && rayDirY < 0) texX = m_atlas.getTileSize().x - texX - 1;
 
         // TODO: an integer-only bresenham or DDA like algorithm could make the texture coordinate stepping faster
         // How much to increase the texture coordinate per screen pixel
-        double step = 1.0 * texHeight / lineHeight;
+        double step = 1.0 * m_atlas.getTileSize().y / lineHeight;
         // Starting texture coordinate
         double texPos = (drawStart - pitch - (posZ / perpWallDist) - m_height / 2 + lineHeight / 2) * step;
         for(int y = drawStart; y < drawEnd; y++)
         {
-            // Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
-            int texY = (int)texPos & (texHeight - 1);
+            // Cast the texture coordinate to integer, and mask with (m_atlas.getTileSize().y - 1) in case of overflow
+            int texY = (int)texPos & ((int)(m_atlas.getTileSize().y) - 1);
             texPos += step;
 
             Color color = m_atlas.getPixel(texNum, texX, texY);
@@ -222,5 +219,105 @@ void RayCaster::raycast(const _Camera& camera)
         //SET THE ZBUFFER FOR THE SPRITE CASTING
         //m_depth_buffer[x] = perpWallDist;
         //   ZBuffer[x] = perpWallDist; //perpendicular distance is used
+    }
+}
+
+void RayCaster::raycastCeilingFloor(const _Camera& camera)
+{
+    double dirX = camera.dirX;
+    double dirY = camera.dirY;
+    double planeX = camera.planeX;
+    double planeY = camera.planeY;
+    double posX = camera.x;
+    double posY = camera.y;
+    double pitch = camera.pitch; // looking up/down, expressed in screen pixels the horizon shifts
+    double posZ = camera.z; // vertical camera strafing up/down, for jumping/crouching. 0 means standard height. Expressed in screen pixels a wall at distance 1 shifts
+    //FLOOR CASTING
+    for(int y = 0; y < m_height; ++y)
+    {
+      // whether this section is floor or ceiling
+      bool is_floor = y > m_height / 2 + pitch;
+
+      // rayDir for leftmost ray (x = 0) and rightmost ray (x = w)
+      float rayDirX0 = dirX - planeX;
+      float rayDirY0 = dirY - planeY;
+      float rayDirX1 = dirX + planeX;
+      float rayDirY1 = dirY + planeY;
+
+      // Current y position compared to the center of the screen (the horizon)
+      int p = is_floor ? (y - m_height / 2 - pitch) : (m_height / 2 - y + pitch);
+
+      // Vertical position of the camera.
+      // NOTE: with 0.5, it's exactly in the center between floor and ceiling,
+      // matching also how the walls are being raycasted. For different values
+      // than 0.5, a separate loop must be done for ceiling and floor since
+      // they're no longer symmetrical.
+      float camZ = is_floor ? (0.5 * m_height + posZ) : (0.5 * m_height - posZ);
+
+      // Horizontal distance from the camera to the floor for the current row.
+      // 0.5 is the z position exactly in the middle between floor and ceiling.
+      // NOTE: this is affine texture mapping, which is not perspective correct
+      // except for perfectly horizontal and vertical surfaces like the floor.
+      // NOTE: this formula is explained as follows: The camera ray goes through
+      // the following two points: the camera itself, which is at a certain
+      // height (posZ), and a point in front of the camera (through an imagined
+      // vertical plane containing the screen pixels) with horizontal distance
+      // 1 from the camera, and vertical position p lower than posZ (posZ - p). When going
+      // through that point, the line has vertically traveled by p units and
+      // horizontally by 1 unit. To hit the floor, it instead needs to travel by
+      // posZ units. It will travel the same ratio horizontally. The ratio was
+      // 1 / p for going through the camera plane, so to go posZ times farther
+      // to reach the floor, we get that the total horizontal distance is posZ / p.
+      float rowDistance = camZ / p;
+
+      // calculate the real world step vector we have to add for each x (parallel to camera plane)
+      // adding step by step avoids multiplications with a weight in the inner loop
+      float floorStepX = rowDistance * (rayDirX1 - rayDirX0) / m_width;
+      float floorStepY = rowDistance * (rayDirY1 - rayDirY0) / m_width;
+
+      // real world coordinates of the leftmost column. This will be updated as we step to the right.
+      float floorX = posX + rowDistance * rayDirX0;
+      float floorY = posY + rowDistance * rayDirY0;
+
+      for(int x = 0; x < m_width; ++x)
+      {
+        // the cell coord is simply got from the integer parts of floorX and floorY
+        int cellX = (int)(floorX);
+        int cellY = (int)(floorY);
+
+        // get the texture coordinate from the fractional part
+        int tx = (int)(m_atlas.getTileSize().x * (floorX - cellX)) & ((int)(m_atlas.getTileSize().x) - 1);
+        int ty = (int)(m_atlas.getTileSize().y * (floorY - cellY)) & ((int)(m_atlas.getTileSize().y) - 1);
+
+        floorX += floorStepX;
+        floorY += floorStepY;
+
+        // choose texture and draw the pixel
+        int checkerBoardPattern = (int(cellX + cellY)) & 1;
+        int floorTexture;
+        if(checkerBoardPattern == 0) floorTexture = 3;
+        else floorTexture = 4;
+        int ceilingTexture = 6;
+        Color color;
+
+
+        if(is_floor) {
+            // floor
+            color = GRAY;
+            // color = m_atlas.getPixel(floorTexture, ty, tx);
+            // int tinted_color = ColorToInt(color);
+            // tinted_color = (tinted_color >> 1) & 8355711;
+            // color = GetColor(tinted_color);
+            m_pixelator->setPixel(x, y, color);
+        } else {
+            //ceiling
+            color = DARKGRAY;
+            // color = m_atlas.getPixel(ceilingTexture, ty, tx);
+            // int tinted_color = ColorToInt(color);
+            // tinted_color = (tinted_color >> 1) & 8355711;
+            // color = GetColor(tinted_color);
+            m_pixelator->setPixel(x, y, color);
+        }
+      }
     }
 }
