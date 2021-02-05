@@ -162,6 +162,38 @@ bool Pixelator::swapBuffer(const std::string name)
     return true;
 }
 
+void Pixelator::mergeBuffer(const std::string& target, const std::string& source)
+{
+    if(!check_key(m_buffer_map, target))
+    {
+       SPDLOG_ERROR("Attempting to merge into a buffer that doesn't exist!");
+        return;
+    }
+    if(!check_key(m_buffer_map, source))
+    {
+       SPDLOG_ERROR("Attempting to merge with a buffer that doesn't exist!");
+        return;
+    }
+    unsigned int target_index = m_buffer_map[target];
+    unsigned int source_index = m_buffer_map[source];
+
+    uint32_t sourcePix;
+    for (uint32_t i = 0; i < m_buffers[source_index].height; i++)
+    {
+        if (i < m_buffers[target_index].height)
+        {
+            for (uint32_t j = 0; j < m_buffers[source_index].width; j++)
+            {
+                if (j < m_buffers[target_index].width)
+                {
+                    sourcePix = m_buffers[source_index].pixels[j+i*m_buffers[source_index].width];
+                    setPixel(target, j, i, toSDLColor(sourcePix));
+                }
+            }
+        }
+    }
+}
+
 void Pixelator::setSize(const int width, const int height)
 {
     setSize(m_current_buffer, width, height);
@@ -230,7 +262,6 @@ uint32_t* Pixelator::getPixels(const std::string& name)
     return &m_buffers[index].pixels[0];
 }
 
-/*
 void Pixelator::drawColumn(const std::string& name, unsigned int x, unsigned int y, unsigned int height, const SDL_Color& color)
 {
    if (y < 0)
@@ -258,11 +289,21 @@ void Pixelator::drawRow(unsigned int x, unsigned int y, unsigned int length, con
 
 void Pixelator::drawFilledRect(const std::string& name, const SDL_Rect& rect, const SDL_Color& color)
 {
-    ImageDrawSDL_RectRec(&m_buffers[m_buffer_map[name]], rect, color);
+    unsigned int index = m_buffer_map.at(name);
+    if (rect.x < m_buffers[index].width)
+    {
+        for (uint32_t i = rect.x; i < rect.x + rect.w; i++)
+        {
+            if (i < m_buffers[index].width)
+            {
+                drawColumn(name, i, rect.y, rect.h, color);
+            }
+        }
+    }
 }
 
 // Doom's version of Bresenham
-void Pixelator::drawLine(const linalg::aliases::double2& start, const linalg::aliases::double2& end, const SDL_Color& color)
+void Pixelator::drawLine(const linalg::aliases::int2& start, const linalg::aliases::int2& end, const SDL_Color& color)
 {
     int dx = end.x - start.x;
     int ax = 2 * abs(dx);
@@ -303,9 +344,9 @@ void Pixelator::drawLine(const linalg::aliases::double2& start, const linalg::al
         }
     }
 }
-/*
+
 // https://en.wikipedia.org/wiki/Midpoint_circle_algorithm
-void Pixelator::drawCircle(const sf::linalg::aliases::double2i& coord, const int radius, const SDL_Color& color)
+void Pixelator::drawCircle(const linalg::aliases::int2& coord, const int radius, const SDL_Color& color)
 {
     int x = radius;
     int y = 0;
@@ -330,13 +371,12 @@ void Pixelator::drawCircle(const sf::linalg::aliases::double2i& coord, const int
         }
     }
 }
-*/
-/*
+
 // x y width height
 void Pixelator::drawRect(const SDL_Rect rect, const SDL_Color& color)
 {
-    float right = rect.x + rect.width;
-    float bottom = rect.y + rect.height;
+    int right = rect.x + rect.w;
+    int bottom = rect.y + rect.h;
     drawLine({rect.x, rect.y}, {right, rect.y}, color);
     drawLine({rect.x, bottom}, {right, bottom}, color);
     drawLine({rect.x, rect.y}, {rect.x, bottom}, color);
@@ -351,71 +391,69 @@ void Pixelator::fill(const std::string& name, SDL_Color color)
         return;
     }
     unsigned int index = m_buffer_map.at(name);
-    ImageClearBackground(&m_buffers[index], color);
+
+    std::vector<uint32_t> newPixels(m_buffers[index].width * m_buffers[index].height);
+    uint32_t* ptr = &newPixels[0];
+    uint32_t* end = ptr + newPixels.size();
+    while (ptr < end)
+    {
+        *ptr++ = color.r;
+        *ptr++ = color.g;
+        *ptr++ = color.b;
+        *ptr++ = color.a;
+    }
+    // Commit the new pixel buffer
+    m_buffers[index].pixels.swap(newPixels);
+    m_buffers[index].width = m_buffers[index].width;
+    m_buffers[index].height = m_buffers[index].height;
 }
 
-void Pixelator::randomize()
+void Pixelator::randomize(const std::string& name)
 {
-    unsigned int index = m_buffer_map.at(m_current_buffer);
-    SDL_Color *pixels = LoadImageColors(m_buffers[index]);
-    
-    for (int y = 0; y < m_buffers[index].height; y++)
+    if(!check_key(m_buffer_map, name))
     {
-        for (int x = 0; x < m_buffers[index].width; x++)
-        {
-            pixels[y*m_buffers[index].width + x].r = static_cast<unsigned char>(GetRandomValue(0, 255));
-            pixels[y*m_buffers[index].width + x].g = static_cast<unsigned char>(GetRandomValue(0, 255));
-            pixels[y*m_buffers[index].width + x].b = static_cast<unsigned char>(GetRandomValue(0, 255));
-            pixels[y*m_buffers[index].width + x].a = static_cast<unsigned char>(GetRandomValue(0, 255));
-        }
+       SPDLOG_ERROR("Attempting to randomize a buffer that doesn't exist!");
+        return;
     }
-    RL_FREE(m_buffers[index].data);
-    m_buffers[index].data = pixels;
+    unsigned int index = m_buffer_map.at(name);
+
+    std::vector<uint32_t> newPixels(m_buffers[index].width * m_buffers[index].height);
+    uint32_t* ptr = &newPixels[0];
+    uint32_t* end = ptr + newPixels.size();
+    while (ptr < end)
+    {
+        *ptr++ = rand() % 255;
+        *ptr++ = rand() % 255;
+        *ptr++ = rand() % 255;
+        *ptr++ = rand() % 255;
+    }
+    // Commit the new pixel buffer
+    m_buffers[index].pixels.swap(newPixels);
+    m_buffers[index].width = m_buffers[index].width;
+    m_buffers[index].height = m_buffers[index].height;
 }
 
 void Pixelator::clear(const std::string& name)
 {
+    if(!check_key(m_buffer_map, name))
+    {
+       SPDLOG_ERROR("Attempting to fill a buffer that doesn't exist!");
+        return;
+    }
     unsigned int index = m_buffer_map.at(name);
-    ImageClearBackground(&m_buffers[index], BLANK);
-}
 
-// copies from an image
-void Pixelator::copy(const std::string& name, Image source)
-{
-    UnloadImage(m_buffers[m_buffer_map[name]]);
-    m_buffers[m_buffer_map[name]] = ImageCopy(source);
-}
-
-// copies from a buffer
-void Pixelator::copy(const std::string name, unsigned int x, unsigned int y, const SDL_Rect& sourceRect)
-{
-    if(!check_key(m_buffer_map, name))
+    std::vector<uint32_t> newPixels(m_buffers[index].width * m_buffers[index].height);
+    uint32_t* ptr = &newPixels[0];
+    uint32_t* end = ptr + newPixels.size();
+    while (ptr < end)
     {
-       SPDLOG_ERROR("Attempting to copy from '{}' which doesn't exist!", name);
-        return;
+        *ptr++ = 0;
+        *ptr++ = 0;
+        *ptr++ = 0;
+        *ptr++ = 0;
     }
-    ImageDraw(&m_buffers[m_buffer_map[m_current_buffer]], 
-                m_buffers[m_buffer_map[name]],
-                {static_cast<float>(x), static_cast<float>(y),
-                    static_cast<float>(m_buffers[m_buffer_map[name]].width),
-                    static_cast<float>(m_buffers[m_buffer_map[name]].height)},
-                sourceRect, WHITE);
+    // Commit the new pixel buffer
+    m_buffers[index].pixels.swap(newPixels);
+    m_buffers[index].width = m_buffers[index].width;
+    m_buffers[index].height = m_buffers[index].height;
 }
-
-// copies everything from another buffer
-void Pixelator::copy(const std::string name, unsigned int x, unsigned int y)
-{
-    if(!check_key(m_buffer_map, name))
-    {
-       SPDLOG_ERROR("Attempting to copy from '{}' which doesn't exist!", name);
-        return;
-    }
-    ImageDraw(&m_buffers[m_buffer_map[m_current_buffer]], 
-                m_buffers[m_buffer_map[name]],
-                { 0, 0, static_cast<float>(m_buffers[m_buffer_map[name]].width),
-                    static_cast<float>(m_buffers[m_buffer_map[name]].height)},
-                {static_cast<float>(x), static_cast<float>(y),
-                    static_cast<float>(m_buffers[m_buffer_map[name]].width),
-                    static_cast<float>(m_buffers[m_buffer_map[name]].height)}, WHITE);
-}
-*/
