@@ -47,5 +47,5 @@ private:
 
     std::vector<double> m_depth_buffer;
 
-    Color pixelGradientShader(Color pixel, unsigned char amount);
+    Color pixelGradientShader(Color pixel, double amount, Color target);
 };

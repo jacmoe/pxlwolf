@@ -77,14 +77,18 @@ void RayCaster::drawMinimap(const std::string& buffer_name, const _Camera& camer
     }
 }
 
-Color RayCaster::pixelGradientShader(Color pixel, unsigned char amount)
+Color RayCaster::pixelGradientShader(Color pixel, double amount, Color target)
 {
-    Color color;
-    color.r = pixel.r - amount;
-    color.g = pixel.g - amount;
-    color.b = pixel.b - amount;
-    color.a = pixel.a;
-    return color;
+    Color source = pixel;
+    int dr = target.r - source.r;
+    int dg = target.g - source.g;
+    int db = target.b - source.b;
+    int da = target.a - source.a;
+    source.r += (int)((double)dr * amount);
+    source.g += (int)((double)dg * amount);
+    source.b += (int)((double)db * amount);
+    source.a += (int)((double)da * amount);
+    return source;
 }
 
 void RayCaster::raycast(const _Camera& camera)
@@ -205,14 +209,7 @@ void RayCaster::raycast(const _Camera& camera)
             texPos += step;
 
             Color color = m_atlas.getPixel(texNum, texX, texY);
-
-            //make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
-            // if(side == 1)
-            // {
-            //     int tinted_color = ColorToInt(color);
-            //     tinted_color = (tinted_color >> 1) & 8355711;
-            //     color = GetColor(tinted_color);
-            // }
+            // color = ColorAlphaBlend(color, {(unsigned char)(color.r / perpWallDist),(unsigned char)(color.g / perpWallDist),(unsigned char)(color.b / perpWallDist), (unsigned char)(color.a / perpWallDist)}, GOLD);
             m_pixelator->setPixel(x, y, color);
         }
 
@@ -295,27 +292,23 @@ void RayCaster::raycastCeilingFloor(const _Camera& camera)
         // choose texture and draw the pixel
         int checkerBoardPattern = (int(cellX + cellY)) & 1;
         int floorTexture;
-        if(checkerBoardPattern == 0) floorTexture = 3;
-        else floorTexture = 4;
-        int ceilingTexture = 6;
+        if(checkerBoardPattern == 0) floorTexture = 1;
+        else floorTexture = 1;
+        int ceilingTexture = 8;
         Color color;
 
 
         if(is_floor) {
             // floor
-            color = GRAY;
-            // color = m_atlas.getPixel(floorTexture, ty, tx);
-            // int tinted_color = ColorToInt(color);
-            // tinted_color = (tinted_color >> 1) & 8355711;
-            // color = GetColor(tinted_color);
+            //color = GRAY;
+            color = m_atlas.getPixel(floorTexture, ty, tx);
+            // color = ColorAlphaBlend(color, {(unsigned char)(color.r / rowDistance),(unsigned char)(color.g / rowDistance),(unsigned char)(color.b / rowDistance), (unsigned char)(color.a / rowDistance)}, GOLD);
             m_pixelator->setPixel(x, y, color);
         } else {
             //ceiling
-            color = DARKGRAY;
-            // color = m_atlas.getPixel(ceilingTexture, ty, tx);
-            // int tinted_color = ColorToInt(color);
-            // tinted_color = (tinted_color >> 1) & 8355711;
-            // color = GetColor(tinted_color);
+            // color = DARKGRAY;
+            color = m_atlas.getPixel(ceilingTexture, ty, tx);
+            // color = ColorAlphaBlend(color, {(unsigned char)(color.r / rowDistance),(unsigned char)(color.g / rowDistance),(unsigned char)(color.b / rowDistance), (unsigned char)(color.a / rowDistance)}, GOLD);
             m_pixelator->setPixel(x, y, color);
         }
       }
