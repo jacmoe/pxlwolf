@@ -76,6 +76,7 @@ Only the OpenAL runtime is required. Navigate to the OpenAL [download page][open
 |[PhysFS++][physpp]|C++ wrapper for PhysicsFS|zlib license|
 |[RapidJSON][rapidjson]|A fast JSON parser/generator for C++|MIT license|
 |[Sol][sol]|A C++11 Lua wrapper|MIT License|
+|[spdlog][spdlog]|Logging library|MIT license|
 |[toml11][toml11]|TOML for Modern C++|MIT license|
 
 
@@ -102,4 +103,5 @@ This project is using code from the [c-raycaster project][cray] - the raycaster 
 [physpp]: https://github.com/kahowell/physfs-cpp "C++ wrapper for PhysicsFS"
 [rapidjson]: https://rapidjson.org/ "A fast JSON parser/generator for C++"
 [sol]: https://github.com/ThePhD/sol "A C++11 Lua wrapper"
+[spdlog]: https://github.com/gabime/spdlog "Logging library"
 [toml11]: https://github.com/ToruNiina/toml11 "TOML for Modern C++"
