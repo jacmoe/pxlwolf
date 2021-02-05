@@ -75,7 +75,6 @@ Only the OpenAL runtime is required. Navigate to the OpenAL [download page][open
 |[PhysicsFS ][physfs]|Archive support for games|zlib license|
 |[PhysFS++][physpp]|C++ wrapper for PhysicsFS|zlib license|
 |[RapidJSON][rapidjson]|A fast JSON parser/generator for C++|MIT license|
-|[Raylib 3.5][raylib]|Simple and easy-to-use videogame programming library|zlib license|
 |[Sol][sol]|A C++11 Lua wrapper|MIT License|
 |[toml11][toml11]|TOML for Modern C++|MIT license|
 
@@ -95,7 +94,6 @@ This project is using code from the [c-raycaster project][cray] - the raycaster 
 [balantkiss]: https://github.com/balintkissdev/raycaster-engine "Balantkissdev's Raycaster engine"
 [cray]: https://github.com/ckinvents/c-raycaster "c-raycaster project by ckinvents"
 
-[raylib]: https://www.raylib.com/ "Simple and easy-to-use videogames programming library"
 [openal]: https://www.openal.org/downloads/ "Cross-platform 3D audio API"
 [cereal]: https://uscilab.github.io/cereal/ "C++11 library for serialization"
 [entt]: https://github.com/skypjack/entt "C++ entity component system"
