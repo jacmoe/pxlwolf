@@ -43,6 +43,7 @@ Application::~Application()
     SPDLOG_INFO("PixelWolf shutdown.");
     if(m_font != nullptr) TTF_CloseFont(m_font);
     m_font_texture.reset();
+    m_render_texture.reset();
     m_renderer.reset();
     TTF_Quit();
     SDL_Quit();
@@ -138,6 +139,13 @@ bool Application::init(const std::string title, int width, int height, float sca
 
 	SDL_RenderSetScale(m_renderer.get(), static_cast<float>(scale), static_cast<float>(scale));
 	SDL_SetRenderDrawBlendMode(m_renderer.get(), SDL_BLENDMODE_BLEND);
+
+    m_render_texture.reset(SDL_CreateTexture(m_renderer.get(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, m_width, m_height));
+    SDL_SetTextureBlendMode(m_render_texture.get(), SDL_BLENDMODE_BLEND);
+
+    m_pixelator = std::make_shared<Pixelator>();
+
+    m_pixelator.get()->setSize(m_width, m_height);
 
     if(!load_font())
     {

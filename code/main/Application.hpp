@@ -21,6 +21,7 @@
 #include <SDL.h>
 #include "spdlog/spdlog.h"
 #include "SDLDeleter.hpp"
+#include "Pixelator.hpp"
 
 class Application
 {
@@ -51,9 +52,12 @@ protected:
 
     TTF_Font* m_font;
     std::unique_ptr<SDL_Texture, utility::SDLDeleter> m_font_texture;
+    std::unique_ptr<SDL_Texture, utility::SDLDeleter> m_render_texture;
 
     std::unique_ptr<SDL_Window, utility::SDLDeleter> m_window;
     std::unique_ptr<SDL_Renderer, utility::SDLDeleter> m_renderer;
+
+    std::shared_ptr<Pixelator> m_pixelator;
 
 private:
     std::string m_title;

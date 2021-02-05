@@ -39,6 +39,8 @@ bool Game::OnUserUpdate(double fDeltaTime)
 
 bool Game::OnUserRender()
 {
+    // SDL_UpdateTexture(m_render_texture.get(), NULL, buffer->pixelBuffer->pixels, sizeof(uint32_t) * WIDTH);
+    SDL_RenderCopy(m_renderer.get(), m_render_texture.get(), NULL, NULL);
     return true;
 }
 
