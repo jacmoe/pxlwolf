@@ -16,40 +16,49 @@
 set(TARGET_NAME pxlwolf)
 
 set(main
-    ./main/Application.cpp
-    ./main/Application.hpp
+    # ./main/Application.cpp
+    # ./main/Application.hpp
     # ./main/Entity.cpp
     # ./main/Entity.hpp
-    ./main/Game.cpp
-    ./main/Game.hpp
+    # ./main/Game.cpp
+    # ./main/Game.hpp
     # ./main/Level.cpp
     # ./main/Level.hpp
-    ./main/Pixelator.cpp
-    ./main/Pixelator.hpp
-    ./main/RayCaster.cpp
-    ./main/RayCaster.hpp
+    # ./main/Pixelator.cpp
+    # ./main/Pixelator.hpp
+    # ./main/RayCaster.cpp
+    # ./main/RayCaster.hpp
 )
 
 set(utility
-    ./utility/ImageAtlas.cpp
-    ./utility/ImageAtlas.hpp
-    ./utility/Map.cpp
-    ./utility/Map.hpp
+    # ./utility/ImageAtlas.cpp
+    # ./utility/ImageAtlas.hpp
+    # ./utility/Map.cpp
+    # ./utility/Map.hpp
     # ./utility/RectAnimation.cpp
     # ./utility/RectAnimation.hpp
     # ./utility/SpriteSheetLoader.cpp
     # ./utility/SpriteSheetLoader.hpp
     ./utility/utils.cpp
     ./utility/utils.hpp
-    ${3RD_PARTY_DIR}/physfs.cpp
-    ${3RD_PARTY_DIR}/physfs.hpp
+    # ${3RD_PARTY_DIR}/physfs.cpp
+    # ${3RD_PARTY_DIR}/physfs.hpp
     # ${3RD_PARTY_DIR}/lua_main.hpp
 )
 
+if(WIN32)
+add_executable(${TARGET_NAME}
+    WIN32
+    ./main.cpp
+    ${main}
+    ${utility}
+)
+else()
 add_executable(${TARGET_NAME}
     ./main.cpp
     ${main}
     ${utility}
 )
+endif()
 
-target_link_libraries(pxlwolf lua  physfs-static raylib)
+target_link_libraries(pxlwolf lua  physfs-static SDL2::SDL2 SDL2::SDL2main SDL_ttf::SDL_ttf)

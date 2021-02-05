@@ -23,48 +23,13 @@
 #include "toml.hpp"
 #include "utils.hpp"
 #include "physfs.hpp"
-#include "raylib.h"
 
-#include "Game.hpp"
 
-// Custom logging funtion
-// Logs to both file and console
-void LogCustom(int msgType, const char *text, va_list args)
-{
-    FILE* logFile;
-    logFile = fopen("log/pxllog.txt","a+");
+#include "SDL2/SDL.h"
 
-    char timeStr[64] = { 0 };
-    time_t now = time(NULL);
-    struct tm *tm_info = localtime(&now);
-
-    strftime(timeStr, sizeof(timeStr), "%Y-%m-%d %H:%M:%S", tm_info);
-    printf("[%s] ", timeStr);
-    fprintf(logFile, "[%s] ", timeStr);
-
-    switch (msgType)
-    {
-        case LOG_INFO: fputs("[INFO] : ", logFile); break;
-        case LOG_ERROR: fputs("[ERROR]: ", logFile); break;
-        case LOG_WARNING: fputs("[WARN] : ", logFile); break;
-        case LOG_DEBUG: fputs("[DEBUG]: ", logFile); break;
-        default: break;
-    }
-    switch (msgType)
-    {
-        case LOG_INFO: printf("[INFO] : "); break;
-        case LOG_ERROR: printf("[ERROR]: "); break;
-        case LOG_WARNING: printf("[WARN] : "); break;
-        case LOG_DEBUG: printf("[DEBUG]: "); break;
-        default: break;
-    }
-
-    vfprintf(logFile,text, args);
-    vprintf(text, args);
-    fputs("\n",logFile);
-    printf("\n");
-    fclose(logFile);
-}
+#include "spdlog/spdlog.h"
+#include "spdlog/sinks/basic_file_sink.h"
+#include "spdlog/sinks/stdout_color_sinks.h"
 
 void setup_working_directory()
 {
@@ -80,14 +45,36 @@ void setup_working_directory()
     utility::eraseSubStrings(path, strList);
     // Set a proper working directory
     std::filesystem::current_path(path);
-
-    std::string  message = "Current working directory is now " + path;
-    TraceLog(LOG_INFO, message.c_str());
 }
 
-int main(void)
+void setup_logging()
+{
+    std::shared_ptr<spdlog::logger> m_pxllogger;
+
+    std::string logfile_name = "log/pxllog.txt";
+    
+    // Remove old log file
+    if(std::filesystem::exists(logfile_name))
+    {
+        std::remove(logfile_name.c_str());
+    }
+
+	// Create console sink and file sink
+    auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
+	auto file_sink = std::make_shared<spdlog::sinks::basic_file_sink_mt>(logfile_name, true);
+	spdlog::sinks_init_list sink_list = { file_sink, console_sink };
+	// Make the logger use both the console and the file sink
+    m_pxllogger = std::make_shared<spdlog::logger>("multi_sink", spdlog::sinks_init_list({console_sink, file_sink}));
+	// Set the standard logger so that we can use it freely everywhere
+    spdlog::set_default_logger(m_pxllogger);
+	// Set the format pattern - [Loglevel] [Function] [Line] message
+	spdlog::set_pattern("[%l] [%!] [line %#] %v");
+}
+
+int main(int, char**)
 {
     setup_working_directory();
+    setup_logging();
 
     // Remove old log file
     if(std::filesystem::exists("log/pxllog.txt"))
@@ -95,10 +82,7 @@ int main(void)
         std::remove("log/pxllog.txt");
     }
 
-#if defined(_WIN32)
-    // Set up custom logging
-    SetTraceLogCallback(LogCustom);
-#endif
+	SPDLOG_INFO("PixelWolf initializing.");
 
     auto config = toml::parse("assets/config/pxlwolf.toml");
     const auto& application_config = toml::find(config, "application");
@@ -118,12 +102,27 @@ int main(void)
 # pragma warning(pop)
 #endif
 
-    Game game;
+    // Game game;
 
-    if(game.init(title, screenWidth, screenHeight, scale, fullscreen))
-    {
-        game.run();
+    // if(game.init(title, screenWidth, screenHeight, scale, fullscreen))
+    // {
+    //     game.run();
+    // }
+
+   if (SDL_Init( SDL_INIT_VIDEO ) < 0) {
+        std::cout << "SDL could not initialize! SDL_Error: " << SDL_GetError() << std::endl;
+    } else {
+        
+        SDL_CreateWindow(
+            "SDL2 Demo",
+            SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+            360, 240,
+            SDL_WINDOW_SHOWN
+        );
+        
+        SDL_Delay(2000);
     }
+ 	SPDLOG_INFO("PixelWolf exited.");
 
     return 0;
 }
