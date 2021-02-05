@@ -231,7 +231,6 @@ linalg::aliases::uint2 Pixelator::getSize(const std::string name)
     return size;
 }
 
-
 void Pixelator::setPixel(unsigned int x, unsigned int y, const SDL_Color& color)
 {
     setPixel(m_current_buffer, x, y, color);

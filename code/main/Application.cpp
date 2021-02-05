@@ -223,5 +223,7 @@ void Application::render()
 
     OnUserRender();
 
+    SDL_RenderCopy(m_renderer.get(), m_render_texture.get(), NULL, NULL);
+
     SDL_RenderPresent(m_renderer.get());
 }
