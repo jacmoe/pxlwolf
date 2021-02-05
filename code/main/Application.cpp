@@ -21,22 +21,6 @@
 #include <stdexcept>
 #include <filesystem>
 
-#define max(a, b) ((a)>(b)? (a) : (b))
-#define min(a, b) ((a)<(b)? (a) : (b))
-
-// Clamp Vector2 value with min and max and return a new vector2
-// NOTE: Required for virtual mouse, to clamp inside virtual game size
-Vector2 ClampValue(Vector2 value, Vector2 min, Vector2 max)
-{
-    Vector2 result = value;
-    result.x = (result.x > max.x)? max.x : result.x;
-    result.x = (result.x < min.x)? min.x : result.x;
-    result.y = (result.y > max.y)? max.y : result.y;
-    result.y = (result.y < min.y)? min.y : result.y;
-    return result;
-}
-
-
 Application::Application()
     : m_scale(0)
     , m_width(0)
@@ -44,16 +28,24 @@ Application::Application()
     , m_fullscreen(false)
     , m_show_map(false)
     , m_title("")
-    , m_pixelator()
     , m_running(false)
     , m_show_fps(false)
     , m_should_exit(false)
-    , m_font()
+    , m_renderer(nullptr)
+    , font_name("assets/fonts/MedievalSharp-Bold.ttf")
+    , font_size(16)
+    , font_color({255, 255, 255, 255})
+    , m_font(nullptr)
 {}
 
 Application::~Application()
 {
-    TraceLog(LOG_INFO,"PixelWolf shutdown.");
+    SPDLOG_INFO("PixelWolf shutdown.");
+    if(m_font != nullptr) TTF_CloseFont(m_font);
+    m_font_texture.reset();
+    m_renderer.reset();
+    TTF_Quit();
+    SDL_Quit();
 }
 
 bool Application::OnUserCreate()
@@ -61,7 +53,7 @@ bool Application::OnUserCreate()
     return true;
 }
 
-bool Application::OnUserUpdate(double elapsedTime)
+bool Application::OnUserUpdate(double fDeltaTime)
 {
     return true;
 }
@@ -76,6 +68,36 @@ bool Application::OnUserRender()
     return true;
 }
 
+bool Application::write_text(const std::string text)
+{
+    SDL_Surface* surf = TTF_RenderText_Blended(m_font, text.c_str(), font_color);
+    if (surf == nullptr){
+        SPDLOG_ERROR("Can't render the font!");
+        return false;
+    }
+    m_font_texture.reset(SDL_CreateTextureFromSurface(m_renderer.get(), surf));
+    SDL_FreeSurface(surf);
+    return true;
+}
+
+bool Application::load_font()
+{
+    if(std::filesystem::exists(font_name))
+    {
+        m_font = TTF_OpenFont(font_name.c_str(), font_size);
+        if (!m_font){
+            SPDLOG_ERROR("Cannot load font!", TTF_GetError());
+            return false;
+        }	
+    }
+    else
+    {
+        SPDLOG_ERROR("Font '{}' could not be found.", font_name);
+        return false;
+    }
+    return true;
+}
+
 bool Application::init(const std::string title, int width, int height, float scale, const bool fullscreen)
 {
     m_width = width;
@@ -84,136 +106,102 @@ bool Application::init(const std::string title, int width, int height, float sca
     m_title = title;
     m_fullscreen = fullscreen;
 
-    if(m_fullscreen)
+    if (0 != SDL_Init(SDL_INIT_VIDEO))
     {
-        SetConfigFlags(FLAG_FULLSCREEN_MODE);
+        SPDLOG_ERROR("Error initializing SDL: {}", std::string(SDL_GetError()));
+        return false;
     }
-    else
+    if (0 != TTF_Init())
     {
-        SetConfigFlags(FLAG_VSYNC_HINT);
-    }
-
-    InitWindow(m_width * m_scale, m_height * m_scale, m_title.c_str());
-    SetWindowMinSize(m_width, m_height);
-    m_render_texture = LoadRenderTexture(m_width, m_height);
-    SetTextureFilter(m_render_texture.texture, FILTER_POINT);
-
-    m_pixelator = std::make_shared<Pixelator>();
-    m_pixelator.get()->setSize(m_width, m_height);
-
-    SetTargetFPS(60);
-
-    // Compute required framebuffer scaling
-    if(m_fullscreen)
-    {
-        m_framebuffer_scale = min((float)GetMonitorWidth(0) / m_width, (float)GetMonitorHeight(0) / m_height);
-    }
-    else
-    {
-        m_framebuffer_scale = min((float)GetScreenWidth() / m_width, (float)GetScreenHeight() / m_height);
+        SPDLOG_ERROR("Error initializing TTF: {}", std::string(TTF_GetError()));
+        return false;
     }
 
-    m_font = LoadFont("assets/fonts/MedievalSharp-Bold.ttf");
+	m_window.reset(SDL_CreateWindow(
+		title.c_str(),
+		300, 100,
+		width * scale, height * scale,
+		SDL_WINDOW_OPENGL
+	));
+    if (!m_window)
+    {
+        SPDLOG_ERROR("Error creating window: {}", std::string(SDL_GetError()));
+        return false;
+    }
 
-    SetExitKey(0);
+	m_renderer.reset(SDL_CreateRenderer(m_window.get(), -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC));
+    if (!m_renderer)
+    {
+        SPDLOG_ERROR("Error creating renderer: {}", std::string(SDL_GetError()));
+        return false;
+    }
 
-    DisableCursor();
+	SDL_RenderSetScale(m_renderer.get(), static_cast<float>(scale), static_cast<float>(scale));
+	SDL_SetRenderDrawBlendMode(m_renderer.get(), SDL_BLENDMODE_BLEND);
 
-    TraceLog(LOG_INFO,"PixelWolf initialized.");
+    if(!load_font())
+    {
+        return false;
+    }
+
+	SPDLOG_INFO("PixelWolf initialized.");
 
     return true;
 }
 
 void Application::run()
 {
+	uint8_t frameCounter = 0;
+	uint32_t realRunTime = 0;
+	double realRunTimeF = 0;
+	double dt = 0;
+	uint32_t runTime = SDL_GetTicks();
+	double runTimeF = (double)runTime/1000;
+
     m_running = true;
 
     if (!OnUserCreate()) m_running = false;
 
-    while (!m_should_exit && m_running)
+    while (m_running)
     {
-        m_should_exit = WindowShouldClose();
-        // Compute required framebuffer scaling
-        if(m_fullscreen)
-        {
-            m_framebuffer_scale = min((float)GetMonitorWidth(0) / m_width, (float)GetMonitorHeight(0) / m_height);
-        }
-        else
-        {
-            m_framebuffer_scale = min((float)GetScreenWidth() / m_width, (float)GetScreenHeight() / m_height);
-        }
-
-        double elapsedTime = GetFrameTime();
+		realRunTime = SDL_GetTicks();		
+		realRunTimeF = (double)realRunTime/1000;
 
         event();
 
-        update(elapsedTime);
-
-        OnUserUpdate(elapsedTime);
+        update(realRunTimeF);
+        OnUserUpdate(realRunTimeF);
 
         render();
     }
     OnUserDestroy();
-
-    UnloadRenderTexture(m_render_texture);
-    UnloadFont(m_font);
-
-    CloseWindow();
 }
 
 void Application::event()
 {
-    if (IsKeyDown(KEY_LEFT_CONTROL) && IsKeyPressed(KEY_Q))
-    {
-        m_should_exit = true;
-    }
-#if defined(_WIN32)
-    if (IsKeyDown(KEY_LEFT_ALT) && IsKeyPressed(KEY_ENTER))
-    {
-        m_fullscreen = !m_fullscreen;
-        toggle_fullscreen();
-    }
-#endif
-    if (IsKeyPressed(KEY_F))
-    {
-        m_show_fps = !m_show_fps;
-    }
-    if (IsKeyPressed(KEY_M))
-    {
-        m_show_map = !m_show_map;
-    }
-    if (IsKeyDown(KEY_LEFT_CONTROL) && IsKeyPressed(KEY_P))
-    {
-        TakeScreenshot("screenshot.png");
-    }
+    const Uint8 * keystate = SDL_GetKeyboardState(nullptr);
 
+    while (SDL_PollEvent(&e_))
+    {
+        switch (e_.type)
+        {
+            case SDL_QUIT:
+                m_running = false;
+                break;
+
+            case SDL_KEYDOWN:
+                switch (e_.key.keysym.sym)
+                {
+                    case SDLK_ESCAPE:
+                        m_running = false;
+                        break;
+                }
+        }
+    }
 }
 
 void Application::toggle_fullscreen()
 {
-    UnloadRenderTexture(m_render_texture);
-    UnloadFont(m_font);
-    CloseWindow();
-
-    if(m_fullscreen)
-    {
-        TraceLog(LOG_INFO,"[toggle_fullscreen] Recreating fullscreen window.");
-        SetConfigFlags(FLAG_FULLSCREEN_MODE);
-        InitWindow(m_width * m_scale, m_height * m_scale, m_title.c_str());
-        SetWindowMinSize(GetMonitorWidth(0), GetMonitorHeight(0));
-    }
-    else
-    {
-        TraceLog(LOG_INFO,"[toggle_fullscreen] Recreating normal window.");
-        ClearWindowState(FLAG_FULLSCREEN_MODE);
-        SetConfigFlags(FLAG_VSYNC_HINT);
-        InitWindow(m_width * m_scale, m_height * m_scale, m_title.c_str());
-        SetWindowMinSize(m_width, m_height);
-    }
-
-    m_render_texture = LoadRenderTexture(m_width, m_height);
-    SetTextureFilter(m_render_texture.texture, FILTER_POINT);
-    m_font = LoadFont("assets/fonts/MedievalSharp-Bold.ttf");
 }
 
 void Application::update(double elapsedTime)
@@ -222,34 +210,10 @@ void Application::update(double elapsedTime)
 
 void Application::render()
 {
-    BeginDrawing();
-    ClearBackground(BLACK);
+    SDL_SetRenderDrawColor(m_renderer.get(), 0, 0, 0, 255);
+    SDL_RenderClear(m_renderer.get());
 
     OnUserRender();
 
-    UpdateTexture(m_render_texture.texture, m_pixelator.get()->getData());
-
-    BeginTextureMode(m_render_texture);
-
-    if(m_show_fps)
-    {
-        DrawFPS(m_width - 80, m_height - 20);
-    }
-
-    DrawTextEx(m_font, "PixelWolf", { 10, 10 }, 20, 0, RAYWHITE);
-
-    EndTextureMode();
-
-    int screen_width = GetScreenWidth();
-    int screen_height = GetScreenHeight();
-    if(m_fullscreen) {
-        screen_width = GetMonitorWidth(0);
-        screen_height = GetMonitorHeight(0);
-    }
-    // Draw RenderTexture2D to window, properly scaled
-    DrawTexturePro(m_render_texture.texture, { 0.0f, 0.0f, (float)m_render_texture.texture.width, (float)-m_render_texture.texture.height },
-        { (screen_width - ((float)m_width * m_framebuffer_scale)) * 0.5f, (screen_height - ((float)m_height * m_framebuffer_scale)) * 0.5f,
-        (float)m_width * m_framebuffer_scale, (float)m_height * m_framebuffer_scale }, { 0, 0 }, 0.0f, WHITE);
-
-    EndDrawing();
+    SDL_RenderPresent(m_renderer.get());
 }

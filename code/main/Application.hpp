@@ -18,9 +18,9 @@
 #include <vector>
 #include <memory>
 
-#include "raylib.h"
-
-#include "Pixelator.hpp"
+#include <SDL.h>
+#include "spdlog/spdlog.h"
+#include "SDLDeleter.hpp"
 
 class Application
 {
@@ -33,9 +33,11 @@ public:
 
 protected:
     virtual bool OnUserCreate();
-    virtual bool OnUserUpdate(double elapsedTime);
+    virtual bool OnUserUpdate(double fDeltaTime);
     virtual bool OnUserRender();
     virtual bool OnUserDestroy();
+
+    virtual bool write_text(const std::string text);
 
     float m_scale;
     int m_width;
@@ -43,23 +45,27 @@ protected:
     bool m_fullscreen;
     bool m_show_map;
 
-    RenderTexture2D m_render_texture;
-    std::shared_ptr<Pixelator> m_pixelator;
+    std::string font_name;
+    int font_size;
+    SDL_Color font_color;
+
+    TTF_Font* m_font;
+    std::unique_ptr<SDL_Texture, utility::SDLDeleter> m_font_texture;
+
+    std::unique_ptr<SDL_Window, utility::SDLDeleter> m_window;
+    std::unique_ptr<SDL_Renderer, utility::SDLDeleter> m_renderer;
 
 private:
     std::string m_title;
     bool m_running;
     bool m_show_fps;
     bool m_should_exit;
-    Font m_font;
 
-    Vector2 m_mouse_position;
-    Vector2 m_virtual_mouse_position = { 0 };
-
-    float m_framebuffer_scale;
+    SDL_Event e_;
 
     void event();
     void update(double elapsedTime);
     void render();
     void toggle_fullscreen();
+    bool load_font();
 };
