@@ -17,7 +17,8 @@
 
 #include <unordered_map>
 #include <vector>
-#include "raylib.h"
+#include "SDL.h"
+#include "linalg.h"
 
 class Pixelator
 {
@@ -25,33 +26,30 @@ public:
     Pixelator();
     ~Pixelator();
 
-    void setSize(const int width, const int height);
-    void setSize(const std::string& name, const int width, const int height);
+    // // Pixels
+    // void setPixel(unsigned int x, unsigned int y, const SDL_Color& color);
+    // void setPixel(const std::string& name, unsigned int x, unsigned int y, const SDL_Color& color);
+    // uint32_t getPixel(unsigned int x, unsigned int y) { return getPixel(m_current_buffer, x, y); }
+    // uint32_t getPixel(const std::string& name, unsigned int x, unsigned int y);
+    // uint32_t* getPixels() { return getPixels(m_current_buffer); }
+    // uint32_t* getPixels(const std::string& name);
+    // void* getData() { return getData(m_current_buffer); }
+    // void* getData(const std::string& name);
 
-    // Pixels
-    void setPixel(unsigned int x, unsigned int y, const Color& color);
-    void setPixel(const std::string& name, unsigned int x, unsigned int y, const Color& color);
-    Color getPixel(unsigned int x, unsigned int y) { return getPixel(m_current_buffer, x, y); }
-    Color getPixel(const std::string& name, unsigned int x, unsigned int y);
-    Color* getPixels() { return getPixels(m_current_buffer); }
-    Color* getPixels(const std::string& name);
-    void* getData() { return getData(m_current_buffer); }
-    void* getData(const std::string& name);
+    // void drawColumn(unsigned int x, unsigned int y, unsigned int height, const SDL_Color& color) { drawColumn(m_current_buffer, x, y, height, SDL_Color); }
+    // void drawColumn(const std::string& name, unsigned int x, unsigned int y, unsigned int height, const SDL_Color& color);
+    // void drawRow(unsigned int x, unsigned int y, unsigned int length, const SDL_Color& color);
+    // void drawRect(const SDL_Rect rect, const SDL_Color& color);
+    // inline void drawFilledRect(const SDL_Rect& rect, const SDL_Color& color) { drawFilledRect(m_current_buffer, rect, color); }
+    // void drawFilledRect(const std::string& name, const SDL_Rect& rect, const SDL_Color& color);
+    // void drawLine(const linalg::aliases::double2& start, const linalg::aliases::double2& end, const SDL_Color& color);
+    // void drawCircle(const linalg::aliases::double2& coord, const int radius, const SDL_Color& color);
 
-    void drawColumn(unsigned int x, unsigned int y, unsigned int height, const Color& color) { drawColumn(m_current_buffer, x, y, height, color); }
-    void drawColumn(const std::string& name, unsigned int x, unsigned int y, unsigned int height, const Color& color);
-    void drawRow(unsigned int x, unsigned int y, unsigned int length, const Color& color);
-    void drawRect(const Rectangle rect, const Color& color);
-    inline void drawFilledRect(const Rectangle& rect, const Color& color) { drawFilledRect(m_current_buffer, rect, color); }
-    void drawFilledRect(const std::string& name, const Rectangle& rect, const Color& color);
-    void drawLine(const Vector2& start, const Vector2& end, const Color& color);
-    // void drawCircle(const Vector2& coord, const int radius, const Color& color);
-
-    void fill(Color color) { fill(m_current_buffer, color); }
-    void fill(const std::string& name, Color color);
-    void randomize();
-    inline void clear() { clear(m_current_buffer); }
-    void clear(const std::string& name);
+    // void fill(SDL_color color) { fill(m_current_buffer, color); }
+    // void fill(const std::string& name, SDL_Color color);
+    // void randomize();
+    // inline void clear() { clear(m_current_buffer); }
+    // void clear(const std::string& name);
 
     // Buffers
     bool addBuffer(const std::string name, const int width, const int height);
@@ -59,22 +57,30 @@ public:
     void setActiveBuffer(const std::string name);
     const std::string getActiveBuffer() { return m_current_buffer; }
     unsigned int getNumberOfBuffers() const { return static_cast<unsigned int>(m_buffers.size()); }
+    void setSize(const int width, const int height);
+    void setSize(const std::string& name, const int width, const int height);
+    // get the size (width and height) of a buffer
+    // SDL_Rect getSize() { return getSize(m_current_buffer); }
+    // SDL_Rect getSize(const std::string name);
 
     bool swapBuffer(const std::string name);
 
     // copy pixels from a source
-    void copy(const std::string name, unsigned int x = 0, unsigned int y = 0);
-    void copy(const std::string name, unsigned int x, unsigned int y, const Rectangle& sourceRect);
-    void copy(const Image& source) { copy(m_current_buffer, source); }
-    void copy(const std::string& name, Image source);
-
-    // get the size (width and height) of a buffer
-    Rectangle getSize() { return getSize(m_current_buffer); }
-    Rectangle getSize(const std::string name);
+    // void copy(const std::string name, unsigned int x = 0, unsigned int y = 0);
+    // void copy(const std::string name, unsigned int x, unsigned int y, const SDL_Rect& sourceRect);
+    // void copy(const Image& source) { copy(m_current_buffer, source); }
+    // void copy(const std::string& name, Image source);
 
 private:
+    struct Buffer
+    {
+        std::vector<uint32_t> pixels;
+        uint32_t width;
+        uint32_t height;
+    };
+
     std::string m_current_buffer;
     std::unordered_map<std::string, unsigned int> m_buffer_map;
 
-    std::vector<Image> m_buffers;
+    std::vector<Buffer> m_buffers;
 };

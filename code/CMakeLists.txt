@@ -24,8 +24,8 @@ set(main
     ./main/Game.hpp
     # ./main/Level.cpp
     # ./main/Level.hpp
-    # ./main/Pixelator.cpp
-    # ./main/Pixelator.hpp
+    ./main/Pixelator.cpp
+    ./main/Pixelator.hpp
     # ./main/RayCaster.cpp
     # ./main/RayCaster.hpp
 )
