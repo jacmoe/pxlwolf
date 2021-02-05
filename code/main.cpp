@@ -23,7 +23,7 @@
 #include "toml.hpp"
 #include "utils.hpp"
 #include "physfs.hpp"
-
+#include "dbg_console.hpp"
 
 #include "SDL2/SDL.h"
 
@@ -74,6 +74,7 @@ void setup_logging()
 int main(int, char**)
 {
     setup_working_directory();
+    utility::createConsoleWindow();
     setup_logging();
 
     // Remove old log file
@@ -119,10 +120,12 @@ int main(int, char**)
             360, 240,
             SDL_WINDOW_SHOWN
         );
+    	SPDLOG_INFO("PixelWolf rendering.");
         
         SDL_Delay(2000);
     }
  	SPDLOG_INFO("PixelWolf exited.");
 
+    utility::closeConsoleWindow();
     return 0;
 }

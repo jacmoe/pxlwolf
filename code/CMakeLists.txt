@@ -31,12 +31,15 @@ set(main
 )
 
 set(utility
+    ./utility/dbg_console.cpp
+    ./utility/dbg_console.hpp
     # ./utility/ImageAtlas.cpp
     # ./utility/ImageAtlas.hpp
     # ./utility/Map.cpp
     # ./utility/Map.hpp
     # ./utility/RectAnimation.cpp
     # ./utility/RectAnimation.hpp
+    ./utility/SDLDeleter.hpp
     # ./utility/SpriteSheetLoader.cpp
     # ./utility/SpriteSheetLoader.hpp
     ./utility/utils.cpp
