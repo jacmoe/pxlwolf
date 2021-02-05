@@ -60,7 +60,7 @@ bool Game::OnUserUpdate(double elapsedTime)
     utility::Map* map = m_map.get();
 
     double moveSpeed = elapsedTime * 3.0; //the constant value is in squares/second
-    double rotSpeed = elapsedTime * 2.0; //the constant value is in radians/second
+    double rotSpeed = elapsedTime * 1.0; //the constant value is in radians/second
     if( IsKeyDown(KEY_LEFT_SHIFT))
     {
         moveSpeed *= 3.0;
