@@ -64,4 +64,8 @@ add_executable(${TARGET_NAME}
 )
 endif()
 
+if(WIN32)
 target_link_libraries(pxlwolf lua  physfs-static SDL2::SDL2 SDL2::SDL2main SDL_ttf::SDL_ttf)
+else()
+target_link_libraries(pxlwolf lua  physfs-static SDL2::SDL2 SDL_ttf::SDL_ttf)
+endif()

@@ -24,14 +24,6 @@ HunterGate(
 
 project(pixelwolf)
 
-# if(MSVC)
-#     add_compile_options(
-#         $<$<CONFIG:>:/MT> #---------|
-#         $<$<CONFIG:Debug>:/MTd> #---|-- Statically link the runtime libraries
-#         $<$<CONFIG:Release>:/MT> #--|
-#     )
-# endif()
-
 set(CMAKE_CXX_STANDARD 17)
 
 if(MSVC)
