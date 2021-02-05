@@ -17,8 +17,6 @@
 # pxlwolf
 Seriously overengineered Wolfenstein-like raycast engine
 
-**ACHTUNG!** Project is currently being ported from SFML to Raylib, and the raycaster hasn't beeen ported (yet)
-
 ## TOC
 
 - [Screenshots](#Screenshots)
@@ -60,11 +58,9 @@ PixelWolf is being developed on Linux and Windows, and the build system is based
 Compiled using MSVC 2019 on Windows, and GCC 9.3 on Linux.
 
 ### External dependencies
-|Library|Description|License|
+<!-- |Library|Description|License|
 |-------|-----------|-------|
-|[OpenAL 1.1][openal]|Cross-platform 3D audio API|LGPL/Proprietary license|
-
-Only the OpenAL runtime is required. Navigate to the OpenAL [download page][openal] if on Windows. Linux users should use their package manager.
+|[OpenAL 1.1][openal]|Cross-platform 3D audio API|LGPL/Proprietary license| -->
 
 ### Bundled dependencies
 |Library|Description|License|
