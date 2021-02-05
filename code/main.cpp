@@ -31,6 +31,8 @@
 #include "spdlog/sinks/basic_file_sink.h"
 #include "spdlog/sinks/stdout_color_sinks.h"
 
+#include "Game.hpp"
+
 void setup_working_directory()
 {
     // Get executable path
@@ -103,28 +105,12 @@ int main(int, char**)
 # pragma warning(pop)
 #endif
 
-    // Game game;
+    Game game;
 
-    // if(game.init(title, screenWidth, screenHeight, scale, fullscreen))
-    // {
-    //     game.run();
-    // }
-
-   if (SDL_Init( SDL_INIT_VIDEO ) < 0) {
-        std::cout << "SDL could not initialize! SDL_Error: " << SDL_GetError() << std::endl;
-    } else {
-        
-        SDL_CreateWindow(
-            "SDL2 Demo",
-            SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-            360, 240,
-            SDL_WINDOW_SHOWN
-        );
-    	SPDLOG_INFO("PixelWolf rendering.");
-        
-        SDL_Delay(2000);
+    if(game.init(title, screenWidth, screenHeight, scale, fullscreen))
+    {
+        game.run();
     }
- 	SPDLOG_INFO("PixelWolf exited.");
 
     utility::closeConsoleWindow();
     return 0;

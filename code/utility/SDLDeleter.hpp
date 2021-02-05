@@ -21,7 +21,7 @@
 */
 
 #include <SDL.h>
-#include <SDL_ttf.h>
+#include <SDL_ttf/SDL_ttf.h>
 
 namespace utility {
     struct SDLDeleter

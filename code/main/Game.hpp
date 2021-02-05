@@ -16,8 +16,6 @@
 #pragma once
 
 #include "Application.hpp"
-#include "Map.hpp"
-#include "RayCaster.hpp"
 
 struct _Camera
 {
@@ -60,12 +58,7 @@ public:
 
 protected:
     bool OnUserCreate() override;
-    bool OnUserUpdate(double elapsedTime) override;
+    bool OnUserUpdate(double fDeltaTime) override;
     bool OnUserRender() override;
     bool OnUserDestroy() override;
-
-private:
-    std::shared_ptr<utility::Map> m_map;
-    RayCaster m_raycaster;
-	_Camera m_camera;
 };

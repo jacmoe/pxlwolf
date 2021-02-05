@@ -16,12 +16,12 @@
 set(TARGET_NAME pxlwolf)
 
 set(main
-    # ./main/Application.cpp
-    # ./main/Application.hpp
+    ./main/Application.cpp
+    ./main/Application.hpp
     # ./main/Entity.cpp
     # ./main/Entity.hpp
-    # ./main/Game.cpp
-    # ./main/Game.hpp
+    ./main/Game.cpp
+    ./main/Game.hpp
     # ./main/Level.cpp
     # ./main/Level.hpp
     # ./main/Pixelator.cpp
