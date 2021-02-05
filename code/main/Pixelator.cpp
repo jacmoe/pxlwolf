@@ -46,6 +46,11 @@ bool check_key(std::unordered_map<std::string, unsigned int> m, std::string key)
  * @param b SDL_Color blue component
  * @param a SDL_Color alpha component
  **/
+uint32_t Pixelator::toIntColor(SDL_Color color)
+{
+    return toIntColor(color.r, color.g, color.b, color.a);
+}
+
 uint32_t Pixelator::toIntColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
 {
     return ((uint32_t)r << 3*8 | (uint32_t)g << 2*8 | (uint32_t)b << 8 | (uint32_t)a);
@@ -187,7 +192,14 @@ void Pixelator::setSize(const std::string& name, const int width, const int heig
     m_buffers[index].width = m_buffers[index].width;
     m_buffers[index].height = m_buffers[index].height;
 }
-/*
+
+linalg::aliases::uint2 Pixelator::getSize(const std::string name)
+{
+    linalg::aliases::uint2 size = { m_buffers[m_buffer_map[name]].width, m_buffers[m_buffer_map[name]].height };
+    return size;
+}
+
+
 void Pixelator::setPixel(unsigned int x, unsigned int y, const SDL_Color& color)
 {
     setPixel(m_current_buffer, x, y, color);
@@ -196,9 +208,29 @@ void Pixelator::setPixel(unsigned int x, unsigned int y, const SDL_Color& color)
 void Pixelator::setPixel(const std::string& name, unsigned int x, unsigned int y, const SDL_Color& color)
 {
     unsigned int index = m_buffer_map[name];
-    ImageDrawPixel(&m_buffers[index], x, y, color);
+
+    m_buffers[index].pixels[y*m_buffers[index].width+x] = toIntColor(color);
 }
 
+uint32_t Pixelator::getPixel(const std::string& name, unsigned int x, unsigned int y)
+{
+    unsigned int index = m_buffer_map.at(name);
+    return m_buffers[index].pixels[y*m_buffers[index].width+x];
+}
+
+uint32_t* Pixelator::getPixels(const std::string& name)
+{
+    if(!check_key(m_buffer_map, name))
+    {
+       SPDLOG_ERROR("Attempting to get the pixel data of a buffer that doesn't exist!");
+        return nullptr;
+    }
+    unsigned int index = m_buffer_map[name];
+
+    return &m_buffers[index].pixels[0];
+}
+
+/*
 void Pixelator::drawColumn(const std::string& name, unsigned int x, unsigned int y, unsigned int height, const SDL_Color& color)
 {
    if (y < 0)
@@ -311,36 +343,6 @@ void Pixelator::drawRect(const SDL_Rect rect, const SDL_Color& color)
     drawLine({right, rect.y}, {right, bottom}, color);
 }
 
-SDL_Color Pixelator::getPixel(const std::string& name, unsigned int x, unsigned int y)
-{
-    unsigned int index = m_buffer_map.at(name);
-    return GetPixelColor(&m_buffers[index], UNCOMPRESSED_R8G8B8A8);
-}
-
-SDL_Color* Pixelator::getPixels(const std::string& name)
-{
-    if(!check_key(m_buffer_map, name))
-    {
-       SPDLOG_ERROR("Attempting to get the pixel data of a buffer that doesn't exist!");
-        return nullptr;
-    }
-    unsigned int index = m_buffer_map[name];
-
-    return LoadImageColors(m_buffers[index]);
-}
-
-void* Pixelator::getData(const std::string& name)
-{
-    if (!check_key(m_buffer_map, name))
-    {
-       SPDLOG_ERROR( "Attempting to get the pixel data of a buffer that doesn't exist!");
-        return nullptr;
-    }
-    unsigned int index = m_buffer_map[name];
-
-    return m_buffers[index].data;
-}
-
 void Pixelator::fill(const std::string& name, SDL_Color color)
 {
     if(!check_key(m_buffer_map, name))
@@ -375,12 +377,6 @@ void Pixelator::clear(const std::string& name)
 {
     unsigned int index = m_buffer_map.at(name);
     ImageClearBackground(&m_buffers[index], BLANK);
-}
-
-SDL_Rect Pixelator::getSize(const std::string name)
-{
-    SDL_Rect rect = { 0, 0, static_cast<int>(m_buffers[m_buffer_map[name]].width), static_cast<int>(m_buffers[m_buffer_map[name]].height) };
-    return rect;
 }
 
 // copies from an image

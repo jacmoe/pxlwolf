@@ -27,14 +27,12 @@ public:
     ~Pixelator();
 
     // // Pixels
-    // void setPixel(unsigned int x, unsigned int y, const SDL_Color& color);
-    // void setPixel(const std::string& name, unsigned int x, unsigned int y, const SDL_Color& color);
-    // uint32_t getPixel(unsigned int x, unsigned int y) { return getPixel(m_current_buffer, x, y); }
-    // uint32_t getPixel(const std::string& name, unsigned int x, unsigned int y);
-    // uint32_t* getPixels() { return getPixels(m_current_buffer); }
-    // uint32_t* getPixels(const std::string& name);
-    // void* getData() { return getData(m_current_buffer); }
-    // void* getData(const std::string& name);
+    void setPixel(unsigned int x, unsigned int y, const SDL_Color& color);
+    void setPixel(const std::string& name, unsigned int x, unsigned int y, const SDL_Color& color);
+    uint32_t getPixel(unsigned int x, unsigned int y) { return getPixel(m_current_buffer, x, y); }
+    uint32_t getPixel(const std::string& name, unsigned int x, unsigned int y);
+    uint32_t* getPixels() { return getPixels(m_current_buffer); }
+    uint32_t* getPixels(const std::string& name);
 
     // void drawColumn(unsigned int x, unsigned int y, unsigned int height, const SDL_Color& color) { drawColumn(m_current_buffer, x, y, height, SDL_Color); }
     // void drawColumn(const std::string& name, unsigned int x, unsigned int y, unsigned int height, const SDL_Color& color);
@@ -60,8 +58,8 @@ public:
     void setSize(const int width, const int height);
     void setSize(const std::string& name, const int width, const int height);
     // get the size (width and height) of a buffer
-    // SDL_Rect getSize() { return getSize(m_current_buffer); }
-    // SDL_Rect getSize(const std::string name);
+    linalg::aliases::uint2 getSize() { return getSize(m_current_buffer); }
+    linalg::aliases::uint2 getSize(const std::string name);
 
     bool swapBuffer(const std::string name);
 
@@ -71,6 +69,7 @@ public:
     // void copy(const Image& source) { copy(m_current_buffer, source); }
     // void copy(const std::string& name, Image source);
 
+    uint32_t toIntColor(SDL_Color color);
     uint32_t toIntColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a);
     SDL_Color toSDLColor(uint32_t pixColor);
     uint32_t to8BitColor(uint32_t colorDat);
