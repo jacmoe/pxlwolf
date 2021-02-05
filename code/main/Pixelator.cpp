@@ -97,7 +97,7 @@ bool Pixelator::addBuffer(const std::string name, const int width, const int hei
 
     unsigned int index = m_buffer_map[m_current_buffer];
 
-    std::vector<uint32_t> newPixels(m_buffers[index].width * m_buffers[index].height);
+    std::vector<uint32_t> newPixels(m_buffers[index].width * m_buffers[index].height * sizeof(uint32_t));
     uint32_t* ptr = &newPixels[0];
     uint32_t* end = ptr + newPixels.size();
     while (ptr < end)
@@ -207,9 +207,7 @@ void Pixelator::setSize(const std::string& name, const int width, const int heig
         return;
     }
     unsigned int index = m_buffer_map[name];
-    m_buffers[index].width = width;
-    m_buffers[index].height = height;
-    std::vector<uint32_t> newPixels(m_buffers[index].width * m_buffers[index].height);
+    std::vector<uint32_t> newPixels(width * height * sizeof(uint32_t));
     uint32_t* ptr = &newPixels[0];
     uint32_t* end = ptr + newPixels.size();
     while (ptr < end)
@@ -221,8 +219,8 @@ void Pixelator::setSize(const std::string& name, const int width, const int heig
     }
     // Commit the new pixel buffer
     m_buffers[index].pixels.swap(newPixels);
-    m_buffers[index].width = m_buffers[index].width;
-    m_buffers[index].height = m_buffers[index].height;
+    m_buffers[index].width = width;
+    m_buffers[index].height = height;
 }
 
 linalg::aliases::uint2 Pixelator::getSize(const std::string name)
@@ -391,7 +389,7 @@ void Pixelator::fill(const std::string& name, SDL_Color color)
     }
     unsigned int index = m_buffer_map.at(name);
 
-    std::vector<uint32_t> newPixels(m_buffers[index].width * m_buffers[index].height);
+    std::vector<uint32_t> newPixels(m_buffers[index].width * m_buffers[index].height * sizeof(uint32_t));
     uint32_t* ptr = &newPixels[0];
     uint32_t* end = ptr + newPixels.size();
     while (ptr < end)
@@ -403,8 +401,6 @@ void Pixelator::fill(const std::string& name, SDL_Color color)
     }
     // Commit the new pixel buffer
     m_buffers[index].pixels.swap(newPixels);
-    m_buffers[index].width = m_buffers[index].width;
-    m_buffers[index].height = m_buffers[index].height;
 }
 
 void Pixelator::randomize(const std::string& name)
@@ -416,7 +412,7 @@ void Pixelator::randomize(const std::string& name)
     }
     unsigned int index = m_buffer_map.at(name);
 
-    std::vector<uint32_t> newPixels(m_buffers[index].width * m_buffers[index].height);
+    std::vector<uint32_t> newPixels(m_buffers[index].width * m_buffers[index].height * sizeof(uint32_t));
     uint32_t* ptr = &newPixels[0];
     uint32_t* end = ptr + newPixels.size();
     while (ptr < end)
@@ -428,8 +424,6 @@ void Pixelator::randomize(const std::string& name)
     }
     // Commit the new pixel buffer
     m_buffers[index].pixels.swap(newPixels);
-    m_buffers[index].width = m_buffers[index].width;
-    m_buffers[index].height = m_buffers[index].height;
 }
 
 void Pixelator::clear(const std::string& name)
@@ -441,7 +435,7 @@ void Pixelator::clear(const std::string& name)
     }
     unsigned int index = m_buffer_map.at(name);
 
-    std::vector<uint32_t> newPixels(m_buffers[index].width * m_buffers[index].height);
+    std::vector<uint32_t> newPixels(m_buffers[index].width * m_buffers[index].height * sizeof(uint32_t));
     uint32_t* ptr = &newPixels[0];
     uint32_t* end = ptr + newPixels.size();
     while (ptr < end)

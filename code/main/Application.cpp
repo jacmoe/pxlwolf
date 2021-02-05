@@ -218,7 +218,7 @@ void Application::update(double elapsedTime)
 
 void Application::render()
 {
-    SDL_SetRenderDrawColor(m_renderer.get(), 0, 0, 0, 255);
+    SDL_SetRenderDrawColor(m_renderer.get(), 255, 255, 255, 255);
     SDL_RenderClear(m_renderer.get());
 
     OnUserRender();
