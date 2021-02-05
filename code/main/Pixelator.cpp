@@ -345,6 +345,7 @@ void Pixelator::drawLine(const linalg::aliases::int2& start, const linalg::alias
 // https://en.wikipedia.org/wiki/Midpoint_circle_algorithm
 void Pixelator::drawCircle(const linalg::aliases::int2& coord, const int radius, const SDL_Color& color)
 {
+    // TODO : sanity checks for the radius, so that it doesn't draw outside of the buffer!
     int x = radius;
     int y = 0;
     int decisionOver2 = 1 - x;  // Decision criterion divided by 2 evaluated at x=r, y=0

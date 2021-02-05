@@ -36,7 +36,8 @@ bool Game::OnUserCreate()
 bool Game::OnUserUpdate(double fDeltaTime)
 {
     m_pixelator.get()->randomize();
-    m_pixelator.get()->drawLine({10,50}, {100, 100}, {255,255,255,255});
+    m_pixelator.get()->drawLine({10,50}, {100, 100}, {255,0,0,255});
+    m_pixelator.get()->drawCircle({50,50}, 30, {0,255,255,255});
     return true;
 }
 
