@@ -33,7 +33,7 @@ Application::Application()
     , m_should_exit(false)
     , m_renderer(nullptr)
     , font_name("assets/fonts/MedievalSharp-Bold.ttf")
-    , font_size(16)
+    , font_size(12)
     , font_color({255, 255, 255, 255})
     , m_font(nullptr)
 {}
@@ -118,27 +118,27 @@ bool Application::init(const std::string title, int width, int height, float sca
         return false;
     }
 
-	m_window.reset(SDL_CreateWindow(
-		title.c_str(),
-		300, 100,
-		width * scale, height * scale,
-		SDL_WINDOW_OPENGL
-	));
+    m_window.reset(SDL_CreateWindow(
+        title.c_str(),
+        300, 100,
+        width * scale, height * scale,
+        SDL_WINDOW_OPENGL
+    ));
     if (!m_window)
     {
         SPDLOG_ERROR("Error creating window: {}", std::string(SDL_GetError()));
         return false;
     }
 
-	m_renderer.reset(SDL_CreateRenderer(m_window.get(), -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC));
+    m_renderer.reset(SDL_CreateRenderer(m_window.get(), -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC));
     if (!m_renderer)
     {
         SPDLOG_ERROR("Error creating renderer: {}", std::string(SDL_GetError()));
         return false;
     }
 
-	SDL_RenderSetScale(m_renderer.get(), static_cast<float>(scale), static_cast<float>(scale));
-	SDL_SetRenderDrawBlendMode(m_renderer.get(), SDL_BLENDMODE_BLEND);
+    SDL_RenderSetScale(m_renderer.get(), static_cast<float>(scale), static_cast<float>(scale));
+    SDL_SetRenderDrawBlendMode(m_renderer.get(), SDL_BLENDMODE_BLEND);
 
     m_render_texture.reset(SDL_CreateTexture(m_renderer.get(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, m_width, m_height));
     SDL_SetTextureBlendMode(m_render_texture.get(), SDL_BLENDMODE_BLEND);
@@ -152,19 +152,19 @@ bool Application::init(const std::string title, int width, int height, float sca
         return false;
     }
 
-	SPDLOG_INFO("PixelWolf initialized.");
+    SPDLOG_INFO("PixelWolf initialized.");
 
     return true;
 }
 
 void Application::run()
 {
-	uint8_t frameCounter = 0;
-	uint32_t realRunTime = 0;
-	double realRunTimeF = 0;
-	double dt = 0;
-	uint32_t runTime = SDL_GetTicks();
-	double runTimeF = (double)runTime/1000;
+    uint8_t frameCounter = 0;
+    uint32_t realRunTime = 0;
+    double realRunTimeF = 0;
+    double dt = 0;
+    uint32_t runTime = SDL_GetTicks();
+    double runTimeF = (double)runTime/1000;
 
     m_running = true;
 
@@ -172,8 +172,8 @@ void Application::run()
 
     while (m_running)
     {
-		realRunTime = SDL_GetTicks();		
-		realRunTimeF = (double)realRunTime/1000;
+        realRunTime = SDL_GetTicks();		
+        realRunTimeF = (double)realRunTime/1000;
 
         event();
 
@@ -224,6 +224,11 @@ void Application::render()
     OnUserRender();
 
     SDL_RenderCopy(m_renderer.get(), m_render_texture.get(), NULL, NULL);
+    SDL_Rect dst;
+    dst.x = 10;
+    dst.y = 10;
+    SDL_QueryTexture(m_font_texture.get(), NULL, NULL, &dst.w, &dst.h);
+    SDL_RenderCopy(m_renderer.get(), m_font_texture.get(), nullptr, &dst);
 
     SDL_RenderPresent(m_renderer.get());
 }

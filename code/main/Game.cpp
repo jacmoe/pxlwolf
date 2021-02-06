@@ -14,6 +14,7 @@
 #   MIT License
 #*/
 #include "Game.hpp"
+#include "ImageAtlas.hpp"
 
 Game::Game()
 {
@@ -29,6 +30,11 @@ bool Game::OnUserCreate()
     utility::Map* map = m_map.get();
     map->init("assets/levels/pxlwolf.ldtk");
     map->load("Level1");
+
+    utility::ImageAtlas atlas;
+    atlas.load("assets/textures/spritesheet.png", {512,512});
+
+    write_text("PixelWolf");
 
     return true;
 }

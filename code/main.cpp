@@ -27,13 +27,17 @@
 #include "physfs.hpp"
 #include "dbg_console.hpp"
 
-#include "SDL2/SDL.h"
+#include "SDL.h"
 
 #include "spdlog/spdlog.h"
 #include "spdlog/sinks/basic_file_sink.h"
 #include "spdlog/sinks/stdout_color_sinks.h"
 
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
+
 #include "Game.hpp"
+
 
 void setup_working_directory()
 {

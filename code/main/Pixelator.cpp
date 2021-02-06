@@ -23,7 +23,7 @@ Pixelator::Pixelator()
     , m_buffers()
 {
     m_buffers.emplace_back();
-    setSize(360, 240);
+    addBuffer("primary", 360, 240);
     m_buffer_map.insert({"primary", 0});
 }
 
@@ -103,7 +103,7 @@ bool Pixelator::addBuffer(const std::string name, const int width, const int hei
 
     unsigned int index = m_buffer_map[name];
 
-    std::vector<uint8_t> newPixels(m_buffers[index].width * m_buffers[index].height * 4u);
+    std::vector<uint8_t> newPixels(width * height * 4u);
     uint8_t* ptr = &newPixels[0];
     uint8_t* end = ptr + newPixels.size();
     while (ptr < end)
@@ -115,8 +115,8 @@ bool Pixelator::addBuffer(const std::string name, const int width, const int hei
     }
     // Commit the new pixel buffer
     m_buffers[newBufferIndex].pixels.swap(newPixels);
-    m_buffers[newBufferIndex].width = m_buffers[index].width;
-    m_buffers[newBufferIndex].height = m_buffers[index].height;
+    m_buffers[newBufferIndex].width = width;
+    m_buffers[newBufferIndex].height = height;
 
     return true;
 }

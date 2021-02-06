@@ -17,7 +17,8 @@
 
 #include <vector>
 #include <string>
-#include "raylib.h"
+#include "SDL.h"
+#include "linalg.h"
 
 namespace utility
 {
@@ -27,21 +28,26 @@ namespace utility
         ImageAtlas();
         ~ImageAtlas();
 
-        bool load(const std::string& path, Vector2 tile_size);
+        bool load(const std::string& path, linalg::aliases::int2 tile_size);
 
-        inline const Vector2 getTileSize() { return { m_width, m_height }; }
+        inline const linalg::aliases::int2 getTileSize() { return { m_width, m_height }; }
         inline const int getCols() { return m_cols; }
         inline const int getRows() { return m_rows; }
 
-        Color* getPixels(int index) { return m_buffers[index]; }
-        Color getPixel(int index, int x , int y) { return m_buffers[index][y * static_cast<int>(m_width) + x]; }
+        uint8_t* getPixels(int index) { return &m_buffers[index].pixels[0]; }
+        uint8_t getPixel(int index, int x , int y) { return m_buffers[index].pixels[(y*m_buffers[index].width+x)]; }
 
     private:
-        std::vector<Color*> m_buffers;
-        float m_rows;
-        float m_cols;
-        float m_width;
-        float m_height;
-        int m_format;
+        struct Buffer
+        {
+            uint8_t* pixels;
+            uint32_t width;
+            uint32_t height;
+        };
+        std::vector<Buffer> m_buffers;
+        int m_rows;
+        int m_cols;
+        int m_width;
+        int m_height;
     };
 }
