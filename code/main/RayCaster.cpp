@@ -16,7 +16,7 @@
 #include <cmath>
 #include "RayCaster.hpp"
 #include "Game.hpp"
-#include "raymath.h"
+#include "SDL.h"
 
 RayCaster::RayCaster()
 {
@@ -36,62 +36,63 @@ void RayCaster::init(uint32_t width, uint32_t height, std::shared_ptr<utility::M
     m_atlas.load("assets/textures/spritesheet.png", {512, 512});
 }
 
-void RayCaster::drawMinimap(const std::string& buffer_name, const _Camera& camera, int blockSize)
+void RayCaster::drawMinimap(const std::string& buffer_name, const Camera& camera, int blockSize)
 {
     utility::Map* map = m_map.get();
 
     int row, col;
-    Rectangle mapRect;
-    mapRect.width = map->width() * blockSize;
-    mapRect.height = map->height() * blockSize;
-    mapRect.x = 0;
-    mapRect.y = 0;
-    Rectangle blockRect;
-    blockRect.width = blockSize;
-    blockRect.height = blockSize;
-    blockRect.x = 0;
-    blockRect.y = 0;
+    SDL_Rect mapRect;
+    mapRect.w = map->width() * blockSize;
+    mapRect.h = map->height() * blockSize;
+    mapRect.x = mapRect.y = 0;
+    mapRect.x = 220;
+    SDL_Rect blockRect;
+    blockRect.w = blockSize;
+    blockRect.h = blockSize;
 
     int p_x = static_cast<int>(camera.x);
     int p_y = static_cast<int>(camera.y);
 
     /* Draw map tiles */
-    for(row = 0; row < map->width(); row++)
+    for(row = 0; row < map->height(); row++)
     {
-        for(col = 0; col < map->height(); col++)
+        for(col = 0; col < map->width(); col++)
         {
             blockRect.x = mapRect.x + col * blockSize;
-            blockRect.y = ((mapRect.height - blockSize) - row * blockSize);// + map->width()();
+            blockRect.y = mapRect.y + row * blockSize;
             if(map->walls()[row * map->width() + col] > 0)
             {
-                Color blockcolor = map->wall_element(map->walls()[row * map->width() + col]).color;
+                uint32_t blockcolor = map->wall_element(map->walls()[row * map->width() + col]).color;
                 m_pixelator.get()->drawFilledRect(buffer_name, blockRect, blockcolor);
             }
             if(p_y == row && p_x == col)
             {
                 /* Draw the player */
-                Color sepiaPink = {221,153,153,255};
+                uint32_t sepiaPink = m_pixelator.get()->toIntColor(221,153,153,255);
                 m_pixelator.get()->drawFilledRect(buffer_name, blockRect, sepiaPink);
             }
         }
     }
 }
 
-Color RayCaster::pixelGradientShader(Color pixel, double amount, Color target)
+uint32_t RayCaster::pixelGradientShader(uint32_t pixel, double amount, SDL_Color target)
 {
-    Color source = pixel;
-    int dr = target.r - source.r;
-    int dg = target.g - source.g;
-    int db = target.b - source.b;
-    int da = target.a - source.a;
-    source.r += (int)((double)dr * amount);
-    source.g += (int)((double)dg * amount);
-    source.b += (int)((double)db * amount);
-    source.a += (int)((double)da * amount);
-    return source;
+    int r = (int)(pixel >> 3*8);
+    int g = (int)((pixel >> 2*8) & 0xFF);
+    int b = (int)((pixel >> 8) & 0xFF);
+    int a = (int)(pixel & 0xFF);
+    int dr = target.r - r;
+    int dg = target.g - g;
+    int db = target.b - b;
+    int da = target.a - a;
+    r += (int)((double)dr * amount);
+    g += (int)((double)dg * amount);
+    b += (int)((double)db * amount);
+    a += (int)((double)da * amount);
+    return m_pixelator.get()->toIntColor(r,g,b,a);
 }
 
-void RayCaster::raycast(const _Camera& camera)
+void RayCaster::raycast(const Camera& camera)
 {
     double dirX = camera.dirX;
     double dirY = camera.dirY;
@@ -208,7 +209,7 @@ void RayCaster::raycast(const _Camera& camera)
             int texY = (int)texPos & ((int)(m_atlas.getTileSize().y) - 1);
             texPos += step;
 
-            Color color = m_atlas.getPixel(texNum, texX, texY);
+            uint32_t color = m_atlas.getPixel(texNum, texX, texY);
             // color = ColorAlphaBlend(color, {(unsigned char)(color.r / perpWallDist),(unsigned char)(color.g / perpWallDist),(unsigned char)(color.b / perpWallDist), (unsigned char)(color.a / perpWallDist)}, GOLD);
             m_pixelator->setPixel(x, y, color);
         }
@@ -219,7 +220,7 @@ void RayCaster::raycast(const _Camera& camera)
     }
 }
 
-void RayCaster::raycastCeilingFloor(const _Camera& camera)
+void RayCaster::raycastCeilingFloor(const Camera& camera)
 {
     double dirX = camera.dirX;
     double dirY = camera.dirY;
@@ -295,7 +296,7 @@ void RayCaster::raycastCeilingFloor(const _Camera& camera)
         if(checkerBoardPattern == 0) floorTexture = 1;
         else floorTexture = 1;
         int ceilingTexture = 8;
-        Color color;
+        uint32_t color;
 
 
         if(is_floor) {

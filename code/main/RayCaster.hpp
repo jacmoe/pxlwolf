@@ -21,7 +21,7 @@
 #include <memory>
 #include <unordered_map>
 
-struct _Camera;
+struct Camera;
 
 class RayCaster
 {
@@ -31,10 +31,10 @@ public:
 
     void init(uint32_t width, uint32_t height, std::shared_ptr<utility::Map> map, std::shared_ptr<Pixelator> pixelator);
 
-    void drawMinimap(const std::string& buffer_name, const _Camera& camera, int blockSize);
+    void drawMinimap(const std::string& buffer_name, const Camera& camera, int blockSize);
 
-    void raycastCeilingFloor(const _Camera& camera);
-    void raycast(const _Camera& camera);
+    void raycastCeilingFloor(const Camera& camera);
+    void raycast(const Camera& camera);
 
 private:
     std::shared_ptr<utility::Map> m_map;
@@ -47,5 +47,5 @@ private:
 
     std::vector<double> m_depth_buffer;
 
-    Color pixelGradientShader(Color pixel, double amount, Color target);
+    uint32_t pixelGradientShader(uint32_t pixel, double amount, SDL_Color target);
 };

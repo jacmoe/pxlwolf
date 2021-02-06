@@ -34,13 +34,13 @@ namespace utility
         inline const int getCols() { return m_cols; }
         inline const int getRows() { return m_rows; }
 
-        uint8_t* getPixels(int index) { return &m_buffers[index].pixels[0]; }
-        uint8_t getPixel(int index, int x , int y) { return m_buffers[index].pixels[(y*m_buffers[index].width+x)]; }
+        uint32_t* getPixels(int index) { return &m_buffers[index].pixels[0]; }
+        uint32_t getPixel(int index, int x , int y) { return m_buffers[index].pixels[(y*m_buffers[index].width+x)]; }
 
     private:
         struct Buffer
         {
-            uint8_t* pixels;
+            uint32_t* pixels;
             uint32_t width;
             uint32_t height;
         };

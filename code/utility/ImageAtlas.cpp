@@ -53,21 +53,32 @@ namespace utility
         SPDLOG_INFO("m_width = {}, m_height = {}", m_width, m_height);
         SPDLOG_INFO("m_rows = {}, m_cols = {}", m_rows, m_cols);
 
+        int offset = 0;
         for(int i = 0; i < m_rows; i++)
         {
             Buffer buffer;
-            buffer.pixels = &pixels[i * m_width * m_height * 4];
             buffer.width = m_width;
             buffer.height = m_height;
-            m_buffers.push_back(buffer);
-        }
-        SPDLOG_INFO("{} pixel buffers was added to m_buffers.", m_buffers.size());
+            buffer.pixels = (uint32_t*)malloc(sizeof(uint32_t)*m_width*m_height);
 
-        SPDLOG_INFO("{} pixels per row",  m_width * m_height * 4);
-        SPDLOG_INFO("{} pixels in all",  m_width * m_height * 4 * m_rows);
-        SPDLOG_INFO("image_height * image_width * 4 is : {}", image_width * image_height * 4);
+            uint32_t newPix = 0;
+            for (uint32_t p = 0; p < m_width * m_height; p++)
+            {
+                // Get each component
+                for (uint8_t comp = 0; comp < 4; comp++)
+                {
+                    newPix |= ((uint32_t)(pixels[(p + offset)*4+comp]) << (8 * (3-comp)));
+                }
+                buffer.pixels[p] = newPix;
+                newPix = 0;
+            }
+            m_buffers.push_back(buffer);
+            offset = offset + m_width * m_height;
+        }
 
         stbi_image_free(pixels);
+
+        SPDLOG_INFO("{} loaded succesfully.", path);
 
         return true;
     }

@@ -27,24 +27,26 @@ public:
     ~Pixelator();
 
     // // Pixels
-    void setPixel(unsigned int x, unsigned int y, const SDL_Color& color);
-    void setPixel(const std::string& name, unsigned int x, unsigned int y, const SDL_Color& color);
-    uint32_t getPixel(unsigned int x, unsigned int y) { return getPixel(m_current_buffer, x, y); }
-    uint32_t getPixel(const std::string& name, unsigned int x, unsigned int y);
-    uint8_t* getPixels() { return getPixels(m_current_buffer); }
-    uint8_t* getPixels(const std::string& name);
+    void setPixel(unsigned int x, unsigned int y, const uint32_t color);
+    void setPixel(const std::string& name, unsigned int x, unsigned int y, const uint32_t color);
+    void setPixelA(uint32_t x, uint32_t y, uint32_t color, double alpha) { setPixelA(m_current_buffer, x, y, color, alpha); }
+    void setPixelA(const std::string& name, uint32_t x, uint32_t y, uint32_t color, double alpha);
+    // uint32_t getPixel(unsigned int x, unsigned int y) { return getPixel(m_current_buffer, x, y); }
+    // uint32_t getPixel(const std::string& name, unsigned int x, unsigned int y);
+    uint32_t* getPixels() { return getPixels(m_current_buffer); }
+    uint32_t* getPixels(const std::string& name);
 
-    void drawColumn(unsigned int x, unsigned int y, unsigned int height, const SDL_Color& color) { drawColumn(m_current_buffer, x, y, height, color); }
-    void drawColumn(const std::string& name, unsigned int x, unsigned int y, unsigned int height, const SDL_Color& color);
-    void drawRow(unsigned int x, unsigned int y, unsigned int length, const SDL_Color& color);
-    void drawRect(const SDL_Rect rect, const SDL_Color& color);
-    inline void drawFilledRect(const SDL_Rect& rect, const SDL_Color& color) { drawFilledRect(m_current_buffer, rect, color); }
-    void drawFilledRect(const std::string& name, const SDL_Rect& rect, const SDL_Color& color);
-    void drawLine(const linalg::aliases::int2& start, const linalg::aliases::int2& end, const SDL_Color& color);
-    void drawCircle(const linalg::aliases::int2& coord, const int radius, const SDL_Color& color);
+    void drawColumn(unsigned int x, unsigned int y, unsigned int height, const uint32_t color) { drawColumn(m_current_buffer, x, y, height, color); }
+    void drawColumn(const std::string& name, unsigned int x, unsigned int y, unsigned int height, const uint32_t color);
+    void drawRow(unsigned int x, unsigned int y, unsigned int length, const uint32_t color);
+    void drawRect(const SDL_Rect rect, const uint32_t color);
+    inline void drawFilledRect(const SDL_Rect& rect, const uint32_t color) { drawFilledRect(m_current_buffer, rect, color); }
+    void drawFilledRect(const std::string& name, const SDL_Rect& rect, const uint32_t color);
+    void drawLine(const linalg::aliases::int2& start, const linalg::aliases::int2& end, const uint32_t color);
+    void drawCircle(const linalg::aliases::int2& coord, const int radius, const uint32_t color);
 
-    void fill(SDL_Color color) { fill(m_current_buffer, color); }
-    void fill(const std::string& name, SDL_Color color);
+    void fill(uint32_t color, double alpha = 255) { fill(m_current_buffer, color); }
+    void fill(const std::string& name, uint32_t color, double alpha = 255);
     void randomize() { randomize(m_current_buffer); }
     void randomize(const std::string& name);
     inline void clear() { clear(m_current_buffer); }
@@ -67,7 +69,6 @@ public:
     void mergeBuffer(const std::string& source) { mergeBuffer(m_current_buffer, source); }
     void mergeBuffer(const std::string& target, const std::string& source);
 
-    uint32_t toIntColor(SDL_Color color);
     uint32_t toIntColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a);
     SDL_Color toSDLColor(uint32_t pixColor);
     uint32_t to8BitColor(uint32_t colorDat);
@@ -75,7 +76,7 @@ public:
 private:
     struct Buffer
     {
-        std::vector<uint8_t> pixels;
+        std::vector<uint32_t> pixels;
         uint32_t width;
         uint32_t height;
     };
