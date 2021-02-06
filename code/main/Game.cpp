@@ -35,15 +35,16 @@ bool Game::OnUserCreate()
 
 bool Game::OnUserUpdate(double fDeltaTime)
 {
-    m_pixelator.get()->randomize();
-    m_pixelator.get()->drawLine({10,50}, {100, 100}, {255,0,0,255});
-    m_pixelator.get()->drawCircle({50,50}, 30, {0,255,255,255});
+    // m_pixelator.get()->randomize();
+    m_pixelator.get()->fill({255,255,200,255});
+    m_pixelator.get()->drawLine({10,50}, {100, 100}, {224, 13, 170, 255});
+    m_pixelator.get()->drawCircle({50,50}, 30, {255,0,0,255});
     return true;
 }
 
 bool Game::OnUserRender()
 {
-    SDL_UpdateTexture(m_render_texture.get(), NULL, m_pixelator.get()->getPixels(), sizeof(uint32_t) * m_width);
+    SDL_UpdateTexture(m_render_texture.get(), NULL, m_pixelator.get()->getPixels(), sizeof(SDL_Color) * m_width);
     return true;
 }
 

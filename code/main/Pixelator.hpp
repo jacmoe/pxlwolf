@@ -31,8 +31,8 @@ public:
     void setPixel(const std::string& name, unsigned int x, unsigned int y, const SDL_Color& color);
     uint32_t getPixel(unsigned int x, unsigned int y) { return getPixel(m_current_buffer, x, y); }
     uint32_t getPixel(const std::string& name, unsigned int x, unsigned int y);
-    uint32_t* getPixels() { return getPixels(m_current_buffer); }
-    uint32_t* getPixels(const std::string& name);
+    uint8_t* getPixels() { return getPixels(m_current_buffer); }
+    uint8_t* getPixels(const std::string& name);
 
     void drawColumn(unsigned int x, unsigned int y, unsigned int height, const SDL_Color& color) { drawColumn(m_current_buffer, x, y, height, color); }
     void drawColumn(const std::string& name, unsigned int x, unsigned int y, unsigned int height, const SDL_Color& color);
@@ -75,7 +75,7 @@ public:
 private:
     struct Buffer
     {
-        std::vector<uint32_t> pixels;
+        std::vector<uint8_t> pixels;
         uint32_t width;
         uint32_t height;
     };
