@@ -74,6 +74,7 @@ Compiled using MSVC 2019 on Windows, and GCC 9.3 on Linux.
 |[RapidJSON][rapidjson]|A fast JSON parser/generator for C++|MIT license|
 |[Sol][sol]|A C++11 Lua wrapper|MIT License|
 |[spdlog][spdlog]|Logging library|MIT license|
+|[stb_image][stbimage]|Image loader|Public domain|
 |[toml11][toml11]|TOML for Modern C++|MIT license|
 
 
@@ -102,4 +103,5 @@ This project is using code from the [c-raycaster project][cray] - the raycaster 
 [rapidjson]: https://rapidjson.org/ "A fast JSON parser/generator for C++"
 [sol]: https://github.com/ThePhD/sol "A C++11 Lua wrapper"
 [spdlog]: https://github.com/gabime/spdlog "Logging library"
+[stbimage]: https://github.com/nothings/stb "Image loader"
 [toml11]: https://github.com/ToruNiina/toml11 "TOML for Modern C++"
