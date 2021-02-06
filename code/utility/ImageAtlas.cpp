@@ -14,6 +14,8 @@
 #   MIT License
 #*/
 #include "ImageAtlas.hpp"
+#include "stb_image.h"
+#include "spdlog/spdlog.h"
 
 namespace utility
 {
@@ -27,50 +29,46 @@ namespace utility
 
     ImageAtlas::~ImageAtlas()
     {
-        for (auto& buff : m_buffers)
-        {
-            UnloadImageColors(buff);
-        }
     }
 
-    bool ImageAtlas::load(const std::string& path, Vector2 tile_size)
+    bool ImageAtlas::load(const std::string& path, linalg::aliases::int2 tile_size)
     {
-        Image source_image = LoadImage(path.c_str());
-        if(source_image.data == nullptr)
+        int32_t req_format = STBI_rgb_alpha;
+        int32_t orig_format;
+        int32_t image_width;
+        int32_t image_height;
+        uint8_t* pixels = stbi_load(path.c_str(), &image_width, &image_height, &orig_format, req_format);
+        if (!pixels)
         {
+            SPDLOG_ERROR("Could not load {} because {}", path, stbi_failure_reason());
             return false;
         }
 
-        m_format = source_image.format;
-    
-        const auto rows = source_image.width / tile_size.x;
-        const auto cols = source_image.height / tile_size.y;
-        unsigned int index = 0;
-
-        m_rows = rows;
-        m_cols = cols;
+        m_cols = image_width / tile_size.x;
+        m_rows = image_height / tile_size.y;
 
         m_width =  tile_size.x;
         m_height = tile_size.y;
-        TraceLog(LOG_INFO,"source image dimensions : width %d, height %d", source_image.width, source_image.height);
-        TraceLog(LOG_INFO,"m_width = %.f, m_height = %.f", m_width, m_height);
+        SPDLOG_INFO("source image dimensions : width {}, height {}", image_width, image_height);
+        SPDLOG_INFO("m_width = {}, m_height = {}", m_width, m_height);
+        SPDLOG_INFO("m_rows = {}, m_cols = {}", m_rows, m_cols);
 
-        for (unsigned y = 0; y < cols; ++y)
+        for(int i = 0; i < m_rows; i++)
         {
-            for (unsigned x = 0; x < rows; ++x)
-            {
-                Image image = ImageFromImage(source_image, { x * m_width, y * m_height, m_width, m_height });
-                if(image.height != m_height)
-                {
-                    TraceLog(LOG_ERROR, "Image wasn't created!");
-                    return false;
-                }
-                TraceLog(LOG_INFO,"Intrect is (%.f, %.f, %.f, %.f)", x * m_width, y * m_height, m_width, m_height);
-                TraceLog(LOG_INFO,"Image width is %d x %d", image.width, image.height);
-                m_buffers.push_back(LoadImageColors(image));
-            }
+            Buffer buffer;
+            buffer.pixels = &pixels[i * m_width * m_height * 4];
+            buffer.width = m_width;
+            buffer.height = m_height;
+            m_buffers.push_back(buffer);
         }
-        UnloadImage(source_image);
+        SPDLOG_INFO("{} pixel buffers was added to m_buffers.", m_buffers.size());
+
+        SPDLOG_INFO("{} pixels per row",  m_width * m_height * 4);
+        SPDLOG_INFO("{} pixels in all",  m_width * m_height * 4 * m_rows);
+        SPDLOG_INFO("image_height * image_width * 4 is : {}", image_width * image_height * 4);
+
+        stbi_image_free(pixels);
+
         return true;
     }
 }
