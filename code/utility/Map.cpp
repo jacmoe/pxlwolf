@@ -43,6 +43,24 @@ namespace utility
         return degrees * 4.0 * atan (1.0) / 180.0;
     }
 
+    // From https://codereview.stackexchange.com/a/172521
+    SDL_Color hex2sdl(std::string input)
+    {
+        if (input[0] == '#')
+            input.erase(0, 1);
+
+        unsigned long value = stoul(input, nullptr, 16);
+
+        SDL_Color color;
+
+        color.a = (value >> 24) & 0xff;
+        color.r = (value >> 16) & 0xff;
+        color.g = (value >> 8) & 0xff;
+        color.b = (value >> 0) & 0xff;
+        color.a = 255;
+        return color;
+    }
+
     bool Map::init(const std::string& file_name, bool from_zip)
     {
         rapidjson::Document document;
@@ -81,15 +99,9 @@ namespace utility
                 {
                     std::string wall_identifier = (*itr)["identifier"].GetString();
                     std::string wall_color = (*itr)["color"].GetString();
-                    std::replace(wall_color.begin(), wall_color.end(), '#', 'x');
-                    wall_color = "0" + wall_color;
-                    SPDLOG_INFO("Wall '{}' has color {}", wall_identifier, wall_color);
-                    unsigned int wall_color_int = std::stoul(wall_color, nullptr, 16);
-                    unsigned char r = ((wall_color_int >> 16) & 0xFF);  // Extract the RR byte
-                    unsigned char g = ((wall_color_int >> 8) & 0xFF);   // Extract the GG byte
-                    unsigned char b = ((wall_color_int) & 0xFF);        // Extract the BB byte
-                    SPDLOG_INFO("Color '{}' is r {}, g {}, b {}", wall_color_int, r, g, b);
-                    m_wall_elements.push_back({wall_identifier, {r, g, b, 255}});
+                    SDL_Color color = hex2sdl(wall_color);
+                    uint32_t the_color = ((uint32_t)color.r << 3*8 | (uint32_t)color.g << 2*8 | (uint32_t)color.b << 8 | (uint32_t)color.a);
+                    m_wall_elements.push_back({wall_identifier, the_color});
                 }
             }
 

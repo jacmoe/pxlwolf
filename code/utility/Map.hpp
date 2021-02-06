@@ -27,7 +27,7 @@ namespace utility
     struct WallElement
     {
         std::string name;
-        SDL_Color color;
+        uint32_t color;
     };
 
     class Map
