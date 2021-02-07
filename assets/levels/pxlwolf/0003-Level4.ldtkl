@@ -44,7 +44,13 @@
 			"gridTiles": [],
 			"entityInstances": [
 				{ "__identifier": "LevelEnd", "__grid": [45,59], "__pivot": [0.5,0.5], "__tile": null, "defUid": 10, "px": [728,952], "fieldInstances": [{ "__identifier": "next_level", "__value": null, "__type": "String", "defUid": 11, "realEditorValues": [] }] },
-				{ "__identifier": "PlayerStart", "__grid": [2,3], "__pivot": [0.5,0.5], "__tile": null, "defUid": 3, "px": [40,56], "fieldInstances": [{ "__identifier": "ViewerAngle", "__value": 180, "__type": "Float", "defUid": 5, "realEditorValues": [] }] }
+				{ "__identifier": "PlayerStart", "__grid": [2,3], "__pivot": [0.5,0.5], "__tile": null, "defUid": 3, "px": [40,56], "fieldInstances": [{
+					"__identifier": "ViewerAngle",
+					"__value": 180,
+					"__type": "Float",
+					"defUid": 5,
+					"realEditorValues": [{ "id": "V_Float", "params": [180] }]
+				}] }
 			]
 		},
 		{
