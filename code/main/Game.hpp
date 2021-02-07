@@ -68,4 +68,6 @@ private:
     std::shared_ptr<utility::Map> m_map;
     Camera m_camera;
     RayCaster m_raycaster;
+
+    void adjustCameraVectors()
 };

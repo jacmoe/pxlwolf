@@ -25,6 +25,20 @@ Game::~Game()
 {
 }
 
+void Game::adjustCameraVectors()
+{
+    m_camera.dirX = cos(m_camera.angle);
+    m_camera.dirY = sin(m_camera.angle);
+    double v_y = std::sin(m_camera.angle);
+    double v_x = std::cos(m_camera.angle);
+    linalg::aliases::double2 vect = {v_x, v_y};
+    double a_y = std::sin(-90 * 4.0 * atan (1.0) / 180.0);
+    double a_x = std::cos(-90 * 4.0 * atan (1.0) / 180.0);
+    linalg::aliases::double2 vect_rotated =  {vect.x*a_x - vect.y*a_y, vect.x*a_y + vect.y*a_x};
+    m_camera.planeX = vect_rotated.x;
+    m_camera.planeY = vect_rotated.y * 0.66;
+}
+
 bool Game::OnUserCreate()
 {
     utility::Map* map = m_map.get();
@@ -38,16 +52,8 @@ bool Game::OnUserCreate()
     m_camera.angle = m_map.get()->player_heading();
     m_camera.h = 0;
 
-    m_camera.dirX = cos(m_camera.angle);
-    m_camera.dirY = sin(m_camera.angle);
-    double v_y = std::sin(m_camera.angle);
-    double v_x = std::cos(m_camera.angle);
-    linalg::aliases::double2 vect = {v_x, v_y};
-    double a_y = std::sin(-90 * 4.0 * atan (1.0) / 180.0);
-    double a_x = std::cos(-90 * 4.0 * atan (1.0) / 180.0);
-    linalg::aliases::double2 vect_rotated =  {vect.x*a_x - vect.y*a_y, vect.x*a_y + vect.y*a_x};
-    m_camera.planeX = vect_rotated.x;
-    m_camera.planeY = vect_rotated.y * 0.66;
+    adjustCameraVectors();
+
     m_camera.pitch = 0; // looking up/down, expressed in screen pixels the horizon shifts
     m_camera.z = 0; // vertical camera strafing up/down, for jumping/crouching. 0 means standard height. Expressed in screen pixels a wall at distance 1 shifts
 
@@ -92,16 +98,7 @@ bool Game::OnUserUpdate(double deltaTime)
         m_camera.x = m_map.get()->player_start().x;
         m_camera.y = m_map.get()->player_start().y;
         m_camera.angle = m_map.get()->player_heading();
-        m_camera.dirX = cos(m_camera.angle);
-        m_camera.dirY = sin(m_camera.angle);
-        double v_y = std::sin(m_camera.angle);
-        double v_x = std::cos(m_camera.angle);
-        linalg::aliases::double2 vect = {v_x, v_y};
-        double a_y = std::sin(-90 * 4.0 * atan (1.0) / 180.0);
-        double a_x = std::cos(-90 * 4.0 * atan (1.0) / 180.0);
-        linalg::aliases::double2 vect_rotated =  {vect.x*a_x - vect.y*a_y, vect.x*a_y + vect.y*a_x};
-        m_camera.planeX = vect_rotated.x;
-        m_camera.planeY = vect_rotated.y * 0.66;
+        adjustCameraVectors();
     }
 
     if( currentKeyStates[ SDL_SCANCODE_W ] ) // move forward
