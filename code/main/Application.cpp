@@ -159,12 +159,8 @@ bool Application::init(const std::string title, int width, int height, float sca
 
 void Application::run()
 {
-    uint8_t frameCounter = 0;
-    uint32_t realRunTime = 0;
-    double realRunTimeF = 0;
-    double dt = 0;
-    uint32_t runTime = SDL_GetTicks();
-    double runTimeF = (double)runTime/1000;
+    uint32_t counted_frames = 0;
+    m_fps_timer.start();
 
     m_running = true;
 
@@ -172,16 +168,20 @@ void Application::run()
 
     while (m_running)
     {
-        realRunTime = SDL_GetTicks();		
-        realRunTimeF = (double)realRunTime/1000;
-
+        m_average_fps = counted_frames / (m_fps_timer.getTicks() / 1000.f);
+        if(m_average_fps > 2000000)
+        {
+            m_average_fps = 0;
+        }
         event();
 
-        update(realRunTimeF);
-        OnUserUpdate(realRunTimeF);
+        update(m_average_fps);
+        OnUserUpdate(m_average_fps);
 
         render();
+        ++counted_frames;
     }
+    m_fps_timer.stop();
     OnUserDestroy();
 }
 

@@ -60,6 +60,8 @@ bool Game::OnUserCreate()
 
 bool Game::OnUserUpdate(double fDeltaTime)
 {
+    write_text("PixelWolf - " + std::to_string( get_fps()) + " FPS.");
+
     utility::Map* map = m_map.get();
     m_raycaster.raycastCeilingFloor(m_camera);
     m_raycaster.raycast(m_camera);

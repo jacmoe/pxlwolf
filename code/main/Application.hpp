@@ -22,6 +22,7 @@
 #include "spdlog/spdlog.h"
 #include "SDLDeleter.hpp"
 #include "Pixelator.hpp"
+#include "Timer.hpp"
 
 class Application
 {
@@ -40,11 +41,14 @@ protected:
 
     virtual bool write_text(const std::string text);
 
+    uint32_t get_fps() { return static_cast<uint32_t>(std::round(m_average_fps)); }
+
     float m_scale;
     int m_width;
     int m_height;
     bool m_fullscreen;
     bool m_show_map;
+    float m_average_fps;
 
     std::string font_name;
     int font_size;
@@ -64,6 +68,7 @@ private:
     bool m_running;
     bool m_show_fps;
     bool m_should_exit;
+    utility::Timer m_fps_timer;
 
     SDL_Event e_;
 
