@@ -81,6 +81,7 @@ bool Application::write_text(const std::string text)
     return true;
 }
 
+// Borrowed from https://gigi.nullneuron.net/gigilabs/saving-screenshots-in-sdl2/
 void Application::save_screenshot()
 {
     const uint32_t format = SDL_PIXELFORMAT_ARGB8888;
