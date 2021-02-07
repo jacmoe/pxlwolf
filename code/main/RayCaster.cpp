@@ -62,9 +62,9 @@ void RayCaster::drawMinimap(const std::string& buffer_name, const Camera& camera
         {
             blockRect.x = mapRect.x + col * blockSize;
             blockRect.y = mapRect.y + row * blockSize;
-            if(map->map_walls()[row * map->width() + col] > 0)
+            if(map->walls()[row * map->width() + col] > 0)
             {
-                uint32_t blockcolor = map->wall_element(map->map_walls()[row * map->width() + col]).color;
+                uint32_t blockcolor = map->wall_element(map->walls()[row * map->width() + col]).color;
                 m_pixelator.get()->drawFilledRect(buffer_name, blockRect, blockcolor);
             }
             if(p_y == row && p_x == col)
@@ -83,14 +83,18 @@ uint32_t RayCaster::pixelGradientShader(uint32_t pixel, double amount, SDL_Color
     int g = (int)((pixel >> 2*8) & 0xFF);
     int b = (int)((pixel >> 8) & 0xFF);
     int a = (int)(pixel & 0xFF);
-    int dr = target.r - r;
-    int dg = target.g - g;
-    int db = target.b - b;
-    int da = target.a - a;
-    r += (int)((double)dr * amount);
-    g += (int)((double)dg * amount);
-    b += (int)((double)db * amount);
-    a += (int)((double)da * amount);
+    // int dr = target.r - r;
+    // int dg = target.g - g;
+    // int db = target.b - b;
+    // int da = target.a - a;
+    // r += (int)((double)dr * amount);
+    // g += (int)((double)dg * amount);
+    // b += (int)((double)db * amount);
+    // a += (int)((double)da * amount);
+    int dr = (int)(r - amount);
+    int dg = (int)(g - amount);
+    int db = (int)(b - amount);
+    int da = (int)(a - amount);
     return m_pixelator.get()->toIntColor(r,g,b,a);
 }
 
@@ -212,7 +216,7 @@ void RayCaster::raycast(const Camera& camera)
             texPos += step;
 
             uint32_t color = m_atlas.getPixel(texNum, texX, texY);
-            color = pixelGradientShader(color, perpWallDist / 4 * 1.5/5, FOG_COLOR);
+            color = pixelGradientShader(color, perpWallDist / 154 * 1.5/5, FOG_COLOR);
             m_pixelator->setPixel(x, y, color);
         }
 
@@ -305,14 +309,14 @@ void RayCaster::raycastCeilingFloor(const Camera& camera)
             // floor
             //color = GRAY;
             color = m_atlas.getPixel(floorTexture, ty, tx);
-            color = pixelGradientShader(color, rowDistance / 4 * 1.5/5, FOG_COLOR);
+            color = pixelGradientShader(color, rowDistance / 154 * 1.5/5, FOG_COLOR);
             // color = ColorAlphaBlend(color, {(unsigned char)(color.r / rowDistance),(unsigned char)(color.g / rowDistance),(unsigned char)(color.b / rowDistance), (unsigned char)(color.a / rowDistance)}, GOLD);
             m_pixelator->setPixel(x, y, color);
         } else {
             //ceiling
             // color = DARKGRAY;
             color = m_atlas.getPixel(ceilingTexture, ty, tx);
-            color = pixelGradientShader(color, rowDistance / 4 * 1.5/5, FOG_COLOR);
+            color = pixelGradientShader(color, rowDistance / 154 * 1.5/5, FOG_COLOR);
             // color = ColorAlphaBlend(color, {(unsigned char)(color.r / rowDistance),(unsigned char)(color.g / rowDistance),(unsigned char)(color.b / rowDistance), (unsigned char)(color.a / rowDistance)}, GOLD);
             m_pixelator->setPixel(x, y, color);
         }
