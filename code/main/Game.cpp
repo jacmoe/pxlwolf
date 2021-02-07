@@ -67,19 +67,44 @@ bool Game::OnUserUpdate(double deltaTime)
     utility::Map* map = m_map.get();
     m_raycaster.raycastCeilingFloor(m_camera);
     m_raycaster.raycast(m_camera);
-    m_raycaster.drawMinimap("primary", m_camera, 2);
+    if(m_show_map)
+    {
+        m_raycaster.drawMinimap("primary", m_camera, 2);
+    }
 
     double moveSpeed = delta_seconds * 3.0; //the constant value is in squares/second
     double rotSpeed = delta_seconds * 2.0; //the constant value is in radians/second
 
     const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
 
-    if( currentKeyStates[ SDL_SCANCODE_LSHIFT ] )
+    if( currentKeyStates[ SDL_SCANCODE_LSHIFT ] ) // run
     {
         moveSpeed *= 3.0;
     }
 
-    if( currentKeyStates[ SDL_SCANCODE_W ] )
+    if( currentKeyStates[ SDL_SCANCODE_M ] ) // toggle minimap
+    {
+        m_show_map = !m_show_map;
+    }
+
+    if( currentKeyStates[ SDL_SCANCODE_R ] ) // respawn player at player start
+    {
+        m_camera.x = m_map.get()->player_start().x;
+        m_camera.y = m_map.get()->player_start().y;
+        m_camera.angle = m_map.get()->player_heading();
+        m_camera.dirX = cos(m_camera.angle);
+        m_camera.dirY = sin(m_camera.angle);
+        double v_y = std::sin(m_camera.angle);
+        double v_x = std::cos(m_camera.angle);
+        linalg::aliases::double2 vect = {v_x, v_y};
+        double a_y = std::sin(-90 * 4.0 * atan (1.0) / 180.0);
+        double a_x = std::cos(-90 * 4.0 * atan (1.0) / 180.0);
+        linalg::aliases::double2 vect_rotated =  {vect.x*a_x - vect.y*a_y, vect.x*a_y + vect.y*a_x};
+        m_camera.planeX = vect_rotated.x;
+        m_camera.planeY = vect_rotated.y * 0.66;
+    }
+
+    if( currentKeyStates[ SDL_SCANCODE_W ] ) // move forward
     {
         if(map->get_wall_entry(int(m_camera.x + m_camera.dirX * moveSpeed), int(m_camera.y)) < 1)
         {
@@ -90,7 +115,7 @@ bool Game::OnUserUpdate(double deltaTime)
             m_camera.y += m_camera.dirY * moveSpeed;
         }
     }
-    if( currentKeyStates[ SDL_SCANCODE_S ] )
+    if( currentKeyStates[ SDL_SCANCODE_S ] ) // move backward
     {
         if(map->get_wall_entry(int(m_camera.x - m_camera.dirX * moveSpeed), int(m_camera.y)) < 1)
         {
@@ -101,7 +126,7 @@ bool Game::OnUserUpdate(double deltaTime)
             m_camera.y -= m_camera.dirY * moveSpeed;
         }
     }
-    if( currentKeyStates[ SDL_SCANCODE_D ] )
+    if( currentKeyStates[ SDL_SCANCODE_D ] ) // turn right
     {
         //both camera direction and camera plane must be rotated
         double oldDirX = m_camera.dirX;
@@ -111,7 +136,7 @@ bool Game::OnUserUpdate(double deltaTime)
         m_camera.planeX = m_camera.planeX * cos(-rotSpeed) - m_camera.planeY * sin(-rotSpeed);
         m_camera.planeY = oldPlaneX * sin(-rotSpeed) + m_camera.planeY * cos(-rotSpeed);
     }
-    if( currentKeyStates[ SDL_SCANCODE_A ] )
+    if( currentKeyStates[ SDL_SCANCODE_A ] ) // turn left
     {
         //both camera direction and camera plane must be rotated
         double oldDirX = m_camera.dirX;
