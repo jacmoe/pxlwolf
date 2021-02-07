@@ -30,6 +30,7 @@ bool Game::OnUserCreate()
     utility::Map* map = m_map.get();
     map->init("assets/levels/pxlwolf.ldtk");
     map->load("Level1");
+    map->load_level_alt("Level1");
 
     write_text("PixelWolf");
 
@@ -60,9 +61,64 @@ bool Game::OnUserCreate()
 
 bool Game::OnUserUpdate(double fDeltaTime)
 {
+    utility::Map* map = m_map.get();
     m_raycaster.raycastCeilingFloor(m_camera);
     m_raycaster.raycast(m_camera);
     m_raycaster.drawMinimap("primary", m_camera, 2);
+
+    double moveSpeed = 0.001 * fDeltaTime * 3.0; //the constant value is in squares/second
+    double rotSpeed = 0.001 * fDeltaTime * 2.0; //the constant value is in radians/second
+
+    const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
+
+    if( currentKeyStates[ SDL_SCANCODE_LSHIFT ] )
+    {
+        moveSpeed *= 3.0;
+    }
+
+    if( currentKeyStates[ SDL_SCANCODE_W ] )
+    {
+        if(map->get_wall_entry(int(m_camera.x + m_camera.dirX * moveSpeed), int(m_camera.y)) < 1)
+        {
+            m_camera.x += m_camera.dirX * moveSpeed;
+        }
+        if(map->get_wall_entry(int(m_camera.x), int(m_camera.y + m_camera.dirY * moveSpeed)) < 1)
+        {
+            m_camera.y += m_camera.dirY * moveSpeed;
+        }
+    }
+    if( currentKeyStates[ SDL_SCANCODE_S ] )
+    {
+        if(map->get_wall_entry(int(m_camera.x - m_camera.dirX * moveSpeed), int(m_camera.y)) < 1)
+        {
+            m_camera.x -= m_camera.dirX * moveSpeed;
+        }
+        if(map->get_wall_entry(int(m_camera.x), int(m_camera.y - m_camera.dirY * moveSpeed)) < 1)
+        {
+            m_camera.y -= m_camera.dirY * moveSpeed;
+        }
+    }
+    if( currentKeyStates[ SDL_SCANCODE_D ] )
+    {
+        //both camera direction and camera plane must be rotated
+        double oldDirX = m_camera.dirX;
+        m_camera.dirX = m_camera.dirX * cos(-rotSpeed) - m_camera.dirY * sin(-rotSpeed);
+        m_camera.dirY = oldDirX * sin(-rotSpeed) + m_camera.dirY * cos(-rotSpeed);
+        double oldPlaneX = m_camera.planeX;
+        m_camera.planeX = m_camera.planeX * cos(-rotSpeed) - m_camera.planeY * sin(-rotSpeed);
+        m_camera.planeY = oldPlaneX * sin(-rotSpeed) + m_camera.planeY * cos(-rotSpeed);
+    }
+    if( currentKeyStates[ SDL_SCANCODE_A ] )
+    {
+        //both camera direction and camera plane must be rotated
+        double oldDirX = m_camera.dirX;
+        m_camera.dirX = m_camera.dirX * cos(rotSpeed) - m_camera.dirY * sin(rotSpeed);
+        m_camera.dirY = oldDirX * sin(rotSpeed) + m_camera.dirY * cos(rotSpeed);
+        double oldPlaneX = m_camera.planeX;
+        m_camera.planeX = m_camera.planeX * cos(rotSpeed) - m_camera.planeY * sin(rotSpeed);
+        m_camera.planeY = oldPlaneX * sin(rotSpeed) + m_camera.planeY * cos(rotSpeed);
+    }
+
     return true;
 }
 

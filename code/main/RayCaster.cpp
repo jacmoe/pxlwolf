@@ -18,6 +18,8 @@
 #include "Game.hpp"
 #include "SDL.h"
 
+SDL_Color FOG_COLOR = {50,20,50,255};
+
 RayCaster::RayCaster()
 {
 }
@@ -60,9 +62,9 @@ void RayCaster::drawMinimap(const std::string& buffer_name, const Camera& camera
         {
             blockRect.x = mapRect.x + col * blockSize;
             blockRect.y = mapRect.y + row * blockSize;
-            if(map->walls()[row * map->width() + col] > 0)
+            if(map->map_walls()[row * map->width() + col] > 0)
             {
-                uint32_t blockcolor = map->wall_element(map->walls()[row * map->width() + col]).color;
+                uint32_t blockcolor = map->wall_element(map->map_walls()[row * map->width() + col]).color;
                 m_pixelator.get()->drawFilledRect(buffer_name, blockRect, blockcolor);
             }
             if(p_y == row && p_x == col)
@@ -210,7 +212,7 @@ void RayCaster::raycast(const Camera& camera)
             texPos += step;
 
             uint32_t color = m_atlas.getPixel(texNum, texX, texY);
-            // color = ColorAlphaBlend(color, {(unsigned char)(color.r / perpWallDist),(unsigned char)(color.g / perpWallDist),(unsigned char)(color.b / perpWallDist), (unsigned char)(color.a / perpWallDist)}, GOLD);
+            color = pixelGradientShader(color, perpWallDist / 4 * 1.5/5, FOG_COLOR);
             m_pixelator->setPixel(x, y, color);
         }
 
@@ -303,12 +305,14 @@ void RayCaster::raycastCeilingFloor(const Camera& camera)
             // floor
             //color = GRAY;
             color = m_atlas.getPixel(floorTexture, ty, tx);
+            color = pixelGradientShader(color, rowDistance / 4 * 1.5/5, FOG_COLOR);
             // color = ColorAlphaBlend(color, {(unsigned char)(color.r / rowDistance),(unsigned char)(color.g / rowDistance),(unsigned char)(color.b / rowDistance), (unsigned char)(color.a / rowDistance)}, GOLD);
             m_pixelator->setPixel(x, y, color);
         } else {
             //ceiling
             // color = DARKGRAY;
             color = m_atlas.getPixel(ceilingTexture, ty, tx);
+            color = pixelGradientShader(color, rowDistance / 4 * 1.5/5, FOG_COLOR);
             // color = ColorAlphaBlend(color, {(unsigned char)(color.r / rowDistance),(unsigned char)(color.g / rowDistance),(unsigned char)(color.b / rowDistance), (unsigned char)(color.a / rowDistance)}, GOLD);
             m_pixelator->setPixel(x, y, color);
         }
