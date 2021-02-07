@@ -54,7 +54,7 @@ bool Application::OnUserCreate()
     return true;
 }
 
-bool Application::OnUserUpdate(double fDeltaTime)
+bool Application::OnUserUpdate(double deltaTime)
 {
     return true;
 }
@@ -159,6 +159,10 @@ bool Application::init(const std::string title, int width, int height, float sca
 
 void Application::run()
 {
+    m_time_last = 0;
+    m_time_now = SDL_GetPerformanceCounter();
+    m_delta_time = 0.0;
+
     uint32_t counted_frames = 0;
     m_fps_timer.start();
 
@@ -173,10 +177,15 @@ void Application::run()
         {
             m_average_fps = 0;
         }
+
+        m_time_last = m_time_now;
+        m_time_now = SDL_GetPerformanceCounter();
+        m_delta_time = static_cast<double>(((m_time_now - m_time_last) * 1000 / static_cast<double>(SDL_GetPerformanceFrequency())));
+
         event();
 
-        update(m_average_fps);
-        OnUserUpdate(m_average_fps);
+        update(m_delta_time);
+        OnUserUpdate(m_delta_time);
 
         render();
         ++counted_frames;
@@ -212,7 +221,7 @@ void Application::toggle_fullscreen()
 {
 }
 
-void Application::update(double elapsedTime)
+void Application::update(double deltaTime)
 {
 }
 

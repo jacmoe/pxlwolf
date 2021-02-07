@@ -70,10 +70,14 @@ private:
     bool m_should_exit;
     utility::Timer m_fps_timer;
 
+    uint64_t m_time_now;
+    uint64_t m_time_last;
+    double m_delta_time;
+
     SDL_Event e_;
 
     void event();
-    void update(double elapsedTime);
+    void update(double deltaTime);
     void render();
     void toggle_fullscreen();
     bool load_font();

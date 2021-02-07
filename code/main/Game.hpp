@@ -60,7 +60,7 @@ public:
 
 protected:
     bool OnUserCreate() override;
-    bool OnUserUpdate(double fDeltaTime) override;
+    bool OnUserUpdate(double deltaTime) override;
     bool OnUserRender() override;
     bool OnUserDestroy() override;
 

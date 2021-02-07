@@ -58,17 +58,19 @@ bool Game::OnUserCreate()
     return true;
 }
 
-bool Game::OnUserUpdate(double fDeltaTime)
+bool Game::OnUserUpdate(double deltaTime)
 {
-    write_text("PixelWolf - " + std::to_string( get_fps()) + " FPS.");
+    double delta_seconds = deltaTime * 0.001;
+
+    write_text("PixelWolf - " + std::to_string( get_fps()) + " FPS. Deltatime : " + std::to_string(delta_seconds));
 
     utility::Map* map = m_map.get();
     m_raycaster.raycastCeilingFloor(m_camera);
     m_raycaster.raycast(m_camera);
     m_raycaster.drawMinimap("primary", m_camera, 2);
 
-    double moveSpeed = 0.001 * fDeltaTime * 3.0; //the constant value is in squares/second
-    double rotSpeed = 0.001 * fDeltaTime * 2.0; //the constant value is in radians/second
+    double moveSpeed = delta_seconds * 3.0; //the constant value is in squares/second
+    double rotSpeed = delta_seconds * 2.0; //the constant value is in radians/second
 
     const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
 
