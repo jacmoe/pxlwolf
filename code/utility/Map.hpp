@@ -40,6 +40,7 @@ namespace utility
         bool load(const std::string& level_name, bool from_zip = false);
 
         inline const std::vector<int>& walls() { return m_walls; }
+        inline const std::vector<int>& minimap_walls() { return m_minimap_walls; }
         inline const std::vector<int>& floor() { return m_floor; }
         inline const std::vector<int>& ceiling() { return m_ceiling; }
         inline const bool initialized() { return m_initialized; }
@@ -47,6 +48,7 @@ namespace utility
 
         inline const WallElement& wall_element(const unsigned int element) { return m_wall_elements[element - 1]; }
         int get_wall_entry(int tile_x, int tile_y);
+        int get_minimap_wall_entry(int tile_x, int tile_y);
 
         inline const int width() { return m_map_width; }
         inline const int height() { return m_map_height; }
@@ -55,6 +57,7 @@ namespace utility
 
     private:
         std::vector<int> m_walls;
+        std::vector<int> m_minimap_walls;
         std::vector<int> m_floor;
         std::vector<int> m_ceiling;
         std::vector<WallElement> m_wall_elements;

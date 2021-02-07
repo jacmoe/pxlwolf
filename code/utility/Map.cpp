@@ -238,11 +238,7 @@ namespace utility
 
         } // for layer instances
 
-        // store where the player position is in the old walls vector
-        int entry = int(m_player_start.y) * m_map_width + int(m_player_start.x);
-        SPDLOG_INFO("player position is stored in location {}", entry);
-        int test = int(entry / m_map_width) - int(m_player_start.y);
-        SPDLOG_INFO("test value {}", test);
+        m_minimap_walls.assign(m_walls.begin(), m_walls.end());
 
         std::vector<int> row_vect;
         int offset = 0;
@@ -280,5 +276,11 @@ namespace utility
     {
         int item = int(tile_y) * m_map_width + int(tile_x);
         return m_walls[item];
+    }
+
+    int Map::get_minimap_wall_entry(int tile_x, int tile_y)
+    {
+        int item = int(tile_y) * m_map_width + int(tile_x);
+        return m_minimap_walls[item];
     }
 }

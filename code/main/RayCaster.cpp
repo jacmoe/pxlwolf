@@ -54,6 +54,8 @@ void RayCaster::drawMinimap(const std::string& buffer_name, const Camera& camera
 
     int p_x = static_cast<int>(camera.x);
     int p_y = static_cast<int>(camera.y);
+    // correct camera position
+    p_x = std::abs(p_x - map->width());
 
     /* Draw map tiles */
     for(row = 0; row < map->height(); row++)
@@ -62,9 +64,9 @@ void RayCaster::drawMinimap(const std::string& buffer_name, const Camera& camera
         {
             blockRect.x = mapRect.x + col * blockSize;
             blockRect.y = mapRect.y + row * blockSize;
-            if(map->walls()[row * map->width() + col] > 0)
+            if(map->minimap_walls()[row * map->width() + col] > 0)
             {
-                uint32_t blockcolor = map->wall_element(map->walls()[row * map->width() + col]).color;
+                uint32_t blockcolor = map->wall_element(map->minimap_walls()[row * map->width() + col]).color;
                 m_pixelator.get()->drawFilledRect(buffer_name, blockRect, blockcolor);
             }
             if(p_y == row && p_x == col)
