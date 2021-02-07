@@ -79,4 +79,5 @@ private:
     void event();
     void render();
     bool load_font();
+    void save_screenshot();
 };

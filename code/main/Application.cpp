@@ -81,6 +81,16 @@ bool Application::write_text(const std::string text)
     return true;
 }
 
+void Application::save_screenshot()
+{
+    const uint32_t format = SDL_PIXELFORMAT_ARGB8888;
+
+    SDL_Surface* surface = SDL_CreateRGBSurfaceWithFormat(0, m_width * m_scale, m_height * m_scale, 32, format);
+    SDL_RenderReadPixels(m_renderer.get(), NULL, format, surface->pixels, surface->pitch);
+    SDL_SaveBMP(surface, "screenshot.bmp");
+    SDL_FreeSurface(surface);
+}
+
 bool Application::load_font()
 {
     if(std::filesystem::exists(font_name))
@@ -208,6 +218,9 @@ void Application::event()
                 {
                     case SDLK_ESCAPE:
                         m_running = false;
+                        break;
+                    case SDLK_p:
+                        save_screenshot();
                         break;
                 }
         }
