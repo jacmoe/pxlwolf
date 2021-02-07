@@ -184,7 +184,6 @@ void Application::run()
 
         event();
 
-        update(m_delta_time);
         OnUserUpdate(m_delta_time);
 
         render();
@@ -196,8 +195,6 @@ void Application::run()
 
 void Application::event()
 {
-    const Uint8 * keystate = SDL_GetKeyboardState(nullptr);
-
     while (SDL_PollEvent(&e_))
     {
         switch (e_.type)
@@ -215,14 +212,6 @@ void Application::event()
                 }
         }
     }
-}
-
-void Application::toggle_fullscreen()
-{
-}
-
-void Application::update(double deltaTime)
-{
 }
 
 void Application::render()

@@ -77,8 +77,6 @@ private:
     SDL_Event e_;
 
     void event();
-    void update(double deltaTime);
     void render();
-    void toggle_fullscreen();
     bool load_font();
 };
