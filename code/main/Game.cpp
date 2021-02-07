@@ -144,6 +144,16 @@ bool Game::OnUserUpdate(double deltaTime)
         m_camera.planeY = oldPlaneX * sin(rotSpeed) + m_camera.planeY * cos(rotSpeed);
     }
 
+    if (SDL_GetRelativeMouseMode())
+    {
+        // Get mouse change since last frame
+        int32_t mouseX;
+        SDL_GetRelativeMouseState(&mouseX, NULL);
+        // Update player
+        m_camera.angle -= 0.1 * rotSpeed * mouseX;
+        adjustCameraVectors();
+    }
+
     return true;
 }
 

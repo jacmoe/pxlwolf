@@ -181,6 +181,8 @@ void Application::run()
 
     if (!OnUserCreate()) m_running = false;
 
+    SDL_SetRelativeMouseMode(SDL_TRUE);
+
     while (m_running)
     {
         m_average_fps = counted_frames / (m_fps_timer.getTicks() / 1000.f);
