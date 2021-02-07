@@ -187,6 +187,7 @@ namespace utility
                         m_player_start.y = (*itr)["__grid"].GetArray()[1].GetFloat() + 0.5f;
                         m_player_heading = static_cast<double>(deg2rad((*itr)["fieldInstances"].GetArray()[0]["__value"].GetDouble()));
                         SPDLOG_INFO("PlayerStart : ({}, {}), and angle is {}", m_player_start.x, m_player_start.y, m_player_heading);
+                        m_player_start.x = std::abs(m_player_start.x - 64);
                     }
                 }
             } // if layer type is Entities
@@ -236,7 +237,33 @@ namespace utility
             } // if layer type is IntGrid
 
         } // for layer instances
-        
+
+        // store where the player position is in the old walls vector
+        int entry = int(m_player_start.y) * m_map_width + int(m_player_start.x);
+        SPDLOG_INFO("player position is stored in location {}", entry);
+        int test = int(entry / m_map_width) - int(m_player_start.y);
+        SPDLOG_INFO("test value {}", test);
+
+        std::vector<int> row_vect;
+        int offset = 0;
+        std::vector<int> temp_vect;
+        //temp_vect.assign(m_map_width * m_map_height, 0);
+        for(int row = 0; row < m_map_height; row++)
+        {
+            for (int column = 0; column < m_map_width; column++)
+            {
+                row_vect.push_back(m_walls[column + offset]);
+            }
+            std::reverse(row_vect.begin(), row_vect.end());
+            for (int column = 0; column < m_map_width; column++)
+            {
+                temp_vect.push_back(row_vect[column]);
+            }
+            row_vect.clear();
+            offset += m_map_width;
+        }
+        m_walls.swap(temp_vect);
+
         SPDLOG_INFO("Level '{}' loaded.", level_name.c_str());
         m_loaded = true;
 
