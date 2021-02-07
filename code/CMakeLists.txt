@@ -42,6 +42,8 @@ set(utility
     ./utility/SDLDeleter.hpp
     # ./utility/SpriteSheetLoader.cpp
     # ./utility/SpriteSheetLoader.hpp
+    ./utility/Timer.cpp
+    ./utility/Timer.hpp
     ./utility/utils.cpp
     ./utility/utils.hpp
     ${3RD_PARTY_DIR}/physfs.cpp
