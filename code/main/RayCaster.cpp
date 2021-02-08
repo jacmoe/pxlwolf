@@ -35,7 +35,7 @@ void RayCaster::init(uint32_t width, uint32_t height, std::shared_ptr<utility::M
     m_width = width;
     m_height = height;
 
-    m_atlas.load("assets/textures/spritesheet.png", {512, 512});
+    m_atlas.load("assets/textures/wolfsheet.png", {128, 128});
     m_wall_ceil_atlas.load("assets/textures/ceilfloor.png", {512, 512});
 }
 
