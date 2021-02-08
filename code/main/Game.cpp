@@ -15,6 +15,7 @@
 #*/
 #include "Game.hpp"
 #include "ImageAtlas.hpp"
+#include "permadi.hpp"
 
 Game::Game()
 {
@@ -39,44 +40,9 @@ void Game::setupCameraVectors()
     m_camera.planeY = vect_rotated.y * 0.66;
 }
 
-bool Game::OnUserCreate()
-{
-    utility::Map* map = m_map.get();
-    map->init("assets/levels/pxlwolf.ldtk");
-    map->load("Level1");
-
-    write_text("PixelWolf");
-
-    m_camera.x = m_map.get()->player_start().x;
-    m_camera.y = m_map.get()->player_start().y;
-    m_camera.angle = m_map.get()->player_heading();
-    m_camera.h = 0;
-
-    setupCameraVectors();
-
-    m_camera.pitch = 0; // looking up/down, expressed in screen pixels the horizon shifts
-    m_camera.z = 0; // vertical camera strafing up/down, for jumping/crouching. 0 means standard height. Expressed in screen pixels a wall at distance 1 shifts
-
-    m_raycaster.init(m_width, m_height, m_map, m_pixelator);
-
-    m_pixelator.get()->addBuffer("minimap", m_map.get()->width() * 2, m_map.get()->height() * 2);
-    m_pixelator.get()->fill("minimap", m_pixelator.get()->toIntColor(200,200,200,200));
-
-    return true;
-}
-
-bool Game::OnUserUpdate(double deltaTime)
+void Game::handle_input(double deltaTime)
 {
     double delta_seconds = deltaTime * 0.001;
-
-    utility::Map* map = m_map.get();
-    m_raycaster.raycastCeilingFloor(m_camera);
-    m_raycaster.raycast(m_camera);
-    if(m_show_map)
-    {
-        m_raycaster.drawMinimap("primary", m_camera, 2);
-    }
-
     double moveSpeed = delta_seconds * 3.0; //the constant value is in squares/second
     double rotSpeed = delta_seconds * 1.6; //the constant value is in radians/second
 
@@ -87,11 +53,13 @@ bool Game::OnUserUpdate(double deltaTime)
         moveSpeed *= 3.0;
     }
 
+    utility::Map* map = m_map.get();
+
     if( currentKeyStates[ SDL_SCANCODE_R ] ) // respawn player at player start
     {
-        m_camera.x = m_map.get()->player_start().x;
-        m_camera.y = m_map.get()->player_start().y;
-        m_camera.angle = m_map.get()->player_heading();
+        m_camera.x = map->player_start().x;
+        m_camera.y = map->player_start().y;
+        m_camera.angle = map->player_heading();
         setupCameraVectors();
     }
 
@@ -149,6 +117,44 @@ bool Game::OnUserUpdate(double deltaTime)
         m_camera.angle -= 0.1 * rotSpeed * mouseX;
         setupCameraVectors();
     }
+}
+
+bool Game::OnUserCreate()
+{
+    utility::Map* map = m_map.get();
+    map->init("assets/levels/pxlwolf.ldtk");
+    map->load("Level1");
+
+    write_text("PixelWolf");
+
+    m_camera.x = m_map.get()->player_start().x;
+    m_camera.y = m_map.get()->player_start().y;
+    m_camera.angle = m_map.get()->player_heading();
+    m_camera.h = 0;
+
+    setupCameraVectors();
+
+    m_camera.pitch = 0; // looking up/down, expressed in screen pixels the horizon shifts
+    m_camera.z = 0; // vertical camera strafing up/down, for jumping/crouching. 0 means standard height. Expressed in screen pixels a wall at distance 1 shifts
+
+    m_raycaster.init(m_width, m_height, m_map, m_pixelator);
+
+    m_pixelator.get()->addBuffer("minimap", m_map.get()->width() * 2, m_map.get()->height() * 2);
+    m_pixelator.get()->fill("minimap", m_pixelator.get()->toIntColor(200,200,200,200));
+
+    return true;
+}
+
+bool Game::OnUserUpdate(double deltaTime)
+{
+    m_raycaster.raycastCeilingFloor(m_camera);
+    m_raycaster.raycast(m_camera);
+    if(m_show_map)
+    {
+        m_raycaster.drawMinimap("primary", m_camera, 2);
+    }
+
+    handle_input(deltaTime);
 
     if(m_show_fps)
     {

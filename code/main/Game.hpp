@@ -70,4 +70,5 @@ private:
     RayCaster m_raycaster;
 
     void setupCameraVectors();
+    void handle_input(double deltaTime);
 };
