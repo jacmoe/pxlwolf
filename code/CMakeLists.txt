@@ -24,6 +24,8 @@ set(main
     ./main/Game.hpp
     # ./main/Level.cpp
     # ./main/Level.hpp
+    ./main/permadi.cpp
+    ./main/permadi.hpp
     ./main/Pixelator.cpp
     ./main/Pixelator.hpp
     ./main/RayCaster.cpp
@@ -37,8 +39,6 @@ set(utility
     ./utility/ImageAtlas.hpp
     ./utility/Map.cpp
     ./utility/Map.hpp
-    # ./utility/RectAnimation.cpp
-    # ./utility/RectAnimation.hpp
     ./utility/SDLDeleter.hpp
     # ./utility/SpriteSheetLoader.cpp
     # ./utility/SpriteSheetLoader.hpp
