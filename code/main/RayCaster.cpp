@@ -70,6 +70,11 @@ void RayCaster::drawMinimap(const std::string& buffer_name, const Camera& camera
                 uint32_t blockcolor = map->wall_element(map->minimap_walls()[row * map->width() + col]).color;
                 m_pixelator.get()->drawFilledRect(buffer_name, blockRect, blockcolor);
             }
+            else
+            {
+                uint32_t background_color = m_pixelator.get()->toIntColor(112,112,112,255);
+                m_pixelator.get()->drawFilledRect(buffer_name, blockRect, background_color);
+            }
             if(p_y == row && p_x == col)
             {
                 /* Draw the player */
