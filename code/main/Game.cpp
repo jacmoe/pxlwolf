@@ -25,7 +25,7 @@ Game::~Game()
 {
 }
 
-void Game::adjustCameraVectors()
+void Game::setupCameraVectors()
 {
     m_camera.dirX = cos(m_camera.angle);
     m_camera.dirY = sin(m_camera.angle);
@@ -43,7 +43,7 @@ bool Game::OnUserCreate()
 {
     utility::Map* map = m_map.get();
     map->init("assets/levels/pxlwolf.ldtk");
-    map->load("Level1");
+    map->load("Level4");
 
     write_text("PixelWolf");
 
@@ -52,7 +52,7 @@ bool Game::OnUserCreate()
     m_camera.angle = m_map.get()->player_heading();
     m_camera.h = 0;
 
-    adjustCameraVectors();
+    setupCameraVectors();
 
     m_camera.pitch = 0; // looking up/down, expressed in screen pixels the horizon shifts
     m_camera.z = 0; // vertical camera strafing up/down, for jumping/crouching. 0 means standard height. Expressed in screen pixels a wall at distance 1 shifts

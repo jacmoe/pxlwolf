@@ -69,5 +69,5 @@ private:
     Camera m_camera;
     RayCaster m_raycaster;
 
-    void adjustCameraVectors();
+    void setupCameraVectors();
 };
