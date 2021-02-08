@@ -87,7 +87,7 @@ This project is using code from the [c-raycaster project][cray] - the raycaster 
 
 
 [pxlwolf]: https://github.com/jacmoe/pxlwolf/raw/main/screenshots/Screenshot.jpg "Screenshot of PixelWolf"
-[corridor]: https://github.com/jacmoe/pxlwolf/raw/main/screenshots/corridor.jpg "Textured wall and ceiling"
+[corridor]: https://github.com/jacmoe/pxlwolf/raw/main/screenshots/corridor.png "Textured wall and ceiling"
 [ldtk]: https://github.com/jacmoe/pxlwolf/raw/main/screenshots/LevelEditing.jpg "Level editing in LDTK"
 [ldtklevels]: https://github.com/jacmoe/pxlwolf/raw/main/screenshots/ldtklevels.png "First four levels of Wolf3d"
 
