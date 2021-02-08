@@ -79,7 +79,7 @@ bool Game::OnUserUpdate(double deltaTime)
     }
 
     double moveSpeed = delta_seconds * 3.0; //the constant value is in squares/second
-    double rotSpeed = delta_seconds * 2.0; //the constant value is in radians/second
+    double rotSpeed = delta_seconds * 1.6; //the constant value is in radians/second
 
     const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
 
@@ -123,25 +123,27 @@ bool Game::OnUserUpdate(double deltaTime)
             m_camera.y -= m_camera.dirY * moveSpeed;
         }
     }
-    if( currentKeyStates[ SDL_SCANCODE_D ] ) // turn right
+    if( currentKeyStates[ SDL_SCANCODE_D ] ) // strafe right
     {
-        //both camera direction and camera plane must be rotated
-        double oldDirX = m_camera.dirX;
-        m_camera.dirX = m_camera.dirX * cos(-rotSpeed) - m_camera.dirY * sin(-rotSpeed);
-        m_camera.dirY = oldDirX * sin(-rotSpeed) + m_camera.dirY * cos(-rotSpeed);
-        double oldPlaneX = m_camera.planeX;
-        m_camera.planeX = m_camera.planeX * cos(-rotSpeed) - m_camera.planeY * sin(-rotSpeed);
-        m_camera.planeY = oldPlaneX * sin(-rotSpeed) + m_camera.planeY * cos(-rotSpeed);
+        if(map->get_wall_entry(int(m_camera.x + m_camera.planeX * moveSpeed), int(m_camera.y)) < 1)
+        {
+            m_camera.x += m_camera.planeX * moveSpeed * 1,6;
+        }
+        if(map->get_wall_entry(int(m_camera.x), int(m_camera.y + m_camera.planeY * moveSpeed)) < 1)
+        {
+            m_camera.y += m_camera.planeY * moveSpeed * 1.6;
+        }
     }
-    if( currentKeyStates[ SDL_SCANCODE_A ] ) // turn left
+    if( currentKeyStates[ SDL_SCANCODE_A ] ) // strafe left
     {
-        //both camera direction and camera plane must be rotated
-        double oldDirX = m_camera.dirX;
-        m_camera.dirX = m_camera.dirX * cos(rotSpeed) - m_camera.dirY * sin(rotSpeed);
-        m_camera.dirY = oldDirX * sin(rotSpeed) + m_camera.dirY * cos(rotSpeed);
-        double oldPlaneX = m_camera.planeX;
-        m_camera.planeX = m_camera.planeX * cos(rotSpeed) - m_camera.planeY * sin(rotSpeed);
-        m_camera.planeY = oldPlaneX * sin(rotSpeed) + m_camera.planeY * cos(rotSpeed);
+        if(map->get_wall_entry(int(m_camera.x - m_camera.planeX * moveSpeed), int(m_camera.y)) < 1)
+        {
+            m_camera.x -= m_camera.planeX * moveSpeed * 1.6;
+        }
+        if(map->get_wall_entry(int(m_camera.x), int(m_camera.y - m_camera.planeY * moveSpeed)) < 1)
+        {
+            m_camera.y -= m_camera.planeY * moveSpeed * 1.6;
+        }
     }
 
     if (SDL_GetRelativeMouseMode())
