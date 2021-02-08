@@ -41,6 +41,7 @@ private:
     std::shared_ptr<Pixelator> m_pixelator;
 
     utility::ImageAtlas m_atlas;
+    utility::ImageAtlas m_wall_ceil_atlas;
 
     uint32_t m_width;
     uint32_t m_height;

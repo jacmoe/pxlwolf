@@ -36,6 +36,7 @@ void RayCaster::init(uint32_t width, uint32_t height, std::shared_ptr<utility::M
     m_height = height;
 
     m_atlas.load("assets/textures/spritesheet.png", {512, 512});
+    m_wall_ceil_atlas.load("assets/textures/ceilfloor.png", {512, 512});
 }
 
 void RayCaster::drawMinimap(const std::string& buffer_name, const Camera& camera, int blockSize)
@@ -301,23 +302,20 @@ void RayCaster::raycastCeilingFloor(const Camera& camera)
         // choose texture and draw the pixel
         int checkerBoardPattern = (int(cellX + cellY)) & 1;
         int floorTexture;
-        if(checkerBoardPattern == 0) floorTexture = 1;
-        else floorTexture = 1;
-        int ceilingTexture = 8;
+        if(checkerBoardPattern == 0) floorTexture = 0;
+        else floorTexture = 0;
+        int ceilingTexture = 1;
         uint32_t color;
-
 
         if(is_floor) {
             // floor
-            //color = GRAY;
-            color = m_atlas.getPixel(floorTexture, ty, tx);
+            color = m_wall_ceil_atlas.getPixel(floorTexture, ty, tx);
             color = pixelGradientShader(color, rowDistance / 154 * 1.5/5, FOG_COLOR);
             // color = ColorAlphaBlend(color, {(unsigned char)(color.r / rowDistance),(unsigned char)(color.g / rowDistance),(unsigned char)(color.b / rowDistance), (unsigned char)(color.a / rowDistance)}, GOLD);
             m_pixelator->setPixel(x, y, color);
         } else {
             //ceiling
-            // color = DARKGRAY;
-            color = m_atlas.getPixel(ceilingTexture, ty, tx);
+            color = m_wall_ceil_atlas.getPixel(ceilingTexture, ty, tx);
             color = pixelGradientShader(color, rowDistance / 154 * 1.5/5, FOG_COLOR);
             // color = ColorAlphaBlend(color, {(unsigned char)(color.r / rowDistance),(unsigned char)(color.g / rowDistance),(unsigned char)(color.b / rowDistance), (unsigned char)(color.a / rowDistance)}, GOLD);
             m_pixelator->setPixel(x, y, color);
