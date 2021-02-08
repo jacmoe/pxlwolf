@@ -14,7 +14,7 @@
 	"defaultGridSize": 64,
 	"bgColor": "#7F8093",
 	"defaultLevelBgColor": "#7F8093",
-	"nextUid": 19,
+	"nextUid": 20,
 	"minifyJson": false,
 	"externalLevels": true,
 	"exportTiled": false,
@@ -334,7 +334,25 @@
 			"__bgPos": null,
 			"externalRelPath": "pxlwolf/0005-Level6.ldtkl",
 			"layerInstances": null,
-			"__neighbours": [{ "levelUid": 17, "dir": "e" }]
+			"__neighbours": [ { "levelUid": 17, "dir": "e" }, { "levelUid": 19, "dir": "w" } ]
+		},
+		{
+			"identifier": "Level7",
+			"uid": 19,
+			"worldX": -7168,
+			"worldY": -512,
+			"pxWid": 1024,
+			"pxHei": 1024,
+			"__bgColor": "#7F8093",
+			"bgColor": null,
+			"bgRelPath": null,
+			"bgPos": null,
+			"bgPivotX": 0.5,
+			"bgPivotY": 0.5,
+			"__bgPos": null,
+			"externalRelPath": "pxlwolf/0006-Level7.ldtkl",
+			"layerInstances": null,
+			"__neighbours": [{ "levelUid": 18, "dir": "e" }]
 		}
 	]
 }
