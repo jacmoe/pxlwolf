@@ -48,6 +48,7 @@ protected:
     int m_height;
     bool m_fullscreen;
     bool m_show_map;
+    bool m_show_fps;
     float m_average_fps;
 
     std::string font_name;
@@ -66,7 +67,6 @@ protected:
 private:
     std::string m_title;
     bool m_running;
-    bool m_show_fps;
     bool m_should_exit;
     utility::Timer m_fps_timer;
 

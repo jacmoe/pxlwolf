@@ -43,7 +43,7 @@ bool Game::OnUserCreate()
 {
     utility::Map* map = m_map.get();
     map->init("assets/levels/pxlwolf.ldtk");
-    map->load("Level5");
+    map->load("Level1");
 
     write_text("PixelWolf");
 
@@ -60,6 +60,7 @@ bool Game::OnUserCreate()
     m_raycaster.init(m_width, m_height, m_map, m_pixelator);
 
     m_pixelator.get()->addBuffer("minimap", m_map.get()->width() * 2, m_map.get()->height() * 2);
+    m_pixelator.get()->fill("minimap", m_pixelator.get()->toIntColor(200,200,200,200));
 
     return true;
 }
@@ -67,8 +68,6 @@ bool Game::OnUserCreate()
 bool Game::OnUserUpdate(double deltaTime)
 {
     double delta_seconds = deltaTime * 0.001;
-
-    write_text("PixelWolf - " + std::to_string( get_fps()) + " FPS. Deltatime : " + std::to_string(delta_seconds));
 
     utility::Map* map = m_map.get();
     m_raycaster.raycastCeilingFloor(m_camera);
@@ -91,6 +90,10 @@ bool Game::OnUserUpdate(double deltaTime)
     if( currentKeyStates[ SDL_SCANCODE_M ] ) // toggle minimap
     {
         m_show_map = !m_show_map;
+    }
+    if( currentKeyStates[ SDL_SCANCODE_F ] ) // toggle FPS display
+    {
+        m_show_fps = !m_show_fps;
     }
 
     if( currentKeyStates[ SDL_SCANCODE_R ] ) // respawn player at player start
@@ -154,6 +157,15 @@ bool Game::OnUserUpdate(double deltaTime)
         // Update player
         m_camera.angle -= 0.1 * rotSpeed * mouseX;
         adjustCameraVectors();
+    }
+
+    if(m_show_fps)
+    {
+        write_text("PixelWolf - " + std::to_string( get_fps()) + " FPS");
+    }
+    else
+    {
+        write_text("PixelWolf");
     }
 
     return true;
