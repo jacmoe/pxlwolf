@@ -1315,5 +1315,5 @@
 			"entityInstances": []
 		}
 	],
-	"__neighbours": [{ "levelUid": 15, "dir": "e" }]
+	"__neighbours": [ { "levelUid": 15, "dir": "e" }, { "levelUid": 18, "dir": "w" } ]
 }
