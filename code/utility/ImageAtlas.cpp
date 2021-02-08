@@ -73,7 +73,7 @@ namespace utility
                 newPix = 0;
             }
             m_buffers.push_back(buffer);
-            offset = offset + m_width * m_height;
+            offset += m_width * m_height;
         }
 
         stbi_image_free(pixels);

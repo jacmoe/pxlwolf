@@ -87,21 +87,12 @@ bool Game::OnUserUpdate(double deltaTime)
         moveSpeed *= 3.0;
     }
 
-    if( currentKeyStates[ SDL_SCANCODE_M ] ) // toggle minimap
-    {
-        m_show_map = !m_show_map;
-    }
-    if( currentKeyStates[ SDL_SCANCODE_F ] ) // toggle FPS display
-    {
-        m_show_fps = !m_show_fps;
-    }
-
     if( currentKeyStates[ SDL_SCANCODE_R ] ) // respawn player at player start
     {
         m_camera.x = m_map.get()->player_start().x;
         m_camera.y = m_map.get()->player_start().y;
         m_camera.angle = m_map.get()->player_heading();
-        adjustCameraVectors();
+        setupCameraVectors();
     }
 
     if( currentKeyStates[ SDL_SCANCODE_W ] ) // move forward
@@ -156,7 +147,7 @@ bool Game::OnUserUpdate(double deltaTime)
         SDL_GetRelativeMouseState(&mouseX, NULL);
         // Update player
         m_camera.angle -= 0.1 * rotSpeed * mouseX;
-        adjustCameraVectors();
+        setupCameraVectors();
     }
 
     if(m_show_fps)

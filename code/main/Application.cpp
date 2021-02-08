@@ -208,6 +208,9 @@ void Application::run()
 
 void Application::event()
 {
+    static bool mapKeyPressed = false;
+    static bool fpsKeyPressed = false;
+
     while (SDL_PollEvent(&e_))
     {
         switch (e_.type)
@@ -224,6 +227,30 @@ void Application::event()
                         break;
                     case SDLK_p:
                         save_screenshot();
+                        break;
+                    case SDLK_m:
+                        if(!mapKeyPressed)
+                        {
+                            m_show_map = !m_show_map;
+                            mapKeyPressed = true;
+                        }
+                        break;
+                    case SDLK_f:
+                        if(!fpsKeyPressed)
+                        {
+                            m_show_fps = !m_show_fps;
+                            fpsKeyPressed = true;
+                        }
+                        break;
+                }
+            case SDL_KEYUP:
+                switch (e_.key.keysym.sym)
+                {
+                    case SDLK_m:
+                        mapKeyPressed = false;
+                        break;
+                    case SDLK_f:
+                        fpsKeyPressed = false;
                         break;
                 }
         }
