@@ -34,10 +34,10 @@ public:
     void run();
 
 protected:
-    virtual bool OnUserCreate();
-    virtual bool OnUserUpdate(double fDeltaTime);
-    virtual bool OnUserRender();
-    virtual bool OnUserDestroy();
+    virtual bool OnUserCreate() { return true; }
+    virtual bool OnUserUpdate(double fDeltaTime) { return true; }
+    virtual bool OnUserRender() { return true; }
+    virtual bool OnUserDestroy() { return  true; }
 
     virtual bool write_text(const std::string text);
 

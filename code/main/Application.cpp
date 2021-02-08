@@ -49,26 +49,6 @@ Application::~Application()
     SDL_Quit();
 }
 
-bool Application::OnUserCreate()
-{
-    return true;
-}
-
-bool Application::OnUserUpdate(double deltaTime)
-{
-    return true;
-}
-
-bool Application::OnUserDestroy()
-{
-    return true;
-}
-
-bool Application::OnUserRender()
-{
-    return true;
-}
-
 bool Application::write_text(const std::string text)
 {
     SDL_Surface* surf = TTF_RenderText_Blended(m_font, text.c_str(), font_color);
