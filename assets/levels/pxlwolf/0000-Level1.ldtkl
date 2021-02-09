@@ -42,13 +42,26 @@
 			"autoLayerTiles": [],
 			"seed": 6492392,
 			"gridTiles": [],
-			"entityInstances": [{ "__identifier": "PlayerStart", "__grid": [33,55], "__pivot": [0.5,0.5], "__tile": null, "defUid": 3, "px": [536,888], "fieldInstances": [{
-				"__identifier": "ViewerAngle",
-				"__value": 180,
-				"__type": "Float",
-				"defUid": 5,
-				"realEditorValues": [{ "id": "V_Float", "params": [180] }]
-			}] }]
+			"entityInstances": [
+				{ "__identifier": "PlayerStart", "__grid": [33,55], "__pivot": [0.5,0.5], "__tile": null, "defUid": 3, "px": [536,888], "fieldInstances": [{
+					"__identifier": "ViewerAngle",
+					"__value": 180,
+					"__type": "Float",
+					"defUid": 5,
+					"realEditorValues": [{ "id": "V_Float", "params": [180] }]
+				}] },
+				{ "__identifier": "LevelEnd", "__grid": [28,46], "__pivot": [0.5,0.5], "__tile": null, "defUid": 10, "px": [456,744], "fieldInstances": [{
+					"__identifier": "next_level",
+					"__value": "Level2",
+					"__type": "String",
+					"defUid": 11,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Level2"]
+					}]
+				}] },
+				{ "__identifier": "LevelEnd", "__grid": [14,50], "__pivot": [0.5,0.5], "__tile": null, "defUid": 10, "px": [232,808], "fieldInstances": [{ "__identifier": "next_level", "__value": null, "__type": "String", "defUid": 11, "realEditorValues": [] }] }
+			]
 		},
 		{
 			"__identifier": "Floor",
