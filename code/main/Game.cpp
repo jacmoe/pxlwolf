@@ -123,7 +123,7 @@ bool Game::OnUserCreate()
 {
     utility::Map* map = m_map.get();
     map->init("assets/levels/pxlwolf.ldtk");
-    map->load("Level4");
+    map->load("Level5");
 
     write_text("PixelWolf");
 
