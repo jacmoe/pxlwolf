@@ -31,8 +31,8 @@ public:
     void setPixel(const std::string& name, unsigned int x, unsigned int y, const uint32_t color);
     void setPixelA(uint32_t x, uint32_t y, uint32_t color, double alpha) { setPixelA(m_current_buffer, x, y, color, alpha); }
     void setPixelA(const std::string& name, uint32_t x, uint32_t y, uint32_t color, double alpha);
-    // uint32_t getPixel(unsigned int x, unsigned int y) { return getPixel(m_current_buffer, x, y); }
-    // uint32_t getPixel(const std::string& name, unsigned int x, unsigned int y);
+    uint32_t getPixel(unsigned int x, unsigned int y) { return getPixel(m_current_buffer, x, y); }
+    uint32_t getPixel(const std::string& name, unsigned int x, unsigned int y);
     uint32_t* getPixels() { return getPixels(m_current_buffer); }
     uint32_t* getPixels(const std::string& name);
 

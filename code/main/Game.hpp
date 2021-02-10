@@ -32,6 +32,9 @@ struct Camera
     double planeX;
     double planeY;
     double pitch;
+    double fov;
+    double dist;
+    double angleValues[1024];
 };
 
 struct Player

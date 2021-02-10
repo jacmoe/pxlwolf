@@ -257,13 +257,13 @@ void Pixelator::setPixelA(const std::string& name, uint32_t x, uint32_t y, uint3
     }
 }
 
-/*
+
 uint32_t Pixelator::getPixel(const std::string& name, unsigned int x, unsigned int y)
 {
     unsigned int index = m_buffer_map.at(name);
     return m_buffers[index].pixels[(y*m_buffers[index].width+x)*4u];
 }
-*/
+
 uint32_t* Pixelator::getPixels(const std::string& name)
 {
     if(!check_key(m_buffer_map, name))

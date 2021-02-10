@@ -24,8 +24,6 @@ set(main
     ./main/Game.hpp
     # ./main/Level.cpp
     # ./main/Level.hpp
-    ./main/permadi.cpp
-    ./main/permadi.hpp
     ./main/Pixelator.cpp
     ./main/Pixelator.hpp
     ./main/RayCaster.cpp

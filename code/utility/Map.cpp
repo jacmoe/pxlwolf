@@ -187,7 +187,7 @@ namespace utility
                         m_player_start.y = (*itr)["__grid"].GetArray()[1].GetFloat() + 0.5f;
                         m_player_heading = static_cast<double>(deg2rad((*itr)["fieldInstances"].GetArray()[0]["__value"].GetDouble()));
                         SPDLOG_INFO("PlayerStart : ({}, {}), and angle is {}", m_player_start.x, m_player_start.y, m_player_heading);
-                        m_player_start.x = std::abs(m_player_start.x - 64);
+                        // m_player_start.x = std::abs(m_player_start.x - 64);
                     }
                 }
             } // if layer type is Entities
@@ -258,7 +258,7 @@ namespace utility
             row_vect.clear();
             offset += m_map_width;
         }
-        m_walls.swap(temp_vect);
+        // m_walls.swap(temp_vect);
 
         SPDLOG_INFO("Level '{}' loaded.", level_name.c_str());
         m_loaded = true;

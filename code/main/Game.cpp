@@ -14,8 +14,6 @@
 #   MIT License
 #*/
 #include "Game.hpp"
-#include "ImageAtlas.hpp"
-#include "permadi.hpp"
 
 Game::Game()
 {
@@ -87,17 +85,6 @@ void Game::handle_input(double deltaTime)
     }
     if( currentKeyStates[ SDL_SCANCODE_D ] ) // strafe right
     {
-        if(map->get_wall_entry(int(m_camera.x + m_camera.planeX * moveSpeed), int(m_camera.y)) < 1)
-        {
-            m_camera.x += m_camera.planeX * moveSpeed * 1,6;
-        }
-        if(map->get_wall_entry(int(m_camera.x), int(m_camera.y + m_camera.planeY * moveSpeed)) < 1)
-        {
-            m_camera.y += m_camera.planeY * moveSpeed * 1.6;
-        }
-    }
-    if( currentKeyStates[ SDL_SCANCODE_A ] ) // strafe left
-    {
         if(map->get_wall_entry(int(m_camera.x - m_camera.planeX * moveSpeed), int(m_camera.y)) < 1)
         {
             m_camera.x -= m_camera.planeX * moveSpeed * 1.6;
@@ -107,6 +94,17 @@ void Game::handle_input(double deltaTime)
             m_camera.y -= m_camera.planeY * moveSpeed * 1.6;
         }
     }
+    if( currentKeyStates[ SDL_SCANCODE_A ] ) // strafe left
+    {
+        if(map->get_wall_entry(int(m_camera.x + m_camera.planeX * moveSpeed), int(m_camera.y)) < 1)
+        {
+            m_camera.x += m_camera.planeX * moveSpeed * 1,6;
+        }
+        if(map->get_wall_entry(int(m_camera.x), int(m_camera.y + m_camera.planeY * moveSpeed)) < 1)
+        {
+            m_camera.y += m_camera.planeY * moveSpeed * 1.6;
+        }
+    }
 
     if (SDL_GetRelativeMouseMode())
     {
@@ -114,7 +112,7 @@ void Game::handle_input(double deltaTime)
         int32_t mouseX;
         SDL_GetRelativeMouseState(&mouseX, NULL);
         // Update player
-        m_camera.angle -= 0.1 * rotSpeed * mouseX;
+        m_camera.angle += 0.1 * rotSpeed * mouseX;
         setupCameraVectors();
     }
 }
@@ -123,7 +121,7 @@ bool Game::OnUserCreate()
 {
     utility::Map* map = m_map.get();
     map->init("assets/levels/pxlwolf.ldtk");
-    map->load("Level7");
+    map->load("Level1");
 
     write_text("PixelWolf");
 
@@ -131,6 +129,8 @@ bool Game::OnUserCreate()
     m_camera.y = m_map.get()->player_start().y;
     m_camera.angle = m_map.get()->player_heading();
     m_camera.h = 0;
+    m_camera.dist = 36;
+    m_camera.fov = 3.14159 / 2;
 
     setupCameraVectors();
 
@@ -139,19 +139,33 @@ bool Game::OnUserCreate()
 
     m_raycaster.init(m_width, m_height, m_map, m_pixelator);
 
-    m_pixelator.get()->addBuffer("minimap", m_map.get()->width() * 2, m_map.get()->height() * 2);
-    m_pixelator.get()->fill("minimap", m_pixelator.get()->toIntColor(200,200,200,200));
+    m_raycaster.generateAngleValues(m_width, &m_camera);
+
+    m_raycaster.resetDepthBuffer();
+
+    m_raycaster.raycastRender(&m_camera, 0.01);
+
+    m_raycaster.renderBuffer();
+
+    m_pixelator.get()->setActiveBuffer("pixelBuffer");
 
     return true;
 }
 
 bool Game::OnUserUpdate(double deltaTime)
 {
-    m_raycaster.raycastCeilingFloor(m_camera);
-    m_raycaster.raycast(m_camera);
+    m_raycaster.resetDepthBuffer();
+
+    m_raycaster.renderFloor(&m_camera, 0.01);
+    m_raycaster.renderCeiling(&m_camera, 0.01);
+    m_raycaster.raycastRender(&m_camera, 0.01);
+    m_raycaster.renderBuffer();
+
+    // m_raycaster.raycast(m_camera);
+
     if(m_show_map)
     {
-        m_raycaster.drawMinimap("primary", m_camera, 2);
+        m_raycaster.drawMinimap("pixelBuffer", m_camera, 2);
     }
 
     handle_input(deltaTime);
