@@ -110,6 +110,66 @@
 						"id": "V_String",
 						"params": ["Planter"]
 					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [40,28], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [648,456], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Planter"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Planter"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [36,28], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [584,456], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Planter"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Planter"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [34,8], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [552,136], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Table"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Table"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [42,8], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [680,136], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Table"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Table"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [38,8], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [616,136], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Table"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Table"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [14,16], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [232,264], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Table"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Table"]
+					}]
 				}] }
 			]
 		},
