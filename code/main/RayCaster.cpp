@@ -440,7 +440,7 @@ void RayCaster::raycastRender(Camera* camera, double resolution)
                     {
                         colorGrad = 1.0;
                     }
-                    SDL_Color fadeColor = {77,150,154,255};
+                    SDL_Color fadeColor = {50,20,50,255};
                     drawTextureColumn(
                         i, startY, deltaY, depth,
                         mapTile - 1, 1.0, 
@@ -686,7 +686,7 @@ void RayCaster::renderCeiling(Camera* camera, double resolution)
         rayAngle = startAngle + camera->angleValues[x];
         rayCos = cos(rayAngle - camera->angle);
 
-        for (int y = startY; y < m_height / 2; y++)
+        for (int y = startY; y < (m_height / 2)+1; y++)
         {
             // Compute the distance to the pixel...
             pixelDist = (double)m_height * (1 - 2 * camera->h) / (10.0 * (m_height / 2 - y) * rayCos) * scaleFactor;
