@@ -4,3 +4,6 @@ window_width = 360
 window_height = 240
 window_scale = 3
 fullscreen = false
+
+[game]
+level = "Level7"

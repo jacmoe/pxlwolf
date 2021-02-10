@@ -48,7 +48,7 @@ void setup_working_directory()
     strList.push_back("/build/code");
     strList.push_back("/vsbuild/code");
     strList.push_back("Release");
-    strList.push_back("RelWidthDebInfo");
+    strList.push_back("RelWithDebInfo");
     strList.push_back("Debug");
     utility::eraseSubStrings(path, strList);
     // Set a proper working directory
@@ -110,8 +110,22 @@ int main(int, char**)
 #if defined(_MSC_VER)
 # pragma warning(pop)
 #endif
+    const auto& game_config = toml::find(config, "game");
+    toml::table game_config_table = toml::get<toml::table>(game_config);
+#if defined(_MSC_VER)
+# pragma warning(push)
+// Disable TOML conversion warnings
+# pragma warning(disable: 4244)
+#endif
+    const std::string level_name = game_config_table["level"].as_string();
+#if defined(_MSC_VER)
+# pragma warning(pop)
+#endif
 
+    GameConfig the_game_config;
+    the_game_config.level_name = level_name;
     Game game;
+    game.setConfig(the_game_config);
 
     if(game.init(title, screenWidth, screenHeight, scale, fullscreen))
     {

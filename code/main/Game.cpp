@@ -121,7 +121,7 @@ bool Game::OnUserCreate()
 {
     utility::Map* map = m_map.get();
     map->init("assets/levels/pxlwolf.ldtk");
-    map->load("Level1");
+    map->load(m_config.level_name);
 
     write_text("PixelWolf");
 
@@ -156,12 +156,10 @@ bool Game::OnUserUpdate(double deltaTime)
 {
     m_raycaster.resetDepthBuffer();
 
-    m_raycaster.renderFloor(&m_camera, 0.01);
-    m_raycaster.renderCeiling(&m_camera, 0.01);
+    m_raycaster.renderFloor(&m_camera, 0.1);
+    m_raycaster.renderCeiling(&m_camera, 0.1);
     m_raycaster.raycastRender(&m_camera, 0.01);
     m_raycaster.renderBuffer();
-
-    // m_raycaster.raycast(m_camera);
 
     if(m_show_map)
     {

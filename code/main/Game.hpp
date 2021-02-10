@@ -19,6 +19,11 @@
 #include "Map.hpp"
 #include "RayCaster.hpp"
 
+struct GameConfig
+{
+    std::string level_name;
+};
+
 struct Camera
 {
     double x;
@@ -60,6 +65,7 @@ class Game : public Application
 public:
     Game();
     ~Game();
+    void setConfig(GameConfig config) { m_config = config; }
 
 protected:
     bool OnUserCreate() override;
@@ -68,9 +74,11 @@ protected:
     bool OnUserDestroy() override;
 
 private:
+    GameConfig m_config;
     std::shared_ptr<utility::Map> m_map;
     Camera m_camera;
     RayCaster m_raycaster;
+
 
     void setupCameraVectors();
     void handle_input(double deltaTime);
