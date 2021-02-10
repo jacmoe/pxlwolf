@@ -114,8 +114,6 @@ void RayCaster::drawMinimap(const std::string& buffer_name, const Camera& camera
 
     int p_x = static_cast<int>(camera.x);
     int p_y = static_cast<int>(camera.y);
-    // correct camera position
-    // p_x = std::abs(p_x - map->width());
 
     /* Draw map tiles */
     for(row = 0; row < map->height(); row++)
