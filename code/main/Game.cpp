@@ -141,12 +141,6 @@ bool Game::OnUserCreate()
 
     m_raycaster.generateAngleValues(m_width, &m_camera);
 
-    m_raycaster.resetDepthBuffer();
-
-    m_raycaster.raycastRender(&m_camera, 0.01);
-
-    m_raycaster.renderBuffer();
-
     m_pixelator.get()->setActiveBuffer("pixelBuffer");
 
     return true;
@@ -159,6 +153,7 @@ bool Game::OnUserUpdate(double deltaTime)
     m_raycaster.renderFloor(&m_camera, 0.1);
     m_raycaster.renderCeiling(&m_camera, 0.1);
     m_raycaster.raycastRender(&m_camera, 0.01);
+
     m_raycaster.renderBuffer();
 
     if(m_show_map)
