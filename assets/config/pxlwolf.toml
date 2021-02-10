@@ -6,4 +6,5 @@ window_scale = 3
 fullscreen = false
 
 [game]
-level = "Level7"
+level_name = "Level1"
+camera_dist = 36.0

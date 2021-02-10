@@ -117,13 +117,15 @@ int main(int, char**)
 // Disable TOML conversion warnings
 # pragma warning(disable: 4244)
 #endif
-    const std::string level_name = game_config_table["level"].as_string();
+    const std::string level_name = game_config_table["level_name"].as_string();
+    const double camera_dist = game_config_table["camera_dist"].as_floating();
 #if defined(_MSC_VER)
 # pragma warning(pop)
 #endif
 
     GameConfig the_game_config;
     the_game_config.level_name = level_name;
+    the_game_config.camera_dist = camera_dist;
     Game game;
     game.setConfig(the_game_config);
 

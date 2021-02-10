@@ -22,6 +22,7 @@
 struct GameConfig
 {
     std::string level_name;
+    double camera_dist;
 };
 
 struct Camera

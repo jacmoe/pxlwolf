@@ -129,7 +129,7 @@ bool Game::OnUserCreate()
     m_camera.y = m_map.get()->player_start().y;
     m_camera.angle = m_map.get()->player_heading();
     m_camera.h = 0;
-    m_camera.dist = 36;
+    m_camera.dist = m_config.camera_dist;
     m_camera.fov = 3.14159 / 2;
 
     setupCameraVectors();
