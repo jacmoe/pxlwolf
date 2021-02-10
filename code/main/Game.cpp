@@ -14,6 +14,7 @@
 #   MIT License
 #*/
 #include "Game.hpp"
+#include "stb_image.h"
 
 Game::Game()
 {
@@ -143,6 +144,64 @@ bool Game::OnUserCreate()
 
     m_pixelator.get()->setActiveBuffer("pixelBuffer");
 
+    {
+        Texture sprite_texture;
+        Sprite test_sprite;
+
+        if (!initSpriteTexture(&sprite_texture, "assets/sprites/static/body.png", 64, 64, 1))
+        {
+            return false;
+        }
+        initSprite(&test_sprite, sprite_texture, 1.0, 1.0, 35.5, 55.5, 0);
+        m_sprites.push_back(test_sprite);
+    }
+
+    {
+        Texture sprite_texture;
+        Sprite test_sprite;
+        if (!initSpriteTexture(&sprite_texture, "assets/sprites/static/planter.png", 64, 64, 1))
+        {
+            return false;
+        }
+        initSprite(&test_sprite, sprite_texture, 1.0, 1.0, 45.5, 35.5, 0);
+
+        m_sprites.push_back(test_sprite);
+    }
+    {
+        Texture sprite_texture;
+        Sprite test_sprite;
+        if (!initSpriteTexture(&sprite_texture, "assets/sprites/static/planter.png", 64, 64, 1))
+        {
+            return false;
+        }
+        initSprite(&test_sprite, sprite_texture, 1.0, 1.0, 45.5, 29.5, 0);
+
+        m_sprites.push_back(test_sprite);
+    }
+    {
+        Texture sprite_texture;
+        Sprite test_sprite;
+        if (!initSpriteTexture(&sprite_texture, "assets/sprites/static/planter.png", 64, 64, 1))
+        {
+            return false;
+        }
+        initSprite(&test_sprite, sprite_texture, 1.0, 1.0, 31.5, 29.5, 0);
+
+        m_sprites.push_back(test_sprite);
+    }
+    {
+        Texture sprite_texture;
+        Sprite test_sprite;
+        if (!initSpriteTexture(&sprite_texture, "assets/sprites/static/planter.png", 64, 64, 1))
+        {
+            return false;
+        }
+        initSprite(&test_sprite, sprite_texture, 1.0, 1.0, 31.5, 35.5, 0);
+
+        m_sprites.push_back(test_sprite);
+    }
+    // test_sprite.frameNum = 2;
+
     return true;
 }
 
@@ -153,6 +212,12 @@ bool Game::OnUserUpdate(double deltaTime)
     m_raycaster.renderFloor(&m_camera, 0.1);
     m_raycaster.renderCeiling(&m_camera, 0.1);
     m_raycaster.raycastRender(&m_camera, 0.01);
+
+    draw3DSprite("pixelbuffer", &m_camera, m_width, m_height, 1.0, m_sprites[0]);
+    draw3DSprite("pixelbuffer", &m_camera, m_width, m_height, 1.0, m_sprites[1]);
+    draw3DSprite("pixelbuffer", &m_camera, m_width, m_height, 1.0, m_sprites[2]);
+    draw3DSprite("pixelbuffer", &m_camera, m_width, m_height, 1.0, m_sprites[3]);
+    draw3DSprite("pixelbuffer", &m_camera, m_width, m_height, 1.0, m_sprites[4]);
 
     m_raycaster.renderBuffer();
 
@@ -184,4 +249,115 @@ bool Game::OnUserRender()
 bool Game::OnUserDestroy()
 {
     return true;
+}
+
+bool Game::initSpriteTexture(Texture* texture, const std::string& path, int tile_width, int tile_height, int num_tiles)
+{
+    texture->tile_width = tile_width;
+    texture->tile_height = tile_height;
+    texture->tile_count = num_tiles;
+
+    int32_t mPixWidth;
+    int32_t mPixHeight;
+    uint8_t* rgbaData = stbi_load(path.c_str(), &mPixWidth, &mPixHeight, NULL, 0);
+    if (!rgbaData)
+    {
+        fprintf(stderr, "FATAL: Could not load textures. Exiting...\n");
+        return false;
+    }
+
+    uint32_t newPix = 0;
+    for (uint32_t p = 0; p < tile_width * tile_height * num_tiles; p++)
+    {
+        // Get each component
+        for (uint8_t comp = 0; comp < 4; comp++)
+        {
+            newPix |= ((uint32_t)(rgbaData[p*4+comp]) << (8 * (3-comp)));
+        }
+        texture->pixels.push_back(newPix);
+        newPix = 0;
+    }
+    stbi_image_free(rgbaData);
+    return true;
+}
+
+void Game::initSprite(Sprite* newSprite, Texture texture, double scaleFactor, double alphaNum, double x, double y, double h)
+{
+    newSprite->texture = texture;
+    newSprite->scaleFactor = scaleFactor;
+    newSprite->alphaNum = alphaNum;
+    newSprite->x = x;
+    newSprite->y = y;
+    newSprite->h = h;
+    newSprite->frameNum = 0;
+}
+
+void Game::draw3DSprite(const std::string& buffer, Camera* camera, uint32_t width, uint32_t height, double resolution, Sprite sprite)
+{
+    double scaleFactor = (double)width / (double)height * 2.4;
+    // Generate screenspace angle mapping constant
+    const double angleMapConstant = (double)(width) / (2*tan(camera->fov/2));
+    // Render sprite to buffer
+    double spriteAngle = atan2(sprite.y - camera->y, sprite.x - camera->x);
+    double screenAngle = spriteAngle - camera->angle;
+    //printf("Sprite %d screen angle: %f\n", s, screenAngle);
+    double spriteDist = cos(screenAngle) * (sqrt((camera->x - sprite.x)*(camera->x - sprite.x) + (camera->y - sprite.y)*(camera->y - sprite.y))/scaleFactor);
+    // Depth check, can't be on or behind camera
+    if (spriteDist > 0)
+    {
+        // Compute column from screen angle
+        int32_t centerX = (int32_t)floor(width / 2 + (int32_t)(angleMapConstant * tan(screenAngle)));
+        // Get width and height
+        int32_t screenHeight;
+        int32_t screenWidth;
+        if (sprite.texture.tile_height >= sprite.texture.tile_width)
+        {
+            screenHeight = (int32_t)((double)height / (spriteDist * 5) * sprite.scaleFactor);
+            screenWidth = (int32_t)((double)screenHeight * ((double)sprite.texture.tile_width / (double)sprite.texture.tile_height));
+        }
+        else
+        {
+            screenWidth = (int32_t)ceil((double)height / (spriteDist * 5) * sprite.scaleFactor);
+            screenHeight = (int32_t)ceil((double)screenWidth * ((double)sprite.texture.tile_height / (double)sprite.texture.tile_width));
+        }
+        
+        int32_t spriteHeight = (int32_t)((sprite.h - camera->h) * height / (spriteDist * 5)); // I dunno why it's 40
+        int32_t startX = centerX - screenWidth / 2;
+        int32_t endX = startX + screenWidth;
+        int32_t startY = (int32_t)ceil((height / 2) - ((double)screenHeight / 2) - spriteHeight);
+        // Write to buffer if in fulcrum
+        if (startX <= (int32_t)width && endX >= 0)
+        {
+            // Iterate through screen columns
+            uint32_t spriteColumn = 0;
+            uint32_t texCoord;
+            for (int32_t i = startX; i < endX; i++)
+            {
+                if (i >= 0 && i < width)
+                {
+                    double colorGrad;
+                    double fogConstant = 1.5/5;
+                    if (spriteDist < (camera->dist*fogConstant))
+                    {
+                        colorGrad = (spriteDist) / (camera->dist*fogConstant);
+                    }
+                    else
+                    {
+                        colorGrad = 1.0;
+                    }
+                    SDL_Color fog_color = {50,20,50,255};
+                    texCoord = (uint32_t)floor(((double)spriteColumn / (double)screenWidth) * sprite.texture.tile_width);
+                    m_raycaster.drawTextureColumnEx(
+                        i, startY,
+                        screenHeight, spriteDist,
+                        sprite.texture,
+                        sprite.frameNum, sprite.alphaNum,
+                        texCoord, colorGrad,
+                        fog_color
+                    );
+                }
+                spriteColumn++;
+            }
+        }
+    }
 }

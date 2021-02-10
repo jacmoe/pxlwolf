@@ -370,6 +370,47 @@ void RayCaster::drawTextureColumn(uint32_t x, int32_t y,
     }
 }
 
+void RayCaster::drawTextureColumnEx(uint32_t x, int32_t y,
+                              int32_t h, double depth,
+                              Texture texture,
+                             uint8_t tileNum, double alphaNum, 
+                             uint32_t column, double fadePercent, 
+                             SDL_Color targetColor)
+{
+    if (y + h < 0 || fadePercent > 1.0)
+    {
+        return;  // Sorry, messy fix but it works
+    }
+    int32_t offH = h;
+    int32_t offY = 0;
+    if (y < 0)
+    {
+        offY = -y;
+        h = h + y;
+        y = 0;
+    }
+    if (y + h > m_height)
+    {
+        h = m_height - y;
+    }
+
+    for (int32_t i = 0; i < h; i++)
+    {
+        int magic_number = 
+            tileNum * texture.tile_width * texture.tile_height
+            + (uint32_t)floor(((double)(offY + i) /
+            (double)offH) * (texture.tile_height))
+             * texture.tile_width + column;
+
+        uint32_t pix = texture.pixels[magic_number];
+        if (pix & 0xFF)
+        {
+            pix = pixelGradientShader(pix, fadePercent, targetColor);
+            setPixelAlphaDepth(x, i+y, pix, alphaNum, depth);
+        }
+    }
+}
+
 //! RayBuffer dependent
 void RayCaster::raycastRender(Camera* camera, double resolution)
 {

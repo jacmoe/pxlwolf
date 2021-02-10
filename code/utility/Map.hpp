@@ -30,6 +30,13 @@ namespace utility
         uint32_t color;
     };
 
+    struct MapItem
+    {
+        std::string type;
+        int map_x;
+        int map_y;
+    };
+
     class Map
     {
     public:
@@ -42,6 +49,8 @@ namespace utility
         inline const std::vector<int>& walls() { return m_walls; }
         inline const std::vector<int>& floor() { return m_floor; }
         inline const std::vector<int>& ceiling() { return m_ceiling; }
+        inline const std::vector<MapItem>& items() { return m_map_items; }
+        inline const std::vector<MapItem>& statics() { return m_map_statics; }
         inline const bool initialized() { return m_initialized; }
         inline const bool loaded() { return m_loaded; }
 
@@ -58,6 +67,8 @@ namespace utility
         std::vector<int> m_floor;
         std::vector<int> m_ceiling;
         std::vector<WallElement> m_wall_elements;
+        std::vector<MapItem> m_map_items;
+        std::vector<MapItem> m_map_statics;
         std::unordered_map<std::string, std::string> m_level_map;
         int m_map_width;
         int m_map_height;

@@ -43,6 +43,25 @@ struct Camera
     double angleValues[1024];
 };
 
+struct Texture
+{
+    std::vector<uint32_t> pixels;
+    uint32_t tile_width;
+    uint32_t tile_height;
+    uint8_t tile_count;
+};
+
+struct Sprite
+{
+    Texture texture;
+    uint8_t frameNum;
+    double alphaNum;
+    double scaleFactor;
+    double x;
+    double y;
+    double h;
+};
+
 struct Player
 {
     double x;
@@ -80,7 +99,12 @@ private:
     Camera m_camera;
     RayCaster m_raycaster;
 
+    std::vector<Sprite> m_sprites;
 
     void setupCameraVectors();
     void handle_input(double deltaTime);
+
+    bool initSpriteTexture(Texture* texture, const std::string& path, int tile_width, int tile_height, int num_tiles);
+    void initSprite(Sprite* newSprite, Texture texture, double scaleFactor, double alphaNum, double x, double y, double h);
+    void draw3DSprite(const std::string& buffer, Camera* camera, uint32_t width, uint32_t height, double resolution, Sprite sprite);
 };

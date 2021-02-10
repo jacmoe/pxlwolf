@@ -188,6 +188,15 @@ namespace utility
                         m_player_heading = static_cast<double>(deg2rad((*itr)["fieldInstances"].GetArray()[0]["__value"].GetDouble()));
                         SPDLOG_INFO("PlayerStart : ({}, {}), and angle is {}", m_player_start.x, m_player_start.y, m_player_heading);
                     }
+                    if(identifier == "Static")
+                    {
+                        MapItem item;
+                        item.map_x = (*itr)["__grid"].GetArray()[0].GetFloat() + 0.5f;
+                        item.map_y = (*itr)["__grid"].GetArray()[1].GetFloat() + 0.5f;
+                        item.type = (*itr)["fieldInstances"].GetArray()[0]["__value"].GetString();
+                        m_map_statics.push_back(item);
+                        SPDLOG_INFO("Added static item of type '{}' to the map at position ({},{})", item.type, item.map_x, item.map_y);
+                    }
                 }
             } // if layer type is Entities
             if(layer_type == "IntGrid")

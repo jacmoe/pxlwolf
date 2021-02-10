@@ -60,7 +60,57 @@
 						"params": ["Level2"]
 					}]
 				}] },
-				{ "__identifier": "LevelEnd", "__grid": [14,50], "__pivot": [0.5,0.5], "__tile": null, "defUid": 10, "px": [232,808], "fieldInstances": [{ "__identifier": "next_level", "__value": null, "__type": "String", "defUid": 11, "realEditorValues": [] }] }
+				{ "__identifier": "LevelEnd", "__grid": [14,50], "__pivot": [0.5,0.5], "__tile": null, "defUid": 10, "px": [232,808], "fieldInstances": [{ "__identifier": "next_level", "__value": null, "__type": "String", "defUid": 11, "realEditorValues": [] }] },
+				{ "__identifier": "Static", "__grid": [35,55], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [568,888], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Body"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Body"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [45,35], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [728,568], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Planter"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Planter"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [45,29], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [728,472], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Planter"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Planter"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [31,29], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [504,472], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Planter"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Planter"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [31,35], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [504,568], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Planter"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Planter"]
+					}]
+				}] }
 			]
 		},
 		{

@@ -22,6 +22,7 @@
 #include <unordered_map>
 
 struct Camera;
+struct Texture;
 
 class RayCaster
 {
@@ -42,6 +43,17 @@ public:
     void renderCeiling(Camera* camera, double resolution);
     void renderBuffer();
 
+    void drawTextureColumn(uint32_t x, int32_t y,
+                              int32_t h, double depth,
+                             uint8_t tileNum, double alphaNum, 
+                             uint32_t column, double fadePercent, 
+                             SDL_Color targetColor);
+    void drawTextureColumnEx(uint32_t x, int32_t y,
+                              int32_t h, double depth,
+                              Texture texture,
+                             uint8_t tileNum, double alphaNum, 
+                             uint32_t column, double fadePercent, 
+                             SDL_Color targetColor);
 private:
     std::shared_ptr<utility::Map> m_map;
     std::shared_ptr<Pixelator> m_pixelator;
@@ -69,12 +81,6 @@ private:
     void setDepth(uint32_t x, uint32_t y, uint8_t layer, double depth);
 
     void setPixelAlphaDepth(uint32_t x, uint32_t y, uint32_t color, double alphaNum, double depth);
-
-    void drawTextureColumn(uint32_t x, int32_t y,
-                              int32_t h, double depth,
-                             uint8_t tileNum, double alphaNum, 
-                             uint32_t column, double fadePercent, 
-                             SDL_Color targetColor);
 
     double getInterDist(double dx, double dy, double xi, double yi, double coordX, double coordY, double* newX, double* newY, uint8_t* side);
     uint32_t pixelGradientShader(uint32_t pixel, double percent, SDL_Color target);

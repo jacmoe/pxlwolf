@@ -14,7 +14,7 @@
 	"defaultGridSize": 64,
 	"bgColor": "#7F8093",
 	"defaultLevelBgColor": "#7F8093",
-	"nextUid": 20,
+	"nextUid": 26,
 	"minifyJson": false,
 	"externalLevels": true,
 	"exportTiled": false,
@@ -221,10 +221,93 @@
 						"defaultOverride": null
 					}
 				]
+			},
+			{
+				"identifier": "Pickup",
+				"uid": 22,
+				"width": 16,
+				"height": 16,
+				"color": "#11A32B",
+				"renderMode": "Cross",
+				"showName": true,
+				"tilesetId": null,
+				"tileId": null,
+				"tileRenderMode": "Stretch",
+				"maxPerLevel": 0,
+				"limitBehavior": "DiscardOldOnes",
+				"pivotX": 0.5,
+				"pivotY": 0.5,
+				"fieldDefs": [
+					{
+						"identifier": "type",
+						"__type": "Array<LocalEnum.Items>",
+						"uid": 25,
+						"type": { "id": "F_Enum", "params": [20] },
+						"isArray": true,
+						"canBeNull": false,
+						"arrayMinLength": null,
+						"arrayMaxLength": null,
+						"editorDisplayMode": "Hidden",
+						"editorDisplayPos": "Above",
+						"editorAlwaysShow": false,
+						"min": null,
+						"max": null,
+						"regex": null,
+						"acceptFileTypes": null,
+						"defaultOverride": null
+					}
+				]
+			},
+			{
+				"identifier": "Static",
+				"uid": 23,
+				"width": 16,
+				"height": 16,
+				"color": "#625DD1",
+				"renderMode": "Cross",
+				"showName": true,
+				"tilesetId": null,
+				"tileId": null,
+				"tileRenderMode": "Stretch",
+				"maxPerLevel": 0,
+				"limitBehavior": "DiscardOldOnes",
+				"pivotX": 0.5,
+				"pivotY": 0.5,
+				"fieldDefs": [
+					{
+						"identifier": "type",
+						"__type": "Array<LocalEnum.Static>",
+						"uid": 24,
+						"type": { "id": "F_Enum", "params": [21] },
+						"isArray": true,
+						"canBeNull": false,
+						"arrayMinLength": null,
+						"arrayMaxLength": null,
+						"editorDisplayMode": "Hidden",
+						"editorDisplayPos": "Above",
+						"editorAlwaysShow": false,
+						"min": null,
+						"max": null,
+						"regex": null,
+						"acceptFileTypes": null,
+						"defaultOverride": null
+					}
+				]
 			}
 		],
 		"tilesets": [],
-		"enums": [],
+		"enums": [
+			{ "identifier": "Items", "uid": 20, "values": [
+				{ "id": "Meal", "tileId": null, "__tileSrcRect": null },
+				{ "id": "Health", "tileId": null, "__tileSrcRect": null },
+				{ "id": "Ammo", "tileId": null, "__tileSrcRect": null }
+			], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null },
+			{ "identifier": "Static", "uid": 21, "values": [
+				{ "id": "Planter", "tileId": null, "__tileSrcRect": null },
+				{ "id": "Table", "tileId": null, "__tileSrcRect": null },
+				{ "id": "Body", "tileId": null, "__tileSrcRect": null }
+			], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null }
+		],
 		"externalEnums": []
 	},
 	"levels": [
