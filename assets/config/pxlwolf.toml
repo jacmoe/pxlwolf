@@ -7,4 +7,4 @@ fullscreen = false
 
 [game]
 level_name = "Level2"
-camera_dist = 36.0
+camera_dist = 16.0
