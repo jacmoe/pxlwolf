@@ -17,6 +17,7 @@
 #include "RayCaster.hpp"
 #include "Game.hpp"
 #include "stb_image.h"
+#include "packer.hpp"
 
 RayCaster::RayCaster()
 {
@@ -422,6 +423,8 @@ void RayCaster::raycastRender(Camera* camera, double resolution)
     
     utility::Map* map = m_map.get();
 
+    m_visited.clear();
+
     // Sweeeeep for each column
     #pragma omp parallel for schedule(dynamic,1) private(rayAngle)
     for (uint32_t i = 0; i < m_width; i++)
@@ -441,6 +444,14 @@ void RayCaster::raycastRender(Camera* camera, double resolution)
         {
             int coordX = (int)floor(rayX+rayOffX);
             int coordY = (int)floor(rayY+rayOffY);
+
+            // pack visited tile into a 32 bit int
+            uint8_t theX = (uint8_t)floor(rayX+rayOffX);
+            uint8_t theY = (uint8_t)floor(rayY+rayOffY);
+            uint32_t tilenum = pack(theX,theY,1,1);
+            // store it in the visited set
+            m_visited.insert(tilenum);
+
             if ((coordX >= 0.0 && coordY >= 0.0) && (coordX < map->width() && coordY < map->height()) && (map->walls()[coordY * map->width() + coordX] != 0))
             {
                 uint8_t mapTile = map->walls()[coordY * map->width() + coordX];

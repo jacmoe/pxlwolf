@@ -15,6 +15,7 @@
 #*/
 #include "Game.hpp"
 #include "stb_image.h"
+#include "unpacker.hpp"
 
 Game::Game()
 {
@@ -158,11 +159,18 @@ bool Game::OnUserUpdate(double deltaTime)
     m_raycaster.raycastRender(&m_camera, 0.01);
 
     m_sprites_rendered = 0;
-    for(const auto& sprite: m_sprites)
+    for(auto tile : m_raycaster.getVisited())
     {
-        draw3DSprite("pixelbuffer", &m_camera, m_width, m_height, 1.0, sprite);
+        int x = (int)unpack_u<0>(tile);
+        int y = (int)unpack_u<1>(tile);
+        for(const auto& sprite: m_sprites)
+        {
+            if((static_cast<int>(sprite.x) == x) && (static_cast<int>(sprite.y) == y))
+            {
+                draw3DSprite("pixelbuffer", &m_camera, m_width, m_height, 1.0, sprite);
+            }
+        }
     }
-    SPDLOG_INFO("Rendered {} sprites out of {} in total.", m_sprites_rendered, m_sprites.size());
 
     m_raycaster.renderBuffer();
 

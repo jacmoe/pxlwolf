@@ -20,9 +20,16 @@
 #include "ImageAtlas.hpp"
 #include <memory>
 #include <unordered_map>
+#include <set>
 
 struct Camera;
 struct Texture;
+
+struct Tile
+{
+    int x;
+    int y;
+};
 
 class RayCaster
 {
@@ -54,11 +61,14 @@ public:
                              uint8_t tileNum, double alphaNum, 
                              uint32_t column, double fadePercent, 
                              SDL_Color targetColor);
+    const std::set<uint32_t> getVisited() { return m_visited; }
 private:
     std::shared_ptr<utility::Map> m_map;
     std::shared_ptr<Pixelator> m_pixelator;
     std::vector<uint32_t> m_pixels;
     std::vector<uint32_t> m_wall_ceil_pixels;
+    
+    std::set<uint32_t> m_visited;
 
     enum BufferLayer
     {
