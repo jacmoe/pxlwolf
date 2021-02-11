@@ -159,14 +159,18 @@ bool Game::OnUserUpdate(double deltaTime)
     m_raycaster.raycastRender(&m_camera, 0.01);
 
     m_sprites_rendered = 0;
+    // loop through visited tiles
     for(auto tile : m_raycaster.getVisited())
     {
+        // unpack x and y coordinate
         int x = (int)unpack_u<0>(tile);
         int y = (int)unpack_u<1>(tile);
         for(const auto& sprite: m_sprites)
         {
+            // if the sprite is in one of the visited tiles
             if((static_cast<int>(sprite.x) == x) && (static_cast<int>(sprite.y) == y))
             {
+                // draw the sprite
                 draw3DSprite("pixelbuffer", &m_camera, m_width, m_height, 1.0, sprite);
             }
         }
