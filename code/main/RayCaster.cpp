@@ -590,6 +590,7 @@ void RayCaster::initRayTexture(const std::string& path, int tile_width, int tile
         return;
     }
 
+    m_pixels.reserve(tile_width * tile_height * num_tiles);
     uint32_t newPix = 0;
     for (uint32_t p = 0; p < tile_width * tile_height * num_tiles; p++)
     {
