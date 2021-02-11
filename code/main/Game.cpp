@@ -157,10 +157,12 @@ bool Game::OnUserUpdate(double deltaTime)
     m_raycaster.renderCeiling(&m_camera, 0.1);
     m_raycaster.raycastRender(&m_camera, 0.01);
 
+    m_sprites_rendered = 0;
     for(const auto& sprite: m_sprites)
     {
         draw3DSprite("pixelbuffer", &m_camera, m_width, m_height, 1.0, sprite);
     }
+    SPDLOG_INFO("Rendered {} sprites out of {} in total.", m_sprites_rendered, m_sprites.size());
 
     m_raycaster.renderBuffer();
 
@@ -224,8 +226,9 @@ bool Game::initSpriteTexture(Texture* texture, const std::string& path, int tile
     return true;
 }
 
-void Game::initSprite(Sprite* newSprite, Texture texture, double scaleFactor, double alphaNum, double x, double y, double h)
+void Game::initSprite(const std::string& type_name, Sprite* newSprite, Texture texture, double scaleFactor, double alphaNum, double x, double y, double h)
 {
+    newSprite->type_name = type_name;
     newSprite->texture = texture;
     newSprite->scaleFactor = scaleFactor;
     newSprite->alphaNum = alphaNum;
@@ -245,9 +248,11 @@ void Game::draw3DSprite(const std::string& buffer, Camera* camera, uint32_t widt
     double screenAngle = spriteAngle - camera->angle;
     //printf("Sprite %d screen angle: %f\n", s, screenAngle);
     double spriteDist = cos(screenAngle) * (sqrt((camera->x - sprite.x)*(camera->x - sprite.x) + (camera->y - sprite.y)*(camera->y - sprite.y))/scaleFactor);
+
     // Depth check, can't be on or behind camera
     if (spriteDist > 0)
     {
+        m_sprites_rendered++;
         // Compute column from screen angle
         int32_t centerX = (int32_t)floor(width / 2 + (int32_t)(angleMapConstant * tan(screenAngle)));
         // Get width and height
@@ -433,7 +438,7 @@ void Game::addStatic(const std::string& type, int x, int y)
     {
         return;
     }
-    initSprite(&sprite, sprite_texture, 1.0, 1.0, x + 0.5, y + 0.5, 0);
+    initSprite(type, &sprite, sprite_texture, 1.0, 1.0, x + 0.5, y + 0.5, 0);
     m_sprites.push_back(sprite);
 }
 
@@ -510,6 +515,6 @@ void Game::addPickup(const std::string& type, int x, int y)
     {
         return;
     }
-    initSprite(&sprite, sprite_texture, 1.0, 1.0, x + 0.5, y + 0.5, 0);
+    initSprite(type, &sprite, sprite_texture, 1.0, 1.0, x + 0.5, y + 0.5, 0);
     m_sprites.push_back(sprite);
 }
