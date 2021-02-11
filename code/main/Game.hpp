@@ -104,6 +104,10 @@ private:
     void setupCameraVectors();
     void handle_input(double deltaTime);
 
+    void loadSprites();
+    void addStatic(const std::string& type, int x, int y);
+    void addPickup(const std::string& type, int x, int y);
+
     bool initSpriteTexture(Texture* texture, const std::string& path, int tile_width, int tile_height, int num_tiles);
     void initSprite(Sprite* newSprite, Texture texture, double scaleFactor, double alphaNum, double x, double y, double h);
     void draw3DSprite(const std::string& buffer, Camera* camera, uint32_t width, uint32_t height, double resolution, Sprite sprite);

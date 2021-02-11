@@ -144,63 +144,7 @@ bool Game::OnUserCreate()
 
     m_pixelator.get()->setActiveBuffer("pixelBuffer");
 
-    {
-        Texture sprite_texture;
-        Sprite test_sprite;
-
-        if (!initSpriteTexture(&sprite_texture, "assets/sprites/static/body.png", 64, 64, 1))
-        {
-            return false;
-        }
-        initSprite(&test_sprite, sprite_texture, 1.0, 1.0, 35.5, 55.5, 0);
-        m_sprites.push_back(test_sprite);
-    }
-
-    {
-        Texture sprite_texture;
-        Sprite test_sprite;
-        if (!initSpriteTexture(&sprite_texture, "assets/sprites/static/planter.png", 64, 64, 1))
-        {
-            return false;
-        }
-        initSprite(&test_sprite, sprite_texture, 1.0, 1.0, 45.5, 35.5, 0);
-
-        m_sprites.push_back(test_sprite);
-    }
-    {
-        Texture sprite_texture;
-        Sprite test_sprite;
-        if (!initSpriteTexture(&sprite_texture, "assets/sprites/static/planter.png", 64, 64, 1))
-        {
-            return false;
-        }
-        initSprite(&test_sprite, sprite_texture, 1.0, 1.0, 45.5, 29.5, 0);
-
-        m_sprites.push_back(test_sprite);
-    }
-    {
-        Texture sprite_texture;
-        Sprite test_sprite;
-        if (!initSpriteTexture(&sprite_texture, "assets/sprites/static/planter.png", 64, 64, 1))
-        {
-            return false;
-        }
-        initSprite(&test_sprite, sprite_texture, 1.0, 1.0, 31.5, 29.5, 0);
-
-        m_sprites.push_back(test_sprite);
-    }
-    {
-        Texture sprite_texture;
-        Sprite test_sprite;
-        if (!initSpriteTexture(&sprite_texture, "assets/sprites/static/planter.png", 64, 64, 1))
-        {
-            return false;
-        }
-        initSprite(&test_sprite, sprite_texture, 1.0, 1.0, 31.5, 35.5, 0);
-
-        m_sprites.push_back(test_sprite);
-    }
-    // test_sprite.frameNum = 2;
+    loadSprites();
 
     return true;
 }
@@ -213,11 +157,10 @@ bool Game::OnUserUpdate(double deltaTime)
     m_raycaster.renderCeiling(&m_camera, 0.1);
     m_raycaster.raycastRender(&m_camera, 0.01);
 
-    draw3DSprite("pixelbuffer", &m_camera, m_width, m_height, 1.0, m_sprites[0]);
-    draw3DSprite("pixelbuffer", &m_camera, m_width, m_height, 1.0, m_sprites[1]);
-    draw3DSprite("pixelbuffer", &m_camera, m_width, m_height, 1.0, m_sprites[2]);
-    draw3DSprite("pixelbuffer", &m_camera, m_width, m_height, 1.0, m_sprites[3]);
-    draw3DSprite("pixelbuffer", &m_camera, m_width, m_height, 1.0, m_sprites[4]);
+    for(const auto& sprite: m_sprites)
+    {
+        draw3DSprite("pixelbuffer", &m_camera, m_width, m_height, 1.0, sprite);
+    }
 
     m_raycaster.renderBuffer();
 
@@ -360,4 +303,213 @@ void Game::draw3DSprite(const std::string& buffer, Camera* camera, uint32_t widt
             }
         }
     }
+}
+
+void Game::loadSprites()
+{
+    utility::Map* map = m_map.get();
+
+    std::vector<utility::MapItem> map_statics = map->statics();
+    std::vector<utility::MapItem> map_pickups = map->pickups();
+
+    for(const auto& static_item: map_statics)
+    {
+        addStatic(static_item.type, static_item.map_x, static_item.map_y);
+    }
+    for(const auto& pickup: map_pickups)
+    {
+        addPickup(pickup.type, pickup.map_x, pickup.map_y);
+    }
+}
+
+void Game::addStatic(const std::string& type, int x, int y)
+{
+    Texture sprite_texture;
+    Sprite sprite;
+    std::string sprite_texture_path = "";
+
+    // { "id": "Planter", "tileId": null, "__tileSrcRect": null },
+    if(type == "Planter")
+    {
+        sprite_texture_path = "assets/sprites/static/planter.png";
+    }
+    // { "id": "Table", "tileId": null, "__tileSrcRect": null },
+    else if(type == "Table")
+    {
+        sprite_texture_path = "assets/sprites/static/table.png";
+    }
+    // { "id": "Table_Small", "tileId": null, "__tileSrcRect": null },
+    else if(type == "Table_Small")
+    {
+        sprite_texture_path = "assets/sprites/static/table_small.png";
+    }
+    // { "id": "Bowl", "tileId": null, "__tileSrcRect": null },
+    else if(type == "Bowl")
+    {
+        sprite_texture_path = "assets/sprites/static/bowl.png";
+    }
+    // { "id": "Urn", "tileId": null, "__tileSrcRect": null },
+    else if(type == "Urn")
+    {
+        sprite_texture_path = "assets/sprites/static/urn.png";
+    }
+    // { "id": "Body", "tileId": null, "__tileSrcRect": null },
+    else if(type == "Body")
+    {
+        sprite_texture_path = "assets/sprites/static/body.png";
+    }
+    // { "id": "Wooden_Barrel", "tileId": null, "__tileSrcRect": null },
+    else if(type == "Wooden_Barrel")
+    {
+        sprite_texture_path = "assets/sprites/static/barrel_wood.png";
+    }
+    // { "id": "Green_Barrel", "tileId": null, "__tileSrcRect": null },
+    else if(type == "Green_Barrel")
+    {
+        sprite_texture_path = "assets/sprites/static/barrel_green.png";
+    }
+    // { "id": "Cloth", "tileId": null, "__tileSrcRect": null },
+    else if(type == "Cloth")
+    {
+        sprite_texture_path = "assets/sprites/static/cloth.png";
+    }
+    // { "id": "Flag", "tileId": null, "__tileSrcRect": null },
+    else if(type == "Flag")
+    {
+        sprite_texture_path = "assets/sprites/static/flag.png";
+    }
+    // { "id": "Ceil_Gold", "tileId": null, "__tileSrcRect": null },
+    else if(type == "Ceil_Gold")
+    {
+        sprite_texture_path = "assets/sprites/static/ceil_gold.png";
+    }
+    // { "id": "Ceil_Green", "tileId": null, "__tileSrcRect": null },
+    else if(type == "Ceil_Green")
+    {
+        sprite_texture_path = "assets/sprites/static/ceil_green.png";
+    }
+    // { "id": "Stove", "tileId": null, "__tileSrcRect": null },
+    else if(type == "Stove")
+    {
+        sprite_texture_path = "assets/sprites/static/stove.png";
+    }
+    // { "id": "Bones", "tileId": null, "__tileSrcRect": null },
+    else if(type == "Bones")
+    {
+        sprite_texture_path = "assets/sprites/static/skulls.png";
+    }
+    // { "id": "Skel_Remain", "tileId": null, "__tileSrcRect": null },
+    else if(type == "Skel_Remain")
+    {
+        sprite_texture_path = "assets/sprites/static/skeletal_remains.png";
+    }
+    // { "id": "Well_Dry", "tileId": null, "__tileSrcRect": null },
+    else if(type == "Well_Dry")
+    {
+        sprite_texture_path = "assets/sprites/static/well.png";
+    }
+    // { "id": "Well_Water", "tileId": null, "__tileSrcRect": null },
+    else if(type == "Well_Water")
+    {
+        sprite_texture_path = "assets/sprites/static/well_water.png";
+    }
+    // { "id": "Lamp", "tileId": null, "__tileSrcRect": null },
+    else if(type == "Lamp")
+    {
+        sprite_texture_path = "assets/sprites/static/lamp.png";
+    }
+    // { "id": "Tree", "tileId": null, "__tileSrcRect": null }
+    else if(type == "Tree")
+    {
+        sprite_texture_path = "assets/sprites/static/tree.png";
+    }
+    else
+    {
+        sprite_texture_path = "assets/sprites/unknown.png";
+    }
+
+
+    if (!initSpriteTexture(&sprite_texture, sprite_texture_path, 64, 64, 1))
+    {
+        return;
+    }
+    initSprite(&sprite, sprite_texture, 1.0, 1.0, x + 0.5, y + 0.5, 0);
+    m_sprites.push_back(sprite);
+}
+
+void Game::addPickup(const std::string& type, int x, int y)
+{
+    Texture sprite_texture;
+    Sprite sprite;
+    std::string sprite_texture_path = "";
+
+    // { "id": "Dogfood", "tileId": null, "__tileSrcRect": null },
+    if(type == "Dogfood")
+    {
+        sprite_texture_path = "assets/sprites/items/dogfood.png";
+    }
+    // { "id": "Meal", "tileId": null, "__tileSrcRect": null },
+    else if(type == "Meal")
+    {
+        sprite_texture_path = "assets/sprites/items/food.png";
+    }
+    // { "id": "Health", "tileId": null, "__tileSrcRect": null },
+    else if(type == "Health")
+    {
+        sprite_texture_path = "assets/sprites/items/health.png";
+    }
+    // { "id": "Ammo", "tileId": null, "__tileSrcRect": null },
+    else if(type == "Ammo")
+    {
+        sprite_texture_path = "assets/sprites/items/ammo.png";
+    }
+    // { "id": "Machinegun", "tileId": null, "__tileSrcRect": null },
+    else if(type == "Machinegun")
+    {
+        sprite_texture_path = "assets/sprites/items/machinegun.png";
+    }
+    // { "id": "Chaingun", "tileId": null, "__tileSrcRect": null },
+    else if(type == "Chaingun")
+    {
+        sprite_texture_path = "assets/sprites/items/chaingun.png";
+    }
+    // { "id": "Gold_Cross", "tileId": null, "__tileSrcRect": null },
+    else if(type == "Gold_Cross")
+    {
+        sprite_texture_path = "assets/sprites/items/gold_cross.png";
+    }
+    // { "id": "Gold_Goblet", "tileId": null, "__tileSrcRect": null },
+    else if(type == "Gold_Goblet")
+    {
+        sprite_texture_path = "assets/sprites/items/gold_goblet.png";
+    }
+    // { "id": "Gold_Casket", "tileId": null, "__tileSrcRect": null },
+    else if(type == "Gold_Casket")
+    {
+        sprite_texture_path = "assets/sprites/items/gold_casket.png";
+    }
+    // { "id": "Gold_Crown", "tileId": null, "__tileSrcRect": null }
+    else if(type == "Gold_Crown")
+    {
+        sprite_texture_path = "assets/sprites/items/gold_crown.png";
+    }
+    else if(type == "Gold_Key")
+    {
+        sprite_texture_path = "assets/sprites/items/key_gold.png";
+    }
+    else if(type == "Silver_Key")
+    {
+        sprite_texture_path = "assets/sprites/items/key_silver.png";
+    }
+    else
+    {
+        sprite_texture_path = "assets/sprites/unknown.png";
+    }
+
+    if (!initSpriteTexture(&sprite_texture, sprite_texture_path, 64, 64, 1))
+    {
+        return;
+    }
+    initSprite(&sprite, sprite_texture, 1.0, 1.0, x + 0.5, y + 0.5, 0);
+    m_sprites.push_back(sprite);
 }
