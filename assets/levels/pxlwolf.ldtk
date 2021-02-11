@@ -298,14 +298,38 @@
 		"tilesets": [],
 		"enums": [
 			{ "identifier": "Items", "uid": 20, "values": [
+				{ "id": "Dogfood", "tileId": null, "__tileSrcRect": null },
 				{ "id": "Meal", "tileId": null, "__tileSrcRect": null },
 				{ "id": "Health", "tileId": null, "__tileSrcRect": null },
-				{ "id": "Ammo", "tileId": null, "__tileSrcRect": null }
+				{ "id": "Ammo", "tileId": null, "__tileSrcRect": null },
+				{ "id": "Machinegun", "tileId": null, "__tileSrcRect": null },
+				{ "id": "Chaingun", "tileId": null, "__tileSrcRect": null },
+				{ "id": "Gold_Cross", "tileId": null, "__tileSrcRect": null },
+				{ "id": "Gold_Goblet", "tileId": null, "__tileSrcRect": null },
+				{ "id": "Gold_Casket", "tileId": null, "__tileSrcRect": null },
+				{ "id": "Gold_Crown", "tileId": null, "__tileSrcRect": null }
 			], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null },
 			{ "identifier": "Static", "uid": 21, "values": [
 				{ "id": "Planter", "tileId": null, "__tileSrcRect": null },
 				{ "id": "Table", "tileId": null, "__tileSrcRect": null },
-				{ "id": "Body", "tileId": null, "__tileSrcRect": null }
+				{ "id": "Table_Small", "tileId": null, "__tileSrcRect": null },
+				{ "id": "Bowl", "tileId": null, "__tileSrcRect": null },
+				{ "id": "Urn", "tileId": null, "__tileSrcRect": null },
+				{ "id": "Body", "tileId": null, "__tileSrcRect": null },
+				{ "id": "Wooden_Barrel", "tileId": null, "__tileSrcRect": null },
+				{ "id": "Green_Barrel", "tileId": null, "__tileSrcRect": null },
+				{ "id": "Cloth", "tileId": null, "__tileSrcRect": null },
+				{ "id": "Flag", "tileId": null, "__tileSrcRect": null },
+				{ "id": "Ceil_Light_Gold", "tileId": null, "__tileSrcRect": null },
+				{ "id": "Ceil_Light_Yellow", "tileId": null, "__tileSrcRect": null },
+				{ "id": "Ceil_Light_Green", "tileId": null, "__tileSrcRect": null },
+				{ "id": "Stove", "tileId": null, "__tileSrcRect": null },
+				{ "id": "Bones", "tileId": null, "__tileSrcRect": null },
+				{ "id": "Skeletal_Remain", "tileId": null, "__tileSrcRect": null },
+				{ "id": "Well_Dry", "tileId": null, "__tileSrcRect": null },
+				{ "id": "Well_Water", "tileId": null, "__tileSrcRect": null },
+				{ "id": "Lamp", "tileId": null, "__tileSrcRect": null },
+				{ "id": "Tree", "tileId": null, "__tileSrcRect": null }
 			], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null }
 		],
 		"externalEnums": []
