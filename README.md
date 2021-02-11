@@ -34,11 +34,14 @@ Seriously overengineered Wolfenstein-like raycast engine
 
 ## Screenshots
 ### PixelWolf 
-![PixelWolf][pxlwolf]
+![Clutter creates an atmosphere][clutter]
+
+![Static sprites][sprites]
 
 ![Textured floor and ceiling][corridor]
 
-![Static sprites][sprites]
+![PixelWolf][pxlwolf]
+
 
 ### Level Editing in LDtk
 Pxlwolf uses the [LDtk Level Designer Toolkit][ldtk_link] to create and edit levels.
@@ -92,10 +95,11 @@ This project is using code from the [c-raycaster project][cray] - the raycaster 
 
 [pxlwolf]: https://github.com/jacmoe/pxlwolf/raw/main/screenshots/Screenshot.jpg "Screenshot of PixelWolf"
 [corridor]: https://github.com/jacmoe/pxlwolf/raw/main/screenshots/corridor.png "Textured wall and ceiling"
+[detailing]: https://github.com/jacmoe/pxlwolf/raw/main/screenshots/detailing.png "Taking care of the details"
+[clutter]: https://github.com/jacmoe/pxlwolf/raw/main/screenshots/clutter.png "Creating an atmosphere"
 [sprites]: https://github.com/jacmoe/pxlwolf/raw/main/screenshots/sprites.png "Static sprites"
 [ldtk]: https://github.com/jacmoe/pxlwolf/raw/main/screenshots/LevelEditing.jpg "Level editing in LDTK"
 [ldtklevels]: https://github.com/jacmoe/pxlwolf/raw/main/screenshots/ldtklevels.png "First four levels of Wolf3d"
-[detailing]: https://github.com/jacmoe/pxlwolf/raw/main/screenshots/detailing.png "Taking care of the details"
 
 [ldtk_link]: https://ldtk.io/ "LDtk Level Designer Toolkit"
 
