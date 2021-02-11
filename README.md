@@ -38,6 +38,8 @@ Seriously overengineered Wolfenstein-like raycast engine
 
 ![Textured floor and ceiling][corridor]
 
+![Static sprites][sprites]
+
 ### Level Editing in LDtk
 Pxlwolf uses the [LDtk Level Designer Toolkit][ldtk_link] to create and edit levels.
 ![LDTK][ldtk]
@@ -88,6 +90,7 @@ This project is using code from the [c-raycaster project][cray] - the raycaster 
 
 [pxlwolf]: https://github.com/jacmoe/pxlwolf/raw/main/screenshots/Screenshot.jpg "Screenshot of PixelWolf"
 [corridor]: https://github.com/jacmoe/pxlwolf/raw/main/screenshots/corridor.png "Textured wall and ceiling"
+[sprites]: https://github.com/jacmoe/pxlwolf/raw/main/screenshots/sprites.png "Static sprites"
 [ldtk]: https://github.com/jacmoe/pxlwolf/raw/main/screenshots/LevelEditing.jpg "Level editing in LDTK"
 [ldtklevels]: https://github.com/jacmoe/pxlwolf/raw/main/screenshots/ldtklevels.png "First four levels of Wolf3d"
 
