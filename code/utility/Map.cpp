@@ -202,7 +202,7 @@ namespace utility
                             item.type = "unknown";
                         }
                         m_map_statics.push_back(item);
-                        SPDLOG_INFO("Added static item of type '{}' to the map at position ({},{})", item.type, item.map_x, item.map_y);
+                        // SPDLOG_INFO("Added static item of type '{}' to the map at position ({},{})", item.type, item.map_x, item.map_y);
                     }
                     if(identifier == "Pickup")
                     {
@@ -218,7 +218,7 @@ namespace utility
                             item.type = "unknown";
                         }
                         m_map_pickups.push_back(item);
-                        SPDLOG_INFO("Added item of type '{}' to the map at position ({},{})", item.type, item.map_x, item.map_y);
+                        // SPDLOG_INFO("Added item of type '{}' to the map at position ({},{})", item.type, item.map_x, item.map_y);
                     }
                 }
             } // if layer type is Entities

@@ -449,7 +449,7 @@ void RayCaster::raycastRender(Camera* camera, double resolution)
             // pack visited tile into a 32 bit int
             uint8_t theX = (uint8_t)floor(rayX+rayOffX);
             uint8_t theY = (uint8_t)floor(rayY+rayOffY);
-            uint32_t tilenum = pack(theX,theY,1,1);
+            uint32_t tilenum = utility::pack(theX,theY,1,1);
             // store it in the visited set
             m_visited.insert(tilenum);
 
