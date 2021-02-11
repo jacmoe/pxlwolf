@@ -193,9 +193,9 @@ namespace utility
                         MapItem item;
                         item.map_x = (*itr)["__grid"].GetArray()[0].GetFloat() + 0.5f;
                         item.map_y = (*itr)["__grid"].GetArray()[1].GetFloat() + 0.5f;
-                        if((*itr)["fieldInstances"].GetArray()[0]["__value"].IsString())
+                        if((*itr)["fieldInstances"].GetArray()[0]["__value"].IsArray())
                         {
-                            item.type = (*itr)["fieldInstances"].GetArray()[0]["__value"].GetString();
+                            item.type = (*itr)["fieldInstances"].GetArray()[0]["__value"].GetArray()[0].GetString();
                         }
                         else
                         {
@@ -209,9 +209,9 @@ namespace utility
                         MapItem item;
                         item.map_x = (*itr)["__grid"].GetArray()[0].GetFloat() + 0.5f;
                         item.map_y = (*itr)["__grid"].GetArray()[1].GetFloat() + 0.5f;
-                        if((*itr)["fieldInstances"].GetArray()[0]["__value"].IsString())
+                        if((*itr)["fieldInstances"].GetArray()[0]["__value"].IsArray())
                         {
-                            item.type = (*itr)["fieldInstances"].GetArray()[0]["__value"].GetString();
+                            item.type = (*itr)["fieldInstances"].GetArray()[0]["__value"].GetArray()[0].GetString();
                         }
                         else
                         {
