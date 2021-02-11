@@ -329,7 +329,12 @@
 				{ "id": "Well_Dry", "tileId": null, "__tileSrcRect": null },
 				{ "id": "Well_Water", "tileId": null, "__tileSrcRect": null },
 				{ "id": "Lamp", "tileId": null, "__tileSrcRect": null },
-				{ "id": "Tree", "tileId": null, "__tileSrcRect": null }
+				{ "id": "Tree", "tileId": null, "__tileSrcRect": null },
+				{ "id": "Sink", "tileId": null, "__tileSrcRect": null },
+				{ "id": "Skel_Hang", "tileId": null, "__tileSrcRect": null },
+				{ "id": "Pots_Pans", "tileId": null, "__tileSrcRect": null },
+				{ "id": "Bloody_Bones", "tileId": null, "__tileSrcRect": null },
+				{ "id": "Armor", "tileId": null, "__tileSrcRect": null }
 			], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null }
 		],
 		"externalEnums": []

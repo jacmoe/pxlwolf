@@ -440,6 +440,31 @@ void Game::addStatic(const std::string& type, int x, int y)
     {
         sprite_texture_path = "assets/sprites/static/tree.png";
     }
+    // { "id": "Sink", "tileId": null, "__tileSrcRect": null },
+    else if(type == "Sink")
+    {
+        sprite_texture_path = "assets/sprites/static/sink.png";
+    }
+    // { "id": "Skel_Hang", "tileId": null, "__tileSrcRect": null },
+    else if(type == "Skel_Hang")
+    {
+        sprite_texture_path = "assets/sprites/static/skeleton_hanging.png";
+    }
+    // { "id": "Pots_Pans", "tileId": null, "__tileSrcRect": null },
+    else if(type == "Pots_Pans")
+    {
+        sprite_texture_path = "assets/sprites/static/kitchen_ware.png";
+    }
+    // { "id": "Bloody_Bones", "tileId": null, "__tileSrcRect": null },
+    else if(type == "Bloody_Bones")
+    {
+        sprite_texture_path = "assets/sprites/static/blood_bones.png";
+    }
+    // { "id": "Armor", "tileId": null, "__tileSrcRect": null }
+    else if(type == "Armor")
+    {
+        sprite_texture_path = "assets/sprites/static/armor.png";
+    }
     else
     {
         sprite_texture_path = "assets/sprites/unknown.png";
