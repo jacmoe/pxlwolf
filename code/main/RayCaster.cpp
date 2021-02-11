@@ -423,6 +423,7 @@ void RayCaster::raycastRender(Camera* camera, double resolution)
     
     utility::Map* map = m_map.get();
 
+    // clear the set of visited tiles
     m_visited.clear();
 
     // Sweeeeep for each column

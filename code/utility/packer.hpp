@@ -15,6 +15,9 @@
 #*/
 #pragma once
 
+// Taken from Steve Jessop's answer to the question
+// "C/C++ packing signed char into int" at https://stackoverflow.com/a/2438565/1795121
+
 uint32_t pack_helper(uint32_t c0, uint32_t c1, uint32_t c2, uint32_t c3) {
     return c0 | (c1 << 8) | (c2 << 16) | (c3 << 24);
 }

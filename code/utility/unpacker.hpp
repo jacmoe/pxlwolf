@@ -15,6 +15,9 @@
 #*/
 #pragma once
 
+// Taken from Steve Jessop's answer to the question
+// "C/C++ packing signed char into int" at https://stackoverflow.com/a/2438565/1795121
+
 template <int N>
 uint8_t unpack_u(uint32_t packed) {
     // cast to avoid potential warnings for implicit narrowing conversion

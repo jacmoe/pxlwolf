@@ -162,7 +162,7 @@ bool Game::OnUserUpdate(double deltaTime)
     // loop through visited tiles
     for(auto tile : m_raycaster.getVisited())
     {
-        // unpack x and y coordinate
+        // unpack x and y coordinate of visited tile
         int x = (int)unpack_u<0>(tile);
         int y = (int)unpack_u<1>(tile);
         for(const auto& sprite: m_sprites)
