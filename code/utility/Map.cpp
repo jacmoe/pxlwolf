@@ -193,7 +193,14 @@ namespace utility
                         MapItem item;
                         item.map_x = (*itr)["__grid"].GetArray()[0].GetFloat() + 0.5f;
                         item.map_y = (*itr)["__grid"].GetArray()[1].GetFloat() + 0.5f;
-                        item.type = (*itr)["fieldInstances"].GetArray()[0]["__value"].GetString();
+                        if((*itr)["fieldInstances"].GetArray()[0]["__value"].IsString())
+                        {
+                            item.type = (*itr)["fieldInstances"].GetArray()[0]["__value"].GetString();
+                        }
+                        else
+                        {
+                            item.type = "unknown";
+                        }
                         m_map_statics.push_back(item);
                         SPDLOG_INFO("Added static item of type '{}' to the map at position ({},{})", item.type, item.map_x, item.map_y);
                     }
@@ -202,7 +209,14 @@ namespace utility
                         MapItem item;
                         item.map_x = (*itr)["__grid"].GetArray()[0].GetFloat() + 0.5f;
                         item.map_y = (*itr)["__grid"].GetArray()[1].GetFloat() + 0.5f;
-                        item.type = (*itr)["fieldInstances"].GetArray()[0]["__value"].GetString();
+                        if((*itr)["fieldInstances"].GetArray()[0]["__value"].IsString())
+                        {
+                            item.type = (*itr)["fieldInstances"].GetArray()[0]["__value"].GetString();
+                        }
+                        else
+                        {
+                            item.type = "unknown";
+                        }
                         m_map_pickups.push_back(item);
                         SPDLOG_INFO("Added item of type '{}' to the map at position ({},{})", item.type, item.map_x, item.map_y);
                     }
