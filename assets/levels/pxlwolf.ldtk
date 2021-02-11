@@ -334,7 +334,8 @@
 				{ "id": "Skel_Hang", "tileId": null, "__tileSrcRect": null },
 				{ "id": "Pots_Pans", "tileId": null, "__tileSrcRect": null },
 				{ "id": "Bloody_Bones", "tileId": null, "__tileSrcRect": null },
-				{ "id": "Armor", "tileId": null, "__tileSrcRect": null }
+				{ "id": "Armor", "tileId": null, "__tileSrcRect": null },
+				{ "id": "Pillar", "tileId": null, "__tileSrcRect": null }
 			], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null }
 		],
 		"externalEnums": []

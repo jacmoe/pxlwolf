@@ -465,6 +465,11 @@ void Game::addStatic(const std::string& type, int x, int y)
     {
         sprite_texture_path = "assets/sprites/static/armor.png";
     }
+    // { "id": "Pillar", "tileId": null, "__tileSrcRect": null }
+    else if(type == "Pillar")
+    {
+        sprite_texture_path = "assets/sprites/static/pillar.png";
+    }
     else
     {
         sprite_texture_path = "assets/sprites/unknown.png";
