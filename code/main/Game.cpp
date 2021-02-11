@@ -219,7 +219,7 @@ bool Game::initSpriteTexture(Texture* texture, const std::string& path, int tile
     uint8_t* rgbaData = stbi_load(path.c_str(), &mPixWidth, &mPixHeight, NULL, 0);
     if (!rgbaData)
     {
-        fprintf(stderr, "FATAL: Could not load textures. Exiting...\n");
+        SPDLOG_ERROR("Could not load texture '{}'", path);
         return false;
     }
 
@@ -363,7 +363,7 @@ void Game::addStatic(const std::string& type, int x, int y)
     // { "id": "Bowl", "tileId": null, "__tileSrcRect": null },
     else if(type == "Bowl")
     {
-        sprite_texture_path = "assets/sprites/static/bowl.png";
+        sprite_texture_path = "assets/sprites/static/claypot.png";
     }
     // { "id": "Urn", "tileId": null, "__tileSrcRect": null },
     else if(type == "Urn")

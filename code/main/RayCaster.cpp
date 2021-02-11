@@ -586,7 +586,7 @@ void RayCaster::initRayTexture(const std::string& path, int tile_width, int tile
     uint8_t* rgbaData = stbi_load(path.c_str(), &mPixWidth, &mPixHeight, NULL, 0);
     if (!rgbaData)
     {
-        fprintf(stderr, "FATAL: Could not load textures. Exiting...\n");
+        SPDLOG_ERROR("Could not load texture '{}'", path);
         return;
     }
 
@@ -611,7 +611,7 @@ void RayCaster::initWallCeilTexture(const std::string& path, int tile_width, int
     uint8_t* rgbaData = stbi_load(path.c_str(), &mPixWidth, &mPixHeight, NULL, 0);
     if (!rgbaData)
     {
-        fprintf(stderr, "FATAL: Could not load textures. Exiting...\n");
+        SPDLOG_ERROR("Could not load texture '{}'", path);
         return;
     }
 
