@@ -37,3 +37,37 @@ void Level::destroyEntity(Entity entity)
 {
     m_registry.destroy(entity);
 }
+
+bool check_key(EntityMap m, std::string key) 
+{ 
+    if (m.find(key) == m.end()) 
+        return false; 
+  
+    return true; 
+}
+
+bool check_key(EntityTextureMap m, EntityType key) 
+{ 
+    if (m.find(key) == m.end()) 
+        return false; 
+  
+    return true; 
+}
+
+EntityType Level::getEntityType(std::string type)
+{
+    if(!check_key(m_entity_map, type))
+    {
+        return m_entity_map["Unknown"];
+    }
+    return m_entity_map[type];
+}
+
+std::string Level::getEntityTexture(enum EntityType type)
+{
+    if(!check_key(m_entitytexture_map, type))
+    {
+        return m_entitytexture_map[EntityType::none];
+    }
+    return m_entitytexture_map[type];
+}

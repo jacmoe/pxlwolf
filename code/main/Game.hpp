@@ -18,6 +18,7 @@
 #include "Application.hpp"
 #include "Map.hpp"
 #include "RayCaster.hpp"
+#include "Level.hpp"
 
 struct GameConfig
 {
@@ -53,7 +54,7 @@ struct Texture
 
 struct Sprite
 {
-    std::string type_name;
+    enum EntityType type;
     Texture texture;
     uint8_t frameNum;
     double alphaNum;
@@ -109,12 +110,12 @@ private:
     void handle_input(double deltaTime);
 
     void loadSprites();
-    void addStatic(const std::string& type, int x, int y);
-    void addPickup(const std::string& type, int x, int y);
-    void addEnemy(const std::string& type, int x, int y);
-    void addKey(const std::string& type, int x, int y);
+    void addStatic(enum EntityType type, int x, int y);
+    void addPickup(enum EntityType type, int x, int y);
+    void addEnemy(enum EntityType type, int x, int y);
+    void addKey(enum EntityType type, int x, int y);
 
     bool initSpriteTexture(Texture* texture, const std::string& path, int tile_width, int tile_height, int num_tiles);
-    void initSprite(const std::string& type_name, Sprite* newSprite, Texture texture, double scaleFactor, double alphaNum, double x, double y, double h);
+    void initSprite(enum EntityType type, Sprite* newSprite, Texture texture, double scaleFactor, double alphaNum, double x, double y, double h);
     void draw3DSprite(const std::string& buffer, Camera* camera, uint32_t width, uint32_t height, double resolution, Sprite sprite);
 };

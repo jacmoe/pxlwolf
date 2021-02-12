@@ -256,9 +256,9 @@ bool Game::initSpriteTexture(Texture* texture, const std::string& path, int tile
     return true;
 }
 
-void Game::initSprite(const std::string& type_name, Sprite* newSprite, Texture texture, double scaleFactor, double alphaNum, double x, double y, double h)
+void Game::initSprite(enum EntityType type, Sprite* newSprite, Texture texture, double scaleFactor, double alphaNum, double x, double y, double h)
 {
-    newSprite->type_name = type_name;
+    newSprite->type = type;
     newSprite->texture = texture;
     newSprite->scaleFactor = scaleFactor;
     newSprite->alphaNum = alphaNum;
@@ -351,158 +351,31 @@ void Game::loadSprites()
 
     for(const auto& static_item: map_statics)
     {
-        addStatic(static_item.type, static_item.map_x, static_item.map_y);
+        addStatic(static_item.e_type, static_item.map_x, static_item.map_y);
     }
     for(const auto& pickup: map_pickups)
     {
-        addPickup(pickup.type, pickup.map_x, pickup.map_y);
+        addPickup(pickup.e_type, pickup.map_x, pickup.map_y);
     }
     for(const auto& enemy: map_enemies)
     {
-        addEnemy(enemy.type, enemy.map_x, enemy.map_y);
+        addEnemy(enemy.e_type, enemy.map_x, enemy.map_y);
     }
     for(const auto& key: map_keys)
     {
-        addKey(key.type, key.map_x, key.map_y);
+        addKey(key.e_type, key.map_x, key.map_y);
     }
 }
 
-void Game::addStatic(const std::string& type, int x, int y)
+void Game::addStatic(enum EntityType type, int x, int y)
 {
     Texture sprite_texture;
     Sprite sprite;
     std::string sprite_texture_path = "";
 
-    // { "id": "Planter", "tileId": null, "__tileSrcRect": null },
-    if(type == "Planter")
-    {
-        sprite_texture_path = "assets/sprites/static/planter.png";
-    }
-    // { "id": "Table", "tileId": null, "__tileSrcRect": null },
-    else if(type == "Table")
-    {
-        sprite_texture_path = "assets/sprites/static/table.png";
-    }
-    // { "id": "Table_Small", "tileId": null, "__tileSrcRect": null },
-    else if(type == "Table_Small")
-    {
-        sprite_texture_path = "assets/sprites/static/table_small.png";
-    }
-    // { "id": "Bowl", "tileId": null, "__tileSrcRect": null },
-    else if(type == "Bowl")
-    {
-        sprite_texture_path = "assets/sprites/static/claypot.png";
-    }
-    // { "id": "Urn", "tileId": null, "__tileSrcRect": null },
-    else if(type == "Urn")
-    {
-        sprite_texture_path = "assets/sprites/static/urn.png";
-    }
-    // { "id": "Body", "tileId": null, "__tileSrcRect": null },
-    else if(type == "Body")
-    {
-        sprite_texture_path = "assets/sprites/static/body.png";
-    }
-    // { "id": "Wooden_Barrel", "tileId": null, "__tileSrcRect": null },
-    else if(type == "Wooden_Barrel")
-    {
-        sprite_texture_path = "assets/sprites/static/barrel_wood.png";
-    }
-    // { "id": "Green_Barrel", "tileId": null, "__tileSrcRect": null },
-    else if(type == "Green_Barrel")
-    {
-        sprite_texture_path = "assets/sprites/static/barrel_green.png";
-    }
-    // { "id": "Cloth", "tileId": null, "__tileSrcRect": null },
-    else if(type == "Cloth")
-    {
-        sprite_texture_path = "assets/sprites/static/cloth.png";
-    }
-    // { "id": "Flag", "tileId": null, "__tileSrcRect": null },
-    else if(type == "Flag")
-    {
-        sprite_texture_path = "assets/sprites/static/flag.png";
-    }
-    // { "id": "Ceil_Gold", "tileId": null, "__tileSrcRect": null },
-    else if(type == "Ceil_Gold")
-    {
-        sprite_texture_path = "assets/sprites/static/ceil_gold.png";
-    }
-    // { "id": "Ceil_Green", "tileId": null, "__tileSrcRect": null },
-    else if(type == "Ceil_Green")
-    {
-        sprite_texture_path = "assets/sprites/static/ceil_green.png";
-    }
-    // { "id": "Stove", "tileId": null, "__tileSrcRect": null },
-    else if(type == "Stove")
-    {
-        sprite_texture_path = "assets/sprites/static/stove.png";
-    }
-    // { "id": "Bones", "tileId": null, "__tileSrcRect": null },
-    else if(type == "Bones")
-    {
-        sprite_texture_path = "assets/sprites/static/skulls.png";
-    }
-    // { "id": "Skel_Remain", "tileId": null, "__tileSrcRect": null },
-    else if(type == "Skel_Remain")
-    {
-        sprite_texture_path = "assets/sprites/static/skeletal_remains.png";
-    }
-    // { "id": "Well_Dry", "tileId": null, "__tileSrcRect": null },
-    else if(type == "Well_Dry")
-    {
-        sprite_texture_path = "assets/sprites/static/well.png";
-    }
-    // { "id": "Well_Water", "tileId": null, "__tileSrcRect": null },
-    else if(type == "Well_Water")
-    {
-        sprite_texture_path = "assets/sprites/static/well_water.png";
-    }
-    // { "id": "Lamp", "tileId": null, "__tileSrcRect": null },
-    else if(type == "Lamp")
-    {
-        sprite_texture_path = "assets/sprites/static/lamp.png";
-    }
-    // { "id": "Tree", "tileId": null, "__tileSrcRect": null }
-    else if(type == "Tree")
-    {
-        sprite_texture_path = "assets/sprites/static/tree.png";
-    }
-    // { "id": "Sink", "tileId": null, "__tileSrcRect": null },
-    else if(type == "Sink")
-    {
-        sprite_texture_path = "assets/sprites/static/sink.png";
-    }
-    // { "id": "Skel_Hang", "tileId": null, "__tileSrcRect": null },
-    else if(type == "Skel_Hang")
-    {
-        sprite_texture_path = "assets/sprites/static/skeleton_hanging.png";
-    }
-    // { "id": "Pots_Pans", "tileId": null, "__tileSrcRect": null },
-    else if(type == "Pots_Pans")
-    {
-        sprite_texture_path = "assets/sprites/static/kitchen_ware.png";
-    }
-    // { "id": "Bloody_Bones", "tileId": null, "__tileSrcRect": null },
-    else if(type == "Bloody_Bones")
-    {
-        sprite_texture_path = "assets/sprites/static/blood_bones.png";
-    }
-    // { "id": "Armor", "tileId": null, "__tileSrcRect": null }
-    else if(type == "Armor")
-    {
-        sprite_texture_path = "assets/sprites/static/armor.png";
-    }
-    // { "id": "Pillar", "tileId": null, "__tileSrcRect": null }
-    else if(type == "Pillar")
-    {
-        sprite_texture_path = "assets/sprites/static/pillar.png";
-    }
-    else
-    {
-        sprite_texture_path = "assets/sprites/unknown.png";
-    }
+    Level level;
 
+    sprite_texture_path = level.getEntityTexture(type);
 
     if (!initSpriteTexture(&sprite_texture, sprite_texture_path, 64, 64, 1))
     {
@@ -512,74 +385,15 @@ void Game::addStatic(const std::string& type, int x, int y)
     m_sprites.push_back(sprite);
 }
 
-void Game::addPickup(const std::string& type, int x, int y)
+void Game::addPickup(enum EntityType type, int x, int y)
 {
     Texture sprite_texture;
     Sprite sprite;
     std::string sprite_texture_path = "";
 
-    // { "id": "Dogfood", "tileId": null, "__tileSrcRect": null },
-    if(type == "Dogfood")
-    {
-        sprite_texture_path = "assets/sprites/items/dogfood.png";
-    }
-    // { "id": "Meal", "tileId": null, "__tileSrcRect": null },
-    else if(type == "Meal")
-    {
-        sprite_texture_path = "assets/sprites/items/food.png";
-    }
-    // { "id": "Health", "tileId": null, "__tileSrcRect": null },
-    else if(type == "Health")
-    {
-        sprite_texture_path = "assets/sprites/items/health.png";
-    }
-    // { "id": "Ammo", "tileId": null, "__tileSrcRect": null },
-    else if(type == "Ammo")
-    {
-        sprite_texture_path = "assets/sprites/items/ammo.png";
-    }
-    // { "id": "Machinegun", "tileId": null, "__tileSrcRect": null },
-    else if(type == "Machinegun")
-    {
-        sprite_texture_path = "assets/sprites/items/machinegun.png";
-    }
-    // { "id": "Chaingun", "tileId": null, "__tileSrcRect": null },
-    else if(type == "Chaingun")
-    {
-        sprite_texture_path = "assets/sprites/items/chaingun.png";
-    }
-    // { "id": "Gold_Cross", "tileId": null, "__tileSrcRect": null },
-    else if(type == "Gold_Cross")
-    {
-        sprite_texture_path = "assets/sprites/items/gold_cross.png";
-    }
-    // { "id": "Gold_Goblet", "tileId": null, "__tileSrcRect": null },
-    else if(type == "Gold_Goblet")
-    {
-        sprite_texture_path = "assets/sprites/items/gold_goblet.png";
-    }
-    // { "id": "Gold_Casket", "tileId": null, "__tileSrcRect": null },
-    else if(type == "Gold_Casket")
-    {
-        sprite_texture_path = "assets/sprites/items/gold_casket.png";
-    }
-    // { "id": "Gold_Crown", "tileId": null, "__tileSrcRect": null }
-    else if(type == "Gold_Crown")
-    {
-        sprite_texture_path = "assets/sprites/items/gold_crown.png";
-    }
-    else if(type == "Gold_Key")
-    {
-        sprite_texture_path = "assets/sprites/items/key_gold.png";
-    }
-    else if(type == "Silver_Key")
-    {
-        sprite_texture_path = "assets/sprites/items/key_silver.png";
-    }
-    else
-    {
-        sprite_texture_path = "assets/sprites/unknown.png";
-    }
+    Level level;
+
+    sprite_texture_path = level.getEntityTexture(type);
 
     if (!initSpriteTexture(&sprite_texture, sprite_texture_path, 64, 64, 1))
     {
@@ -589,36 +403,15 @@ void Game::addPickup(const std::string& type, int x, int y)
     m_sprites.push_back(sprite);
 }
 
-void Game::addEnemy(const std::string& type, int x, int y)
+void Game::addEnemy(enum EntityType type, int x, int y)
 {
     Texture sprite_texture;
     Sprite sprite;
     std::string sprite_texture_path = "";
 
-    // { "id": "Guard", "tileId": null, "__tileSrcRect": null },
-    if(type == "Guard")
-    {
-        sprite_texture_path = "assets/sprites/enemies/guard.png";
-    }
-    // { "id": "Dog", "tileId": null, "__tileSrcRect": null },
-    else if(type == "Dog")
-    {
-        sprite_texture_path = "assets/sprites/enemies/dog.png";
-    }
-    // { "id": "Officer", "tileId": null, "__tileSrcRect": null },
-    else if(type == "Officer")
-    {
-        sprite_texture_path = "assets/sprites/enemies/officer.png";
-    }
-    // { "id": "SS", "tileId": null, "__tileSrcRect": null }
-    else if(type == "SS")
-    {
-        sprite_texture_path = "assets/sprites/enemies/ss.png";
-    }
-    else
-    {
-        sprite_texture_path = "assets/sprites/unknown.png";
-    }
+    Level level;
+
+    sprite_texture_path = level.getEntityTexture(type);
 
     if (!initSpriteTexture(&sprite_texture, sprite_texture_path, 64, 64, 1))
     {
@@ -628,29 +421,20 @@ void Game::addEnemy(const std::string& type, int x, int y)
     m_enemies.push_back(sprite);
 }
 
-void Game::addKey(const std::string& type, int x, int y)
+void Game::addKey(enum EntityType type, int x, int y)
 {
     Texture sprite_texture;
     Sprite sprite;
     std::string sprite_texture_path = "";
 
-    if(type == "Silver")
-    {
-        sprite_texture_path = "assets/sprites/items/key_silver.png";
-    }
-    else if(type == "Gold")
-    {
-        sprite_texture_path = "assets/sprites/enemies/key_gold.png";
-    }
-    else
-    {
-        sprite_texture_path = "assets/sprites/unknown.png";
-    }
+    Level level;
+
+    sprite_texture_path = level.getEntityTexture(type);
 
     if (!initSpriteTexture(&sprite_texture, sprite_texture_path, 64, 64, 1))
     {
         return;
     }
     initSprite(type, &sprite, sprite_texture, 1.0, 1.0, x + 0.5, y + 0.5, 0);
-    m_enemies.push_back(sprite);
+    m_keys.push_back(sprite);
 }

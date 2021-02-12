@@ -21,6 +21,7 @@
 #include <unordered_map>
 #include "SDL.h"
 #include "linalg.h"
+#include "Level.hpp"
 
 namespace utility
 {
@@ -33,6 +34,7 @@ namespace utility
     struct MapItem
     {
         std::string type;
+        enum EntityType e_type;
         int map_x;
         int map_y;
     };

@@ -171,6 +171,8 @@ namespace utility
         m_map_width = document["pxWid"].GetInt();
         m_map_height = document["pxHei"].GetInt();
 
+        Level level;
+
         const rapidjson::Value& layerInstances = document["layerInstances"];
         for (rapidjson::Value::ConstValueIterator itr = layerInstances.Begin(); itr != layerInstances.End(); ++itr)
         {
@@ -201,6 +203,7 @@ namespace utility
                         {
                             item.type = "unknown";
                         }
+                        item.e_type = level.getEntityType(item.type);
                         m_map_statics.push_back(item);
                         // SPDLOG_INFO("Added static item of type '{}' to the map at position ({},{})", item.type, item.map_x, item.map_y);
                     }
@@ -217,6 +220,7 @@ namespace utility
                         {
                             item.type = "unknown";
                         }
+                        item.e_type = level.getEntityType(item.type);
                         m_map_pickups.push_back(item);
                         // SPDLOG_INFO("Added item of type '{}' to the map at position ({},{})", item.type, item.map_x, item.map_y);
                     }
@@ -233,6 +237,7 @@ namespace utility
                         {
                             item.type = "unknown";
                         }
+                        item.e_type = level.getEntityType(item.type);
                         m_map_enemies.push_back(item);
                         // SPDLOG_INFO("Added item of type '{}' to the map at position ({},{})", item.type, item.map_x, item.map_y);
                     }
@@ -249,6 +254,7 @@ namespace utility
                         {
                             item.type = "unknown";
                         }
+                        item.e_type = level.getEntityType(item.type);
                         m_map_keys.push_back(item);
                         // SPDLOG_INFO("Added item of type '{}' to the map at position ({},{})", item.type, item.map_x, item.map_y);
                     }
