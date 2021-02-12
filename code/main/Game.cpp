@@ -183,6 +183,15 @@ bool Game::OnUserUpdate(double deltaTime)
                 draw3DSprite("pixelbuffer", &m_camera, m_width, m_height, 1.0, enemy);
             }
         }
+        for(const auto& key: m_keys)
+        {
+            // if the sprite is in one of the visited tiles
+            if((static_cast<int>(key.x) == x) && (static_cast<int>(key.y) == y))
+            {
+                // draw the sprite
+                draw3DSprite("pixelbuffer", &m_camera, m_width, m_height, 1.0, key);
+            }
+        }
     }
 
     m_raycaster.renderBuffer();
@@ -338,6 +347,7 @@ void Game::loadSprites()
     std::vector<utility::MapItem> map_statics = map->statics();
     std::vector<utility::MapItem> map_pickups = map->pickups();
     std::vector<utility::MapItem> map_enemies = map->enemies();
+    std::vector<utility::MapItem> map_keys = map->keys();
 
     for(const auto& static_item: map_statics)
     {
@@ -350,6 +360,10 @@ void Game::loadSprites()
     for(const auto& enemy: map_enemies)
     {
         addEnemy(enemy.type, enemy.map_x, enemy.map_y);
+    }
+    for(const auto& key: map_keys)
+    {
+        addKey(key.type, key.map_x, key.map_y);
     }
 }
 
@@ -600,6 +614,33 @@ void Game::addEnemy(const std::string& type, int x, int y)
     else if(type == "SS")
     {
         sprite_texture_path = "assets/sprites/enemies/ss.png";
+    }
+    else
+    {
+        sprite_texture_path = "assets/sprites/unknown.png";
+    }
+
+    if (!initSpriteTexture(&sprite_texture, sprite_texture_path, 64, 64, 1))
+    {
+        return;
+    }
+    initSprite(type, &sprite, sprite_texture, 1.0, 1.0, x + 0.5, y + 0.5, 0);
+    m_enemies.push_back(sprite);
+}
+
+void Game::addKey(const std::string& type, int x, int y)
+{
+    Texture sprite_texture;
+    Sprite sprite;
+    std::string sprite_texture_path = "";
+
+    if(type == "Silver")
+    {
+        sprite_texture_path = "assets/sprites/items/key_silver.png";
+    }
+    else if(type == "Gold")
+    {
+        sprite_texture_path = "assets/sprites/enemies/key_gold.png";
     }
     else
     {

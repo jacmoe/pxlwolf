@@ -102,6 +102,7 @@ private:
 
     std::vector<Sprite> m_sprites;
     std::vector<Sprite> m_enemies;
+    std::vector<Sprite> m_keys;
     int m_sprites_rendered;
 
     void setupCameraVectors();
@@ -111,6 +112,7 @@ private:
     void addStatic(const std::string& type, int x, int y);
     void addPickup(const std::string& type, int x, int y);
     void addEnemy(const std::string& type, int x, int y);
+    void addKey(const std::string& type, int x, int y);
 
     bool initSpriteTexture(Texture* texture, const std::string& path, int tile_width, int tile_height, int num_tiles);
     void initSprite(const std::string& type_name, Sprite* newSprite, Texture texture, double scaleFactor, double alphaNum, double x, double y, double h);
