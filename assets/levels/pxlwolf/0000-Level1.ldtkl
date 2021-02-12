@@ -940,6 +940,116 @@
 						"id": "V_String",
 						"params": ["Ceil_Green"]
 					}]
+				}] },
+				{ "__identifier": "Enemy", "__grid": [32,30], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [520,488], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Guard"],
+					"__type": "Array<LocalEnum.Enemies>",
+					"defUid": 28,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Guard"]
+					}]
+				}] },
+				{ "__identifier": "Enemy", "__grid": [53,43], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [856,696], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Guard"],
+					"__type": "Array<LocalEnum.Enemies>",
+					"defUid": 28,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Guard"]
+					}]
+				}] },
+				{ "__identifier": "Enemy", "__grid": [60,43], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [968,696], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Dog"],
+					"__type": "Array<LocalEnum.Enemies>",
+					"defUid": 28,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Dog"]
+					}]
+				}] },
+				{ "__identifier": "Enemy", "__grid": [34,21], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [552,344], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Guard"],
+					"__type": "Array<LocalEnum.Enemies>",
+					"defUid": 28,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Guard"]
+					}]
+				}] },
+				{ "__identifier": "Enemy", "__grid": [36,8], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [584,136], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Guard"],
+					"__type": "Array<LocalEnum.Enemies>",
+					"defUid": 28,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Guard"]
+					}]
+				}] },
+				{ "__identifier": "Enemy", "__grid": [25,16], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [408,264], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Guard"],
+					"__type": "Array<LocalEnum.Enemies>",
+					"defUid": 28,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Guard"]
+					}]
+				}] },
+				{ "__identifier": "Enemy", "__grid": [11,16], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [184,264], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Guard"],
+					"__type": "Array<LocalEnum.Enemies>",
+					"defUid": 28,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Guard"]
+					}]
+				}] },
+				{ "__identifier": "Enemy", "__grid": [11,25], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [184,408], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Guard"],
+					"__type": "Array<LocalEnum.Enemies>",
+					"defUid": 28,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Guard"]
+					}]
+				}] },
+				{ "__identifier": "Enemy", "__grid": [26,46], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [424,744], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Guard"],
+					"__type": "Array<LocalEnum.Enemies>",
+					"defUid": 28,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Guard"]
+					}]
+				}] },
+				{ "__identifier": "Enemy", "__grid": [11,41], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [184,664], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Guard"],
+					"__type": "Array<LocalEnum.Enemies>",
+					"defUid": 28,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Guard"]
+					}]
+				}] },
+				{ "__identifier": "Enemy", "__grid": [60,30], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [968,488], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Guard"],
+					"__type": "Array<LocalEnum.Enemies>",
+					"defUid": 28,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Guard"]
+					}]
 				}] }
 			]
 		},

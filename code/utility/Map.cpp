@@ -220,6 +220,22 @@ namespace utility
                         m_map_pickups.push_back(item);
                         // SPDLOG_INFO("Added item of type '{}' to the map at position ({},{})", item.type, item.map_x, item.map_y);
                     }
+                    if(identifier == "Enemy")
+                    {
+                        MapItem item;
+                        item.map_x = (*itr)["__grid"].GetArray()[0].GetFloat() + 0.5f;
+                        item.map_y = (*itr)["__grid"].GetArray()[1].GetFloat() + 0.5f;
+                        if((*itr)["fieldInstances"].GetArray()[0]["__value"].IsArray())
+                        {
+                            item.type = (*itr)["fieldInstances"].GetArray()[0]["__value"].GetArray()[0].GetString();
+                        }
+                        else
+                        {
+                            item.type = "unknown";
+                        }
+                        m_map_enemies.push_back(item);
+                        SPDLOG_INFO("Added item of type '{}' to the map at position ({},{})", item.type, item.map_x, item.map_y);
+                    }
                 }
             } // if layer type is Entities
             if(layer_type == "IntGrid")

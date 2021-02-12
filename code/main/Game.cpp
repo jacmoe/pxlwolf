@@ -174,6 +174,15 @@ bool Game::OnUserUpdate(double deltaTime)
                 draw3DSprite("pixelbuffer", &m_camera, m_width, m_height, 1.0, sprite);
             }
         }
+        for(const auto& enemy: m_enemies)
+        {
+            // if the sprite is in one of the visited tiles
+            if((static_cast<int>(enemy.x) == x) && (static_cast<int>(enemy.y) == y))
+            {
+                // draw the sprite
+                draw3DSprite("pixelbuffer", &m_camera, m_width, m_height, 1.0, enemy);
+            }
+        }
     }
 
     m_raycaster.renderBuffer();
@@ -328,6 +337,7 @@ void Game::loadSprites()
 
     std::vector<utility::MapItem> map_statics = map->statics();
     std::vector<utility::MapItem> map_pickups = map->pickups();
+    std::vector<utility::MapItem> map_enemies = map->enemies();
 
     for(const auto& static_item: map_statics)
     {
@@ -336,6 +346,10 @@ void Game::loadSprites()
     for(const auto& pickup: map_pickups)
     {
         addPickup(pickup.type, pickup.map_x, pickup.map_y);
+    }
+    for(const auto& enemy: map_enemies)
+    {
+        addEnemy(enemy.type, enemy.map_x, enemy.map_y);
     }
 }
 
@@ -559,4 +573,43 @@ void Game::addPickup(const std::string& type, int x, int y)
     }
     initSprite(type, &sprite, sprite_texture, 1.0, 1.0, x + 0.5, y + 0.5, 0);
     m_sprites.push_back(sprite);
+}
+
+void Game::addEnemy(const std::string& type, int x, int y)
+{
+    Texture sprite_texture;
+    Sprite sprite;
+    std::string sprite_texture_path = "";
+
+    // { "id": "Guard", "tileId": null, "__tileSrcRect": null },
+    if(type == "Guard")
+    {
+        sprite_texture_path = "assets/sprites/enemies/guard.png";
+    }
+    // { "id": "Dog", "tileId": null, "__tileSrcRect": null },
+    else if(type == "Dog")
+    {
+        sprite_texture_path = "assets/sprites/enemies/dog.png";
+    }
+    // { "id": "Officer", "tileId": null, "__tileSrcRect": null },
+    else if(type == "Officer")
+    {
+        sprite_texture_path = "assets/sprites/enemies/officer.png";
+    }
+    // { "id": "SS", "tileId": null, "__tileSrcRect": null }
+    else if(type == "SS")
+    {
+        sprite_texture_path = "assets/sprites/enemies/ss.png";
+    }
+    else
+    {
+        sprite_texture_path = "assets/sprites/unknown.png";
+    }
+
+    if (!initSpriteTexture(&sprite_texture, sprite_texture_path, 64, 64, 1))
+    {
+        return;
+    }
+    initSprite(type, &sprite, sprite_texture, 1.0, 1.0, x + 0.5, y + 0.5, 0);
+    m_enemies.push_back(sprite);
 }

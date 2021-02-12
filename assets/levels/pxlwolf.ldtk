@@ -14,7 +14,7 @@
 	"defaultGridSize": 64,
 	"bgColor": "#7F8093",
 	"defaultLevelBgColor": "#7F8093",
-	"nextUid": 26,
+	"nextUid": 29,
 	"minifyJson": false,
 	"externalLevels": true,
 	"exportTiled": false,
@@ -293,6 +293,42 @@
 						"defaultOverride": null
 					}
 				]
+			},
+			{
+				"identifier": "Enemy",
+				"uid": 27,
+				"width": 16,
+				"height": 16,
+				"color": "#BA0C7F",
+				"renderMode": "Ellipse",
+				"showName": true,
+				"tilesetId": null,
+				"tileId": null,
+				"tileRenderMode": "Stretch",
+				"maxPerLevel": 0,
+				"limitBehavior": "DiscardOldOnes",
+				"pivotX": 0.5,
+				"pivotY": 0.5,
+				"fieldDefs": [
+					{
+						"identifier": "type",
+						"__type": "Array<LocalEnum.Enemies>",
+						"uid": 28,
+						"type": { "id": "F_Enum", "params": [26] },
+						"isArray": true,
+						"canBeNull": false,
+						"arrayMinLength": null,
+						"arrayMaxLength": null,
+						"editorDisplayMode": "Hidden",
+						"editorDisplayPos": "Above",
+						"editorAlwaysShow": false,
+						"min": null,
+						"max": null,
+						"regex": null,
+						"acceptFileTypes": null,
+						"defaultOverride": null
+					}
+				]
 			}
 		],
 		"tilesets": [],
@@ -307,7 +343,9 @@
 				{ "id": "Gold_Cross", "tileId": null, "__tileSrcRect": null },
 				{ "id": "Gold_Goblet", "tileId": null, "__tileSrcRect": null },
 				{ "id": "Gold_Casket", "tileId": null, "__tileSrcRect": null },
-				{ "id": "Gold_Crown", "tileId": null, "__tileSrcRect": null }
+				{ "id": "Gold_Crown", "tileId": null, "__tileSrcRect": null },
+				{ "id": "Gold_Key", "tileId": null, "__tileSrcRect": null },
+				{ "id": "Silver_Key", "tileId": null, "__tileSrcRect": null }
 			], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null },
 			{ "identifier": "Static", "uid": 21, "values": [
 				{ "id": "Planter", "tileId": null, "__tileSrcRect": null },
@@ -336,6 +374,12 @@
 				{ "id": "Bloody_Bones", "tileId": null, "__tileSrcRect": null },
 				{ "id": "Armor", "tileId": null, "__tileSrcRect": null },
 				{ "id": "Pillar", "tileId": null, "__tileSrcRect": null }
+			], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null },
+			{ "identifier": "Enemies", "uid": 26, "values": [
+				{ "id": "Guard", "tileId": null, "__tileSrcRect": null },
+				{ "id": "Dog", "tileId": null, "__tileSrcRect": null },
+				{ "id": "Officer", "tileId": null, "__tileSrcRect": null },
+				{ "id": "SS", "tileId": null, "__tileSrcRect": null }
 			], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null }
 		],
 		"externalEnums": []
