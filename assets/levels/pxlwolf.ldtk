@@ -14,7 +14,7 @@
 	"defaultGridSize": 64,
 	"bgColor": "#7F8093",
 	"defaultLevelBgColor": "#7F8093",
-	"nextUid": 29,
+	"nextUid": 32,
 	"minifyJson": false,
 	"externalLevels": true,
 	"exportTiled": false,
@@ -329,6 +329,42 @@
 						"defaultOverride": null
 					}
 				]
+			},
+			{
+				"identifier": "Key",
+				"uid": 29,
+				"width": 16,
+				"height": 16,
+				"color": "#CFC603",
+				"renderMode": "Rectangle",
+				"showName": true,
+				"tilesetId": null,
+				"tileId": null,
+				"tileRenderMode": "Stretch",
+				"maxPerLevel": 0,
+				"limitBehavior": "DiscardOldOnes",
+				"pivotX": 0.5,
+				"pivotY": 0.5,
+				"fieldDefs": [
+					{
+						"identifier": "type",
+						"__type": "Array<LocalEnum.Keys>",
+						"uid": 31,
+						"type": { "id": "F_Enum", "params": [30] },
+						"isArray": true,
+						"canBeNull": false,
+						"arrayMinLength": null,
+						"arrayMaxLength": null,
+						"editorDisplayMode": "Hidden",
+						"editorDisplayPos": "Above",
+						"editorAlwaysShow": false,
+						"min": null,
+						"max": null,
+						"regex": null,
+						"acceptFileTypes": null,
+						"defaultOverride": null
+					}
+				]
 			}
 		],
 		"tilesets": [],
@@ -380,7 +416,8 @@
 				{ "id": "Dog", "tileId": null, "__tileSrcRect": null },
 				{ "id": "Officer", "tileId": null, "__tileSrcRect": null },
 				{ "id": "SS", "tileId": null, "__tileSrcRect": null }
-			], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null }
+			], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null },
+			{ "identifier": "Keys", "uid": 30, "values": [ { "id": "Gold", "tileId": null, "__tileSrcRect": null }, { "id": "Silver", "tileId": null, "__tileSrcRect": null } ], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null }
 		],
 		"externalEnums": []
 	},

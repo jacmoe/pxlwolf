@@ -2480,6 +2480,646 @@
 						"id": "V_String",
 						"params": ["Ceil_Green"]
 					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [36,33], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [584,536], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Ammo"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Ammo"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [48,35], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [776,568], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Goblet"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Goblet"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [49,35], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [792,568], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Goblet"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Goblet"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [47,32], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [760,520], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Goblet"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Goblet"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [48,32], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [776,520], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Goblet"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Goblet"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [49,30], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [792,488], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Goblet"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Goblet"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [50,31], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [808,504], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Goblet"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Goblet"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [58,35], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [936,568], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Goblet"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Goblet"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [62,32], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [1000,520], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Casket"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Casket"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [62,31], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [1000,504], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Casket"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Casket"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [61,31], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [984,504], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Casket"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Casket"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [53,12], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [856,200], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Ammo"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Ammo"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [55,12], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [888,200], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Health"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Health"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [42,15], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [680,248], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Goblet"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Goblet"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [42,11], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [680,184], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Casket"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Casket"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [41,13], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [664,216], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Casket"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Casket"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [40,11], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [648,184], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Casket"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Casket"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [39,11], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [632,184], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Casket"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Casket"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [37,13], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [600,216], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Cross"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Cross"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [36,12], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [584,200], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Cross"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Cross"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [36,13], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [584,216], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Cross"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Cross"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [37,11], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [600,184], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Cross"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Cross"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [36,14], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [584,232], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Goblet"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Goblet"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [27,3], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [440,56], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Goblet"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Goblet"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [27,4], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [440,72], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Goblet"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Goblet"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [26,5], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [424,88], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Cross"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Cross"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [26,1], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [424,24], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Cross"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Cross"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [27,2], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [440,40], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Casket"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Casket"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [25,1], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [408,24], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Casket"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Casket"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [51,1], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [824,24], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Goblet"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Goblet"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [54,1], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [872,24], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Goblet"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Goblet"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [55,1], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [888,24], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Goblet"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Goblet"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [56,1], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [904,24], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Goblet"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Goblet"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [57,1], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [920,24], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Goblet"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Goblet"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [58,1], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [936,24], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Goblet"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Goblet"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [58,2], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [936,40], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Goblet"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Goblet"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [57,2], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [920,40], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Goblet"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Goblet"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [56,2], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [904,40], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Goblet"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Goblet"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [61,1], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [984,24], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Ammo"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Ammo"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [62,3], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [1000,56], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Goblet"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Goblet"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [58,4], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [936,72], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Casket"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Casket"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [57,4], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [920,72], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Casket"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Casket"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [57,9], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [920,152], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Cross"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Cross"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [56,9], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [904,152], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Cross"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Cross"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [55,9], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [888,152], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Cross"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Cross"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [54,8], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [872,136], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Casket"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Casket"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [56,8], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [904,136], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Cross"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Cross"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [59,9], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [952,152], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Health"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Health"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [61,9], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [984,152], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Ammo"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Ammo"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [62,9], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [1000,152], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Goblet"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Goblet"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [61,7], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [984,120], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Casket"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Casket"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [11,39], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [184,632], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Goblet"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Goblet"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [10,38], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [168,616], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Goblet"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Goblet"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [33,35], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [536,568], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Meal"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Meal"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [32,35], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [520,568], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Meal"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Meal"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [33,34], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [536,552], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Meal"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Meal"]
+					}]
+				}] },
+				{ "__identifier": "Key", "__grid": [22,34], "__pivot": [0.5,0.5], "__tile": null, "defUid": 29, "px": [360,552], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Silver"],
+					"__type": "Array<LocalEnum.Keys>",
+					"defUid": 31,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Silver"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [10,15], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [168,248], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Meal"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Meal"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [9,14], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [152,232], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Meal"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Meal"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [8,14], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [136,232], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Meal"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Meal"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [11,14], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [184,232], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Ammo"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Ammo"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [4,15], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [72,248], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Meal"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Meal"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [4,14], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [72,232], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Meal"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Meal"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [3,15], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [56,248], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Ammo"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Ammo"]
+					}]
 				}] }
 			]
 		},

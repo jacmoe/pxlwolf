@@ -52,6 +52,7 @@ namespace utility
         inline const std::vector<MapItem>& statics() { return m_map_statics; }
         inline const std::vector<MapItem>& pickups() { return m_map_pickups; }
         inline const std::vector<MapItem>& enemies() { return m_map_enemies; }
+        inline const std::vector<MapItem>& keys() { return m_map_keys; }
         inline const bool initialized() { return m_initialized; }
         inline const bool loaded() { return m_loaded; }
 
@@ -71,6 +72,7 @@ namespace utility
         std::vector<MapItem> m_map_statics;
         std::vector<MapItem> m_map_pickups;
         std::vector<MapItem> m_map_enemies;
+        std::vector<MapItem> m_map_keys;
         std::unordered_map<std::string, std::string> m_level_map;
         int m_map_width;
         int m_map_height;
