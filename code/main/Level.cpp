@@ -99,6 +99,8 @@ enum EntityCategory Level::getEntityCategory(enum EntityType type)
         case EntityType::tree:
         case EntityType::sink:
         case EntityType::skel_hang:
+        case EntityType::cage:
+        case EntityType::cage_skel:
         case EntityType::pots_pans:
         case EntityType::bloody_bones:
         case EntityType::armor:
