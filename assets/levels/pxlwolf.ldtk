@@ -409,7 +409,9 @@
 				{ "id": "Pots_Pans", "tileId": null, "__tileSrcRect": null },
 				{ "id": "Bloody_Bones", "tileId": null, "__tileSrcRect": null },
 				{ "id": "Armor", "tileId": null, "__tileSrcRect": null },
-				{ "id": "Pillar", "tileId": null, "__tileSrcRect": null }
+				{ "id": "Pillar", "tileId": null, "__tileSrcRect": null },
+				{ "id": "Cage", "tileId": null, "__tileSrcRect": null },
+				{ "id": "Cage_Skel", "tileId": null, "__tileSrcRect": null }
 			], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null },
 			{ "identifier": "Enemies", "uid": 26, "values": [
 				{ "id": "Guard", "tileId": null, "__tileSrcRect": null },

@@ -780,6 +780,1726 @@
 						"id": "V_String",
 						"params": ["Ceil_Green"]
 					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [31,34], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [504,552], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Ceil_Gold"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Ceil_Gold"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [29,32], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [472,520], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Table"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Table"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [29,36], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [472,584], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Table"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Table"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [33,36], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [536,584], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Table"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Table"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [33,32], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [536,520], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Table"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Table"]
+					}]
+				}] },
+				{ "__identifier": "Enemy", "__grid": [30,34], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [488,552], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Guard"],
+					"__type": "Array<LocalEnum.Enemies>",
+					"defUid": 28,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Guard"]
+					}]
+				}] },
+				{ "__identifier": "Enemy", "__grid": [31,43], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [504,696], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Guard"],
+					"__type": "Array<LocalEnum.Enemies>",
+					"defUid": 28,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Guard"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [31,42], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [504,680], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Ceil_Gold"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Ceil_Gold"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [29,40], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [472,648], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Pillar"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Pillar"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [33,40], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [536,648], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Pillar"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Pillar"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [33,44], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [536,712], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Pillar"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Pillar"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [29,44], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [472,712], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Pillar"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Pillar"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [31,50], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [504,808], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Ceil_Gold"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Ceil_Gold"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [28,53], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [456,856], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Green_Barrel"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Green_Barrel"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [30,52], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [488,840], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Cloth"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Cloth"]
+					}]
+				}] },
+				{ "__identifier": "Enemy", "__grid": [29,51], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [472,824], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Guard"],
+					"__type": "Array<LocalEnum.Enemies>",
+					"defUid": 28,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Guard"]
+					}]
+				}] },
+				{ "__identifier": "Enemy", "__grid": [24,47], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [392,760], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Guard"],
+					"__type": "Array<LocalEnum.Enemies>",
+					"defUid": 28,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Guard"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [22,50], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [360,808], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Ceil_Gold"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Ceil_Gold"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [19,47], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [312,760], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Green_Barrel"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Green_Barrel"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [19,48], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [312,776], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Green_Barrel"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Green_Barrel"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [19,49], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [312,792], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Green_Barrel"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Green_Barrel"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [20,47], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [328,760], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Green_Barrel"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Green_Barrel"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [20,48], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [328,776], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Green_Barrel"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Green_Barrel"]
+					}]
+				}] },
+				{ "__identifier": "Enemy", "__grid": [14,52], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [232,840], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Guard"],
+					"__type": "Array<LocalEnum.Enemies>",
+					"defUid": 28,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Guard"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [14,50], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [232,808], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Ceil_Gold"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Ceil_Gold"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [11,52], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [184,840], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Green_Barrel"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Green_Barrel"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [12,48], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [200,776], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Cloth"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Cloth"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [17,49], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [280,792], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Wooden_Barrel"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Wooden_Barrel"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [17,48], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [280,776], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Wooden_Barrel"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Wooden_Barrel"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [16,48], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [264,776], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Wooden_Barrel"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Wooden_Barrel"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [17,47], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [280,760], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Meal"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Meal"]
+					}]
+				}] },
+				{ "__identifier": "Enemy", "__grid": [6,48], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [104,776], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Guard"],
+					"__type": "Array<LocalEnum.Enemies>",
+					"defUid": 28,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Guard"]
+					}]
+				}] },
+				{ "__identifier": "Enemy", "__grid": [6,52], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [104,840], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Guard"],
+					"__type": "Array<LocalEnum.Enemies>",
+					"defUid": 28,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Guard"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [6,50], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [104,808], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Ceil_Gold"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Ceil_Gold"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [4,52], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [72,840], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Green_Barrel"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Green_Barrel"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [5,48], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [88,776], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Cage_Skel"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Cage_Skel"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [8,48], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [136,776], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Cage"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Cage"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [9,56], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [152,904], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Health"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Health"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [7,57], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [120,920], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Ammo"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Ammo"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [4,57], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [72,920], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Ammo"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Ammo"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [9,60], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [152,968], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Ammo"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Ammo"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [8,60], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [136,968], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Ammo"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Ammo"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [7,60], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [120,968], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Ammo"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Ammo"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [7,62], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [120,1000], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Chaingun"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Chaingun"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [8,62], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [136,1000], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Health"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Health"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [9,62], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [152,1000], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Health"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Health"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [3,62], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [56,1000], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Health"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Health"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [1,19], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [24,312], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Health"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Health"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [14,42], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [232,680], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Ceil_Gold"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Ceil_Gold"]
+					}]
+				}] },
+				{ "__identifier": "Enemy", "__grid": [16,44], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [264,712], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Guard"],
+					"__type": "Array<LocalEnum.Enemies>",
+					"defUid": 28,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Guard"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [17,44], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [280,712], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Well_Dry"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Well_Dry"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [17,40], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [280,648], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Well_Water"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Well_Water"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [11,39], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [184,632], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Wooden_Barrel"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Wooden_Barrel"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [11,40], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [184,648], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Wooden_Barrel"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Wooden_Barrel"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [12,39], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [200,632], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Wooden_Barrel"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Wooden_Barrel"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [9,45], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [152,728], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Armor"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Armor"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [7,45], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [120,728], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Armor"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Armor"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [5,45], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [88,728], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Armor"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Armor"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [4,44], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [72,712], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Armor"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Armor"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [4,42], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [72,680], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Armor"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Armor"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [4,40], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [72,648], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Armor"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Armor"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [6,42], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [104,680], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Ceil_Gold"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Ceil_Gold"]
+					}]
+				}] },
+				{ "__identifier": "Enemy", "__grid": [5,33], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [88,536], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Dog"],
+					"__type": "Array<LocalEnum.Enemies>",
+					"defUid": 28,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Dog"]
+					}]
+				}] },
+				{ "__identifier": "Enemy", "__grid": [9,33], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [152,536], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Dog"],
+					"__type": "Array<LocalEnum.Enemies>",
+					"defUid": 28,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Dog"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [6,34], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [104,552], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Ceil_Gold"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Ceil_Gold"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [6,26], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [104,424], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Ceil_Gold"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Ceil_Gold"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [5,28], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [88,456], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Pillar"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Pillar"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [5,26], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [88,424], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Pillar"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Pillar"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [5,24], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [88,392], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Pillar"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Pillar"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [7,24], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [120,392], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Pillar"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Pillar"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [9,24], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [152,392], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Pillar"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Pillar"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [18,28], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [296,456], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Urn"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Urn"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [12,28], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [200,456], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Urn"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Urn"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [12,24], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [200,392], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Urn"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Urn"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [18,24], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [296,392], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Urn"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Urn"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [15,24], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [248,392], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Urn"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Urn"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [15,28], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [248,456], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Urn"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Urn"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [15,26], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [248,424], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Ceil_Gold"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Ceil_Gold"]
+					}]
+				}] },
+				{ "__identifier": "Enemy", "__grid": [25,24], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [408,392], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Guard"],
+					"__type": "Array<LocalEnum.Enemies>",
+					"defUid": 28,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Guard"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [23,26], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [376,424], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Ceil_Gold"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Ceil_Gold"]
+					}]
+				}] },
+				{ "__identifier": "Enemy", "__grid": [32,28], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [520,456], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Guard"],
+					"__type": "Array<LocalEnum.Enemies>",
+					"defUid": 28,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Guard"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [31,26], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [504,424], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Ceil_Gold"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Ceil_Gold"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [33,28], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [536,456], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Tree"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Tree"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [33,24], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [536,392], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Tree"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Tree"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [29,28], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [472,456], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Tree"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Tree"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [29,24], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [472,392], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Tree"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Tree"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [34,27], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [552,440], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Cross"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Cross"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [34,26], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [552,424], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Cross"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Cross"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [33,25], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [536,408], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Meal"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Meal"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [33,23], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [536,376], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Casket"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Casket"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [32,23], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [520,376], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Casket"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Casket"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [31,23], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [504,376], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Meal"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Meal"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [31,24], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [504,392], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Casket"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Casket"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [30,24], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [488,392], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Casket"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Casket"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [29,23], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [472,376], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Cross"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Cross"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [30,23], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [488,376], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Cross"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Cross"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [31,27], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [504,440], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Goblet"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Goblet"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [30,27], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [488,440], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Goblet"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Goblet"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [30,28], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [488,456], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Goblet"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Goblet"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [29,29], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [472,472], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Goblet"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Goblet"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [31,29], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [504,472], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Meal"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Meal"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [31,58], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [504,936], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Ceil_Gold"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Ceil_Gold"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [29,60], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [472,968], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Table_Small"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Table_Small"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [29,56], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [472,904], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Table_Small"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Table_Small"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [33,56], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [536,904], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Table_Small"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Table_Small"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [33,60], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [536,968], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Table_Small"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Table_Small"]
+					}]
+				}] },
+				{ "__identifier": "Enemy", "__grid": [29,57], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [472,920], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Guard"],
+					"__type": "Array<LocalEnum.Enemies>",
+					"defUid": 28,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Guard"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [30,56], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [488,904], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Skel_Remain"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Skel_Remain"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [29,61], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [472,984], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Meal"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Meal"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [28,61], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [456,984], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Meal"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Meal"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [28,60], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [456,968], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Meal"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Meal"]
+					}]
+				}] },
+				{ "__identifier": "Enemy", "__grid": [47,56], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [760,904], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Guard"],
+					"__type": "Array<LocalEnum.Enemies>",
+					"defUid": 28,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Guard"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [45,58], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [728,936], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Ceil_Green"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Ceil_Green"]
+					}]
+				}] },
+				{ "__identifier": "Enemy", "__grid": [53,52], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [856,840], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Guard"],
+					"__type": "Array<LocalEnum.Enemies>",
+					"defUid": 28,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Guard"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [41,51], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [664,824], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Ceil_Green"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Ceil_Green"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [53,51], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [856,824], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Ceil_Green"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Ceil_Green"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [53,61], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [856,984], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Ceil_Green"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Ceil_Green"]
+					}]
+				}] },
+				{ "__identifier": "Enemy", "__grid": [61,60], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [984,968], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Guard"],
+					"__type": "Array<LocalEnum.Enemies>",
+					"defUid": 28,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Guard"]
+					}]
+				}] },
+				{ "__identifier": "Enemy", "__grid": [61,36], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [984,584], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Guard"],
+					"__type": "Array<LocalEnum.Enemies>",
+					"defUid": 28,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Guard"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [61,35], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [984,568], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Ceil_Green"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Ceil_Green"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [61,61], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [984,984], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Ceil_Green"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Ceil_Green"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [57,61], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [920,984], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Ceil_Green"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Ceil_Green"]
+					}]
+				}] },
+				{ "__identifier": "Enemy", "__grid": [57,31], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [920,504], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Guard"],
+					"__type": "Array<LocalEnum.Enemies>",
+					"defUid": 28,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Guard"]
+					}]
+				}] },
+				{ "__identifier": "Enemy", "__grid": [41,27], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [664,440], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Guard"],
+					"__type": "Array<LocalEnum.Enemies>",
+					"defUid": 28,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Guard"]
+					}]
+				}] },
+				{ "__identifier": "Enemy", "__grid": [50,25], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [808,408], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Guard"],
+					"__type": "Array<LocalEnum.Enemies>",
+					"defUid": 28,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Guard"]
+					}]
+				}] },
+				{ "__identifier": "Enemy", "__grid": [54,24], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [872,392], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["SS"],
+					"__type": "Array<LocalEnum.Enemies>",
+					"defUid": 28,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["SS"]
+					}]
+				}] },
+				{ "__identifier": "Enemy", "__grid": [53,25], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [856,408], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Guard"],
+					"__type": "Array<LocalEnum.Enemies>",
+					"defUid": 28,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Guard"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [45,27], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [728,440], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Table"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Table"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [45,25], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [728,408], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Table"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Table"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [48,25], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [776,408], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Table"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Table"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [48,27], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [776,440], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Table"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Table"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [44,27], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [712,440], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Goblet"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Goblet"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [47,24], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [760,392], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Health"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Health"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [46,24], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [744,392], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Casket"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Casket"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [50,27], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [808,440], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Goblet"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Goblet"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [49,24], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [792,392], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Goblet"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Goblet"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [52,25], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [840,408], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Cross"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Cross"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [52,24], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [840,392], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Cross"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Cross"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [53,24], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [856,392], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Cross"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Cross"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [58,24], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [936,392], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Ammo"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Ammo"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [58,25], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [936,408], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Ammo"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Ammo"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [57,24], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [920,392], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Ammo"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Ammo"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [55,24], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [888,392], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Casket"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Casket"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [56,24], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [904,392], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Casket"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Casket"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [57,27], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [920,440], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Table"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Table"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [57,25], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [920,408], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Table"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Table"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [54,25], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [872,408], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Table"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Table"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [54,27], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [872,440], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Table"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Table"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [41,45], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [664,728], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Ceil_Green"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Ceil_Green"]
+					}]
+				}] },
+				{ "__identifier": "Enemy", "__grid": [41,44], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [664,712], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Guard"],
+					"__type": "Array<LocalEnum.Enemies>",
+					"defUid": 28,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Guard"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [41,35], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [664,568], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Ceil_Green"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Ceil_Green"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [49,35], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [792,568], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Ceil_Green"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Ceil_Green"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [57,35], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [920,568], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Ceil_Green"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Ceil_Green"]
+					}]
+				}] },
+				{ "__identifier": "Enemy", "__grid": [57,38], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [920,616], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Guard"],
+					"__type": "Array<LocalEnum.Enemies>",
+					"defUid": 28,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Guard"]
+					}]
+				}] },
+				{ "__identifier": "Enemy", "__grid": [45,39], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [728,632], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Guard"],
+					"__type": "Array<LocalEnum.Enemies>",
+					"defUid": 28,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Guard"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [57,43], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [920,696], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Ceil_Green"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Ceil_Green"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [49,43], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [792,696], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Ceil_Green"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Ceil_Green"]
+					}]
+				}] },
+				{ "__identifier": "Static", "__grid": [53,39], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [856,632], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Ceil_Green"],
+					"__type": "Array<LocalEnum.Static>",
+					"defUid": 24,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Ceil_Green"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [52,38], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [840,616], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Goblet"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Goblet"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [54,38], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [872,616], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Goblet"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Goblet"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [14,19], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [232,312], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Casket"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Casket"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [13,19], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [216,312], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Goblet"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Goblet"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [12,19], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [200,312], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Goblet"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Goblet"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [11,19], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [184,312], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Goblet"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Goblet"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [9,19], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [152,312], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Cross"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Cross"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [10,19], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [168,312], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Casket"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Casket"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [14,20], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [232,328], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Goblet"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Goblet"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [13,20], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [216,328], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Cross"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Cross"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [12,20], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [200,328], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Cross"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Cross"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [11,20], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [184,328], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Goblet"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Goblet"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [10,20], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [168,328], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Cross"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Cross"]
+					}]
+				}] },
+				{ "__identifier": "Pickup", "__grid": [9,20], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [152,328], "fieldInstances": [{
+					"__identifier": "type",
+					"__value": ["Gold_Goblet"],
+					"__type": "Array<LocalEnum.Items>",
+					"defUid": 25,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Gold_Goblet"]
+					}]
 				}] }
 			]
 		},
@@ -1719,6 +3439,7 @@
 				{ "coordId": 2496, "v": 17 },
 				{ "coordId": 2498, "v": 17 },
 				{ "coordId": 2499, "v": 1 },
+				{ "coordId": 2500, "v": 0 },
 				{ "coordId": 2506, "v": 1 },
 				{ "coordId": 2514, "v": 1 },
 				{ "coordId": 2523, "v": 1 },
@@ -1745,6 +3466,7 @@
 				{ "coordId": 2624, "v": 17 },
 				{ "coordId": 2626, "v": 17 },
 				{ "coordId": 2627, "v": 1 },
+				{ "coordId": 2628, "v": 0 },
 				{ "coordId": 2634, "v": 1 },
 				{ "coordId": 2642, "v": 1 },
 				{ "coordId": 2651, "v": 1 },
@@ -1780,6 +3502,7 @@
 				{ "coordId": 2752, "v": 17 },
 				{ "coordId": 2754, "v": 17 },
 				{ "coordId": 2755, "v": 1 },
+				{ "coordId": 2756, "v": 0 },
 				{ "coordId": 2762, "v": 1 },
 				{ "coordId": 2770, "v": 1 },
 				{ "coordId": 2779, "v": 1 },
@@ -1811,7 +3534,6 @@
 				{ "coordId": 2884, "v": 1 },
 				{ "coordId": 2886, "v": 1 },
 				{ "coordId": 2888, "v": 1 },
-				{ "coordId": 2889, "v": 1 },
 				{ "coordId": 2890, "v": 1 },
 				{ "coordId": 2898, "v": 1 },
 				{ "coordId": 2907, "v": 1 },
@@ -2060,11 +3782,11 @@
 				{ "coordId": 3712, "v": 17 },
 				{ "coordId": 3714, "v": 17 },
 				{ "coordId": 3715, "v": 1 },
+				{ "coordId": 3716, "v": 0 },
 				{ "coordId": 3717, "v": 1 },
 				{ "coordId": 3718, "v": 1 },
 				{ "coordId": 3719, "v": 1 },
 				{ "coordId": 3720, "v": 1 },
-				{ "coordId": 3721, "v": 1 },
 				{ "coordId": 3722, "v": 1 },
 				{ "coordId": 3739, "v": 1 },
 				{ "coordId": 3767, "v": 1 },
@@ -2073,8 +3795,8 @@
 				{ "coordId": 3776, "v": 17 },
 				{ "coordId": 3778, "v": 17 },
 				{ "coordId": 3779, "v": 1 },
+				{ "coordId": 3780, "v": 0 },
 				{ "coordId": 3781, "v": 1 },
-				{ "coordId": 3782, "v": 1 },
 				{ "coordId": 3786, "v": 1 },
 				{ "coordId": 3803, "v": 1 },
 				{ "coordId": 3811, "v": 1 },
@@ -2088,7 +3810,6 @@
 				{ "coordId": 3839, "v": 1 },
 				{ "coordId": 3840, "v": 17 },
 				{ "coordId": 3845, "v": 1 },
-				{ "coordId": 3846, "v": 1 },
 				{ "coordId": 3850, "v": 1 },
 				{ "coordId": 3867, "v": 1 },
 				{ "coordId": 3875, "v": 1 },
@@ -2105,10 +3826,8 @@
 				{ "coordId": 3905, "v": 17 },
 				{ "coordId": 3906, "v": 1 },
 				{ "coordId": 3907, "v": 1 },
-				{ "coordId": 3908, "v": 1 },
 				{ "coordId": 3909, "v": 1 },
-				{ "coordId": 3910, "v": 1 },
-				{ "coordId": 3911, "v": 1 },
+				{ "coordId": 3911, "v": 0 },
 				{ "coordId": 3912, "v": 1 },
 				{ "coordId": 3913, "v": 1 },
 				{ "coordId": 3914, "v": 1 },
