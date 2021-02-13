@@ -14,6 +14,8 @@
 #   MIT License
 #*/
 #include "Map.hpp"
+#include "Level.hpp"
+
 #include "rapidjson/filereadstream.h"
 #include "rapidjson/document.h"
 #include "rapidjson/istreamwrapper.h"

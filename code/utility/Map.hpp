@@ -21,7 +21,8 @@
 #include <unordered_map>
 #include "SDL.h"
 #include "linalg.h"
-#include "Level.hpp"
+
+enum class EntityType;
 
 namespace utility
 {
