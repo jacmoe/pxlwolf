@@ -159,7 +159,7 @@ EntityTextureMap m_entitytexture_map
         {EntityType::planter, "assets/sprites/static/planter.png"},
         {EntityType::table, "assets/sprites/static/table.png"},
         {EntityType::table_small, "assets/sprites/static/table_small.png"},
-        {EntityType::bowl, "assets/sprites/static/clay_pot.png"},
+        {EntityType::bowl, "assets/sprites/static/claypot.png"},
         {EntityType::urn, "assets/sprites/static/urn.png"},
         {EntityType::body, "assets/sprites/static/body.png"},
         {EntityType::barrel_wooden, "assets/sprites/static/barrel_wood.png"},
