@@ -69,6 +69,7 @@ private:
     std::vector<uint32_t> m_wall_ceil_pixels;
     
     std::set<uint32_t> m_visited;
+    std::set<uint32_t> m_global_visited;
 
     enum BufferLayer
     {

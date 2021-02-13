@@ -18,6 +18,7 @@
 #include "Game.hpp"
 #include "stb_image.h"
 #include "packer.hpp"
+#include "unpacker.hpp"
 
 RayCaster::RayCaster()
 {
@@ -121,9 +122,13 @@ void RayCaster::drawMinimap(const std::string& buffer_name, const Camera& camera
     {
         for(col = 0; col < map->width(); col++)
         {
+            uint8_t p_row = (uint8_t)row;
+            uint8_t p_col = (uint8_t)col;
+            uint32_t p_tile = utility::pack(p_col,p_row,1,1);
+
             blockRect.x = mapRect.x + col * blockSize;
             blockRect.y = mapRect.y + row * blockSize;
-            if(map->walls()[row * map->width() + col] > 0)
+            if( (map->walls()[row * map->width() + col] > 0) && ( m_global_visited.find(p_tile) != m_global_visited.end() ))
             {
                 uint32_t blockcolor = map->wall_element(map->walls()[row * map->width() + col]).color;
                 m_pixelator.get()->drawFilledRect(buffer_name, blockRect, blockcolor);
@@ -452,6 +457,8 @@ void RayCaster::raycastRender(Camera* camera, double resolution)
             uint32_t tilenum = utility::pack(theX,theY,1,1);
             // store it in the visited set
             m_visited.insert(tilenum);
+            // store it in the global visited set
+            m_global_visited.insert(tilenum);
 
             if ((coordX >= 0.0 && coordY >= 0.0) && (coordX < map->width() && coordY < map->height()) && (map->walls()[coordY * map->width() + coordX] != 0))
             {
