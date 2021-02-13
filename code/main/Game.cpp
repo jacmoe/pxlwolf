@@ -351,23 +351,23 @@ void Game::loadSprites()
 
     for(const auto& static_item: map_statics)
     {
-        addStatic(static_item.e_type, static_item.map_x, static_item.map_y);
+        addSprite(static_item.e_type, static_item.map_x, static_item.map_y);
     }
     for(const auto& pickup: map_pickups)
     {
-        addPickup(pickup.e_type, pickup.map_x, pickup.map_y);
+        addSprite(pickup.e_type, pickup.map_x, pickup.map_y);
     }
     for(const auto& enemy: map_enemies)
     {
-        addEnemy(enemy.e_type, enemy.map_x, enemy.map_y);
+        addSprite(enemy.e_type, enemy.map_x, enemy.map_y);
     }
     for(const auto& key: map_keys)
     {
-        addKey(key.e_type, key.map_x, key.map_y);
+        addSprite(key.e_type, key.map_x, key.map_y);
     }
 }
 
-void Game::addStatic(enum EntityType type, int x, int y)
+void Game::addSprite(enum EntityType type, int x, int y)
 {
     Texture sprite_texture;
     Sprite sprite;
@@ -382,59 +382,15 @@ void Game::addStatic(enum EntityType type, int x, int y)
         return;
     }
     initSprite(type, &sprite, sprite_texture, 1.0, 1.0, x + 0.5, y + 0.5, 0);
-    m_sprites.push_back(sprite);
-}
 
-void Game::addPickup(enum EntityType type, int x, int y)
-{
-    Texture sprite_texture;
-    Sprite sprite;
-    std::string sprite_texture_path = "";
-
-    Level level;
-
-    sprite_texture_path = level.getEntityTexture(type);
-
-    if (!initSpriteTexture(&sprite_texture, sprite_texture_path, 64, 64, 1))
+    switch(level.getEntityCategory(type))
     {
-        return;
-    }
-    initSprite(type, &sprite, sprite_texture, 1.0, 1.0, x + 0.5, y + 0.5, 0);
-    m_sprites.push_back(sprite);
-}
-
-void Game::addEnemy(enum EntityType type, int x, int y)
-{
-    Texture sprite_texture;
-    Sprite sprite;
-    std::string sprite_texture_path = "";
-
-    Level level;
-
-    sprite_texture_path = level.getEntityTexture(type);
-
-    if (!initSpriteTexture(&sprite_texture, sprite_texture_path, 64, 64, 1))
-    {
-        return;
-    }
-    initSprite(type, &sprite, sprite_texture, 1.0, 1.0, x + 0.5, y + 0.5, 0);
-    m_enemies.push_back(sprite);
-}
-
-void Game::addKey(enum EntityType type, int x, int y)
-{
-    Texture sprite_texture;
-    Sprite sprite;
-    std::string sprite_texture_path = "";
-
-    Level level;
-
-    sprite_texture_path = level.getEntityTexture(type);
-
-    if (!initSpriteTexture(&sprite_texture, sprite_texture_path, 64, 64, 1))
-    {
-        return;
-    }
-    initSprite(type, &sprite, sprite_texture, 1.0, 1.0, x + 0.5, y + 0.5, 0);
-    m_keys.push_back(sprite);
+        case EntityCategory::enemy:
+            m_enemies.push_back(sprite);
+            break;
+        case EntityCategory::key:
+            m_keys.push_back(sprite);
+        default:
+            m_sprites.push_back(sprite);
+    };
 }

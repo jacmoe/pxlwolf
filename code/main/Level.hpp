@@ -23,6 +23,15 @@
 
 class Entity;
 
+enum class EntityCategory
+{
+    none,
+    _static,
+    pickup,
+    enemy,
+    key
+};
+
 enum class EntityType
 {
     none,
@@ -88,6 +97,7 @@ public:
 
     EntityType getEntityType(std::string type);
     std::string getEntityTexture(enum EntityType type);
+    enum EntityCategory getEntityCategory(enum EntityType type);
 
 private:
 	entt::registry m_registry;
@@ -95,7 +105,7 @@ private:
     EntityMap m_entity_map
     {
         {"Unknown", EntityType::none},
-        // static
+        // _static
         {"Planter", EntityType::planter},
         {"Table", EntityType::table},
         {"Table_Small", EntityType::table_small},
@@ -132,8 +142,9 @@ private:
         {"Gold_Goblet", EntityType::gold_goblet},
         {"Gold_Casket", EntityType::gold_casket},
         {"Gold_Crown", EntityType::gold_crown},
-        {"Gold_Key", EntityType::gold_key},
-        {"Silver_Key", EntityType::silver_key},
+        // keys
+        {"Gold", EntityType::gold_key},
+        {"Silver", EntityType::silver_key},
         // enemies
         {"Guard", EntityType::guard},
         {"Dog", EntityType::dog},
@@ -144,7 +155,7 @@ private:
 EntityTextureMap m_entitytexture_map
 {
         {EntityType::none,  "assets/sprites/unknown.png"},
-        // static
+        // _static
         {EntityType::planter, "assets/sprites/static/planter.png"},
         {EntityType::table, "assets/sprites/static/table.png"},
         {EntityType::table_small, "assets/sprites/static/table_small.png"},

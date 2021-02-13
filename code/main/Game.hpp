@@ -110,10 +110,7 @@ private:
     void handle_input(double deltaTime);
 
     void loadSprites();
-    void addStatic(enum EntityType type, int x, int y);
-    void addPickup(enum EntityType type, int x, int y);
-    void addEnemy(enum EntityType type, int x, int y);
-    void addKey(enum EntityType type, int x, int y);
+    void addSprite(enum EntityType type, int x, int y);
 
     bool initSpriteTexture(Texture* texture, const std::string& path, int tile_width, int tile_height, int num_tiles);
     void initSprite(enum EntityType type, Sprite* newSprite, Texture texture, double scaleFactor, double alphaNum, double x, double y, double h);

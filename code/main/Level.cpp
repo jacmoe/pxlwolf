@@ -71,3 +71,67 @@ std::string Level::getEntityTexture(enum EntityType type)
     }
     return m_entitytexture_map[type];
 }
+
+enum EntityCategory Level::getEntityCategory(enum EntityType type)
+{
+    enum EntityCategory cat;
+    switch(type)
+    {
+        case EntityType::none:
+        case EntityType::planter:
+        case EntityType::table:
+        case EntityType::table_small:
+        case EntityType::bowl:
+        case EntityType::urn:
+        case EntityType::body:
+        case EntityType::barrel_wooden:
+        case EntityType::barrel_green:
+        case EntityType::cloth:
+        case EntityType::flag:
+        case EntityType::ceil_gold:
+        case EntityType::ceil_green:
+        case EntityType::stove:
+        case EntityType::bones:
+        case EntityType::skel_remain:
+        case EntityType::well_dry:
+        case EntityType::well_water:
+        case EntityType::lamp:
+        case EntityType::tree:
+        case EntityType::sink:
+        case EntityType::skel_hang:
+        case EntityType::pots_pans:
+        case EntityType::bloody_bones:
+        case EntityType::armor:
+        case EntityType::pillar:
+            cat = EntityCategory::_static;
+            break;
+        // pickup
+        case EntityType::dogfood:
+        case EntityType::meal:
+        case EntityType::health:
+        case EntityType::ammo:
+        case EntityType::machinegun:
+        case EntityType::chaingun:
+        case EntityType::gold_cross:
+        case EntityType::gold_goblet:
+        case EntityType::gold_casket:
+        case EntityType::gold_crown:
+            cat = EntityCategory::pickup;
+            break;
+        // keys
+        case EntityType::gold_key:
+        case EntityType::silver_key:
+            return EntityCategory::key;
+            break;
+        // enemies
+        case EntityType::guard:
+        case EntityType::dog:
+        case EntityType::officer:
+        case EntityType::ss:
+            cat = EntityCategory::enemy;
+            break;
+        default:
+            cat = EntityCategory::none;
+    };
+    return cat;
+}
