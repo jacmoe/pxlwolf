@@ -6,5 +6,6 @@ window_scale = 3
 fullscreen = false
 
 [game]
-level_name = "Level2"
+episode = 1
+level_name = "Level3"
 camera_dist = 16.0
