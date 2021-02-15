@@ -239,6 +239,14 @@ namespace utility
                         {
                             item.type = "unknown";
                         }
+                        if((*itr)["fieldInstances"].GetArray()[1]["__value"].IsArray())
+                        {
+                            item.angle = (*itr)["fieldInstances"].GetArray()[1]["__value"].GetArray()[0].GetFloat();
+                        }
+                        else
+                        {
+                            item.angle = 0.0;
+                        }
                         item.e_type = level.getEntityType(item.type);
                         m_map_enemies.push_back(item);
                         // SPDLOG_INFO("Added item of type '{}' to the map at position ({},{})", item.type, item.map_x, item.map_y);

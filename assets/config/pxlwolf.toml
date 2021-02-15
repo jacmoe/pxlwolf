@@ -1,8 +1,8 @@
 [application]
 title = "PixelWolf"
-window_width = 360
-window_height = 240
-window_scale = 3
+window_width = 320
+window_height = 200
+window_scale = 4
 fullscreen = false
 
 [game]

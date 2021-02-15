@@ -460,3 +460,39 @@ void Pixelator::clear(const std::string& name)
 
     memset(&m_buffers[index].pixels[0], 0, m_buffers[index].width * m_buffers[index].height * 4);
 }
+/*
+bool DoSomethingWithImage (SDL_Surface* image)
+{
+    // Error checking, I abbreviating (left out) some for this post
+    //If Surface is NULL or not 32 bit return false
+    // Lock surface if needed
+    if (SDL_MUSTLOCK(image))
+    {
+        if (SDL_LockSurface(image) < 0)
+            return false;
+    }
+    Uint32 Color;
+    Uint8 r = 0;
+    Uint8 g = 0;
+    Uint8 b = 0;
+    int Scanline = image->pitch / 4;
+    register Uint32* Ptr = (Uint32*) image->pixels;
+    for (Uint32 y = 1; y <= image->h; ++y)
+    {
+        for (Uint32 x = 0; x < image->w; ++x)
+        {
+            Color = *Ptr;
+            SDL_GetRGB(Color, image->format, &r, &g, &b);
+            // I do some manipulations with the colors here. Not really fast...
+            Color = SDL_MapRGB(image->format, r, g, b);
+            *Ptr = Color;
+            ++Ptr;
+        }
+        Ptr = (Uint32*) image->pixels + Scanline * y;
+    }
+    // Unlock if needed
+    if (SDL_MUSTLOCK(image))
+        SDL_UnlockSurface(image);
+    return true;
+}
+*/

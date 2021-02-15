@@ -38,6 +38,7 @@ namespace utility
         enum EntityType e_type;
         int map_x;
         int map_y;
+        double angle;
     };
 
     class Map

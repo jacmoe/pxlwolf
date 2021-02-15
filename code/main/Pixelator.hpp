@@ -69,6 +69,12 @@ public:
     void mergeBuffer(const std::string& source) { mergeBuffer(m_current_buffer, source); }
     void mergeBuffer(const std::string& target, const std::string& source);
 
+    // copy pixels from a source
+    // void copy(const std::string name, unsigned int x = 0, unsigned int y = 0);
+    // void copy(const std::string name, unsigned int x, unsigned int y, const SDL_Rect& sourceRect);
+    // void copy(const Image& source) { copy(m_current_buffer, source); }
+    // void copy(const std::string& name, Image source);
+
     uint32_t toIntColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a);
     SDL_Color toSDLColor(uint32_t pixColor);
     uint32_t to8BitColor(uint32_t colorDat);

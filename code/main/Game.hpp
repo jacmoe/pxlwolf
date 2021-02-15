@@ -62,6 +62,12 @@ struct Sprite
     double x;
     double y;
     double h;
+    double angle;
+    double dirX;
+    double dirY;
+    double planeX;
+    double planeY;
+    double plane_angle;
 };
 
 struct Player

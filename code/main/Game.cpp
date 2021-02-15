@@ -30,12 +30,8 @@ void Game::setupCameraVectors()
 {
     m_camera.dirX = cos(m_camera.angle);
     m_camera.dirY = sin(m_camera.angle);
-    double v_y = std::sin(m_camera.angle);
-    double v_x = std::cos(m_camera.angle);
-    linalg::aliases::double2 vect = {v_x, v_y};
-    double a_y = std::sin(-90 * 4.0 * atan (1.0) / 180.0);
-    double a_x = std::cos(-90 * 4.0 * atan (1.0) / 180.0);
-    linalg::aliases::double2 vect_rotated =  {vect.x*a_x - vect.y*a_y, vect.x*a_y + vect.y*a_x};
+    linalg::aliases::double2 vect = {m_camera.dirX, m_camera.dirY};
+    linalg::aliases::double2 vect_rotated = linalg::rot(-90 * 4.0 * atan (1.0) / 180.0 ,vect);
     m_camera.planeX = vect_rotated.x;
     m_camera.planeY = vect_rotated.y * 0.66;
 }
@@ -152,11 +148,15 @@ bool Game::OnUserCreate()
 
 bool Game::OnUserUpdate(double deltaTime)
 {
+    double front_behind = 0.0;
+
     m_raycaster.resetDepthBuffer();
 
     m_raycaster.renderFloor(&m_camera, 0.1);
     m_raycaster.renderCeiling(&m_camera, 0.1);
     m_raycaster.raycastRender(&m_camera, 0.01);
+
+    std::string message = "";
 
     m_sprites_rendered = 0;
     // loop through visited tiles
@@ -181,6 +181,20 @@ bool Game::OnUserUpdate(double deltaTime)
             {
                 // draw the sprite
                 draw3DSprite("pixelbuffer", &m_camera, m_width, m_height, 1.0, enemy);
+
+                linalg::aliases::double2 vec_enemy(enemy.x, enemy.y);
+                linalg::aliases::double2 vec_own(m_camera.x, m_camera.y);
+                front_behind = linalg::cross(vec_own, vec_enemy);
+
+                if(front_behind > 0)
+                {
+                    message = " front ";
+                }
+                else
+                {
+                    message = " behind ";
+                }
+                message += std::to_string(front_behind);
             }
         }
         for(const auto& key: m_keys)
@@ -209,7 +223,7 @@ bool Game::OnUserUpdate(double deltaTime)
     }
     else
     {
-        write_text("PixelWolf");
+        write_text("PixelWolf" + message);
     }
 
     return true;
@@ -266,6 +280,22 @@ void Game::initSprite(enum EntityType type, Sprite* newSprite, Texture texture, 
     newSprite->y = y;
     newSprite->h = h;
     newSprite->frameNum = 0;
+    
+    Level level;
+    if(level.getEntityCategory(type) == EntityCategory::enemy)
+    {
+        newSprite->angle = 270;
+        newSprite->dirX = cos(newSprite->angle);
+        newSprite->dirY = sin(newSprite->angle);
+        double v_y = std::sin(newSprite->angle);
+        double v_x = std::cos(newSprite->angle);
+        linalg::aliases::double2 vect = {v_x, v_y};
+        double a_y = std::sin(-90 * 4.0 * atan (1.0) / 180.0);
+        double a_x = std::cos(-90 * 4.0 * atan (1.0) / 180.0);
+        linalg::aliases::double2 vect_rotated =  {vect.x*a_x - vect.y*a_y, vect.x*a_y + vect.y*a_x};
+        newSprite->planeX = vect_rotated.x;
+        newSprite->planeY = vect_rotated.y * 0.66;
+    }
 }
 
 void Game::draw3DSprite(const std::string& buffer, Camera* camera, uint32_t width, uint32_t height, double resolution, Sprite sprite)
