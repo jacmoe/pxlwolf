@@ -51,16 +51,19 @@
 					"defUid": 5,
 					"realEditorValues": [{ "id": "V_Float", "params": [90] }]
 				}] },
-				{ "__identifier": "Enemy", "__grid": [14,6], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [232,104], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Guard"],
-					"__type": "Array<LocalEnum.Enemies>",
-					"defUid": 28,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Guard"]
-					}]
-				}] },
+				{ "__identifier": "Enemy", "__grid": [14,6], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [232,104], "fieldInstances": [
+					{
+						"__identifier": "type",
+						"__value": ["Guard"],
+						"__type": "Array<LocalEnum.Enemies>",
+						"defUid": 28,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Guard"]
+						}]
+					},
+					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+				] },
 				{ "__identifier": "Static", "__grid": [20,6], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [328,104], "fieldInstances": [{
 					"__identifier": "type",
 					"__value": ["Ceil_Green"],
@@ -101,16 +104,19 @@
 						"params": ["Ceil_Green"]
 					}]
 				}] },
-				{ "__identifier": "Enemy", "__grid": [14,11], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [232,184], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Guard"],
-					"__type": "Array<LocalEnum.Enemies>",
-					"defUid": 28,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Guard"]
-					}]
-				}] },
+				{ "__identifier": "Enemy", "__grid": [14,11], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [232,184], "fieldInstances": [
+					{
+						"__identifier": "type",
+						"__value": ["Guard"],
+						"__type": "Array<LocalEnum.Enemies>",
+						"defUid": 28,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Guard"]
+						}]
+					},
+					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+				] },
 				{ "__identifier": "Static", "__grid": [14,10], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [232,168], "fieldInstances": [{
 					"__identifier": "type",
 					"__value": ["Table"],
@@ -151,16 +157,19 @@
 						"params": ["Ceil_Green"]
 					}]
 				}] },
-				{ "__identifier": "Enemy", "__grid": [27,11], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [440,184], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Guard"],
-					"__type": "Array<LocalEnum.Enemies>",
-					"defUid": 28,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Guard"]
-					}]
-				}] },
+				{ "__identifier": "Enemy", "__grid": [27,11], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [440,184], "fieldInstances": [
+					{
+						"__identifier": "type",
+						"__value": ["Guard"],
+						"__type": "Array<LocalEnum.Enemies>",
+						"defUid": 28,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Guard"]
+						}]
+					},
+					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+				] },
 				{ "__identifier": "Pickup", "__grid": [28,11], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [456,184], "fieldInstances": [{
 					"__identifier": "type",
 					"__value": ["Gold_Goblet"],
@@ -331,26 +340,32 @@
 						"params": ["Ceil_Green"]
 					}]
 				}] },
-				{ "__identifier": "Enemy", "__grid": [61,8], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [984,136], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Guard"],
-					"__type": "Array<LocalEnum.Enemies>",
-					"defUid": 28,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Guard"]
-					}]
-				}] },
-				{ "__identifier": "Enemy", "__grid": [4,14], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [72,232], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Guard"],
-					"__type": "Array<LocalEnum.Enemies>",
-					"defUid": 28,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Guard"]
-					}]
-				}] },
+				{ "__identifier": "Enemy", "__grid": [61,8], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [984,136], "fieldInstances": [
+					{
+						"__identifier": "type",
+						"__value": ["Guard"],
+						"__type": "Array<LocalEnum.Enemies>",
+						"defUid": 28,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Guard"]
+						}]
+					},
+					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+				] },
+				{ "__identifier": "Enemy", "__grid": [4,14], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [72,232], "fieldInstances": [
+					{
+						"__identifier": "type",
+						"__value": ["Guard"],
+						"__type": "Array<LocalEnum.Enemies>",
+						"defUid": 28,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Guard"]
+						}]
+					},
+					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+				] },
 				{ "__identifier": "Static", "__grid": [60,3], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [968,56], "fieldInstances": [{
 					"__identifier": "type",
 					"__value": ["Ceil_Green"],
@@ -701,26 +716,32 @@
 						"params": ["Meal"]
 					}]
 				}] },
-				{ "__identifier": "Enemy", "__grid": [31,20], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [504,328], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Guard"],
-					"__type": "Array<LocalEnum.Enemies>",
-					"defUid": 28,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Guard"]
-					}]
-				}] },
-				{ "__identifier": "Enemy", "__grid": [37,29], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [600,472], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Guard"],
-					"__type": "Array<LocalEnum.Enemies>",
-					"defUid": 28,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Guard"]
-					}]
-				}] },
+				{ "__identifier": "Enemy", "__grid": [31,20], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [504,328], "fieldInstances": [
+					{
+						"__identifier": "type",
+						"__value": ["Guard"],
+						"__type": "Array<LocalEnum.Enemies>",
+						"defUid": 28,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Guard"]
+						}]
+					},
+					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+				] },
+				{ "__identifier": "Enemy", "__grid": [37,29], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [600,472], "fieldInstances": [
+					{
+						"__identifier": "type",
+						"__value": ["Guard"],
+						"__type": "Array<LocalEnum.Enemies>",
+						"defUid": 28,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Guard"]
+						}]
+					},
+					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+				] },
 				{ "__identifier": "Static", "__grid": [20,20], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [328,328], "fieldInstances": [{
 					"__identifier": "type",
 					"__value": ["Ceil_Green"],
@@ -831,26 +852,32 @@
 						"params": ["Table"]
 					}]
 				}] },
-				{ "__identifier": "Enemy", "__grid": [30,34], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [488,552], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Guard"],
-					"__type": "Array<LocalEnum.Enemies>",
-					"defUid": 28,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Guard"]
-					}]
-				}] },
-				{ "__identifier": "Enemy", "__grid": [31,43], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [504,696], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Guard"],
-					"__type": "Array<LocalEnum.Enemies>",
-					"defUid": 28,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Guard"]
-					}]
-				}] },
+				{ "__identifier": "Enemy", "__grid": [30,34], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [488,552], "fieldInstances": [
+					{
+						"__identifier": "type",
+						"__value": ["Guard"],
+						"__type": "Array<LocalEnum.Enemies>",
+						"defUid": 28,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Guard"]
+						}]
+					},
+					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+				] },
+				{ "__identifier": "Enemy", "__grid": [31,43], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [504,696], "fieldInstances": [
+					{
+						"__identifier": "type",
+						"__value": ["Guard"],
+						"__type": "Array<LocalEnum.Enemies>",
+						"defUid": 28,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Guard"]
+						}]
+					},
+					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+				] },
 				{ "__identifier": "Static", "__grid": [31,42], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [504,680], "fieldInstances": [{
 					"__identifier": "type",
 					"__value": ["Ceil_Gold"],
@@ -931,26 +958,32 @@
 						"params": ["Cloth"]
 					}]
 				}] },
-				{ "__identifier": "Enemy", "__grid": [29,51], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [472,824], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Guard"],
-					"__type": "Array<LocalEnum.Enemies>",
-					"defUid": 28,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Guard"]
-					}]
-				}] },
-				{ "__identifier": "Enemy", "__grid": [24,47], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [392,760], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Guard"],
-					"__type": "Array<LocalEnum.Enemies>",
-					"defUid": 28,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Guard"]
-					}]
-				}] },
+				{ "__identifier": "Enemy", "__grid": [29,51], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [472,824], "fieldInstances": [
+					{
+						"__identifier": "type",
+						"__value": ["Guard"],
+						"__type": "Array<LocalEnum.Enemies>",
+						"defUid": 28,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Guard"]
+						}]
+					},
+					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+				] },
+				{ "__identifier": "Enemy", "__grid": [24,47], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [392,760], "fieldInstances": [
+					{
+						"__identifier": "type",
+						"__value": ["Guard"],
+						"__type": "Array<LocalEnum.Enemies>",
+						"defUid": 28,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Guard"]
+						}]
+					},
+					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+				] },
 				{ "__identifier": "Static", "__grid": [22,50], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [360,808], "fieldInstances": [{
 					"__identifier": "type",
 					"__value": ["Ceil_Gold"],
@@ -1011,16 +1044,19 @@
 						"params": ["Green_Barrel"]
 					}]
 				}] },
-				{ "__identifier": "Enemy", "__grid": [14,52], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [232,840], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Guard"],
-					"__type": "Array<LocalEnum.Enemies>",
-					"defUid": 28,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Guard"]
-					}]
-				}] },
+				{ "__identifier": "Enemy", "__grid": [14,52], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [232,840], "fieldInstances": [
+					{
+						"__identifier": "type",
+						"__value": ["Guard"],
+						"__type": "Array<LocalEnum.Enemies>",
+						"defUid": 28,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Guard"]
+						}]
+					},
+					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+				] },
 				{ "__identifier": "Static", "__grid": [14,50], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [232,808], "fieldInstances": [{
 					"__identifier": "type",
 					"__value": ["Ceil_Gold"],
@@ -1091,26 +1127,32 @@
 						"params": ["Meal"]
 					}]
 				}] },
-				{ "__identifier": "Enemy", "__grid": [6,48], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [104,776], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Guard"],
-					"__type": "Array<LocalEnum.Enemies>",
-					"defUid": 28,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Guard"]
-					}]
-				}] },
-				{ "__identifier": "Enemy", "__grid": [6,52], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [104,840], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Guard"],
-					"__type": "Array<LocalEnum.Enemies>",
-					"defUid": 28,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Guard"]
-					}]
-				}] },
+				{ "__identifier": "Enemy", "__grid": [6,48], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [104,776], "fieldInstances": [
+					{
+						"__identifier": "type",
+						"__value": ["Guard"],
+						"__type": "Array<LocalEnum.Enemies>",
+						"defUid": 28,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Guard"]
+						}]
+					},
+					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+				] },
+				{ "__identifier": "Enemy", "__grid": [6,52], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [104,840], "fieldInstances": [
+					{
+						"__identifier": "type",
+						"__value": ["Guard"],
+						"__type": "Array<LocalEnum.Enemies>",
+						"defUid": 28,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Guard"]
+						}]
+					},
+					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+				] },
 				{ "__identifier": "Static", "__grid": [6,50], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [104,808], "fieldInstances": [{
 					"__identifier": "type",
 					"__value": ["Ceil_Gold"],
@@ -1271,16 +1313,19 @@
 						"params": ["Ceil_Gold"]
 					}]
 				}] },
-				{ "__identifier": "Enemy", "__grid": [16,44], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [264,712], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Guard"],
-					"__type": "Array<LocalEnum.Enemies>",
-					"defUid": 28,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Guard"]
-					}]
-				}] },
+				{ "__identifier": "Enemy", "__grid": [16,44], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [264,712], "fieldInstances": [
+					{
+						"__identifier": "type",
+						"__value": ["Guard"],
+						"__type": "Array<LocalEnum.Enemies>",
+						"defUid": 28,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Guard"]
+						}]
+					},
+					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+				] },
 				{ "__identifier": "Static", "__grid": [17,44], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [280,712], "fieldInstances": [{
 					"__identifier": "type",
 					"__value": ["Well_Dry"],
@@ -1401,26 +1446,32 @@
 						"params": ["Ceil_Gold"]
 					}]
 				}] },
-				{ "__identifier": "Enemy", "__grid": [5,33], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [88,536], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Dog"],
-					"__type": "Array<LocalEnum.Enemies>",
-					"defUid": 28,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Dog"]
-					}]
-				}] },
-				{ "__identifier": "Enemy", "__grid": [9,33], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [152,536], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Dog"],
-					"__type": "Array<LocalEnum.Enemies>",
-					"defUid": 28,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Dog"]
-					}]
-				}] },
+				{ "__identifier": "Enemy", "__grid": [5,33], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [88,536], "fieldInstances": [
+					{
+						"__identifier": "type",
+						"__value": ["Dog"],
+						"__type": "Array<LocalEnum.Enemies>",
+						"defUid": 28,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Dog"]
+						}]
+					},
+					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+				] },
+				{ "__identifier": "Enemy", "__grid": [9,33], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [152,536], "fieldInstances": [
+					{
+						"__identifier": "type",
+						"__value": ["Dog"],
+						"__type": "Array<LocalEnum.Enemies>",
+						"defUid": 28,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Dog"]
+						}]
+					},
+					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+				] },
 				{ "__identifier": "Static", "__grid": [6,34], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [104,552], "fieldInstances": [{
 					"__identifier": "type",
 					"__value": ["Ceil_Gold"],
@@ -1561,16 +1612,19 @@
 						"params": ["Ceil_Gold"]
 					}]
 				}] },
-				{ "__identifier": "Enemy", "__grid": [25,24], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [408,392], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Guard"],
-					"__type": "Array<LocalEnum.Enemies>",
-					"defUid": 28,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Guard"]
-					}]
-				}] },
+				{ "__identifier": "Enemy", "__grid": [25,24], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [408,392], "fieldInstances": [
+					{
+						"__identifier": "type",
+						"__value": ["Guard"],
+						"__type": "Array<LocalEnum.Enemies>",
+						"defUid": 28,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Guard"]
+						}]
+					},
+					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+				] },
 				{ "__identifier": "Static", "__grid": [23,26], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [376,424], "fieldInstances": [{
 					"__identifier": "type",
 					"__value": ["Ceil_Gold"],
@@ -1581,16 +1635,19 @@
 						"params": ["Ceil_Gold"]
 					}]
 				}] },
-				{ "__identifier": "Enemy", "__grid": [32,28], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [520,456], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Guard"],
-					"__type": "Array<LocalEnum.Enemies>",
-					"defUid": 28,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Guard"]
-					}]
-				}] },
+				{ "__identifier": "Enemy", "__grid": [32,28], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [520,456], "fieldInstances": [
+					{
+						"__identifier": "type",
+						"__value": ["Guard"],
+						"__type": "Array<LocalEnum.Enemies>",
+						"defUid": 28,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Guard"]
+						}]
+					},
+					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+				] },
 				{ "__identifier": "Static", "__grid": [31,26], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [504,424], "fieldInstances": [{
 					"__identifier": "type",
 					"__value": ["Ceil_Gold"],
@@ -1841,16 +1898,19 @@
 						"params": ["Table_Small"]
 					}]
 				}] },
-				{ "__identifier": "Enemy", "__grid": [29,57], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [472,920], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Guard"],
-					"__type": "Array<LocalEnum.Enemies>",
-					"defUid": 28,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Guard"]
-					}]
-				}] },
+				{ "__identifier": "Enemy", "__grid": [29,57], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [472,920], "fieldInstances": [
+					{
+						"__identifier": "type",
+						"__value": ["Guard"],
+						"__type": "Array<LocalEnum.Enemies>",
+						"defUid": 28,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Guard"]
+						}]
+					},
+					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+				] },
 				{ "__identifier": "Static", "__grid": [30,56], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [488,904], "fieldInstances": [{
 					"__identifier": "type",
 					"__value": ["Skel_Remain"],
@@ -1891,16 +1951,19 @@
 						"params": ["Meal"]
 					}]
 				}] },
-				{ "__identifier": "Enemy", "__grid": [47,56], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [760,904], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Guard"],
-					"__type": "Array<LocalEnum.Enemies>",
-					"defUid": 28,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Guard"]
-					}]
-				}] },
+				{ "__identifier": "Enemy", "__grid": [47,56], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [760,904], "fieldInstances": [
+					{
+						"__identifier": "type",
+						"__value": ["Guard"],
+						"__type": "Array<LocalEnum.Enemies>",
+						"defUid": 28,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Guard"]
+						}]
+					},
+					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+				] },
 				{ "__identifier": "Static", "__grid": [45,58], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [728,936], "fieldInstances": [{
 					"__identifier": "type",
 					"__value": ["Ceil_Green"],
@@ -1911,16 +1974,19 @@
 						"params": ["Ceil_Green"]
 					}]
 				}] },
-				{ "__identifier": "Enemy", "__grid": [53,52], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [856,840], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Guard"],
-					"__type": "Array<LocalEnum.Enemies>",
-					"defUid": 28,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Guard"]
-					}]
-				}] },
+				{ "__identifier": "Enemy", "__grid": [53,52], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [856,840], "fieldInstances": [
+					{
+						"__identifier": "type",
+						"__value": ["Guard"],
+						"__type": "Array<LocalEnum.Enemies>",
+						"defUid": 28,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Guard"]
+						}]
+					},
+					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+				] },
 				{ "__identifier": "Static", "__grid": [41,51], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [664,824], "fieldInstances": [{
 					"__identifier": "type",
 					"__value": ["Ceil_Green"],
@@ -1951,26 +2017,32 @@
 						"params": ["Ceil_Green"]
 					}]
 				}] },
-				{ "__identifier": "Enemy", "__grid": [61,60], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [984,968], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Guard"],
-					"__type": "Array<LocalEnum.Enemies>",
-					"defUid": 28,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Guard"]
-					}]
-				}] },
-				{ "__identifier": "Enemy", "__grid": [61,36], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [984,584], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Guard"],
-					"__type": "Array<LocalEnum.Enemies>",
-					"defUid": 28,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Guard"]
-					}]
-				}] },
+				{ "__identifier": "Enemy", "__grid": [61,60], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [984,968], "fieldInstances": [
+					{
+						"__identifier": "type",
+						"__value": ["Guard"],
+						"__type": "Array<LocalEnum.Enemies>",
+						"defUid": 28,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Guard"]
+						}]
+					},
+					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+				] },
+				{ "__identifier": "Enemy", "__grid": [61,36], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [984,584], "fieldInstances": [
+					{
+						"__identifier": "type",
+						"__value": ["Guard"],
+						"__type": "Array<LocalEnum.Enemies>",
+						"defUid": 28,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Guard"]
+						}]
+					},
+					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+				] },
 				{ "__identifier": "Static", "__grid": [61,35], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [984,568], "fieldInstances": [{
 					"__identifier": "type",
 					"__value": ["Ceil_Green"],
@@ -2001,56 +2073,71 @@
 						"params": ["Ceil_Green"]
 					}]
 				}] },
-				{ "__identifier": "Enemy", "__grid": [57,31], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [920,504], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Guard"],
-					"__type": "Array<LocalEnum.Enemies>",
-					"defUid": 28,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Guard"]
-					}]
-				}] },
-				{ "__identifier": "Enemy", "__grid": [41,27], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [664,440], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Guard"],
-					"__type": "Array<LocalEnum.Enemies>",
-					"defUid": 28,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Guard"]
-					}]
-				}] },
-				{ "__identifier": "Enemy", "__grid": [50,25], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [808,408], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Guard"],
-					"__type": "Array<LocalEnum.Enemies>",
-					"defUid": 28,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Guard"]
-					}]
-				}] },
-				{ "__identifier": "Enemy", "__grid": [54,24], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [872,392], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["SS"],
-					"__type": "Array<LocalEnum.Enemies>",
-					"defUid": 28,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["SS"]
-					}]
-				}] },
-				{ "__identifier": "Enemy", "__grid": [53,25], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [856,408], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Guard"],
-					"__type": "Array<LocalEnum.Enemies>",
-					"defUid": 28,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Guard"]
-					}]
-				}] },
+				{ "__identifier": "Enemy", "__grid": [57,31], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [920,504], "fieldInstances": [
+					{
+						"__identifier": "type",
+						"__value": ["Guard"],
+						"__type": "Array<LocalEnum.Enemies>",
+						"defUid": 28,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Guard"]
+						}]
+					},
+					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+				] },
+				{ "__identifier": "Enemy", "__grid": [41,27], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [664,440], "fieldInstances": [
+					{
+						"__identifier": "type",
+						"__value": ["Guard"],
+						"__type": "Array<LocalEnum.Enemies>",
+						"defUid": 28,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Guard"]
+						}]
+					},
+					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+				] },
+				{ "__identifier": "Enemy", "__grid": [50,25], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [808,408], "fieldInstances": [
+					{
+						"__identifier": "type",
+						"__value": ["Guard"],
+						"__type": "Array<LocalEnum.Enemies>",
+						"defUid": 28,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Guard"]
+						}]
+					},
+					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+				] },
+				{ "__identifier": "Enemy", "__grid": [54,24], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [872,392], "fieldInstances": [
+					{
+						"__identifier": "type",
+						"__value": ["SS"],
+						"__type": "Array<LocalEnum.Enemies>",
+						"defUid": 28,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["SS"]
+						}]
+					},
+					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+				] },
+				{ "__identifier": "Enemy", "__grid": [53,25], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [856,408], "fieldInstances": [
+					{
+						"__identifier": "type",
+						"__value": ["Guard"],
+						"__type": "Array<LocalEnum.Enemies>",
+						"defUid": 28,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Guard"]
+						}]
+					},
+					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+				] },
 				{ "__identifier": "Static", "__grid": [45,27], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [728,440], "fieldInstances": [{
 					"__identifier": "type",
 					"__value": ["Table"],
@@ -2271,16 +2358,19 @@
 						"params": ["Ceil_Green"]
 					}]
 				}] },
-				{ "__identifier": "Enemy", "__grid": [41,44], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [664,712], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Guard"],
-					"__type": "Array<LocalEnum.Enemies>",
-					"defUid": 28,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Guard"]
-					}]
-				}] },
+				{ "__identifier": "Enemy", "__grid": [41,44], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [664,712], "fieldInstances": [
+					{
+						"__identifier": "type",
+						"__value": ["Guard"],
+						"__type": "Array<LocalEnum.Enemies>",
+						"defUid": 28,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Guard"]
+						}]
+					},
+					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+				] },
 				{ "__identifier": "Static", "__grid": [41,35], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [664,568], "fieldInstances": [{
 					"__identifier": "type",
 					"__value": ["Ceil_Green"],
@@ -2311,26 +2401,32 @@
 						"params": ["Ceil_Green"]
 					}]
 				}] },
-				{ "__identifier": "Enemy", "__grid": [57,38], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [920,616], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Guard"],
-					"__type": "Array<LocalEnum.Enemies>",
-					"defUid": 28,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Guard"]
-					}]
-				}] },
-				{ "__identifier": "Enemy", "__grid": [45,39], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [728,632], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Guard"],
-					"__type": "Array<LocalEnum.Enemies>",
-					"defUid": 28,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Guard"]
-					}]
-				}] },
+				{ "__identifier": "Enemy", "__grid": [57,38], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [920,616], "fieldInstances": [
+					{
+						"__identifier": "type",
+						"__value": ["Guard"],
+						"__type": "Array<LocalEnum.Enemies>",
+						"defUid": 28,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Guard"]
+						}]
+					},
+					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+				] },
+				{ "__identifier": "Enemy", "__grid": [45,39], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [728,632], "fieldInstances": [
+					{
+						"__identifier": "type",
+						"__value": ["Guard"],
+						"__type": "Array<LocalEnum.Enemies>",
+						"defUid": 28,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Guard"]
+						}]
+					},
+					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+				] },
 				{ "__identifier": "Static", "__grid": [57,43], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [920,696], "fieldInstances": [{
 					"__identifier": "type",
 					"__value": ["Ceil_Green"],

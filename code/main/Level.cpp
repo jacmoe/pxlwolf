@@ -105,6 +105,8 @@ enum EntityCategory Level::getEntityCategory(enum EntityType type)
         case EntityType::bloody_bones:
         case EntityType::armor:
         case EntityType::pillar:
+        case EntityType::blood:
+        case EntityType::bunk:
             cat = EntityCategory::_static;
             break;
         // pickup

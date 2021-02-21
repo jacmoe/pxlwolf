@@ -63,6 +63,8 @@ enum class EntityType
     bloody_bones,
     armor,
     pillar,
+    blood,
+    bunk,
 
     // pickup
     dogfood,
@@ -135,6 +137,8 @@ private:
         {"Bloody_Bones", EntityType::bloody_bones},
         {"Armor", EntityType::armor},
         {"Pillar", EntityType::pillar},
+        {"Blood", EntityType::blood},
+        {"Bunk", EntityType::bunk},
         // pickup
         {"Dogfood", EntityType::dogfood},
         {"Meal", EntityType::meal},
@@ -187,6 +191,8 @@ EntityTextureMap m_entitytexture_map
         {EntityType::bloody_bones, "assets/sprites/static/blood_bones.png"},
         {EntityType::armor, "assets/sprites/static/armor.png"},
         {EntityType::pillar, "assets/sprites/static/pillar.png"},
+        {EntityType::blood, "assets/sprites/static/blood.png"},
+        {EntityType::bunk, "assets/sprites/static/bunk.png"},
         // pickup
         {EntityType::dogfood, "assets/sprites/items/dogfood.png"},
         {EntityType::meal, "assets/sprites/items/food.png"},

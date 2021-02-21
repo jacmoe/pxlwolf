@@ -146,6 +146,12 @@ bool Game::OnUserCreate()
     return true;
 }
 
+double deg2rad (double degrees)
+{
+    return degrees * 4.0 * atan (1.0) / 180.0;
+}
+
+
 bool Game::OnUserUpdate(double deltaTime)
 {
     double front_behind = 0.0;
@@ -182,11 +188,13 @@ bool Game::OnUserUpdate(double deltaTime)
                 // draw the sprite
                 draw3DSprite("pixelbuffer", &m_camera, m_width, m_height, 1.0, enemy);
 
-                linalg::aliases::double2 vec_enemy(enemy.x, enemy.y);
-                linalg::aliases::double2 vec_own(m_camera.x, m_camera.y);
-                front_behind = linalg::cross(vec_own, vec_enemy);
+                linalg::aliases::double2 enemy_dir = { enemy.dirX, enemy.dirY };
+                linalg::aliases::double2 camera_dir = { m_camera.dirX, m_camera.dirY };
+                linalg::aliases::double2 rot_dir = linalg::rot(deg2rad(-90), enemy_dir);
+                double res1 = linalg::dot(enemy_dir, camera_dir);
+                double res2 = linalg::dot(rot_dir, camera_dir);
 
-                if(front_behind > 0)
+                if(res1 > 0)
                 {
                     message = " front ";
                 }
@@ -194,7 +202,14 @@ bool Game::OnUserUpdate(double deltaTime)
                 {
                     message = " behind ";
                 }
-                message += std::to_string(front_behind);
+                if(res2 > 0)
+                {
+                    message += " left ";
+                }
+                else
+                {
+                    message += " right ";
+                }
             }
         }
         for(const auto& key: m_keys)
