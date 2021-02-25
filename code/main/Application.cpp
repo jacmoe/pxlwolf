@@ -1,15 +1,15 @@
 /*# This file is part of the
-#  █████╗ ██╗     ██╗     ███████╗ ██████╗ ██████╗ ███████╗████████╗████████╗ ██████╗ 
-# ██╔══██╗██║     ██║     ██╔════╝██╔════╝ ██╔══██╗██╔════╝╚══██╔══╝╚══██╔══╝██╔═══██╗
-# ███████║██║     ██║     █████╗  ██║  ███╗██████╔╝█████╗     ██║      ██║   ██║   ██║
-# ██╔══██║██║     ██║     ██╔══╝  ██║   ██║██╔══██╗██╔══╝     ██║      ██║   ██║   ██║
-# ██║  ██║███████╗███████╗███████╗╚██████╔╝██║  ██║███████╗   ██║      ██║   ╚██████╔╝
-# ╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝   ╚═╝      ╚═╝    ╚═════╝ 
+# ██████╗ ██╗  ██╗██╗     ██╗    ██╗ ██████╗ ██╗     ███████╗
+# ██╔══██╗╚██╗██╔╝██║     ██║    ██║██╔═══██╗██║     ██╔════╝
+# ██████╔╝ ╚███╔╝ ██║     ██║ █╗ ██║██║   ██║██║     █████╗
+# ██╔═══╝  ██╔██╗ ██║     ██║███╗██║██║   ██║██║     ██╔══╝
+# ██║     ██╔╝ ██╗███████╗╚███╔███╔╝╚██████╔╝███████╗██║
+# ╚═╝     ╚═╝  ╚═╝╚══════╝ ╚══╝╚══╝  ╚═════╝ ╚══════╝╚═╝
 #   project
 #
-#   https://github.com/jacmoe/allegretto
+#   https://github.com/jacmoe/pxlwolf
 #
-#   (c) 2021 Jacob Moena
+#   (c) 2020 - 2021 Jacob Moena
 #
 #   MIT License
 #*/
@@ -38,7 +38,7 @@ Application::Application()
 
 Application::~Application()
 {
-    SPDLOG_INFO("Allegretto shutdown.");
+    SPDLOG_INFO("PixelWolf shutdown.");
 }
 
 bool Application::init()
@@ -128,7 +128,7 @@ bool Application::init()
 
     m_pixelator.get()->setSize(Vector2i(m_width, m_height));
 
-    SPDLOG_INFO("Allegretto initialized.");
+    SPDLOG_INFO("PixelWolf initialized.");
     return true;
 }
 

@@ -13,7 +13,6 @@
 #
 #   MIT License
 #*/
-#define NOMINMAX
 
 #include <filesystem>
 
