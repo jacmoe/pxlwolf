@@ -94,7 +94,6 @@ Allegro should be available from your package manager. On Ubuntu, perform a simp
 |[Sol][sol]|A C++11 Lua wrapper|MIT License|
 |[spdlog][spdlog]|Logging library|MIT license|
 |[stb_image][stbimage]|Image loader|Public domain|
-|[toml11][toml11]|TOML for Modern C++|MIT license|
 
 
 ## Credits
@@ -127,4 +126,3 @@ This project is using code from the [c-raycaster project][cray] - the raycaster 
 [sol]: https://github.com/ThePhD/sol "A C++11 Lua wrapper"
 [spdlog]: https://github.com/gabime/spdlog "Logging library"
 [stbimage]: https://github.com/nothings/stb "Image loader"
-[toml11]: https://github.com/ToruNiina/toml11 "TOML for Modern C++"
