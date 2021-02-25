@@ -32,7 +32,6 @@ add_subdirectory(3rdparty/Lua)
 add_subdirectory(3rdparty/physfs)
 
 set(3RD_PARTY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty)
-set(TOML11_INCLUDE_DIR ${3RD_PARTY_DIR}/toml11)
 set(SOL_INCLUDE_DIR ${3RD_PARTY_DIR}/sol2)
 set(ENTT_INCLUDE_DIR ${3RD_PARTY_DIR}/entt)
 set(LUA_INCLUDE_DIR ${3RD_PARTY_DIR}/Lua/include)
@@ -43,15 +42,11 @@ include_directories(
     ${ALLEGRO_INCLUDE_DIR}
     ${3RD_PARTY_DIR}
     ${SPDLOG_INCLUDE_DIR}
-    ${TOML11_INCLUDE_DIR}
     ${ENTT_INCLUDE_DIR}
     ${LUA_INCLUDE_DIR}
     ${SOL_INCLUDE_DIR}
     ${PHYSFS_INCLUDE_DIR}
-    ./code/main
-    ./code/components
-    ./code/systems
-    ./code/utility
+    ./code
 )
 
 add_subdirectory(code)

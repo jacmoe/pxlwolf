@@ -81,7 +81,7 @@ public:
     void clear(const std::string& name);
 
     // Buffers
-    bool addBuffer(const std::string name) { addBuffer(name, m_buffers[m_buffer_map[m_current_buffer]].size.x, m_buffers[m_buffer_map[m_current_buffer]].size.y); }
+    bool addBuffer(const std::string name) { return addBuffer(name, m_buffers[m_buffer_map[m_current_buffer]].size.x, m_buffers[m_buffer_map[m_current_buffer]].size.y); }
     bool addBuffer(const std::string name, const int width, const int height);
     bool removeBuffer(const std::string name);
     void setActiveBuffer(const std::string name);
