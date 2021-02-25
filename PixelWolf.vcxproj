@@ -77,7 +77,7 @@
     <Allegro_AddonColor>true</Allegro_AddonColor>
     <Allegro_AddonVideo>true</Allegro_AddonVideo>
     <Allegro_LibraryType>StaticMonolithRelease</Allegro_LibraryType>
-    <IncludePath>./3rdparty;./3rdparty/spdlog/include;./code;$(IncludePath)</IncludePath>
+    <IncludePath>./3rdparty;./3rdparty/spdlog/include;./3rdparty/physfs/source;./code;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>true</LinkIncremental>
@@ -93,7 +93,7 @@
     <Allegro_AddonColor>true</Allegro_AddonColor>
     <Allegro_AddonVideo>true</Allegro_AddonVideo>
     <Allegro_LibraryType>StaticMonolithRelease</Allegro_LibraryType>
-    <IncludePath>./3rdparty;./3rdparty/spdlog/include;./code;$(IncludePath)</IncludePath>
+    <IncludePath>./3rdparty;./3rdparty/spdlog/include;./3rdparty/physfs/source;./code;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -127,20 +127,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="3rdparty\physfs.cpp" />
     <ClCompile Include="code\main.cpp" />
     <ClCompile Include="code\main\Application.cpp" />
+    <ClCompile Include="code\main\Entity.cpp" />
     <ClCompile Include="code\main\Game.cpp" />
+    <ClCompile Include="code\main\Level.cpp" />
     <ClCompile Include="code\main\Pixelator.cpp" />
     <ClCompile Include="code\utility\dbg_console.cpp" />
+    <ClCompile Include="code\utility\Map.cpp" />
     <ClCompile Include="code\utility\utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="3rdparty\physfs.hpp" />
     <ClInclude Include="code\components\components.hpp" />
     <ClInclude Include="code\components\TagComponent.hpp" />
     <ClInclude Include="code\main\Application.hpp" />
+    <ClInclude Include="code\main\Entity.hpp" />
     <ClInclude Include="code\main\Game.hpp" />
+    <ClInclude Include="code\main\Level.hpp" />
     <ClInclude Include="code\main\Pixelator.hpp" />
+    <ClInclude Include="code\utility\ALDeleter.hpp" />
     <ClInclude Include="code\utility\dbg_console.hpp" />
+    <ClInclude Include="code\utility\Map.hpp" />
     <ClInclude Include="code\utility\packer.hpp" />
     <ClInclude Include="code\utility\unpacker.hpp" />
     <ClInclude Include="code\utility\utils.hpp" />

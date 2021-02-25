@@ -19,8 +19,8 @@
 #include <list>
 #include <string>
 #include <unordered_map>
-#include "SDL.h"
 #include "linalg.h"
+#include <allegro5/allegro.h>
 
 enum class EntityType;
 
@@ -29,7 +29,7 @@ namespace utility
     struct WallElement
     {
         std::string name;
-        uint32_t color;
+        ALLEGRO_COLOR color;
     };
 
     struct MapItem

@@ -13,8 +13,8 @@
 #
 #   MIT License
 #*/
-#include "Map.hpp"
-#include "Level.hpp"
+#include "utility/Map.hpp"
+#include "main/Level.hpp"
 
 #include "rapidjson/filereadstream.h"
 #include "rapidjson/document.h"
@@ -26,6 +26,8 @@
 #include <iostream>
 #include <fstream>
 #include <cmath>
+
+#include <allegro5/allegro_color.h>
 
 namespace utility
 {
@@ -43,24 +45,6 @@ namespace utility
 
     double Map::deg2rad (double degrees) {
         return degrees * 4.0 * atan (1.0) / 180.0;
-    }
-
-    // From https://codereview.stackexchange.com/a/172521
-    SDL_Color hex2sdl(std::string input)
-    {
-        if (input[0] == '#')
-            input.erase(0, 1);
-
-        unsigned long value = stoul(input, nullptr, 16);
-
-        SDL_Color color;
-
-        color.a = (value >> 24) & 0xff;
-        color.r = (value >> 16) & 0xff;
-        color.g = (value >> 8) & 0xff;
-        color.b = (value >> 0) & 0xff;
-        color.a = 255;
-        return color;
     }
 
     bool Map::init(const std::string& file_name, bool from_zip)
@@ -101,9 +85,8 @@ namespace utility
                 {
                     std::string wall_identifier = (*itr)["identifier"].GetString();
                     std::string wall_color = (*itr)["color"].GetString();
-                    SDL_Color color = hex2sdl(wall_color);
-                    uint32_t the_color = ((uint32_t)color.r << 3*8 | (uint32_t)color.g << 2*8 | (uint32_t)color.b << 8 | (uint32_t)color.a);
-                    m_wall_elements.push_back({wall_identifier, the_color});
+                    ALLEGRO_COLOR color = al_color_html(wall_color.c_str());
+                    m_wall_elements.push_back({wall_identifier, color});
                 }
             }
 
