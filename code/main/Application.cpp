@@ -74,7 +74,7 @@ bool Application::init()
         return false;
     }
 
-    m_timer.reset(al_create_timer(1.0 / 120));
+    m_timer.reset(al_create_timer(1.0 / 60000.0));
     if (!m_timer.get())
     {
         SPDLOG_ERROR("Couldn't initialize timer");
@@ -240,7 +240,7 @@ void Application::render()
     al_set_target_bitmap(m_display_buffer.get());
     al_clear_to_color(al_map_rgb(0, 0, 0));
 
-    update_display_buffer();
+    //update_display_buffer();
 
     al_set_target_backbuffer(m_display.get());
     al_draw_scaled_bitmap(m_display_buffer.get(), 0, 0, m_width, m_height, 0, 0, m_width * m_scale, m_height * m_scale, 0);
