@@ -49,23 +49,10 @@ set(utility
     # ${3RD_PARTY_DIR}/lua_main.hpp
 )
 
-if(WIN32)
-add_executable(${TARGET_NAME}
-    WIN32
-    ./main.cpp
-    ${main}
-    ${utility}
-)
-else()
 add_executable(${TARGET_NAME}
     ./main.cpp
     ${main}
     ${utility}
 )
-endif()
 
-if(WIN32)
-target_link_libraries(pxlwolf lua  physfs-static SDL2::SDL2 SDL2::SDL2main SDL_ttf::SDL_ttf)
-else()
-target_link_libraries(pxlwolf lua  physfs-static SDL2::SDL2 SDL_ttf::SDL_ttf)
-endif()
+target_link_libraries(pxlwolf lua  physfs-static ${ALLEGRO_LIBRARIES})

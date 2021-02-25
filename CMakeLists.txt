@@ -15,34 +15,17 @@
 #
 cmake_minimum_required(VERSION 3.7)
 
-set(HUNTER_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/hunter)
-include("cmake/HunterGate.cmake")
-HunterGate(
-    URL "https://github.com/cpp-pm/hunter/archive/v0.23.293.tar.gz"
-    SHA1 "e8e5470652db77149d9b38656db2a6c0b7642693"
-)
-
 project(pixelwolf)
 
 set(CMAKE_CXX_STANDARD 17)
 
-if(MSVC)
-    add_definitions(-D_CRT_SECURE_NO_WARNINGS)
-endif(MSVC)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
+
+find_package(Allegro5 REQUIRED)
 
 add_subdirectory(3rdparty/Lua)
 
 add_subdirectory(3rdparty/physfs)
-
-if(MSVC)
-    include_directories(${WinSDK})
-endif(MSVC)
-
-hunter_add_package(SDL2)
-find_package(SDL2 CONFIG REQUIRED)
-
-hunter_add_package(SDL_ttf)
-find_package(SDL_ttf CONFIG REQUIRED)
 
 set(3RD_PARTY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty)
 set(TOML11_INCLUDE_DIR ${3RD_PARTY_DIR}/toml11)
@@ -53,6 +36,7 @@ set(PHYSFS_INCLUDE_DIR ${3RD_PARTY_DIR}/physfs/src)
 set(SPDLOG_INCLUDE_DIR ${3RD_PARTY_DIR}/spdlog/include)
 
 include_directories(
+    ${ALLEGRO_INCLUDE_DIR}
     ${3RD_PARTY_DIR}
     ${SPDLOG_INCLUDE_DIR}
     ${TOML11_INCLUDE_DIR}
