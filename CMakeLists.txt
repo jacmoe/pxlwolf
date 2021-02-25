@@ -17,6 +17,10 @@ cmake_minimum_required(VERSION 3.7)
 
 project(pixelwolf)
 
+if(WIN32)
+    message(SEND_ERROR "This CMake script is meant to be used on Linux. And you are not on Linux at the moment. Use the Visual Studio solution instead :)")
+endif(WIN32)
+
 set(CMAKE_CXX_STANDARD 17)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
