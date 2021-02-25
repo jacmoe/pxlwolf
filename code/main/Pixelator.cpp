@@ -1,34 +1,28 @@
 /*# This file is part of the
-# ██████╗ ██╗  ██╗██╗     ██╗    ██╗ ██████╗ ██╗     ███████╗
-# ██╔══██╗╚██╗██╔╝██║     ██║    ██║██╔═══██╗██║     ██╔════╝
-# ██████╔╝ ╚███╔╝ ██║     ██║ █╗ ██║██║   ██║██║     █████╗  
-# ██╔═══╝  ██╔██╗ ██║     ██║███╗██║██║   ██║██║     ██╔══╝  
-# ██║     ██╔╝ ██╗███████╗╚███╔███╔╝╚██████╔╝███████╗██║     
-# ╚═╝     ╚═╝  ╚═╝╚══════╝ ╚══╝╚══╝  ╚═════╝ ╚══════╝╚═╝     
+#  █████╗ ██╗     ██╗     ███████╗ ██████╗ ██████╗ ███████╗████████╗████████╗ ██████╗
+# ██╔══██╗██║     ██║     ██╔════╝██╔════╝ ██╔══██╗██╔════╝╚══██╔══╝╚══██╔══╝██╔═══██╗
+# ███████║██║     ██║     █████╗  ██║  ███╗██████╔╝█████╗     ██║      ██║   ██║   ██║
+# ██╔══██║██║     ██║     ██╔══╝  ██║   ██║██╔══██╗██╔══╝     ██║      ██║   ██║   ██║
+# ██║  ██║███████╗███████╗███████╗╚██████╔╝██║  ██║███████╗   ██║      ██║   ╚██████╔╝
+# ╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝   ╚═╝      ╚═╝    ╚═════╝
 #   project
 #
-#   https://github.com/jacmoe/pxlwolf
+#   https://github.com/jacmoe/allegretto
 #
-#   (c) 2020 - 2021 Jacob Moena
+#   (c) 2021 Jacob Moena
 #
 #   MIT License
 #*/
-#include "Pixelator.hpp"
+#include "main/Pixelator.hpp"
 #include "spdlog/spdlog.h"
-
-#include <cassert>
 
 Pixelator::Pixelator()
     : m_current_buffer("primary")
     , m_buffers()
 {
+    m_buffer_map.insert({ "primary", 0 });
     m_buffers.emplace_back();
-    addBuffer("primary", 360, 240);
-    m_buffer_map.insert({"primary", 0});
-}
-
-Pixelator::~Pixelator()
-{
+    setSize(Vector2i(360, 240));
 }
 
 bool check_key(std::unordered_map<std::string, unsigned int> m, std::string key) 
@@ -39,50 +33,11 @@ bool check_key(std::unordered_map<std::string, unsigned int> m, std::string key)
     return true; 
 }
 
-/** PixelRenderer::toPixColor
- * @brief Returns color formatted to RGBA format
- * @param r uint32_t red component
- * @param g uint32_t green component
- * @param b uint32_t blue component
- * @param a uint32_t alpha component
- **/
-uint32_t Pixelator::toIntColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
-{
-    return ((uint32_t)r << 3*8 | (uint32_t)g << 2*8 | (uint32_t)b << 8 | (uint32_t)a);
-}
-
-SDL_Color Pixelator::toSDLColor(uint32_t pixColor)
-{
-    uint8_t r = (uint8_t)(pixColor >> 3*8);
-    uint8_t g = (uint8_t)((pixColor >> 2*8) & 0xFF);
-    uint8_t b = (uint8_t)((pixColor >> 8) & 0xFF);
-    uint8_t a = (uint8_t)(pixColor & 0xFF);
-    SDL_Color newColor = {r, g, b, a};
-    return newColor;
-}
-
-/** to8BitColor
- * @brief Paletizes 32bit color to 8bit color
- * 
- * @param colorDat Raw truecolor value to paletize
- * @return 8 bit color value
- */
-uint32_t Pixelator::to8BitColor(uint32_t colorDat)
-{
-    int r = (int)(colorDat >> 3*8);
-    int g = (int)((colorDat >> 2*8) & 0xFF);
-    int b = (int)((colorDat >> 8) & 0xFF);
-    int newR = (int)ceil(round((double)r / 255.0*15) * (255.0/15));
-    int newG = (int)ceil(round((double)g / 255.0*15) * (255.0/15));
-    int newB = (int)ceil(round((double)b / 255.0*15) * (255.0/15));
-    return (uint32_t)(newR) << 3*8 | (uint32_t)(newG) << 2*8 | (uint32_t)newB << 8 | (uint32_t)0xFF;
-}
-
 bool Pixelator::addBuffer(const std::string name, const int width, const int height)
 {
     if(check_key(m_buffer_map, name))
     {
-       SPDLOG_ERROR("Attempting to add '{}' which already exist!", name.c_str());
+        SPDLOG_ERROR("Attempting to add '{}' which already exist!", name);
         return false;
     }
 
@@ -90,16 +45,19 @@ bool Pixelator::addBuffer(const std::string name, const int width, const int hei
     m_buffer_map.insert({name, newBufferIndex});
     m_buffers.emplace_back();
 
-    unsigned int index = m_buffer_map[name];
-
-    std::vector<uint32_t> newPixels(width * height * 4);
-
-    memset(&newPixels[0], 0, width * height * 4);
-
+    std::vector<uint8_t> newPixels(width * height * 4u);
+    uint8_t* ptr = &newPixels[0];
+    uint8_t* end = ptr + newPixels.size();
+    while (ptr < end)
+    {
+        *ptr++ = 0;
+        *ptr++ = 0;
+        *ptr++ = 0;
+        *ptr++ = 0;
+    }
     // Commit the new pixel buffer
     m_buffers[newBufferIndex].pixels.swap(newPixels);
-    m_buffers[newBufferIndex].width = width;
-    m_buffers[newBufferIndex].height = height;
+    m_buffers[newBufferIndex].size = Vector2i(width, height);
 
     return true;
 }
@@ -108,17 +66,16 @@ bool Pixelator::removeBuffer(const std::string name)
 {
     if(!check_key(m_buffer_map, name))
     {
-       SPDLOG_ERROR("Attempting to remove a buffer that doesn't exist!");
+        SPDLOG_ERROR("Attempting to remove a buffer that doesn't exist!");
         return false;
     }
     assert(m_buffer_map[name] < m_buffers.size());
     if(m_current_buffer == name)
     {
         // Can't remove current buffer! Raise error here.
-       SPDLOG_ERROR("Attempting to remove active buffer!");
+        SPDLOG_ERROR("Attempting to remove active buffer!");
         return false;
     }
-    unsigned int index = m_buffer_map[name];
     m_buffers.erase(m_buffers.begin() + m_buffer_map[name]);
     m_buffer_map.erase(name);
     return true;
@@ -128,7 +85,7 @@ void Pixelator::setActiveBuffer(const std::string name)
 {
     if(!check_key(m_buffer_map, name))
     {
-       SPDLOG_ERROR("Attempting to use a buffer name that doesn't exist!");
+        SPDLOG_ERROR("Attempting to use a buffer name that doesn't exist!");
         return;
     }
     assert(m_buffer_map[name] < m_buffers.size());
@@ -139,7 +96,7 @@ bool Pixelator::swapBuffer(const std::string name)
 {
     if(!check_key(m_buffer_map, name))
     {
-       SPDLOG_ERROR("Attempting to swap with a buffer name that doesn't exist!");
+        SPDLOG_ERROR("Attempting to swap with a buffer name that doesn't exist!");
         return false;
     }
 
@@ -151,141 +108,81 @@ bool Pixelator::swapBuffer(const std::string name)
     return true;
 }
 
-void Pixelator::mergeBuffer(const std::string& target, const std::string& source)
+void Pixelator::setSize(const Vector2i size)
 {
-    if(!check_key(m_buffer_map, target))
-    {
-       SPDLOG_ERROR("Attempting to merge into a buffer that doesn't exist!");
-        return;
-    }
-    if(!check_key(m_buffer_map, source))
-    {
-       SPDLOG_ERROR("Attempting to merge with a buffer that doesn't exist!");
-        return;
-    }
-    unsigned int target_index = m_buffer_map[target];
-    unsigned int source_index = m_buffer_map[source];
-
-    uint32_t sourcePix;
-    for (uint32_t i = 0; i < m_buffers[source_index].height; i++)
-    {
-        if (i < m_buffers[target_index].height)
-        {
-            for (uint32_t j = 0; j < m_buffers[source_index].width; j++)
-            {
-                if (j < m_buffers[target_index].width)
-                {
-                    sourcePix = m_buffers[source_index].pixels[j+i*m_buffers[source_index].width];
-                    setPixel(target, j, i, sourcePix);
-                }
-            }
-        }
-    }
+    setSize(m_current_buffer, size);
 }
 
-void Pixelator::setSize(const int width, const int height)
+void Pixelator::setSize(const std::string& name, const Vector2i size)
 {
-    setSize(m_current_buffer, width, height);
-}
-
-void Pixelator::setSize(const std::string& name, const int width, const int height)
-{
-    if(!check_key(m_buffer_map, name))
-    {
-       SPDLOG_ERROR("Attempting to set the size of a buffer that doesn't exist!");
-        return;
-    }
     unsigned int index = m_buffer_map[name];
-    std::vector<uint32_t> newPixels(width * height * 4);
-    memset(&newPixels[0], 0, width * height * 4);
-
+    m_buffers[index].size = size;
+    std::vector<uint8_t> newPixels(m_buffers[index].size.x * m_buffers[index].size.y * 4u);
+    uint8_t* ptr = &newPixels[0];
+    uint8_t* end = ptr + newPixels.size();
+    while (ptr < end)
+    {
+        *ptr++ = 0;
+        *ptr++ = 0;
+        *ptr++ = 0;
+        *ptr++ = 0;
+    }
     // Commit the new pixel buffer
     m_buffers[index].pixels.swap(newPixels);
-    m_buffers[index].width = width;
-    m_buffers[index].height = height;
+    m_buffers[index].size = size;
 }
 
-linalg::aliases::uint2 Pixelator::getSize(const std::string name)
-{
-    linalg::aliases::uint2 size = { m_buffers[m_buffer_map[name]].width, m_buffers[m_buffer_map[name]].height };
-    return size;
-}
-
-void Pixelator::setPixel(unsigned int x, unsigned int y, const uint32_t color)
-{
-    setPixel(m_current_buffer, x, y, color);
-}
-
-void Pixelator::setPixel(const std::string& name, unsigned int x, unsigned int y, const uint32_t color)
+void Pixelator::setPixel(const std::string& name, unsigned int x, unsigned int y, const ALLEGRO_COLOR& color)
 {
     unsigned int index = m_buffer_map[name];
-    if (x < m_buffers[index].width && y < m_buffers[index].height)
-    {
-        m_buffers[index].pixels[y*m_buffers[index].width+x] = color;
-    }
+    uint8_t* pixel = &m_buffers[index].pixels[(x + y * m_buffers[index].size.x) * 4];
+    uint8_t r, g, b, a;
+    al_unmap_rgba(color, &r, &g, &b, &a);
+    *pixel++ = r;
+    *pixel++ = g;
+    *pixel++ = b;
+    *pixel++ = a;
 }
 
-void Pixelator::setPixelA(const std::string& name, uint32_t x, uint32_t y, uint32_t color, double alpha)
+void Pixelator::setPixelAlpha(const std::string& name, uint32_t x, uint32_t y, ALLEGRO_COLOR color, double alpha)
 {
-    if(!check_key(m_buffer_map, name))
+    if (!check_key(m_buffer_map, name))
     {
-       SPDLOG_ERROR("Attempting to set a pixel of a buffer that doesn't exist!");
+        SPDLOG_ERROR("Attempting to set a pixel of a buffer that doesn't exist!");
         return;
     }
     unsigned int index = m_buffer_map[name];
 
-    int r = (int)(color >> 3*8);
-    int g = (int)((color >> 2*8) & 0xFF);
-    int b = (int)((color >> 8) & 0xFF);
-    int a = (int)(color & 0xFF);
+    uint8_t r, g, b, a;
+    al_unmap_rgba(color, &r, &g, &b, &a);
+
     if (a)
     {
-        if (alpha*a != 0 && alpha*a != 255) // Alpha transparency, compute alpha based on array colors
+        if (alpha * a != 0 && alpha * a != 255) // Alpha transparency, compute alpha based on array colors
         {
-            double c_alpha = ((double)a)/255.0 * (alpha);
-            uint32_t oldPix = m_buffers[index].pixels[y*m_buffers[index].width+x];
-            int oldR = (int)(oldPix >> 3*8);
-            int oldG = (int)((oldPix >> 2*8) & 0xFF);
-            int oldB = (int)((oldPix >> 8) & 0xFF);
-            int oldA = (int)(oldPix & 0xFF);
-            r = (int)((double)r * c_alpha + (double)oldR * (1-c_alpha));
-            g = (int)((double)g * c_alpha + (double)oldG * (1-c_alpha));
-            b = (int)((double)b * c_alpha + (double)oldB * (1-c_alpha));
-            a = (int)((double)a * c_alpha + (double)oldA * (1-c_alpha));
+            double c_alpha = ((double)a) / 255.0 * (alpha);
+            ALLEGRO_COLOR oldPix = getPixel(name, x, y);
+            uint8_t oldR, oldG, oldB, oldA;
+            al_unmap_rgba(oldPix, &oldR, &oldG, &oldB, &oldA);
+            r = (int)((double)r * c_alpha + (double)oldR * (1 - c_alpha));
+            g = (int)((double)g * c_alpha + (double)oldG * (1 - c_alpha));
+            b = (int)((double)b * c_alpha + (double)oldB * (1 - c_alpha));
+            a = (int)((double)a * c_alpha + (double)oldA * (1 - c_alpha));
         }
-        setPixel(name, x, y, toIntColor(r,g,b,a));
+        setPixel(name, x, y, al_map_rgba(r, g, b, a));
     }
 }
 
-
-uint32_t Pixelator::getPixel(const std::string& name, unsigned int x, unsigned int y)
-{
-    unsigned int index = m_buffer_map.at(name);
-    return m_buffers[index].pixels[(y*m_buffers[index].width+x)*4u];
-}
-
-uint32_t* Pixelator::getPixels(const std::string& name)
-{
-    if(!check_key(m_buffer_map, name))
-    {
-       SPDLOG_ERROR("Attempting to get the pixel data of a buffer that doesn't exist!");
-        return nullptr;
-    }
-    unsigned int index = m_buffer_map[name];
-
-    return &m_buffers[index].pixels[0];
-}
-
-void Pixelator::drawColumn(const std::string& name, unsigned int x, unsigned int y, unsigned int height, const uint32_t color)
+void Pixelator::drawColumn(const std::string& name, unsigned int x, unsigned int y, unsigned int height, const ALLEGRO_COLOR& color)
 {
    if (y < 0)
     {
         height = height + y;
         y = 0;
     }
-    if (y + height > m_buffers[m_buffer_map[m_current_buffer]].height)
+    if (y + height > m_buffers[m_buffer_map[name]].size.y)
     {
-        height = m_buffers[m_buffer_map[m_current_buffer]].height - y;
+        height = m_buffers[m_buffer_map[name]].size.y - y;
     }
     for (int32_t i = y; i < y + height; i++)
     {
@@ -293,31 +190,31 @@ void Pixelator::drawColumn(const std::string& name, unsigned int x, unsigned int
     }
 }
 
-void Pixelator::drawRow(unsigned int x, unsigned int y, unsigned int length, const uint32_t color)
+void Pixelator::drawRow(const std::string& name, unsigned int x, unsigned int y, unsigned int length, const ALLEGRO_COLOR& color)
 {
     for (int32_t i = x; i < length; i++)
     {
-        setPixel(i, y, color);
+        setPixel(name, i, y, color);
     }
 }
 
-void Pixelator::drawFilledRect(const std::string& name, const SDL_Rect& rect, const uint32_t color)
+// draw a rect defined by left, top, width, height
+void Pixelator::drawFilledRect(const std::string& name, const IntRect& rect, const ALLEGRO_COLOR& color)
 {
-    unsigned int index = m_buffer_map.at(name);
-    if (rect.x < m_buffers[index].width)
+    if (rect.left < getSize().width)
     {
-        for (uint32_t i = rect.x; i < rect.x + rect.w; i++)
+        for (uint32_t i = rect.left; i < rect.left + rect.width; i++)
         {
-            if (i < m_buffers[index].width)
+            if (i < getSize().width)
             {
-                drawColumn(name, i, rect.y, rect.h, color);
+                drawColumn(name, i, rect.top, rect.height, color);
             }
         }
     }
 }
 
 // Doom's version of Bresenham
-void Pixelator::drawLine(const linalg::aliases::int2& start, const linalg::aliases::int2& end, const uint32_t color)
+void Pixelator::drawLine(const std::string& name, const Vector2i& start, const Vector2i& end, const ALLEGRO_COLOR& color)
 {
     int dx = end.x - start.x;
     int ax = 2 * abs(dx);
@@ -333,7 +230,7 @@ void Pixelator::drawLine(const linalg::aliases::int2& start, const linalg::alias
     if (ax > ay) {
         int d = ay - ax / 2;
         while (1) {
-            setPixel(x, y, color);
+            setPixel(name, x, y, color);
             if (x == end.x) return;
 
             if (d >= 0) {
@@ -346,7 +243,7 @@ void Pixelator::drawLine(const linalg::aliases::int2& start, const linalg::alias
     } else {
         int d = ax - ay / 2;
         while (1) {
-            setPixel(x, y, color);
+            setPixel(name, x, y, color);
             if (y == end.y) return;
 
             if (d >= 0) {
@@ -360,22 +257,21 @@ void Pixelator::drawLine(const linalg::aliases::int2& start, const linalg::alias
 }
 
 // https://en.wikipedia.org/wiki/Midpoint_circle_algorithm
-void Pixelator::drawCircle(const linalg::aliases::int2& coord, const int radius, const uint32_t color)
+void Pixelator::drawCircle(const std::string& name, const Vector2i& coord, const int radius, const ALLEGRO_COLOR& color)
 {
-    // TODO : sanity checks for the radius, so that it doesn't draw outside of the buffer!
     int x = radius;
     int y = 0;
     int decisionOver2 = 1 - x;  // Decision criterion divided by 2 evaluated at x=r, y=0
 
     while (x >= y) {
-        setPixel(x + coord.x,  y + coord.y, color);
-        setPixel(y + coord.x,  x + coord.y, color);
-        setPixel(-x + coord.x,  y + coord.y, color);
-        setPixel(-y + coord.x,  x + coord.y, color);
-        setPixel(-x + coord.x, -y + coord.y, color);
-        setPixel(-y + coord.x, -x + coord.y, color);
-        setPixel(x + coord.x, -y + coord.y, color);
-        setPixel(y + coord.x, -x + coord.y, color);
+        setPixel(name, x + coord.x,  y + coord.y, color);
+        setPixel(name, y + coord.x,  x + coord.y, color);
+        setPixel(name, -x + coord.x,  y + coord.y, color);
+        setPixel(name, -y + coord.x,  x + coord.y, color);
+        setPixel(name, -x + coord.x, -y + coord.y, color);
+        setPixel(name, -y + coord.x, -x + coord.y, color);
+        setPixel(name, x + coord.x, -y + coord.y, color);
+        setPixel(name, y + coord.x, -x + coord.y, color);
         y++;
 
         if (decisionOver2 <= 0) {
@@ -387,112 +283,241 @@ void Pixelator::drawCircle(const linalg::aliases::int2& coord, const int radius,
     }
 }
 
-// x y width height
-void Pixelator::drawRect(const SDL_Rect rect, const uint32_t color)
+// left top width height
+void Pixelator::drawRect(const std::string& name, const IntRect rect, const ALLEGRO_COLOR& color)
 {
-    int right = rect.x + rect.w;
-    int bottom = rect.y + rect.h;
-    drawLine({rect.x, rect.y}, {right, rect.y}, color);
-    drawLine({rect.x, bottom}, {right, bottom}, color);
-    drawLine({rect.x, rect.y}, {rect.x, bottom}, color);
-    drawLine({right, rect.y}, {right, bottom}, color);
+    int right = rect.left + rect.width;
+    int bottom = rect.top + rect.height;
+    drawLine(name, Vector2i(rect.left, rect.top), Vector2i(right, rect.top), color);
+    drawLine(name, Vector2i(rect.left, bottom), Vector2i(right, bottom), color);
+    drawLine(name, Vector2i(rect.left, rect.top), Vector2i(rect.left, bottom), color);
+    drawLine(name, Vector2i(right, rect.top), Vector2i(right, bottom), color);
 }
 
-void Pixelator::fill(const std::string& name, uint32_t color, double alpha)
+ALLEGRO_COLOR Pixelator::getPixel(const std::string& name, unsigned int x, unsigned int y) const
 {
-    if(!check_key(m_buffer_map, name))
+    unsigned int index = m_buffer_map.at(name);
+    const uint8_t* pixel = &m_buffers[index].pixels[(x + y * m_buffers[index].size.x) * 4];
+    return al_map_rgba(pixel[0], pixel[1], pixel[2], pixel[3]);
+}
+
+const uint8_t* Pixelator::getPixelsPtr(const std::string& name) const
+{
+    unsigned int index = m_buffer_map.at(name);
+    if (!m_buffers[index].pixels.empty())
     {
-       SPDLOG_ERROR("Attempting to fill a buffer that doesn't exist!");
+        return &m_buffers[index].pixels[0];
+    }
+    else
+    {
+        SPDLOG_ERROR("Trying to access the pixels of an empty image");
+        return NULL;
+    }
+}
+
+void Pixelator::fill(const std::string& name, ALLEGRO_COLOR color)
+{
+    unsigned int index = m_buffer_map.at(name);
+    std::vector<uint8_t> newPixels(m_buffers[index].size.x * m_buffers[index].size.y * 4);
+    uint8_t* ptr = &newPixels[0];
+    uint8_t* end = ptr + newPixels.size();
+    uint8_t r, g, b, a;
+    al_unmap_rgba(color, &r, &g, &b, &a);
+    while (ptr < end)
+    {
+        *ptr++ = r;
+        *ptr++ = g;
+        *ptr++ = b;
+        *ptr++ = a;
+    }
+    // Commit the new pixel buffer
+    m_buffers[index].pixels.swap(newPixels);
+}
+
+void Pixelator::blendAlpha(const std::string& name, ALLEGRO_COLOR color, double alpha)
+{
+    if (!check_key(m_buffer_map, name))
+    {
+        SPDLOG_ERROR("Attempting to blend a buffer that doesn't exist!");
         return;
     }
     unsigned int index = m_buffer_map.at(name);
-    for (uint32_t i = 0; i < m_buffers[index].height; i++)
+    for (uint32_t i = 0; i < m_buffers[index].size.y; i++)
     {
-        if (i < m_buffers[index].height)
+        if (i < m_buffers[index].size.x)
         {
-            for (uint32_t j = 0; j < m_buffers[index].width; j++)
+            for (uint32_t j = 0; j < m_buffers[index].size.x; j++)
             {
-                if (j < m_buffers[index].width)
+                if (j < m_buffers[index].size.x)
                 {
-                    setPixel(name, j, i, color);
-                    // setPixelA(name, j, i, color, alpha);
+                    setPixelAlpha(name, j, i, color, alpha);
                 }
             }
         }
     }
 }
+
 
 void Pixelator::randomize(const std::string& name)
 {
-    if(!check_key(m_buffer_map, name))
-    {
-       SPDLOG_ERROR("Attempting to randomize a buffer that doesn't exist!");
-        return;
-    }
     unsigned int index = m_buffer_map.at(name);
-
-    uint32_t color = toIntColor(rand() % 255, rand() % 255, rand() % 255, rand() % 255);
-    for (uint32_t i = 0; i < m_buffers[index].height; i++)
+    std::vector<uint8_t> newPixels(m_buffers[index].size.x * m_buffers[index].size.y * 4);
+    uint8_t* ptr = &newPixels[0];
+    uint8_t* end = ptr + newPixels.size();
+    while (ptr < end)
     {
-        if (i < m_buffers[index].height)
-        {
-            for (uint32_t j = 0; j < m_buffers[index].width; j++)
-            {
-                if (j < m_buffers[index].width)
-                {
-                    color = toIntColor(rand() % 255, rand() % 255, rand() % 255, rand() % 255);
-                    setPixel(name, j, i, color);
-                    // setPixelAlpha(name, j, i, color, alpha);
-                }
-            }
-        }
+        *ptr++ = rand() % 255;
+        *ptr++ = rand() % 255;
+        *ptr++ = rand() % 255;
+        *ptr++ = rand() % 255;
     }
+    // Commit the new pixel buffer
+    m_buffers[index].pixels.swap(newPixels);
 }
 
 void Pixelator::clear(const std::string& name)
 {
+    unsigned int index = m_buffer_map.at(name);
+    std::vector<uint8_t> newPixels(m_buffers[index].size.x * m_buffers[index].size.y * 4);
+    uint8_t* ptr = &newPixels[0];
+    uint8_t* end = ptr + newPixels.size();
+    while (ptr < end)
+    {
+        *ptr++ = 0;
+        *ptr++ = 0;
+        *ptr++ = 0;
+        *ptr++ = 0;
+    }
+    // Commit the new pixel buffer
+    m_buffers[index].pixels.swap(newPixels);
+}
+
+IntRect Pixelator::getSize(const std::string name)
+{
+    IntRect rect(0, 0, static_cast<int>(m_buffers[m_buffer_map[name]].size.x), static_cast<int>(m_buffers[m_buffer_map[name]].size.y));
+    return rect;
+}
+
+// copies from an image
+//void Pixelator::copy(const sf::Image& source, unsigned int destX, unsigned int destY, const IntRect& sourceRect, bool applyAlpha)
+//{
+//    copy(source.getPixelsPtr(), Vector2i(source.getSize().x, source.getSize().y), destX, destY, sourceRect, applyAlpha);
+//}
+
+// copies from a buffer
+void Pixelator::copy(const std::string name, unsigned int destX, unsigned int destY, const IntRect& sourceRect, bool applyAlpha)
+{
     if(!check_key(m_buffer_map, name))
     {
-       SPDLOG_ERROR("Attempting to fill a buffer that doesn't exist!");
+        SPDLOG_ERROR("Attempting to copy from '{}' which doesn't exist!", name);
         return;
     }
-    unsigned int index = m_buffer_map.at(name);
+    copy(&m_buffers[m_buffer_map[name]].pixels[0], m_buffers[m_buffer_map[name]].size, destX, destY, sourceRect, applyAlpha);
+}
 
-    memset(&m_buffers[index].pixels[0], 0, m_buffers[index].width * m_buffers[index].height * 4);
-}
-/*
-bool DoSomethingWithImage (SDL_Surface* image)
+// copies everything from another buffer
+void Pixelator::copy(const std::string name, unsigned int x, unsigned int y, bool applyAlpha)
 {
-    // Error checking, I abbreviating (left out) some for this post
-    //If Surface is NULL or not 32 bit return false
-    // Lock surface if needed
-    if (SDL_MUSTLOCK(image))
+    if(!check_key(m_buffer_map, name))
     {
-        if (SDL_LockSurface(image) < 0)
-            return false;
+        SPDLOG_ERROR("Attempting to copy from '{}' which doesn't exist!", name);
+        return;
     }
-    Uint32 Color;
-    Uint8 r = 0;
-    Uint8 g = 0;
-    Uint8 b = 0;
-    int Scanline = image->pitch / 4;
-    register Uint32* Ptr = (Uint32*) image->pixels;
-    for (Uint32 y = 1; y <= image->h; ++y)
-    {
-        for (Uint32 x = 0; x < image->w; ++x)
-        {
-            Color = *Ptr;
-            SDL_GetRGB(Color, image->format, &r, &g, &b);
-            // I do some manipulations with the colors here. Not really fast...
-            Color = SDL_MapRGB(image->format, r, g, b);
-            *Ptr = Color;
-            ++Ptr;
-        }
-        Ptr = (Uint32*) image->pixels + Scanline * y;
-    }
-    // Unlock if needed
-    if (SDL_MUSTLOCK(image))
-        SDL_UnlockSurface(image);
-    return true;
+    IntRect sourceRect;
+    sourceRect.left = sourceRect.top = 0;
+    sourceRect.width = m_buffers[m_buffer_map[name]].size.x;
+    sourceRect.height = m_buffers[m_buffer_map[name]].size.y;
+    copy(&m_buffers[m_buffer_map[name]].pixels[0], m_buffers[m_buffer_map[name]].size, x, y, sourceRect, applyAlpha);
 }
-*/
+
+// copies from raw pixels
+void Pixelator::copy(const uint8_t* source_pixels, const Vector2i buffer_size, unsigned int destX, unsigned int destY, const IntRect& sourceRect, bool applyAlpha)
+{
+    // Make sure that both images are valid
+    if ((buffer_size.x == 0) || (buffer_size.y == 0) || (m_buffers[m_buffer_map[m_current_buffer]].size.x == 0) || (m_buffers[m_buffer_map[m_current_buffer]].size.y == 0))
+        return;
+
+    // Adjust the source rectangle
+    IntRect srcRect = sourceRect;
+    if (srcRect.width == 0 || (srcRect.height == 0))
+    {
+        srcRect.left   = 0;
+        srcRect.top    = 0;
+        srcRect.width  = buffer_size.x;
+        srcRect.height = buffer_size.y;
+    }
+    else
+    {
+        if (srcRect.left   < 0) srcRect.left = 0;
+        if (srcRect.top    < 0) srcRect.top  = 0;
+        if (srcRect.width  > static_cast<int>(buffer_size.x)) srcRect.width  = buffer_size.x;
+        if (srcRect.height > static_cast<int>(buffer_size.y)) srcRect.height = buffer_size.y;
+    }
+
+    // Then find the valid bounds of the destination rectangle
+    int width  = srcRect.width;
+    int height = srcRect.height;
+    if (destX + width  > m_buffers[m_buffer_map[m_current_buffer]].size.x) width  = m_buffers[m_buffer_map[m_current_buffer]].size.x - destX;
+    if (destY + height > m_buffers[m_buffer_map[m_current_buffer]].size.y) height = m_buffers[m_buffer_map[m_current_buffer]].size.y - destY;
+
+    // Make sure the destination area is valid
+    if ((width <= 0) || (height <= 0))
+        return;
+
+    // Precompute as much as possible
+    int          pitch     = width * 4;
+    int          rows      = height;
+    int          srcStride = static_cast<int>(buffer_size.x * 4u);
+    int          dstStride = static_cast<int>(m_buffers[m_buffer_map[m_current_buffer]].size.x * 4u);
+    const uint8_t* srcPixels = source_pixels;
+    uint8_t*       dstPixels = &m_buffers[m_buffer_map[m_current_buffer]].pixels[0] + (destX + destY * static_cast<int>(m_buffers[m_buffer_map[m_current_buffer]].size.x)) * 4u;
+
+    // Copy the pixels
+    if (applyAlpha)
+    {
+        // Interpolation using alpha values, pixel by pixel (slower)
+        for (int i = 0; i < rows; ++i)
+        {
+            for (int j = 0; j < width; ++j)
+            {
+                // Get a direct pointer to the components of the current pixel
+                const uint8_t* src = srcPixels + j * 4;
+                uint8_t*       dst = dstPixels + j * 4;
+
+                // Interpolate RGBA components using the alpha value of the source pixel
+                uint8_t alpha = src[3];
+                dst[0] = (src[0] * alpha + dst[0] * (255 - alpha)) / 255;
+                dst[1] = (src[1] * alpha + dst[1] * (255 - alpha)) / 255;
+                dst[2] = (src[2] * alpha + dst[2] * (255 - alpha)) / 255;
+                dst[3] = alpha + dst[3] * (255 - alpha) / 255;
+            }
+
+            srcPixels += srcStride;
+            dstPixels += dstStride;
+        }
+    }
+    else
+    {
+        // Optimized copy ignoring alpha values, row by row (faster)
+        for (int i = 0; i < rows; ++i)
+        {
+            std::memcpy(dstPixels, srcPixels, pitch);
+            srcPixels += srcStride;
+            dstPixels += dstStride;
+        }
+    }
+}
+
+Vector2i::Vector2i(int x, int y)
+    : x(x)
+    , y(y)
+{
+}
+
+IntRect::IntRect(int left, int top, int width, int height)
+    : left(left)
+    , top(top)
+    , width(width)
+    , height(height)
+{
+}

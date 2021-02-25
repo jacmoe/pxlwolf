@@ -17,8 +17,8 @@
 
 #include <cassert>
 
-#include "entt.hpp"
-#include "Level.hpp"
+#include "entt/entt.hpp"
+#include "main/Level.hpp"
 
 class Entity
 {

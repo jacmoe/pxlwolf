@@ -1,19 +1,19 @@
 /*# This file is part of the
-# ██████╗ ██╗  ██╗██╗     ██╗    ██╗ ██████╗ ██╗     ███████╗
-# ██╔══██╗╚██╗██╔╝██║     ██║    ██║██╔═══██╗██║     ██╔════╝
-# ██████╔╝ ╚███╔╝ ██║     ██║ █╗ ██║██║   ██║██║     █████╗  
-# ██╔═══╝  ██╔██╗ ██║     ██║███╗██║██║   ██║██║     ██╔══╝  
-# ██║     ██╔╝ ██╗███████╗╚███╔███╔╝╚██████╔╝███████╗██║     
-# ╚═╝     ╚═╝  ╚═╝╚══════╝ ╚══╝╚══╝  ╚═════╝ ╚══════╝╚═╝     
+#  █████╗ ██╗     ██╗     ███████╗ ██████╗ ██████╗ ███████╗████████╗████████╗ ██████╗ 
+# ██╔══██╗██║     ██║     ██╔════╝██╔════╝ ██╔══██╗██╔════╝╚══██╔══╝╚══██╔══╝██╔═══██╗
+# ███████║██║     ██║     █████╗  ██║  ███╗██████╔╝█████╗     ██║      ██║   ██║   ██║
+# ██╔══██║██║     ██║     ██╔══╝  ██║   ██║██╔══██╗██╔══╝     ██║      ██║   ██║   ██║
+# ██║  ██║███████╗███████╗███████╗╚██████╔╝██║  ██║███████╗   ██║      ██║   ╚██████╔╝
+# ╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝   ╚═╝      ╚═╝    ╚═════╝ 
 #   project
 #
-#   https://github.com/jacmoe/pxlwolf
+#   https://github.com/jacmoe/allegretto
 #
-#   (c) 2020 - 2021 Jacob Moena
+#   (c) 2021 Jacob Moena
 #
 #   MIT License
 #*/
-#include "Application.hpp"
+#include "main/Application.hpp"
 
 #include <iostream>
 #include <fstream>
@@ -31,225 +31,179 @@ Application::Application()
     , m_running(false)
     , m_show_fps(false)
     , m_should_exit(false)
-    , m_renderer(nullptr)
     , font_name("assets/fonts/MedievalSharp-Bold.ttf")
     , font_size(12)
-    , font_color({255, 255, 255, 255})
-    , m_font(nullptr)
+    , m_screenlock(nullptr)
 {}
 
 Application::~Application()
 {
-    SPDLOG_INFO("PixelWolf shutdown.");
-    if(m_font != nullptr) TTF_CloseFont(m_font);
-    m_font_texture.reset();
-    m_render_texture.reset();
-    m_renderer.reset();
-    TTF_Quit();
-    SDL_Quit();
+    SPDLOG_INFO("Allegretto shutdown.");
 }
 
-bool Application::write_text(const std::string text)
+bool Application::init()
 {
-    SDL_Surface* surf = TTF_RenderText_Blended(m_font, text.c_str(), font_color);
-    if (surf == nullptr){
-        SPDLOG_ERROR("Can't render the font!");
-        return false;
-    }
-    m_font_texture.reset(SDL_CreateTextureFromSurface(m_renderer.get(), surf));
-    SDL_FreeSurface(surf);
-    return true;
-}
 
-// Borrowed from https://gigi.nullneuron.net/gigilabs/saving-screenshots-in-sdl2/
-void Application::save_screenshot()
-{
-    const uint32_t format = SDL_PIXELFORMAT_ARGB8888;
-
-    SDL_Surface* surface = SDL_CreateRGBSurfaceWithFormat(0, m_width * m_scale, m_height * m_scale, 32, format);
-    SDL_RenderReadPixels(m_renderer.get(), NULL, format, surface->pixels, surface->pitch);
-    SDL_SaveBMP(surface, "screenshot.bmp");
-    SDL_FreeSurface(surface);
-}
-
-bool Application::load_font()
-{
-    if(std::filesystem::exists(font_name))
+    if (!al_init())
     {
-        m_font = TTF_OpenFont(font_name.c_str(), font_size);
-        if (!m_font){
-            SPDLOG_ERROR("Cannot load font!", TTF_GetError());
-            return false;
-        }	
-    }
-    else
-    {
-        SPDLOG_ERROR("Font '{}' could not be found.", font_name);
-        return false;
-    }
-    return true;
-}
-
-bool Application::init(const std::string title, int width, int height, float scale, const bool fullscreen)
-{
-    m_width = width;
-    m_height = height;
-    m_scale = scale;
-    m_title = title;
-    m_fullscreen = fullscreen;
-
-    if (0 != SDL_Init(SDL_INIT_VIDEO))
-    {
-        SPDLOG_ERROR("Error initializing SDL: {}", std::string(SDL_GetError()));
-        return false;
-    }
-    if (0 != TTF_Init())
-    {
-        SPDLOG_ERROR("Error initializing TTF: {}", std::string(TTF_GetError()));
+        SPDLOG_ERROR("Couldn't initialize allegro");
         return false;
     }
 
-    m_window.reset(SDL_CreateWindow(
-        title.c_str(),
-        300, 100,
-        width * scale, height * scale,
-        SDL_WINDOW_OPENGL
-    ));
-    if (!m_window)
+    SPDLOG_INFO("Allegro {} initialized.", ALLEGRO_VERSION_STR);
+
+    m_config.reset(al_load_config_file("assets/config/pxlwolf.ini"));
+    if (!m_config.get())
     {
-        SPDLOG_ERROR("Error creating window: {}", std::string(SDL_GetError()));
+        SPDLOG_ERROR("Couldn't load configuration");
         return false;
     }
 
-    m_renderer.reset(SDL_CreateRenderer(m_window.get(), -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC));
-    if (!m_renderer)
+    m_width = std::stoi(al_get_config_value(m_config.get(), "graphics", "width"));
+    m_height = std::stoi(al_get_config_value(m_config.get(), "graphics", "height"));
+    m_scale = std::stof(al_get_config_value(m_config.get(), "graphics", "scale"));
+    m_title = al_get_config_value(m_config.get(), "graphics", "title");
+    int fscr = std::stoi(al_get_config_value(m_config.get(), "graphics", "fullscreen"));
+    m_fullscreen = (fscr > 0);
+
+    if (!al_install_keyboard())
     {
-        SPDLOG_ERROR("Error creating renderer: {}", std::string(SDL_GetError()));
+        SPDLOG_ERROR("Couldn't initialize keyboard");
         return false;
     }
 
-    SDL_RenderSetScale(m_renderer.get(), static_cast<float>(scale), static_cast<float>(scale));
-    SDL_SetRenderDrawBlendMode(m_renderer.get(), SDL_BLENDMODE_BLEND);
+    m_timer.reset(al_create_timer(1.0 / 60));
+    if (!m_timer.get())
+    {
+        SPDLOG_ERROR("Couldn't initialize timer");
+        return false;
+    }
 
-    m_render_texture.reset(SDL_CreateTexture(m_renderer.get(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, m_width, m_height));
-    SDL_SetTextureBlendMode(m_render_texture.get(), SDL_BLENDMODE_BLEND);
+    m_queue.reset(al_create_event_queue());
+    if (!m_queue.get())
+    {
+        SPDLOG_ERROR("Couldn't initialize queue");
+        return false;
+    }
+
+    m_display.reset(al_create_display(m_width * m_scale, m_height * m_scale));
+    if (!m_display.get())
+    {
+        SPDLOG_ERROR("Couldn't initialize display");
+        return false;
+    }
+
+    m_font.reset(al_create_builtin_font());
+    if (!m_font.get())
+    {
+        SPDLOG_ERROR("Couldn't initialize font");
+        return false;
+    }
+
+    if (!al_init_image_addon())
+    {
+        SPDLOG_ERROR("Couldn't initialize image addon");
+        return false;
+    }
+
+    al_set_new_bitmap_flags(ALLEGRO_VIDEO_BITMAP | ALLEGRO_NO_PRESERVE_TEXTURE);
+
+    int flags = al_get_new_bitmap_flags();
+
+    al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP);
+    m_display_buffer.reset(al_create_bitmap(m_width, m_height));
+    if (!m_display_buffer.get())
+    {
+        SPDLOG_ERROR("Couldn't create display buffer");
+        return false;
+    }
+
+    al_set_new_bitmap_flags(flags);
+
+    al_register_event_source(m_queue.get(), al_get_keyboard_event_source());
+    al_register_event_source(m_queue.get(), al_get_display_event_source(m_display.get()));
+    al_register_event_source(m_queue.get(), al_get_timer_event_source(m_timer.get()));
 
     m_pixelator = std::make_shared<Pixelator>();
 
-    m_pixelator.get()->setSize(m_width, m_height);
+    m_pixelator.get()->setSize(Vector2i(m_width, m_height));
 
-    if(!load_font())
-    {
-        return false;
-    }
-
-    SPDLOG_INFO("PixelWolf initialized.");
-
+    SPDLOG_INFO("Allegretto initialized.");
     return true;
 }
 
 void Application::run()
 {
-    m_time_last = 0;
-    m_time_now = SDL_GetPerformanceCounter();
-    m_delta_time = 0.0;
+    bool done = false;
+    bool redraw = true;
+    double old_time = al_get_time();
 
-    uint32_t counted_frames = 0;
-    m_fps_timer.start();
+    OnUserCreate();
+    
+    al_start_timer(m_timer.get());
 
-    m_running = true;
-
-    if (!OnUserCreate()) m_running = false;
-
-    SDL_SetRelativeMouseMode(SDL_TRUE);
-
-    while (m_running)
+    while (1)
     {
-        m_average_fps = counted_frames / (m_fps_timer.getTicks() / 1000.f);
-        if(m_average_fps > 2000000)
+        al_wait_for_event(m_queue.get(), &m_event);
+
+        m_average_fps = 1.0 / (al_get_time() - old_time);
+        old_time = al_get_time();
+
+        switch (m_event.type)
         {
-            m_average_fps = 0;
+        case ALLEGRO_EVENT_TIMER:
+            // game logic goes here.
+            redraw = true;
+            break;
+
+        case ALLEGRO_EVENT_KEY_DOWN:
+        case ALLEGRO_EVENT_DISPLAY_CLOSE:
+            done = true;
+            break;
         }
 
-        m_time_last = m_time_now;
-        m_time_now = SDL_GetPerformanceCounter();
-        m_delta_time = static_cast<double>(((m_time_now - m_time_last) * 1000 / static_cast<double>(SDL_GetPerformanceFrequency())));
+        if (done)
+            break;
 
-        event();
-
-        OnUserUpdate(m_delta_time);
-
-        render();
-        ++counted_frames;
+        if (redraw && al_is_event_queue_empty(m_queue.get()))
+        {
+            render();
+            redraw = false;
+        }
     }
-    m_fps_timer.stop();
-    OnUserDestroy();
 }
 
 void Application::event()
 {
-    static bool mapKeyPressed = false;
-    static bool fpsKeyPressed = false;
+}
 
-    while (SDL_PollEvent(&e_))
+void Application::update_display_buffer()
+{
+    m_screenlock = al_lock_bitmap(m_display_buffer.get(), ALLEGRO_PIXEL_FORMAT_ANY, ALLEGRO_LOCK_WRITEONLY);
+
+    for (int y = 0; y < m_height; ++y)
     {
-        switch (e_.type)
+        for (int x = 0; x < m_width; ++x)
         {
-            case SDL_QUIT:
-                m_running = false;
-                break;
-
-            case SDL_KEYDOWN:
-                switch (e_.key.keysym.sym)
-                {
-                    case SDLK_ESCAPE:
-                        m_running = false;
-                        break;
-                    case SDLK_p:
-                        save_screenshot();
-                        break;
-                    case SDLK_m:
-                        if(!mapKeyPressed)
-                        {
-                            m_show_map = !m_show_map;
-                            mapKeyPressed = true;
-                        }
-                        break;
-                    case SDLK_f:
-                        if(!fpsKeyPressed)
-                        {
-                            m_show_fps = !m_show_fps;
-                            fpsKeyPressed = true;
-                        }
-                        break;
-                }
-            case SDL_KEYUP:
-                switch (e_.key.keysym.sym)
-                {
-                    case SDLK_m:
-                        mapKeyPressed = false;
-                        break;
-                    case SDLK_f:
-                        fpsKeyPressed = false;
-                        break;
-                }
+            ALLEGRO_COLOR color = m_pixelator.get()->getPixel(x, y);
+            al_put_pixel(x, y, color);
         }
     }
+
+    al_unlock_bitmap(m_display_buffer.get());
 }
 
 void Application::render()
 {
-    SDL_SetRenderDrawColor(m_renderer.get(), 255, 255, 255, 255);
-    SDL_RenderClear(m_renderer.get());
+    al_set_target_bitmap(m_display_buffer.get());
+    al_clear_to_color(al_map_rgb(0, 0, 0));
+
+    update_display_buffer();
+
+    al_set_target_backbuffer(m_display.get());
+    al_draw_scaled_bitmap(m_display_buffer.get(), 0, 0, m_width, m_height, 0, 0, m_width * m_scale, m_height * m_scale, 0);
 
     OnUserRender();
 
-    SDL_RenderCopy(m_renderer.get(), m_render_texture.get(), NULL, NULL);
-    SDL_Rect dst;
-    dst.x = 10;
-    dst.y = 10;
-    SDL_QueryTexture(m_font_texture.get(), NULL, NULL, &dst.w, &dst.h);
-    SDL_RenderCopy(m_renderer.get(), m_font_texture.get(), nullptr, &dst);
-
-    SDL_RenderPresent(m_renderer.get());
+    al_flip_display();
 }

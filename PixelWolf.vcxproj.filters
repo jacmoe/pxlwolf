@@ -1,114 +1,70 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
     </Filter>
+    <Filter Include="code">
+      <UniqueIdentifier>{a778e218-19cc-4986-a1e6-61cfbbb2b99f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="code\main">
+      <UniqueIdentifier>{510f7aa3-4f99-43bc-b16a-db6f6a760bfd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="code\utility">
+      <UniqueIdentifier>{c8266a4a-a3db-4f18-a73f-313e9740aff0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="code\components">
+      <UniqueIdentifier>{e69f2154-08d9-46bb-91e1-2349979bd633}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="code\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="code\main\Application.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="code\main\Entity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="code\main\Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="code\main\Level.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="code\main\Pixelator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="code\main\pixelator_old.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="code\main\RayCaster.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>code\main</Filter>
     </ClCompile>
     <ClCompile Include="code\utility\dbg_console.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>code\utility</Filter>
     </ClCompile>
-    <ClCompile Include="code\utility\ImageAtlas.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="code\main\Game.cpp">
+      <Filter>code\main</Filter>
     </ClCompile>
-    <ClCompile Include="code\utility\Map.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="code\main.cpp">
+      <Filter>code</Filter>
     </ClCompile>
-    <ClCompile Include="code\utility\SpriteSheetLoader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="code\utility\Timer.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="code\main\Pixelator.cpp">
+      <Filter>code\main</Filter>
     </ClCompile>
     <ClCompile Include="code\utility\utils.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>code\utility</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="code\components\components.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="code\components\TagComponent.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="code\main\Application.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="code\main\Entity.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="code\main\Game.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="code\main\Level.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="code\main\Pixelator.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="code\main\RayCaster.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="code\utility\dbg_console.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="code\utility\ImageAtlas.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="code\utility\Map.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>code\main</Filter>
     </ClInclude>
     <ClInclude Include="code\utility\packer.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="code\utility\SDLDeleter.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="code\utility\SpriteSheetLoader.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="code\utility\Timer.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>code\utility</Filter>
     </ClInclude>
     <ClInclude Include="code\utility\unpacker.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>code\utility</Filter>
     </ClInclude>
     <ClInclude Include="code\utility\utils.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>code\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="code\utility\dbg_console.hpp">
+      <Filter>code\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="code\main\Game.hpp">
+      <Filter>code\main</Filter>
+    </ClInclude>
+    <ClInclude Include="code\main\Pixelator.hpp">
+      <Filter>code\main</Filter>
+    </ClInclude>
+    <ClInclude Include="code\components\components.hpp">
+      <Filter>code\components</Filter>
+    </ClInclude>
+    <ClInclude Include="code\components\TagComponent.hpp">
+      <Filter>code\components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

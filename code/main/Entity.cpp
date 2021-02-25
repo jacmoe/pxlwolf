@@ -13,7 +13,7 @@
 #
 #   MIT License
 #*/
-#include "Entity.hpp"
+#include "main/Entity.hpp"
 
 Entity::Entity(entt::entity handle, Level* level)
     : m_entity_handle(handle), m_level(level)

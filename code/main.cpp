@@ -17,16 +17,15 @@
 
 #include <filesystem>
 
-#include "toml.hpp"
-#include "utils.hpp"
-#include "dbg_console.hpp"
+#include "utility/utils.hpp"
+#include "utility/dbg_console.hpp"
 #include "spdlog/spdlog.h"
 #include "spdlog/sinks/basic_file_sink.h"
 #include "spdlog/sinks/stdout_color_sinks.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
-#include "Game.hpp"
+#include "main/Game.hpp"
 
 
 void setup_working_directory()
@@ -77,33 +76,9 @@ int main(int, char**)
 
 	SPDLOG_INFO("PixelWolf initializing.");
 
-    auto config = toml::parse("assets/config/pxlwolf.toml");
-    const auto& application_config = toml::find(config, "application");
-    toml::table config_table = toml::get<toml::table>(application_config);
-
-#if defined(_MSC_VER)
-# pragma warning(push)
-// Disable TOML conversion warnings
-# pragma warning(disable: 4244)
-#endif
-    const int screenWidth = config_table["window_width"].as_integer();
-    const int screenHeight = config_table["window_height"].as_integer();
-    const float scale = config_table["window_scale"].as_integer();
-    const std::string title = config_table["title"].as_string();
-    const bool fullscreen = config_table["fullscreen"].as_boolean();
-    const auto& game_config = toml::find(config, "game");
-    toml::table game_config_table = toml::get<toml::table>(game_config);
-    const std::string level_name = game_config_table["level_name"].as_string();
-    const double camera_dist = game_config_table["camera_dist"].as_floating();
-#if defined(_MSC_VER)
-# pragma warning(pop)
-#endif
-
-    GameConfig the_game_config { level_name, camera_dist };
     Game game;
-    game.setConfig(the_game_config);
 
-    if(game.init(title, screenWidth, screenHeight, scale, fullscreen))
+    if(game.init())
     {
         game.run();
     }

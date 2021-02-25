@@ -15,9 +15,9 @@
 #*/
 #pragma once
 
-#include "Map.hpp"
-#include "Pixelator.hpp"
-#include "ImageAtlas.hpp"
+#include "utility/Map.hpp"
+#include "main/Pixelator.hpp"
+#include "utility/ImageAtlas.hpp"
 #include <memory>
 #include <unordered_map>
 #include <set>
@@ -54,13 +54,13 @@ public:
                               int32_t h, double depth,
                              uint8_t tileNum, double alphaNum, 
                              uint32_t column, double fadePercent, 
-                             SDL_Color targetColor);
+                             ALLEGRO_COLOR targetColor);
     void drawTextureColumnEx(uint32_t x, int32_t y,
                               int32_t h, double depth,
                               Texture texture,
                              uint8_t tileNum, double alphaNum, 
                              uint32_t column, double fadePercent, 
-                             SDL_Color targetColor);
+                             ALLEGRO_COLOR targetColor);
     const std::set<uint32_t> getVisited() { return m_visited; }
 private:
     std::shared_ptr<utility::Map> m_map;
@@ -94,7 +94,7 @@ private:
     void setPixelAlphaDepth(uint32_t x, uint32_t y, uint32_t color, double alphaNum, double depth);
 
     double getInterDist(double dx, double dy, double xi, double yi, double coordX, double coordY, double* newX, double* newY, uint8_t* side);
-    uint32_t pixelGradientShader(uint32_t pixel, double percent, SDL_Color target);
+    uint32_t pixelGradientShader(uint32_t pixel, double percent, ALLEGRO_COLOR target);
     void initRayTexture(const std::string& path, int tile_width, int tile_height, int num_tiles);
     void initWallCeilTexture(const std::string& path, int tile_width, int tile_height, int num_tiles);
 };

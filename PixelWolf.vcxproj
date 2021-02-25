@@ -22,6 +22,7 @@
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{53FF9EB7-7AC4-4843-AD5A-6122C8196796}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -76,6 +77,7 @@
     <Allegro_AddonColor>true</Allegro_AddonColor>
     <Allegro_AddonVideo>true</Allegro_AddonVideo>
     <Allegro_LibraryType>StaticMonolithRelease</Allegro_LibraryType>
+    <IncludePath>./3rdparty;./3rdparty/spdlog/include;./code;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>true</LinkIncremental>
@@ -91,6 +93,7 @@
     <Allegro_AddonColor>true</Allegro_AddonColor>
     <Allegro_AddonVideo>true</Allegro_AddonVideo>
     <Allegro_LibraryType>StaticMonolithRelease</Allegro_LibraryType>
+    <IncludePath>./3rdparty;./3rdparty/spdlog/include;./code;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -99,6 +102,7 @@
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <TargetMachine>MachineX86</TargetMachine>
@@ -112,6 +116,7 @@
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <TargetMachine>MachineX86</TargetMachine>
@@ -124,35 +129,19 @@
   <ItemGroup>
     <ClCompile Include="code\main.cpp" />
     <ClCompile Include="code\main\Application.cpp" />
-    <ClCompile Include="code\main\Entity.cpp" />
     <ClCompile Include="code\main\Game.cpp" />
-    <ClCompile Include="code\main\Level.cpp" />
     <ClCompile Include="code\main\Pixelator.cpp" />
-    <ClCompile Include="code\main\pixelator_old.cpp" />
-    <ClCompile Include="code\main\RayCaster.cpp" />
     <ClCompile Include="code\utility\dbg_console.cpp" />
-    <ClCompile Include="code\utility\ImageAtlas.cpp" />
-    <ClCompile Include="code\utility\Map.cpp" />
-    <ClCompile Include="code\utility\SpriteSheetLoader.cpp" />
-    <ClCompile Include="code\utility\Timer.cpp" />
     <ClCompile Include="code\utility\utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="code\components\components.hpp" />
     <ClInclude Include="code\components\TagComponent.hpp" />
     <ClInclude Include="code\main\Application.hpp" />
-    <ClInclude Include="code\main\Entity.hpp" />
     <ClInclude Include="code\main\Game.hpp" />
-    <ClInclude Include="code\main\Level.hpp" />
     <ClInclude Include="code\main\Pixelator.hpp" />
-    <ClInclude Include="code\main\RayCaster.hpp" />
     <ClInclude Include="code\utility\dbg_console.hpp" />
-    <ClInclude Include="code\utility\ImageAtlas.hpp" />
-    <ClInclude Include="code\utility\Map.hpp" />
     <ClInclude Include="code\utility\packer.hpp" />
-    <ClInclude Include="code\utility\SDLDeleter.hpp" />
-    <ClInclude Include="code\utility\SpriteSheetLoader.hpp" />
-    <ClInclude Include="code\utility\Timer.hpp" />
     <ClInclude Include="code\utility\unpacker.hpp" />
     <ClInclude Include="code\utility\utils.hpp" />
   </ItemGroup>

@@ -15,9 +15,9 @@
 #*/
 #pragma once
 
-#include "entt.hpp"
+#include "entt/entt.hpp"
 
-#include "Map.hpp"
+#include "utility/Map.hpp"
 
 #include <unordered_map>
 

@@ -14,11 +14,11 @@
 #   MIT License
 #*/
 #include <cmath>
-#include "RayCaster.hpp"
-#include "Game.hpp"
+#include "main/RayCaster.hpp"
+#include "main/Game.hpp"
 #include "stb_image.h"
-#include "packer.hpp"
-#include "unpacker.hpp"
+#include "utility/packer.hpp"
+#include "utility/unpacker.hpp"
 
 RayCaster::RayCaster()
 {
@@ -67,52 +67,19 @@ void RayCaster::generateAngleValues(uint32_t width, Camera* camera)
     }
 }
 
-uint32_t toIntColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
-{
-    return ((uint32_t)r << 3*8 | (uint32_t)g << 2*8 | (uint32_t)b << 8 | (uint32_t)a);
-}
-
-SDL_Color toSDLColor(uint32_t pixColor)
-{
-    uint8_t r = (uint8_t)(pixColor >> 3*8);
-    uint8_t g = (uint8_t)((pixColor >> 2*8) & 0xFF);
-    uint8_t b = (uint8_t)((pixColor >> 8) & 0xFF);
-    uint8_t a = (uint8_t)(pixColor & 0xFF);
-    SDL_Color newColor = {r, g, b, a};
-    return newColor;
-}
-
-/** to8BitColor
- * @brief Paletizes 32bit color to 8bit color
- * 
- * @param colorDat Raw truecolor value to paletize
- * @return 8 bit color value
- */
-uint32_t to8BitColor(uint32_t colorDat)
-{
-    int r = (int)(colorDat >> 3*8);
-    int g = (int)((colorDat >> 2*8) & 0xFF);
-    int b = (int)((colorDat >> 8) & 0xFF);
-    int newR = (int)ceil(round((double)r / 255.0*15) * (255.0/15));
-    int newG = (int)ceil(round((double)g / 255.0*15) * (255.0/15));
-    int newB = (int)ceil(round((double)b / 255.0*15) * (255.0/15));
-    return (uint32_t)(newR) << 3*8 | (uint32_t)(newG) << 2*8 | (uint32_t)newB << 8 | (uint32_t)0xFF;
-}
-
-
 void RayCaster::drawMinimap(const std::string& buffer_name, const Camera& camera, int blockSize)
 {
     utility::Map* map = m_map.get();
 
     int row, col;
-    SDL_Rect mapRect;
-    mapRect.w = map->width() * blockSize;
-    mapRect.h = map->height() * blockSize;
-    mapRect.x = mapRect.y = 0;
-    mapRect.x = 220;
-    SDL_Rect blockRect;
-    blockRect.w = blockSize;
-    blockRect.h = blockSize;
+    IntRect mapRect;
+    mapRect.width = map->width() * blockSize;
+    mapRect.height = map->height() * blockSize;
+    mapRect.top = mapRect.top = 0;
+    mapRect.left = 220;
+    IntRect blockRect;
+    blockRect.width = blockSize;
+    blockRect.height = blockSize;
 
     int p_x = static_cast<int>(camera.x);
     int p_y = static_cast<int>(camera.y);
@@ -126,29 +93,29 @@ void RayCaster::drawMinimap(const std::string& buffer_name, const Camera& camera
             uint8_t p_col = (uint8_t)col;
             uint32_t p_tile = utility::pack(p_col,p_row,1,1);
 
-            blockRect.x = mapRect.x + col * blockSize;
-            blockRect.y = mapRect.y + row * blockSize;
+            blockRect.x = mapRect.left + col * blockSize;
+            blockRect.y = mapRect.top + row * blockSize;
             if( (map->walls()[row * map->width() + col] > 0) && ( m_global_visited.find(p_tile) != m_global_visited.end() ))
             {
-                uint32_t blockcolor = map->wall_element(map->walls()[row * map->width() + col]).color;
+                ALLEGRO_COLOR blockcolor = map->wall_element(map->walls()[row * map->width() + col]).color;
                 m_pixelator.get()->drawFilledRect(buffer_name, blockRect, blockcolor);
             }
             else
             {
-                uint32_t background_color = m_pixelator.get()->toIntColor(112,112,112,255);
+                ALLEGRO_COLOR background_color = al_map_rgba(112,112,112,255);
                 m_pixelator.get()->drawFilledRect(buffer_name, blockRect, background_color);
             }
             if(p_y == row && p_x == col)
             {
                 /* Draw the player */
-                uint32_t sepiaPink = m_pixelator.get()->toIntColor(221,153,153,255);
+                ALLEGRO_COLOR sepiaPink = al_map_rgba(221,153,153,255);
                 m_pixelator.get()->drawFilledRect(buffer_name, blockRect, sepiaPink);
             }
         }
     }
 }
 
-uint32_t RayCaster::pixelGradientShader(uint32_t pixel, double percent, SDL_Color target)
+uint32_t RayCaster::pixelGradientShader(uint32_t pixel, double percent, ALLEGRO_COLOR target)
 {
     int r = (int)(pixel >> 3*8);
     int g = (int)((pixel >> 2*8) & 0xFF);
@@ -189,7 +156,7 @@ void RayCaster::setPixelAlphaDepth(uint32_t x, uint32_t y, uint32_t color, doubl
                 setDepth(x, y, BL_ALPHA, depth);
                 if (pixDepth == INFINITY)
                 {
-                    SDL_Color alphaColor = toSDLColor(color);
+                    ALLEGRO_COLOR alphaColor = toSDLColor(color);
                     alphaColor.a *= alphaNum;
                     m_pixelator.get()->setPixel("alphaBuffer", x, y, toIntColor(alphaColor.r, alphaColor.g, alphaColor.b, alphaColor.a));
                 }
@@ -340,7 +307,7 @@ void RayCaster::drawTextureColumn(uint32_t x, int32_t y,
                               int32_t h, double depth,
                              uint8_t tileNum, double alphaNum, 
                              uint32_t column, double fadePercent, 
-                             SDL_Color targetColor)
+                             ALLEGRO_COLOR targetColor)
 {
     if (y + h < 0 || fadePercent > 1.0)
     {
@@ -381,7 +348,7 @@ void RayCaster::drawTextureColumnEx(uint32_t x, int32_t y,
                               Texture texture,
                              uint8_t tileNum, double alphaNum, 
                              uint32_t column, double fadePercent, 
-                             SDL_Color targetColor)
+                             ALLEGRO_COLOR targetColor)
 {
     if (y + h < 0 || fadePercent > 1.0)
     {
@@ -463,7 +430,7 @@ void RayCaster::raycastRender(Camera* camera, double resolution)
             if ((coordX >= 0.0 && coordY >= 0.0) && (coordX < map->width() && coordY < map->height()) && (map->walls()[coordY * map->width() + coordX] != 0))
             {
                 uint8_t mapTile = map->walls()[coordY * map->width() + coordX];
-                SDL_Color colorDat = {0,0,0,255};
+                ALLEGRO_COLOR colorDat = {0,0,0,255};
                 if (rayLen != 0)
                 {
                     uint8_t side;
@@ -487,7 +454,7 @@ void RayCaster::raycastRender(Camera* camera, double resolution)
                     int32_t startY = m_height / 2 - drawHeight / 2 - wallHeight;
                     int32_t offsetStartY = m_height / 2 - drawHeight / 2;
                     int32_t deltaY = m_height - offsetStartY * 2;
-                    //SDL_Color fadeColor = {77,150,154,255};
+                    //ALLEGRO_COLOR fadeColor = {77,150,154,255};
                     double colorGrad;
                     double fogConstant = 1.5/5;
                     if (rayLen < (camera->dist*fogConstant))
@@ -498,7 +465,7 @@ void RayCaster::raycastRender(Camera* camera, double resolution)
                     {
                         colorGrad = 1.0;
                     }
-                    SDL_Color fadeColor = {50,20,50,255};
+                    ALLEGRO_COLOR fadeColor = {50,20,50,255};
                     drawTextureColumn(
                         i, startY, deltaY, depth,
                         mapTile - 1, 1.0, 
@@ -659,7 +626,7 @@ void RayCaster::renderFloor(Camera* camera, double resolution)
     double rayAngle;
     double rayCos;
 
-    SDL_Color fadeColor = {50,20,50,255};
+    ALLEGRO_COLOR fadeColor = {50,20,50,255};
     
     // iterate through *all* pixels...
     for (int x = startX; x < m_width; x++)
@@ -736,7 +703,7 @@ void RayCaster::renderCeiling(Camera* camera, double resolution)
     double rayAngle;
     double rayCos;
 
-    SDL_Color fadeColor = {50,20,50,255};
+    ALLEGRO_COLOR fadeColor = {50,20,50,255};
     
     // iterate through *all* pixels...
     for (int x = startX; x < m_width; x++)

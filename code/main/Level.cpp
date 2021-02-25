@@ -13,9 +13,9 @@
 #
 #   MIT License
 #*/
-#include "Level.hpp"
-#include "components.hpp"
-#include "Entity.hpp"
+#include "main/Level.hpp"
+#include "components/components.hpp"
+#include "main/Entity.hpp"
 
 Level::Level()
 {
