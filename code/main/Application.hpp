@@ -21,6 +21,7 @@
 #include <allegro5/allegro5.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_image.h>
+#include <allegro5/allegro_ttf.h>
 
 #include <spdlog/spdlog.h>
 
@@ -51,8 +52,8 @@ protected:
     bool m_show_fps;
     double m_average_fps;
 
-    std::string font_name;
-    int font_size;
+    std::string m_font_name;
+    int m_font_size;
 
     std::unique_ptr<ALLEGRO_CONFIG, utility::ALDeleter> m_config;
     std::unique_ptr<ALLEGRO_TIMER, utility::ALDeleter> m_timer;

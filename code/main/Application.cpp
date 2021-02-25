@@ -31,8 +31,8 @@ Application::Application()
     , m_running(false)
     , m_show_fps(false)
     , m_should_exit(false)
-    , font_name("assets/fonts/MedievalSharp-Bold.ttf")
-    , font_size(12)
+    , m_font_name("assets/fonts/MedievalSharp-Bold.ttf")
+    , m_font_size(24)
     , m_screenlock(nullptr)
 {}
 
@@ -93,7 +93,13 @@ bool Application::init()
         return false;
     }
 
-    m_font.reset(al_create_builtin_font());
+    if (!al_init_ttf_addon())
+    {
+        SPDLOG_ERROR("Couldn't initialize ttf addon");
+        return false;
+    }
+
+    m_font.reset(al_load_ttf_font(m_font_name.c_str(), m_font_size, 0));
     if (!m_font.get())
     {
         SPDLOG_ERROR("Couldn't initialize font");
