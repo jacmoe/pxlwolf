@@ -46,8 +46,8 @@ bool Game::OnUserUpdate(double deltaTime)
 
 bool Game::OnUserRender()
 {
-    al_draw_textf(m_font.get(), al_color_name("blanchedalmond"), 10.0, 10.0, 0, "Deltatime : %.2f", m_delta_time);
-    al_draw_textf(m_font.get(), al_color_name("blanchedalmond"), 10.0, 40.0, 0, "Timer speed : %.2f", al_get_timer_speed(m_timer.get()) * 60 * 60);
+    al_draw_textf(m_font.get(), al_color_name("blanchedalmond"), 10.0, 60.0, 0, "Deltatime : %.2f", m_delta_time);
+    al_draw_textf(m_font.get(), al_color_name("blanchedalmond"), 10.0, 90.0, 0, "FPS : %.2f", m_average_fps);
 
     m_pixelator.get()->blendAlpha(al_color_name("darkred"), 0.04);
 

@@ -20,6 +20,7 @@
 #include <sstream>
 #include <stdexcept>
 #include <filesystem>
+#include <allegro5/allegro_color.h>
 
 Application::Application()
     : m_scale(0)
@@ -33,6 +34,7 @@ Application::Application()
     , m_should_exit(false)
     , m_font_name("assets/fonts/MedievalSharp-Bold.ttf")
     , m_font_size(24)
+    , m_font_size_title(32)
     , m_screenlock(nullptr)
 {}
 
@@ -72,7 +74,7 @@ bool Application::init()
         return false;
     }
 
-    m_timer.reset(al_create_timer(1.0 / 60));
+    m_timer.reset(al_create_timer(1.0 / 120));
     if (!m_timer.get())
     {
         SPDLOG_ERROR("Couldn't initialize timer");
@@ -96,6 +98,13 @@ bool Application::init()
     if (!al_init_ttf_addon())
     {
         SPDLOG_ERROR("Couldn't initialize ttf addon");
+        return false;
+    }
+
+    m_title_font.reset(al_load_ttf_font(m_font_name.c_str(), m_font_size_title, 0));
+    if (!m_title_font.get())
+    {
+        SPDLOG_ERROR("Couldn't initialize font");
         return false;
     }
 
@@ -146,6 +155,8 @@ void Application::run()
     double time_now = 0.0;
     double delta_time = 0.0;
 
+    uint64_t counted_frames = 0;
+
     OnUserCreate();
     
     al_start_timer(m_timer.get());
@@ -154,11 +165,15 @@ void Application::run()
     {
         al_wait_for_event(m_queue.get(), &m_event);
 
+        m_average_fps = counted_frames / al_get_time();
+        if (m_average_fps > 2000000)
+        {
+            m_average_fps = 0;
+        }
 
         switch (m_event.type)
         {
         case ALLEGRO_EVENT_TIMER:
-            m_average_fps = 1.0 / (al_get_time() - old_time);
             time_now = al_get_time();
             delta_time = time_now - old_time;
             OnUserUpdate(delta_time);
@@ -191,6 +206,7 @@ void Application::run()
             render();
             redraw = false;
         }
+        ++counted_frames;
     }
 }
 
@@ -230,6 +246,8 @@ void Application::render()
     al_draw_scaled_bitmap(m_display_buffer.get(), 0, 0, m_width, m_height, 0, 0, m_width * m_scale, m_height * m_scale, 0);
 
     OnUserRender();
+
+    al_draw_text(m_title_font.get(), al_color_name("blanchedalmond"), 10.0, 10.0, 0, "PixelWolf");
 
     al_flip_display();
 }
