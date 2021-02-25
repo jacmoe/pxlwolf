@@ -61,6 +61,7 @@ protected:
     std::unique_ptr<ALLEGRO_FONT, utility::ALDeleter> m_font;
     std::unique_ptr<ALLEGRO_BITMAP, utility::ALDeleter> m_display_buffer;
     ALLEGRO_LOCKED_REGION* m_screenlock;
+    ALLEGRO_KEYBOARD_STATE m_keyboard_state;
     std::shared_ptr<Pixelator> m_pixelator;
 
 private:
@@ -71,6 +72,7 @@ private:
     ALLEGRO_EVENT m_event;
 
     void update_display_buffer();
+    void save_screenshot();
     void event();
     void render();
 };

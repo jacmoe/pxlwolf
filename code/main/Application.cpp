@@ -157,6 +157,17 @@ void Application::run()
             break;
 
         case ALLEGRO_EVENT_KEY_DOWN:
+
+            al_get_keyboard_state(&m_keyboard_state);
+            if (al_key_down(&m_keyboard_state, ALLEGRO_KEY_ESCAPE))
+            {
+                done = true;
+            }
+            if (al_key_down(&m_keyboard_state, ALLEGRO_KEY_P))
+            {
+                save_screenshot();
+            }
+            break;
         case ALLEGRO_EVENT_DISPLAY_CLOSE:
             done = true;
             break;
@@ -171,6 +182,11 @@ void Application::run()
             redraw = false;
         }
     }
+}
+
+void Application::save_screenshot()
+{
+    al_save_bitmap("screenshot.png", al_get_backbuffer(m_display.get()));
 }
 
 void Application::event()
