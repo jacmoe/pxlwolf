@@ -63,14 +63,23 @@ Here I will write the features of PixelWolf down as I implement them.
 ### Planned
 
 ## Dependencies
-PixelWolf is being developed on Linux and Windows, and the build system is based on CMake.
+PixelWolf is being developed on Linux and Windows.
 
 Compiled using MSVC 2019 on Windows, and GCC 9.3 on Linux.
 
+Uses Visual Studio on Windows, and CMake on Linux.
+
 ### External dependencies
-<!-- |Library|Description|License|
+|Library|Description|License|
 |-------|-----------|-------|
-|[OpenAL 1.1][openal]|Cross-platform 3D audio API|LGPL/Proprietary license| -->
+|[Allegro 5.2][allegro]|A game programming library|Zlib license|
+
+#### Windows
+The easiest way to get Allegro on Windows is via Nuget, which is why this project uses Visual Studio for Windows.
+
+#### Linux
+Allegro should be available from your package manager. On Ubuntu, perform a simple ```sudo apt-get install liballegro*5-dev```
+
 
 ### Bundled dependencies
 |Library|Description|License|
@@ -107,7 +116,7 @@ This project is using code from the [c-raycaster project][cray] - the raycaster 
 [balantkiss]: https://github.com/balintkissdev/raycaster-engine "Balantkissdev's Raycaster engine"
 [cray]: https://github.com/ckinvents/c-raycaster "c-raycaster project by ckinvents"
 
-[openal]: https://www.openal.org/downloads/ "Cross-platform 3D audio API"
+[allegro]: https://liballeg.org/ "A game programming library"
 [cereal]: https://uscilab.github.io/cereal/ "C++11 library for serialization"
 [entt]: https://github.com/skypjack/entt "C++ entity component system"
 [linalg]: https://github.com/sgorsten/linalg "Single header vector math library for C++"
