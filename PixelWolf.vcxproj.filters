@@ -20,6 +20,54 @@
     <Filter Include="3rdparty">
       <UniqueIdentifier>{58c027a1-0bed-4355-8380-2b3519ab3173}</UniqueIdentifier>
     </Filter>
+    <Filter Include="assets">
+      <UniqueIdentifier>{1a5924ea-0fa5-4c96-a7ac-30c697059558}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Docs">
+      <UniqueIdentifier>{5736c089-0538-4d09-8d58-6f2e22137bd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\blueprints">
+      <UniqueIdentifier>{e9314626-9ab6-40ce-bf37-58c8262a638e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\config">
+      <UniqueIdentifier>{9d90f8f1-06ee-4229-bb31-61219459ba16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\data">
+      <UniqueIdentifier>{e517f03c-0a1f-411a-8a54-aba2ff2265cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\fonts">
+      <UniqueIdentifier>{6da692f2-5ab8-414e-97cf-30c513915a26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\levels">
+      <UniqueIdentifier>{bd5b03eb-2d90-4e6f-8ed4-72a38e1158bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\music">
+      <UniqueIdentifier>{18e9019a-3b9b-4d43-9003-68df6a68c9ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\scripts">
+      <UniqueIdentifier>{b03278bd-37b0-4715-ab14-d89b00ac9f95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\sound">
+      <UniqueIdentifier>{ca5dbacc-75d8-4081-ace5-b29533bf3cfb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\textures">
+      <UniqueIdentifier>{b80558a9-976c-4689-8802-362b4727d058}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\levels\pxlwolf">
+      <UniqueIdentifier>{c44264e5-5724-46e6-8fe6-f09002759ca3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\sprites">
+      <UniqueIdentifier>{699e9277-7443-4b65-885d-017cdfbfc087}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\sprites\enemies">
+      <UniqueIdentifier>{0f7c2c9e-e8d8-42c6-8a03-b19f39b678fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\sprites\static">
+      <UniqueIdentifier>{ccd5f034-1c8a-448c-861e-c4afc27dfcc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\sprites\items">
+      <UniqueIdentifier>{96282fc8-a902-473e-a61c-8fe332368138}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="code\main\Application.cpp">
@@ -99,5 +147,219 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="README.md">
+      <Filter>Docs</Filter>
+    </None>
+    <None Include="assets\config\pxlwolf.ini">
+      <Filter>assets\config</Filter>
+    </None>
+    <None Include="assets\levels\pxlwolf.ldtk">
+      <Filter>assets\levels</Filter>
+    </None>
+    <None Include="assets\levels\pxlwolf\0000-Level1.ldtkl">
+      <Filter>assets\levels\pxlwolf</Filter>
+    </None>
+    <None Include="assets\levels\pxlwolf\0001-Level2.ldtkl">
+      <Filter>assets\levels\pxlwolf</Filter>
+    </None>
+    <None Include="assets\levels\pxlwolf\0002-Level3.ldtkl">
+      <Filter>assets\levels\pxlwolf</Filter>
+    </None>
+    <None Include="assets\levels\pxlwolf\0003-Level4.ldtkl">
+      <Filter>assets\levels\pxlwolf</Filter>
+    </None>
+    <None Include="assets\levels\pxlwolf\0004-Level5.ldtkl">
+      <Filter>assets\levels\pxlwolf</Filter>
+    </None>
+    <None Include="assets\levels\pxlwolf\0005-Level6.ldtkl">
+      <Filter>assets\levels\pxlwolf</Filter>
+    </None>
+    <None Include="assets\levels\pxlwolf\0006-Level7.ldtkl">
+      <Filter>assets\levels\pxlwolf</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="assets\fonts\8bitoperator.ttf">
+      <Filter>assets\fonts</Filter>
+    </Font>
+    <Font Include="assets\fonts\bridge.ttf">
+      <Filter>assets\fonts</Filter>
+    </Font>
+    <Font Include="assets\fonts\BRIDGEB.TTF">
+      <Filter>assets\fonts</Filter>
+    </Font>
+    <Font Include="assets\fonts\Bridgnorth_Blocked.ttf">
+      <Filter>assets\fonts</Filter>
+    </Font>
+    <Font Include="assets\fonts\Bridgnorth-Shadow.ttf">
+      <Filter>assets\fonts</Filter>
+    </Font>
+    <Font Include="assets\fonts\MedievalSharp.ttf">
+      <Filter>assets\fonts</Filter>
+    </Font>
+    <Font Include="assets\fonts\MedievalSharp-Bold.ttf">
+      <Filter>assets\fonts</Filter>
+    </Font>
+    <Font Include="assets\fonts\MedievalSharp-BoldOblique.ttf">
+      <Filter>assets\fonts</Filter>
+    </Font>
+    <Font Include="assets\fonts\MedievalSharp-Oblique.ttf">
+      <Filter>assets\fonts</Filter>
+    </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\textures\ceilfloor.png">
+      <Filter>assets\textures</Filter>
+    </Image>
+    <Image Include="assets\textures\wolfsheet.png">
+      <Filter>assets\textures</Filter>
+    </Image>
+    <Image Include="assets\sprites\enemies\dog.png">
+      <Filter>assets\sprites\enemies</Filter>
+    </Image>
+    <Image Include="assets\sprites\enemies\guard.png">
+      <Filter>assets\sprites\enemies</Filter>
+    </Image>
+    <Image Include="assets\sprites\enemies\officer.png">
+      <Filter>assets\sprites\enemies</Filter>
+    </Image>
+    <Image Include="assets\sprites\enemies\ss.png">
+      <Filter>assets\sprites\enemies</Filter>
+    </Image>
+    <Image Include="assets\sprites\items\ammo.png">
+      <Filter>assets\sprites\items</Filter>
+    </Image>
+    <Image Include="assets\sprites\items\chaingun.png">
+      <Filter>assets\sprites\items</Filter>
+    </Image>
+    <Image Include="assets\sprites\items\dogfood.png">
+      <Filter>assets\sprites\items</Filter>
+    </Image>
+    <Image Include="assets\sprites\items\food.png">
+      <Filter>assets\sprites\items</Filter>
+    </Image>
+    <Image Include="assets\sprites\items\gold_casket.png">
+      <Filter>assets\sprites\items</Filter>
+    </Image>
+    <Image Include="assets\sprites\items\gold_cross.png">
+      <Filter>assets\sprites\items</Filter>
+    </Image>
+    <Image Include="assets\sprites\items\gold_crown.png">
+      <Filter>assets\sprites\items</Filter>
+    </Image>
+    <Image Include="assets\sprites\items\gold_goblet.png">
+      <Filter>assets\sprites\items</Filter>
+    </Image>
+    <Image Include="assets\sprites\items\health.png">
+      <Filter>assets\sprites\items</Filter>
+    </Image>
+    <Image Include="assets\sprites\items\key_gold.png">
+      <Filter>assets\sprites\items</Filter>
+    </Image>
+    <Image Include="assets\sprites\items\key_silver.png">
+      <Filter>assets\sprites\items</Filter>
+    </Image>
+    <Image Include="assets\sprites\items\life.png">
+      <Filter>assets\sprites\items</Filter>
+    </Image>
+    <Image Include="assets\sprites\items\machinegun.png">
+      <Filter>assets\sprites\items</Filter>
+    </Image>
+    <Image Include="assets\sprites\static\armor.png">
+      <Filter>assets\sprites\static</Filter>
+    </Image>
+    <Image Include="assets\sprites\static\barrel_green.png">
+      <Filter>assets\sprites\static</Filter>
+    </Image>
+    <Image Include="assets\sprites\static\barrel_wood.png">
+      <Filter>assets\sprites\static</Filter>
+    </Image>
+    <Image Include="assets\sprites\static\blood.png">
+      <Filter>assets\sprites\static</Filter>
+    </Image>
+    <Image Include="assets\sprites\static\blood_bones.png">
+      <Filter>assets\sprites\static</Filter>
+    </Image>
+    <Image Include="assets\sprites\static\body.png">
+      <Filter>assets\sprites\static</Filter>
+    </Image>
+    <Image Include="assets\sprites\static\bunk.png">
+      <Filter>assets\sprites\static</Filter>
+    </Image>
+    <Image Include="assets\sprites\static\cage.png">
+      <Filter>assets\sprites\static</Filter>
+    </Image>
+    <Image Include="assets\sprites\static\cage_empty.png">
+      <Filter>assets\sprites\static</Filter>
+    </Image>
+    <Image Include="assets\sprites\static\ceil_gold.png">
+      <Filter>assets\sprites\static</Filter>
+    </Image>
+    <Image Include="assets\sprites\static\ceil_green.png">
+      <Filter>assets\sprites\static</Filter>
+    </Image>
+    <Image Include="assets\sprites\static\claypot.png">
+      <Filter>assets\sprites\static</Filter>
+    </Image>
+    <Image Include="assets\sprites\static\cloth.png">
+      <Filter>assets\sprites\static</Filter>
+    </Image>
+    <Image Include="assets\sprites\static\flag.png">
+      <Filter>assets\sprites\static</Filter>
+    </Image>
+    <Image Include="assets\sprites\static\kitchen_ware.png">
+      <Filter>assets\sprites\static</Filter>
+    </Image>
+    <Image Include="assets\sprites\static\lamp.png">
+      <Filter>assets\sprites\static</Filter>
+    </Image>
+    <Image Include="assets\sprites\static\pillar.png">
+      <Filter>assets\sprites\static</Filter>
+    </Image>
+    <Image Include="assets\sprites\static\planter.png">
+      <Filter>assets\sprites\static</Filter>
+    </Image>
+    <Image Include="assets\sprites\static\pots_pans.png">
+      <Filter>assets\sprites\static</Filter>
+    </Image>
+    <Image Include="assets\sprites\static\roots.png">
+      <Filter>assets\sprites\static</Filter>
+    </Image>
+    <Image Include="assets\sprites\static\sink.png">
+      <Filter>assets\sprites\static</Filter>
+    </Image>
+    <Image Include="assets\sprites\static\skeletal_remains.png">
+      <Filter>assets\sprites\static</Filter>
+    </Image>
+    <Image Include="assets\sprites\static\skeleton_hanging.png">
+      <Filter>assets\sprites\static</Filter>
+    </Image>
+    <Image Include="assets\sprites\static\skulls.png">
+      <Filter>assets\sprites\static</Filter>
+    </Image>
+    <Image Include="assets\sprites\static\stove.png">
+      <Filter>assets\sprites\static</Filter>
+    </Image>
+    <Image Include="assets\sprites\static\table.png">
+      <Filter>assets\sprites\static</Filter>
+    </Image>
+    <Image Include="assets\sprites\static\table_small.png">
+      <Filter>assets\sprites\static</Filter>
+    </Image>
+    <Image Include="assets\sprites\static\tree.png">
+      <Filter>assets\sprites\static</Filter>
+    </Image>
+    <Image Include="assets\sprites\static\urn.png">
+      <Filter>assets\sprites\static</Filter>
+    </Image>
+    <Image Include="assets\sprites\static\weapon_rack.png">
+      <Filter>assets\sprites\static</Filter>
+    </Image>
+    <Image Include="assets\sprites\static\well.png">
+      <Filter>assets\sprites\static</Filter>
+    </Image>
+    <Image Include="assets\sprites\static\well_water.png">
+      <Filter>assets\sprites\static</Filter>
+    </Image>
   </ItemGroup>
 </Project>

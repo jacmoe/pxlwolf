@@ -155,7 +155,81 @@
     <ClInclude Include="code\utility\utils.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="assets\config\pxlwolf.ini" />
+    <None Include="assets\levels\pxlwolf.ldtk" />
+    <None Include="assets\levels\pxlwolf\0000-Level1.ldtkl" />
+    <None Include="assets\levels\pxlwolf\0001-Level2.ldtkl" />
+    <None Include="assets\levels\pxlwolf\0002-Level3.ldtkl" />
+    <None Include="assets\levels\pxlwolf\0003-Level4.ldtkl" />
+    <None Include="assets\levels\pxlwolf\0004-Level5.ldtkl" />
+    <None Include="assets\levels\pxlwolf\0005-Level6.ldtkl" />
+    <None Include="assets\levels\pxlwolf\0006-Level7.ldtkl" />
     <None Include="packages.config" />
+    <None Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="assets\fonts\8bitoperator.ttf" />
+    <Font Include="assets\fonts\bridge.ttf" />
+    <Font Include="assets\fonts\BRIDGEB.TTF" />
+    <Font Include="assets\fonts\Bridgnorth-Shadow.ttf" />
+    <Font Include="assets\fonts\Bridgnorth_Blocked.ttf" />
+    <Font Include="assets\fonts\MedievalSharp-Bold.ttf" />
+    <Font Include="assets\fonts\MedievalSharp-BoldOblique.ttf" />
+    <Font Include="assets\fonts\MedievalSharp-Oblique.ttf" />
+    <Font Include="assets\fonts\MedievalSharp.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\sprites\enemies\dog.png" />
+    <Image Include="assets\sprites\enemies\guard.png" />
+    <Image Include="assets\sprites\enemies\officer.png" />
+    <Image Include="assets\sprites\enemies\ss.png" />
+    <Image Include="assets\sprites\items\ammo.png" />
+    <Image Include="assets\sprites\items\chaingun.png" />
+    <Image Include="assets\sprites\items\dogfood.png" />
+    <Image Include="assets\sprites\items\food.png" />
+    <Image Include="assets\sprites\items\gold_casket.png" />
+    <Image Include="assets\sprites\items\gold_cross.png" />
+    <Image Include="assets\sprites\items\gold_crown.png" />
+    <Image Include="assets\sprites\items\gold_goblet.png" />
+    <Image Include="assets\sprites\items\health.png" />
+    <Image Include="assets\sprites\items\key_gold.png" />
+    <Image Include="assets\sprites\items\key_silver.png" />
+    <Image Include="assets\sprites\items\life.png" />
+    <Image Include="assets\sprites\items\machinegun.png" />
+    <Image Include="assets\sprites\static\armor.png" />
+    <Image Include="assets\sprites\static\barrel_green.png" />
+    <Image Include="assets\sprites\static\barrel_wood.png" />
+    <Image Include="assets\sprites\static\blood.png" />
+    <Image Include="assets\sprites\static\blood_bones.png" />
+    <Image Include="assets\sprites\static\body.png" />
+    <Image Include="assets\sprites\static\bunk.png" />
+    <Image Include="assets\sprites\static\cage.png" />
+    <Image Include="assets\sprites\static\cage_empty.png" />
+    <Image Include="assets\sprites\static\ceil_gold.png" />
+    <Image Include="assets\sprites\static\ceil_green.png" />
+    <Image Include="assets\sprites\static\claypot.png" />
+    <Image Include="assets\sprites\static\cloth.png" />
+    <Image Include="assets\sprites\static\flag.png" />
+    <Image Include="assets\sprites\static\kitchen_ware.png" />
+    <Image Include="assets\sprites\static\lamp.png" />
+    <Image Include="assets\sprites\static\pillar.png" />
+    <Image Include="assets\sprites\static\planter.png" />
+    <Image Include="assets\sprites\static\pots_pans.png" />
+    <Image Include="assets\sprites\static\roots.png" />
+    <Image Include="assets\sprites\static\sink.png" />
+    <Image Include="assets\sprites\static\skeletal_remains.png" />
+    <Image Include="assets\sprites\static\skeleton_hanging.png" />
+    <Image Include="assets\sprites\static\skulls.png" />
+    <Image Include="assets\sprites\static\stove.png" />
+    <Image Include="assets\sprites\static\table.png" />
+    <Image Include="assets\sprites\static\table_small.png" />
+    <Image Include="assets\sprites\static\tree.png" />
+    <Image Include="assets\sprites\static\urn.png" />
+    <Image Include="assets\sprites\static\weapon_rack.png" />
+    <Image Include="assets\sprites\static\well.png" />
+    <Image Include="assets\sprites\static\well_water.png" />
+    <Image Include="assets\textures\ceilfloor.png" />
+    <Image Include="assets\textures\wolfsheet.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
