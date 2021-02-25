@@ -78,7 +78,7 @@ Uses Visual Studio on Windows, and CMake on Linux.
 The easiest way to get Allegro on Windows is via Nuget, which is why this project uses Visual Studio for Windows.
 
 #### Linux
-Allegro should be available from your package manager. On Ubuntu, perform a simple ```sudo apt-get install liballegro*5-dev```
+Allegro should be available from your package manager. On Ubuntu, perform a simple ```sudo apt-get install liballegro5-dev```
 
 
 ### Bundled dependencies
