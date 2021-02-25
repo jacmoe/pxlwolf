@@ -74,7 +74,7 @@ bool Application::init()
         return false;
     }
 
-    m_timer.reset(al_create_timer(1.0 / 60000.0));
+    m_timer.reset(al_create_timer(1.0 / 60.0));
     if (!m_timer.get())
     {
         SPDLOG_ERROR("Couldn't initialize timer");
@@ -92,6 +92,12 @@ bool Application::init()
     if (!m_display.get())
     {
         SPDLOG_ERROR("Couldn't initialize display");
+        return false;
+    }
+
+    if (!al_init_font_addon())
+    {
+        SPDLOG_ERROR("Couldn't initialize font addon");
         return false;
     }
 
