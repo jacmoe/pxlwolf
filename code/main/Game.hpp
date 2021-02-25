@@ -28,4 +28,7 @@ protected:
     bool OnUserUpdate(double deltaTime) override;
     bool OnUserRender() override;
     bool OnUserDestroy() override;
+
+private:
+    double m_delta_time;
 };

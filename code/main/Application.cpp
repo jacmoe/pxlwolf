@@ -137,6 +137,8 @@ void Application::run()
     bool done = false;
     bool redraw = true;
     double old_time = al_get_time();
+    double time_now = 0.0;
+    double delta_time = 0.0;
 
     OnUserCreate();
     
@@ -146,13 +148,15 @@ void Application::run()
     {
         al_wait_for_event(m_queue.get(), &m_event);
 
-        m_average_fps = 1.0 / (al_get_time() - old_time);
-        old_time = al_get_time();
 
         switch (m_event.type)
         {
         case ALLEGRO_EVENT_TIMER:
-            // game logic goes here.
+            m_average_fps = 1.0 / (al_get_time() - old_time);
+            time_now = al_get_time();
+            delta_time = time_now - old_time;
+            OnUserUpdate(delta_time);
+            old_time = time_now;
             redraw = true;
             break;
 

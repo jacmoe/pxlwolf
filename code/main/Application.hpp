@@ -39,7 +39,7 @@ public:
 
 protected:
     virtual bool OnUserCreate() { return true; }
-    virtual bool OnUserUpdate(double fDeltaTime) { return true; }
+    virtual bool OnUserUpdate(double deltaTime) { return true; }
     virtual bool OnUserRender() { return true; }
     virtual bool OnUserDestroy() { return  true; }
 

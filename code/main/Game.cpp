@@ -17,6 +17,7 @@
 #include <allegro5/allegro_color.h>
 
 Game::Game()
+    : m_delta_time(0.0)
 {
 }
 
@@ -37,12 +38,14 @@ bool Game::OnUserCreate()
 
 bool Game::OnUserUpdate(double deltaTime)
 {
+    m_delta_time = deltaTime;
+    m_delta_time *= 1000000;
     return true;
 }
 
 bool Game::OnUserRender()
 {
-    //al_draw_textf(m_font.get(), al_map_rgb(255, 255, 255), 10.0, 10.0, 0, "FPS : %.2f", m_average_fps / 100000.0);
+    al_draw_textf(m_font.get(), al_map_rgb(255, 255, 255), 10.0, 10.0, 0, "Deltatime : %.12f", m_delta_time);
 
     m_pixelator.get()->blendAlpha(al_color_name("darkred"), 0.04);
 
