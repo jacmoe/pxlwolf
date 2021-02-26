@@ -28,6 +28,8 @@ set(main
     ./main/Pixelator.hpp
     # ./main/RayCaster.cpp
     # ./main/RayCaster.hpp
+    ./main/types.cpp
+    ./main/types.hpp
 )
 
 set(utility
@@ -40,8 +42,6 @@ set(utility
     ./utility/ALDeleter.hpp
     # ./utility/SpriteSheetLoader.cpp
     # ./utility/SpriteSheetLoader.hpp
-    # ./utility/Timer.cpp
-    # ./utility/Timer.hpp
     ./utility/utils.cpp
     ./utility/utils.hpp
     ${3RD_PARTY_DIR}/physfs.cpp

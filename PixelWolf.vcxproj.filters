@@ -68,6 +68,9 @@
     <Filter Include="assets\sprites\items">
       <UniqueIdentifier>{96282fc8-a902-473e-a61c-8fe332368138}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Log">
+      <UniqueIdentifier>{8ca8a569-927c-4ed8-8896-643f2f23ea2e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="code\main\Application.cpp">
@@ -98,6 +101,9 @@
       <Filter>3rdparty</Filter>
     </ClCompile>
     <ClCompile Include="code\main\Entity.cpp">
+      <Filter>code\main</Filter>
+    </ClCompile>
+    <ClCompile Include="code\main\types.cpp">
       <Filter>code\main</Filter>
     </ClCompile>
   </ItemGroup>
@@ -142,6 +148,9 @@
       <Filter>3rdparty</Filter>
     </ClInclude>
     <ClInclude Include="code\main\Entity.hpp">
+      <Filter>code\main</Filter>
+    </ClInclude>
+    <ClInclude Include="code\main\types.hpp">
       <Filter>code\main</Filter>
     </ClInclude>
   </ItemGroup>
@@ -361,5 +370,10 @@
     <Image Include="assets\sprites\static\well_water.png">
       <Filter>assets\sprites\static</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="log\pxllog.txt">
+      <Filter>Log</Filter>
+    </Text>
   </ItemGroup>
 </Project>

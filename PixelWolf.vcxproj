@@ -134,6 +134,7 @@
     <ClCompile Include="code\main\Game.cpp" />
     <ClCompile Include="code\main\Level.cpp" />
     <ClCompile Include="code\main\Pixelator.cpp" />
+    <ClCompile Include="code\main\types.cpp" />
     <ClCompile Include="code\utility\dbg_console.cpp" />
     <ClCompile Include="code\utility\Map.cpp" />
     <ClCompile Include="code\utility\utils.cpp" />
@@ -147,6 +148,7 @@
     <ClInclude Include="code\main\Game.hpp" />
     <ClInclude Include="code\main\Level.hpp" />
     <ClInclude Include="code\main\Pixelator.hpp" />
+    <ClInclude Include="code\main\types.hpp" />
     <ClInclude Include="code\utility\ALDeleter.hpp" />
     <ClInclude Include="code\utility\dbg_console.hpp" />
     <ClInclude Include="code\utility\Map.hpp" />
@@ -230,6 +232,9 @@
     <Image Include="assets\sprites\static\well_water.png" />
     <Image Include="assets\textures\ceilfloor.png" />
     <Image Include="assets\textures\wolfsheet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="log\pxllog.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
