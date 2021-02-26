@@ -16,8 +16,6 @@
 #include "main/Game.hpp"
 #include <allegro5/allegro_color.h>
 #include "utility/ImageAtlas.hpp"
-#include "stb_image.h"
-#include "spdlog/spdlog.h"
 
 Game::Game()
     : m_delta_time(0.0)
@@ -49,7 +47,7 @@ bool Game::OnUserCreate()
 
     atlas.load("assets/sprites/guard.png", Vector2i(128, 128));
 
-    pixelator->copy(atlas.getPixels(16), atlas.getTileSize(), 0, 0, IntRect(0, 0, atlas.getTileSize().x, atlas.getTileSize().y));
+    pixelator->copy(atlas.getPixels(16), atlas.getTileSize(), 80, 40, IntRect(0, 0, atlas.getTileSize().x, atlas.getTileSize().y));
 
     return true;
 }
