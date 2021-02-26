@@ -55,7 +55,7 @@ bool Game::OnUserRender()
     al_draw_textf(m_font.get(), al_color_name("blanchedalmond"), 10.0, 90.0, 0, "FPS : %.2f", m_average_fps);
     al_draw_textf(m_font.get(), al_color_name("blanchedalmond"), 10.0, 120.0, 0, "Actual FPS : %.2f", average_fps);
 
-    m_pixelator.get()->blendAlpha(al_color_name("darkred"), 0.04);
+    //m_pixelator.get()->blendAlpha(al_color_name("darkred"), 0.04);
 
     ++frames;
 

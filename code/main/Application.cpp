@@ -88,6 +88,16 @@ bool Application::init()
         return false;
     }
 
+    if (m_fullscreen)
+    {
+        al_set_new_display_flags(ALLEGRO_OPENGL_3_0 | ALLEGRO_FULLSCREEN);
+    }
+    else
+    {
+        al_set_new_display_flags(ALLEGRO_OPENGL_3_0);
+    }
+    al_set_new_display_option(ALLEGRO_RENDER_METHOD, 1, ALLEGRO_REQUIRE);
+    al_set_new_display_option(ALLEGRO_VSYNC, 2, ALLEGRO_REQUIRE);
     m_display.reset(al_create_display(m_width * m_scale, m_height * m_scale));
     if (!m_display.get())
     {
@@ -129,17 +139,12 @@ bool Application::init()
 
     al_set_new_bitmap_flags(ALLEGRO_VIDEO_BITMAP | ALLEGRO_NO_PRESERVE_TEXTURE);
 
-    int flags = al_get_new_bitmap_flags();
-
-    al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP);
     m_display_buffer.reset(al_create_bitmap(m_width, m_height));
     if (!m_display_buffer.get())
     {
         SPDLOG_ERROR("Couldn't create display buffer");
         return false;
     }
-
-    al_set_new_bitmap_flags(flags);
 
     al_register_event_source(m_queue.get(), al_get_keyboard_event_source());
     al_register_event_source(m_queue.get(), al_get_display_event_source(m_display.get()));
@@ -250,7 +255,6 @@ void Application::render()
 
     al_set_target_backbuffer(m_display.get());
     al_draw_scaled_bitmap(m_display_buffer.get(), 0, 0, m_width, m_height, 0, 0, m_width * m_scale, m_height * m_scale, 0);
-
     OnUserRender();
 
     al_draw_text(m_title_font.get(), al_color_name("blanchedalmond"), 10.0, 10.0, 0, "PixelWolf");
