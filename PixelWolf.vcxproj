@@ -134,7 +134,9 @@
     <ClCompile Include="code\main\Game.cpp" />
     <ClCompile Include="code\main\Level.cpp" />
     <ClCompile Include="code\main\Pixelator.cpp" />
+    <ClCompile Include="code\main\RayCaster.cpp" />
     <ClCompile Include="code\utility\dbg_console.cpp" />
+    <ClCompile Include="code\utility\ImageAtlas.cpp" />
     <ClCompile Include="code\utility\Map.cpp" />
     <ClCompile Include="code\utility\utils.cpp" />
   </ItemGroup>
@@ -143,13 +145,16 @@
     <ClInclude Include="code\components\components.hpp" />
     <ClInclude Include="code\components\TagComponent.hpp" />
     <ClInclude Include="code\main\Application.hpp" />
+    <ClInclude Include="code\main\Camera.hpp" />
     <ClInclude Include="code\main\Entity.hpp" />
     <ClInclude Include="code\main\Game.hpp" />
     <ClInclude Include="code\main\Level.hpp" />
     <ClInclude Include="code\main\Pixelator.hpp" />
+    <ClInclude Include="code\main\RayCaster.hpp" />
     <ClInclude Include="code\main\types.hpp" />
     <ClInclude Include="code\utility\ALDeleter.hpp" />
     <ClInclude Include="code\utility\dbg_console.hpp" />
+    <ClInclude Include="code\utility\ImageAtlas.hpp" />
     <ClInclude Include="code\utility\Map.hpp" />
     <ClInclude Include="code\utility\packer.hpp" />
     <ClInclude Include="code\utility\unpacker.hpp" />

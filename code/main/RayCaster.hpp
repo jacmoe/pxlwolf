@@ -65,8 +65,8 @@ public:
 private:
     std::shared_ptr<utility::Map> m_map;
     std::shared_ptr<Pixelator> m_pixelator;
-    std::vector<uint32_t> m_pixels;
-    std::vector<uint32_t> m_wall_ceil_pixels;
+    std::vector<uint8_t> m_pixels;
+    std::vector<uint8_t> m_wall_ceil_pixels;
     
     std::set<uint32_t> m_visited;
     std::set<uint32_t> m_global_visited;
@@ -91,10 +91,10 @@ private:
     double getDepth(uint32_t x, uint32_t y, uint8_t layer);
     void setDepth(uint32_t x, uint32_t y, uint8_t layer, double depth);
 
-    void setPixelAlphaDepth(uint32_t x, uint32_t y, uint32_t color, double alphaNum, double depth);
+    void setPixelAlphaDepth(uint32_t x, uint32_t y, ALLEGRO_COLOR color, double alphaNum, double depth);
 
     double getInterDist(double dx, double dy, double xi, double yi, double coordX, double coordY, double* newX, double* newY, uint8_t* side);
-    uint32_t pixelGradientShader(uint32_t pixel, double percent, ALLEGRO_COLOR target);
+    ALLEGRO_COLOR pixelGradientShader(ALLEGRO_COLOR pixel, double percent, ALLEGRO_COLOR target);
     void initRayTexture(const std::string& path, int tile_width, int tile_height, int num_tiles);
     void initWallCeilTexture(const std::string& path, int tile_width, int tile_height, int num_tiles);
 };

@@ -17,75 +17,12 @@
 
 #include "entt/entt.hpp"
 
+#include "main/types.hpp"
 #include "utility/Map.hpp"
 
 #include <unordered_map>
 
 class Entity;
-
-enum class EntityCategory
-{
-    none,
-    _static,
-    pickup,
-    enemy,
-    key
-};
-
-enum class EntityType
-{
-    none,
-    // static
-    planter,
-    table,
-    table_small,
-    bowl,
-    urn,
-    body,
-    barrel_wooden,
-    barrel_green,
-    cloth,
-    flag,
-    ceil_gold,
-    ceil_green,
-    stove,
-    bones,
-    skel_remain,
-    well_dry,
-    well_water,
-    lamp,
-    tree,
-    sink,
-    skel_hang,
-    cage,
-    cage_skel,
-    pots_pans,
-    bloody_bones,
-    armor,
-    pillar,
-    blood,
-    bunk,
-
-    // pickup
-    dogfood,
-    meal,
-    health,
-    ammo,
-    machinegun,
-    chaingun,
-    gold_cross,
-    gold_goblet,
-    gold_casket,
-    gold_crown,
-    gold_key,
-    silver_key,
-
-    // enemies
-    guard,
-    dog,
-    officer,
-    ss
-};
 
 using EntityMap = std::unordered_map<std::string, EntityType>;
 using EntityTextureMap = std::unordered_map<EntityType, std::string>;

@@ -14,9 +14,10 @@
 #   MIT License
 #*/
 #include <cmath>
-#include "main/RayCaster.hpp"
-#include "main/Game.hpp"
 #include "stb_image.h"
+#include "spdlog/spdlog.h"
+#include "main/RayCaster.hpp"
+#include "main/types.hpp"
 #include "utility/packer.hpp"
 #include "utility/unpacker.hpp"
 
@@ -93,8 +94,8 @@ void RayCaster::drawMinimap(const std::string& buffer_name, const Camera& camera
             uint8_t p_col = (uint8_t)col;
             uint32_t p_tile = utility::pack(p_col,p_row,1,1);
 
-            blockRect.x = mapRect.left + col * blockSize;
-            blockRect.y = mapRect.top + row * blockSize;
+            blockRect.left = mapRect.left + col * blockSize;
+            blockRect.top = mapRect.top + row * blockSize;
             if( (map->walls()[row * map->width() + col] > 0) && ( m_global_visited.find(p_tile) != m_global_visited.end() ))
             {
                 ALLEGRO_COLOR blockcolor = map->wall_element(map->walls()[row * map->width() + col]).color;
@@ -115,21 +116,21 @@ void RayCaster::drawMinimap(const std::string& buffer_name, const Camera& camera
     }
 }
 
-uint32_t RayCaster::pixelGradientShader(uint32_t pixel, double percent, ALLEGRO_COLOR target)
+ALLEGRO_COLOR RayCaster::pixelGradientShader(ALLEGRO_COLOR pixel, double percent, ALLEGRO_COLOR target)
 {
-    int r = (int)(pixel >> 3*8);
-    int g = (int)((pixel >> 2*8) & 0xFF);
-    int b = (int)((pixel >> 8) & 0xFF);
-    int a = (int)(pixel & 0xFF);
-    int dr = target.r - r;
-    int dg = target.g - g;
-    int db = target.b - b;
-    int da = target.a - a;
-    r += (int)((double)dr * percent);
-    g += (int)((double)dg * percent);
-    b += (int)((double)db * percent);
-    a += (int)((double)da * percent);
-    return toIntColor(r,g,b,a);
+    uint8_t r, g, b, a;
+    al_unmap_rgba(pixel, &r, &g, &b, &a);
+    uint8_t tr, tg, tb, ta;
+    al_unmap_rgba(target, &tr, &tg, &tb, &ta);
+    uint8_t dr = tr - r;
+    uint8_t dg = tg - g;
+    uint8_t db = tb - b;
+    uint8_t da = ta - a;
+    r += (uint8_t)((double)dr * percent);
+    g += (uint8_t)((double)dg * percent);
+    b += (uint8_t)((double)db * percent);
+    a += (uint8_t)((double)da * percent);
+    return al_map_rgba(r,g,b,a);
 }
 
 /**
@@ -142,12 +143,15 @@ uint32_t RayCaster::pixelGradientShader(uint32_t pixel, double percent, ALLEGRO_
  * @param alphaNum 
  * @param depth 
  */
-void RayCaster::setPixelAlphaDepth(uint32_t x, uint32_t y, uint32_t color, double alphaNum, double depth)
+void RayCaster::setPixelAlphaDepth(uint32_t x, uint32_t y, ALLEGRO_COLOR color, double alphaNum, double depth)
 {
+    uint8_t color_r, color_g, color_b, color_a;
+    al_unmap_rgba(color, &color_r, &color_g, &color_b, &color_a);
+
     if (x >= 0 && x < m_width && y >= 0 && y < m_height)
     {
         // Keep pixel in alpha layer
-        if (alphaNum < 1 || (color & 0xff) < 255)
+        if (alphaNum < 1 || color_a < 255)
         {
             // If new alpha in front
             double pixDepth = getDepth(x, y, BL_ALPHA);
@@ -156,9 +160,8 @@ void RayCaster::setPixelAlphaDepth(uint32_t x, uint32_t y, uint32_t color, doubl
                 setDepth(x, y, BL_ALPHA, depth);
                 if (pixDepth == INFINITY)
                 {
-                    ALLEGRO_COLOR alphaColor = toSDLColor(color);
-                    alphaColor.a *= alphaNum;
-                    m_pixelator.get()->setPixel("alphaBuffer", x, y, toIntColor(alphaColor.r, alphaColor.g, alphaColor.b, alphaColor.a));
+                    color_a *= alphaNum;
+                    m_pixelator.get()->setPixel("alphaBuffer", x, y, al_map_rgba(color_r, color_g, color_b, color_a));
                 }
                 else
                 {
@@ -289,7 +292,7 @@ void RayCaster::setDepth(uint32_t x, uint32_t y, uint8_t layer, double depth)
  */
 void RayCaster::renderBuffer()
 {
-    uint32_t pixel;
+    ALLEGRO_COLOR pixel;
     for (uint32_t i = 0; i < m_width; i++)
     {
         for (uint32_t j = 0; j < m_height; j++)
@@ -334,12 +337,13 @@ void RayCaster::drawTextureColumn(uint32_t x, int32_t y,
             (double)offH) * (tex_tile_height))
              * tex_tile_width + column;
 
-        uint32_t pix = m_pixels[magic_number];
-        if (pix & 0xFF)
-        {
+        const uint8_t* pixel = &m_pixels[magic_number * 4];
+        ALLEGRO_COLOR pix = al_map_rgba(pixel[0], pixel[1], pixel[2], pixel[3]);
+        //if (pix & 0xFF)
+        //{
             pix = pixelGradientShader(pix, fadePercent, targetColor);
             setPixelAlphaDepth(x, i+y, pix, alphaNum, depth);
-        }
+        //}
     }
 }
 
@@ -375,12 +379,13 @@ void RayCaster::drawTextureColumnEx(uint32_t x, int32_t y,
             (double)offH) * (texture.tile_height))
              * texture.tile_width + column;
 
-        uint32_t pix = texture.pixels[magic_number];
-        if (pix & 0xFF)
-        {
+        const uint8_t* pixel = &m_pixels[magic_number * 4];
+        ALLEGRO_COLOR pix = al_map_rgba(pixel[0], pixel[1], pixel[2], pixel[3]);
+        //if (pix & 0xFF)
+        //{
             pix = pixelGradientShader(pix, fadePercent, targetColor);
             setPixelAlphaDepth(x, i+y, pix, alphaNum, depth);
-        }
+        //}
     }
 }
 
@@ -564,18 +569,9 @@ void RayCaster::initRayTexture(const std::string& path, int tile_width, int tile
         return;
     }
 
-    m_pixels.reserve(tile_width * tile_height * num_tiles);
-    uint32_t newPix = 0;
-    for (uint32_t p = 0; p < tile_width * tile_height * num_tiles; p++)
-    {
-        // Get each component
-        for (uint8_t comp = 0; comp < 4; comp++)
-        {
-            newPix |= ((uint32_t)(rgbaData[p*4+comp]) << (8 * (3-comp)));
-        }
-        m_pixels.push_back(newPix);
-        newPix = 0;
-    }
+    m_pixels.resize(tile_width * tile_height * num_tiles * 4);
+    memcpy(&m_pixels[0], (uint8_t*)&rgbaData, m_pixels.size());
+
     stbi_image_free(rgbaData);
 }
 
@@ -590,17 +586,9 @@ void RayCaster::initWallCeilTexture(const std::string& path, int tile_width, int
         return;
     }
 
-    uint32_t newPix = 0;
-    for (uint32_t p = 0; p < tile_width * tile_height * num_tiles; p++)
-    {
-        // Get each component
-        for (uint8_t comp = 0; comp < 4; comp++)
-        {
-            newPix |= ((uint32_t)(rgbaData[p*4+comp]) << (8 * (3-comp)));
-        }
-        m_wall_ceil_pixels.push_back(newPix);
-        newPix = 0;
-    }
+    m_wall_ceil_pixels.resize(tile_width * tile_height * num_tiles * 4);
+    memcpy(&m_wall_ceil_pixels[0], (uint8_t*)&rgbaData, m_wall_ceil_pixels.size());
+
     stbi_image_free(rgbaData);
 }
 
@@ -626,7 +614,7 @@ void RayCaster::renderFloor(Camera* camera, double resolution)
     double rayAngle;
     double rayCos;
 
-    ALLEGRO_COLOR fadeColor = {50,20,50,255};
+    ALLEGRO_COLOR fadeColor = al_map_rgba(50,20,50,255);
     
     // iterate through *all* pixels...
     for (int x = startX; x < m_width; x++)
@@ -675,7 +663,7 @@ void RayCaster::renderFloor(Camera* camera, double resolution)
                 b = fadeColor.b;
             }
             // buffer->pixels[x + y * buffer->width] = ((uint32_t)r << 3*8 | (uint32_t)g << 2*8 | (uint32_t)b << 8 | (uint32_t)0xFF);
-            m_pixelator.get()->setPixel(x, y, toIntColor(r, g, b, 255));
+            m_pixelator.get()->setPixel(x, y, al_map_rgba(r, g, b, 255));
             // buffer->pixels[x + y * buffer->width] = ((uint32_t)r << 3*8 | (uint32_t)g << 2*8 | (uint32_t)b << 8 | (uint32_t)0xFF);
         }
     }
@@ -752,7 +740,7 @@ void RayCaster::renderCeiling(Camera* camera, double resolution)
                 b = fadeColor.b;
             }
             // PixelRenderer::drawPix(buffer, x, y, PixelRenderer::toPixColor(r,g,b,0xff));
-            m_pixelator.get()->setPixel(x, y, toIntColor(r, g, b, 255));
+            m_pixelator.get()->setPixel(x, y, al_map_rgba(r, g, b, 255));
         }
     }
 }

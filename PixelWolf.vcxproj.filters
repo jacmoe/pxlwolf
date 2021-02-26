@@ -103,6 +103,12 @@
     <ClCompile Include="code\main\Entity.cpp">
       <Filter>code\main</Filter>
     </ClCompile>
+    <ClCompile Include="code\utility\ImageAtlas.cpp">
+      <Filter>code\utility</Filter>
+    </ClCompile>
+    <ClCompile Include="code\main\RayCaster.cpp">
+      <Filter>code\main</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="code\main\Application.hpp">
@@ -148,6 +154,15 @@
       <Filter>code\main</Filter>
     </ClInclude>
     <ClInclude Include="code\main\types.hpp">
+      <Filter>code\main</Filter>
+    </ClInclude>
+    <ClInclude Include="code\utility\ImageAtlas.hpp">
+      <Filter>code\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="code\main\Camera.hpp">
+      <Filter>code\main</Filter>
+    </ClInclude>
+    <ClInclude Include="code\main\RayCaster.hpp">
       <Filter>code\main</Filter>
     </ClInclude>
   </ItemGroup>
