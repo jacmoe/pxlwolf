@@ -16,6 +16,8 @@
 #pragma once
 
 #include "main/Application.hpp"
+#include "utility/Map.hpp"
+#include <memory>
 
 class Game : public Application
 {
@@ -33,4 +35,6 @@ protected:
 
 private:
     double m_delta_time;
+
+    std::shared_ptr<utility::Map> m_map;
 };

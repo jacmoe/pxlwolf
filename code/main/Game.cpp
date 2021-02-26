@@ -19,6 +19,7 @@
 Game::Game()
     : m_delta_time(0.0)
 {
+    m_map = std::make_shared<utility::Map>();
 }
 
 Game::~Game()
@@ -27,11 +28,19 @@ Game::~Game()
 
 bool Game::OnUserCreate()
 {
+    m_map.get()->init("assets/levels/pxlwolf.ldtk");
+
+    m_map.get()->load(al_get_config_value(m_config.get(), "game", "level"));
+
     Pixelator* pixelator = m_pixelator.get();
 
     pixelator->fill(al_color_name("darkgreen"));
 
-    pixelator->drawCircle(Vector2i(30, 30), 20, al_color_name("goldenrod"));
+    pixelator->addBuffer("test", 100, 100);
+
+    pixelator->drawCircle("test", Vector2i(30, 30), 20, al_color_name("goldenrod"));
+
+    pixelator->copy("test", 200, 10);
 
     return true;
 }
@@ -47,9 +56,10 @@ bool Game::OnUserUpdate(double deltaTime)
 
 bool Game::OnUserRender()
 {
-    //m_pixelator.get()->blendAlpha(al_color_name("darkred"), 0.04);
-    m_pixelator.get()->randomize();
-
+    Pixelator* pixelator = m_pixelator.get();
+    //pixelator->blendAlpha(al_color_name("darkred"), 0.04);
+    //pixelator->randomize();
+    //pixelator->fill(al_color_name("goldenrod"));
     return true;
 }
 

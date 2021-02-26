@@ -13,6 +13,8 @@
 #
 #   MIT License
 #*/
+// linalg needs this
+#define NOMINMAX
 
 #include <filesystem>
 

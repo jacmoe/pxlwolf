@@ -507,17 +507,3 @@ void Pixelator::copy(const uint8_t* source_pixels, const Vector2i buffer_size, u
         }
     }
 }
-
-Vector2i::Vector2i(int x, int y)
-    : x(x)
-    , y(y)
-{
-}
-
-IntRect::IntRect(int left, int top, int width, int height)
-    : left(left)
-    , top(top)
-    , width(width)
-    , height(height)
-{
-}

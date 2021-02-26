@@ -19,26 +19,7 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
-
-struct Vector2i
-{
-    int x;
-    int y;
-
-    Vector2i() = default;
-    Vector2i(int x, int y);
-};
-
-struct IntRect
-{
-    int left;
-    int top;
-    int width;
-    int height;
-
-    IntRect() = default;
-    IntRect(int left, int top, int width, int height);
-};
+#include "main/types.hpp"
 
 class Pixelator
 {
@@ -91,10 +72,10 @@ public:
     bool swapBuffer(const std::string name);
 
     // copy pixels from a source
-    void copy(const std::string name, unsigned int x = 0, unsigned int y = 0, bool applyAlpha = false);
-    void copy(const std::string name, unsigned int destX, unsigned int destY, const IntRect& sourceRect, bool applyAlpha = false);
+    void copy(const std::string name, unsigned int x = 0, unsigned int y = 0, bool applyAlpha = true);
+    void copy(const std::string name, unsigned int destX, unsigned int destY, const IntRect& sourceRect, bool applyAlpha = true);
     //void copy(const sf::Image& source, unsigned int destX, unsigned int destY, const IntRect& sourceRect, bool applyAlpha = false);
-    void copy(const uint8_t* source_pixels, const Vector2i buffer_size, unsigned int destX, unsigned int destY, const IntRect& sourceRect, bool applyAlpha = false);
+    void copy(const uint8_t* source_pixels, const Vector2i buffer_size, unsigned int destX, unsigned int destY, const IntRect& sourceRect, bool applyAlpha = true);
 
     // get the size (width and height) of a buffer
     IntRect getSize() { return getSize(m_current_buffer); }
