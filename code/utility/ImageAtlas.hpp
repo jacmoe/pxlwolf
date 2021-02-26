@@ -17,8 +17,8 @@
 
 #include <vector>
 #include <string>
-#include "SDL.h"
-#include "linalg.h"
+#include <allegro5/allegro.h>
+#include "main/types.hpp"
 
 namespace utility
 {
@@ -28,19 +28,19 @@ namespace utility
         ImageAtlas();
         ~ImageAtlas();
 
-        bool load(const std::string& path, linalg::aliases::int2 tile_size);
+        bool load(const std::string& path, Vector2i tile_size);
 
-        inline const linalg::aliases::int2 getTileSize() { return { m_width, m_height }; }
+        inline const Vector2i getTileSize() { return { m_width, m_height }; }
         inline const int getCols() { return m_cols; }
         inline const int getRows() { return m_rows; }
 
-        uint32_t* getPixels(int index) { return &m_buffers[index].pixels[0]; }
-        uint32_t getPixel(int index, int x , int y) { return m_buffers[index].pixels[(y*m_buffers[index].width+x)]; }
+        uint8_t* getPixels(int index) { return &m_buffers[index].pixels[0]; }
+        ALLEGRO_COLOR getPixel(int index, int x, int y);
 
     private:
         struct Buffer
         {
-            uint32_t* pixels;
+            std::vector<uint8_t> pixels;
             uint32_t width;
             uint32_t height;
         };

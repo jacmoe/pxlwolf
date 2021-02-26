@@ -31,7 +31,7 @@ namespace utility
     {
     }
 
-    bool ImageAtlas::load(const std::string& path, linalg::aliases::int2 tile_size)
+    bool ImageAtlas::load(const std::string& path, Vector2i tile_size)
     {
         int32_t req_format = STBI_rgb_alpha;
         int32_t orig_format;
@@ -59,21 +59,13 @@ namespace utility
             Buffer buffer;
             buffer.width = m_width;
             buffer.height = m_height;
-            buffer.pixels = (uint32_t*)malloc(sizeof(uint32_t)*m_width*m_height);
+            buffer.pixels.resize(m_width * m_height * 4);
 
-            uint32_t newPix = 0;
-            for (uint32_t p = 0; p < m_width * m_height; p++)
-            {
-                // Get each component
-                for (uint8_t comp = 0; comp < 4; comp++)
-                {
-                    newPix |= ((uint32_t)(pixels[(p + offset)*4+comp]) << (8 * (3-comp)));
-                }
-                buffer.pixels[p] = newPix;
-                newPix = 0;
-            }
+            memcpy(&buffer.pixels[0], (uint8_t*)&pixels[offset], buffer.pixels.size());
+
             m_buffers.push_back(buffer);
-            offset += m_width * m_height;
+
+            offset += m_width * m_height * 4;
         }
 
         stbi_image_free(pixels);
@@ -81,5 +73,11 @@ namespace utility
         SPDLOG_INFO("{} loaded succesfully.", path);
 
         return true;
+    }
+
+    ALLEGRO_COLOR ImageAtlas::getPixel(int index, int x, int y)
+    {
+        const uint8_t* pixel = &m_buffers[index].pixels[(y * m_buffers[index].width + x) * 4];
+        return al_map_rgba(pixel[0], pixel[1], pixel[2], pixel[3]);
     }
 }

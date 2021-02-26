@@ -15,6 +15,7 @@
 #*/
 #include "main/Game.hpp"
 #include <allegro5/allegro_color.h>
+#include "utility/ImageAtlas.hpp"
 
 Game::Game()
     : m_delta_time(0.0)
@@ -41,6 +42,12 @@ bool Game::OnUserCreate()
     pixelator->drawCircle("test", Vector2i(30, 30), 20, al_color_name("goldenrod"));
 
     pixelator->copy("test", 200, 10);
+
+    utility::ImageAtlas atlas;
+
+    atlas.load("assets/textures/wolfsheet.png", Vector2i(128, 128));
+
+    pixelator->copy(atlas.getPixels(2), atlas.getTileSize(), 0, 0, IntRect(0, 0, atlas.getTileSize().x, atlas.getTileSize().y));
 
     return true;
 }
