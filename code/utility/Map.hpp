@@ -19,8 +19,9 @@
 #include <list>
 #include <string>
 #include <unordered_map>
-#include "linalg.h"
 #include <allegro5/allegro.h>
+
+#include "main/types.hpp"
 
 enum class EntityType;
 
@@ -65,7 +66,7 @@ namespace utility
 
         inline const int width() { return m_map_width; }
         inline const int height() { return m_map_height; }
-        inline const linalg::aliases::double2 player_start() { return m_player_start; }
+        inline const Vector2d player_start() { return m_player_start; }
         inline const double player_heading() { return m_player_heading; }
 
     private:
@@ -80,7 +81,7 @@ namespace utility
         std::unordered_map<std::string, std::string> m_level_map;
         int m_map_width;
         int m_map_height;
-        linalg::aliases::double2 m_player_start;
+        Vector2d m_player_start;
         double m_player_heading;
         bool m_initialized;
         bool m_loaded;
