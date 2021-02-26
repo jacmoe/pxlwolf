@@ -103,9 +103,6 @@
     <ClCompile Include="code\main\Entity.cpp">
       <Filter>code\main</Filter>
     </ClCompile>
-    <ClCompile Include="code\main\types.cpp">
-      <Filter>code\main</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="code\main\Application.hpp">

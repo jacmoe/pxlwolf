@@ -15,40 +15,41 @@
 #*/
 #pragma once
 
-struct Vector2i
+template <typename T>
+struct Vector2
 {
-    int x;
-    int y;
+    T x;
+    T y;
 
-    Vector2i() = default;
-    Vector2i(int x, int y);
+    Vector2() = default;
+    Vector2(T x, T y)
+        : x(x)
+        , y(y)
+    {
+    }
 };
 
-struct Vector2f
+template <typename T>
+struct Rect
 {
-    float x;
-    float y;
+    T left;
+    T top;
+    T width;
+    T height;
 
-    Vector2f() = default;
-    Vector2f(float x, float y);
+    Rect() = default;
+    Rect(T left, T top, T width, T height)
+        : left(left)
+        , top(top)
+        , width(width)
+        , height(height)
+    {
+    }
 };
 
-struct Vector2d
-{
-    float x;
-    float y;
-
-    Vector2d() = default;
-    Vector2d(double x, double y);
-};
-
-struct IntRect
-{
-    int left;
-    int top;
-    int width;
-    int height;
-
-    IntRect() = default;
-    IntRect(int left, int top, int width, int height);
-};
+typedef Vector2<int> Vector2i;
+typedef Vector2<float> Vector2f;
+typedef Vector2<double> Vector2d;
+typedef Rect<int> IntRect;
+typedef Rect<float> FloatRect;
+typedef Rect<double> DoubleRect;

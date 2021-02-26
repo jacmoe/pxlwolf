@@ -134,7 +134,6 @@
     <ClCompile Include="code\main\Game.cpp" />
     <ClCompile Include="code\main\Level.cpp" />
     <ClCompile Include="code\main\Pixelator.cpp" />
-    <ClCompile Include="code\main\types.cpp" />
     <ClCompile Include="code\utility\dbg_console.cpp" />
     <ClCompile Include="code\utility\Map.cpp" />
     <ClCompile Include="code\utility\utils.cpp" />
