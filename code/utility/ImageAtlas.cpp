@@ -13,7 +13,8 @@
 #
 #   MIT License
 #*/
-#include "ImageAtlas.hpp"
+#include "utility/ImageAtlas.hpp"
+#include "main/Pixelator.hpp"
 #include "stb_image.h"
 #include "spdlog/spdlog.h"
 
@@ -44,6 +45,14 @@ namespace utility
             return false;
         }
 
+        Pixelator pixelator;
+        pixelator.addBuffer("source");
+        pixelator.setSize("source", Vector2i(image_width, image_height));
+        pixelator.setActiveBuffer("source");
+        pixelator.copy(pixels, Vector2i(image_width, image_height), 0, 0, IntRect(0, 0, image_width, image_height));
+
+        stbi_image_free(pixels);
+
         m_cols = image_width / tile_size.x;
         m_rows = image_height / tile_size.y;
 
@@ -53,22 +62,23 @@ namespace utility
         SPDLOG_INFO("m_width = {}, m_height = {}", m_width, m_height);
         SPDLOG_INFO("m_rows = {}, m_cols = {}", m_rows, m_cols);
 
-        int offset = 0;
-        for(int i = 0; i < m_rows; i++)
+        pixelator.addBuffer("target", m_width, m_height);
+        pixelator.setActiveBuffer("target");
+        for (unsigned row = 0; row < m_rows; row++)
         {
-            Buffer buffer;
-            buffer.width = m_width;
-            buffer.height = m_height;
-            buffer.pixels.resize(m_width * m_height * 4);
-
-            memcpy(&buffer.pixels[0], (uint8_t*)&pixels[offset], buffer.pixels.size());
-
-            m_buffers.push_back(buffer);
-
-            offset += m_width * m_height * 4;
+            for (unsigned col = 0; col < m_cols; col++)
+            {
+                pixelator.clear();
+                Buffer buffer;
+                buffer.width = m_width;
+                buffer.height = m_height;
+                buffer.pixels.resize(m_width * m_height * 4);
+                pixelator.copy("source", 0, 0, IntRect(col * m_width, row * m_height, m_width, m_height));
+                SPDLOG_INFO("At {},{} : Intrect is ({}, {}, {}, {})", row, col, col * m_width, row * m_height, m_width, m_height);
+                memcpy(&buffer.pixels[0], pixelator.getPixelsPtr(), buffer.pixels.size());
+                m_buffers.push_back(buffer);
+            }
         }
-
-        stbi_image_free(pixels);
 
         SPDLOG_INFO("{} loaded succesfully.", path);
 

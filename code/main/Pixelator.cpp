@@ -469,7 +469,7 @@ void Pixelator::copy(const uint8_t* source_pixels, const Vector2i buffer_size, u
     int          rows      = height;
     int          srcStride = static_cast<int>(buffer_size.x * 4u);
     int          dstStride = static_cast<int>(m_buffers[m_buffer_map[m_current_buffer]].size.x * 4u);
-    const uint8_t* srcPixels = source_pixels;
+    const uint8_t* srcPixels = &source_pixels[0] + (srcRect.left + srcRect.top * buffer_size.x) * 4;;
     uint8_t*       dstPixels = &m_buffers[m_buffer_map[m_current_buffer]].pixels[0] + (destX + destY * static_cast<int>(m_buffers[m_buffer_map[m_current_buffer]].size.x)) * 4u;
 
     // Copy the pixels
