@@ -42,6 +42,7 @@ protected:
     virtual bool OnUserCreate() { return true; }
     virtual bool OnUserUpdate(double deltaTime) { return true; }
     virtual bool OnUserRender() { return true; }
+    virtual bool OnUserPostRender() { return true; }
     virtual bool OnUserDestroy() { return  true; }
 
     float m_scale;

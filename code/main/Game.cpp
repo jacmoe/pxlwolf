@@ -42,18 +42,23 @@ bool Game::OnUserUpdate(double deltaTime)
     // convert deltaTime from microseconds to seconds
     //m_delta_time *= 1000000.0;
 
-    m_pixelator.get()->blendAlpha(al_color_name("darkred"), 0.04);
-
     return true;
 }
 
 bool Game::OnUserRender()
 {
+    m_pixelator.get()->blendAlpha(al_color_name("darkred"), 0.04);
+
+    return true;
+}
+
+bool Game::OnUserPostRender()
+{
     static uint64_t frames = 0;
     static double average_fps = 0.0;
 
     average_fps = frames / al_get_time();
-    
+
     al_draw_textf(m_font.get(), al_color_name("blanchedalmond"), 10.0, 60.0, 0, "Deltatime : %.7f", m_delta_time);
     al_draw_textf(m_font.get(), al_color_name("blanchedalmond"), 10.0, 90.0, 0, "FPS : %.2f", m_average_fps);
     al_draw_textf(m_font.get(), al_color_name("blanchedalmond"), 10.0, 120.0, 0, "Actual FPS : %.2f", average_fps);

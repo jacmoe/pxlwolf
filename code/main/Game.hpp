@@ -27,6 +27,8 @@ protected:
     bool OnUserCreate() override;
     bool OnUserUpdate(double deltaTime) override;
     bool OnUserRender() override;
+    bool OnUserPostRender() override;
+
     bool OnUserDestroy() override;
 
 private:
