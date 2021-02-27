@@ -75,6 +75,9 @@ bool Game::OnUserRender()
 
 bool Game::OnUserInput()
 {
+    //m_keyboard_state
+    //m_mouse_state
+    //m_event
     return true;
 }
 
