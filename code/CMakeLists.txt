@@ -26,17 +26,16 @@ set(main
     ./main/Level.hpp
     ./main/Pixelator.cpp
     ./main/Pixelator.hpp
-    # ./main/RayCaster.cpp
-    # ./main/RayCaster.hpp
-    ./main/types.cpp
+    ./main/RayCaster.cpp
+    ./main/RayCaster.hpp
     ./main/types.hpp
 )
 
 set(utility
     ./utility/dbg_console.cpp
     ./utility/dbg_console.hpp
-    # ./utility/ImageAtlas.cpp
-    # ./utility/ImageAtlas.hpp
+    ./utility/ImageAtlas.cpp
+    ./utility/ImageAtlas.hpp
     ./utility/Map.cpp
     ./utility/Map.hpp
     ./utility/ALDeleter.hpp
