@@ -90,6 +90,9 @@ After having generated the two projects, you can now open the PixelWolf solution
 Allegro should be available from your package manager. On Ubuntu, perform a simple ```sudo apt-get install liballegro5-dev```
 
 
+On Linux PixelWolf is fully CMake'd. Simply open the main CMake script using CMake or a CMake-aware program, like VSCode or KDevelop.
+
+
 ### Bundled dependencies
 |Library|Description|License|
 |-------|-----------|-------|
