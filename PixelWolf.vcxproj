@@ -101,7 +101,7 @@
     <Allegro_AddonColor>true</Allegro_AddonColor>
     <Allegro_AddonVideo>true</Allegro_AddonVideo>
     <Allegro_LibraryType>StaticMonolithRelease</Allegro_LibraryType>
-    <IncludePath>./3rdparty;./3rdparty/spdlog/include;./3rdparty/physfs/source;./code;$(IncludePath)</IncludePath>
+    <IncludePath>./code;./3rdparty;./3rdparty/spdlog/include;./3rdparty/physfs/source;./3rdparty/sol2;./3rdparty/Lua/include;$(IncludePath)</IncludePath>
     <LibraryPath>./3rdparty/vsbuild/Lua/Debug;./3rdparty/vsbuild/physfs/Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -118,7 +118,7 @@
     <Allegro_AddonColor>true</Allegro_AddonColor>
     <Allegro_AddonVideo>true</Allegro_AddonVideo>
     <Allegro_LibraryType>StaticMonolithRelease</Allegro_LibraryType>
-    <IncludePath>./3rdparty;./3rdparty/spdlog/include;./3rdparty/physfs/source;./code;$(IncludePath)</IncludePath>
+    <IncludePath>./code;./3rdparty;./3rdparty/spdlog/include;./3rdparty/physfs/source;./3rdparty/sol2;./3rdparty/Lua/include;$(IncludePath)</IncludePath>
     <LibraryPath>./3rdparty/vsbuild/Lua/Release;./3rdparty/vsbuild/physfs/Release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">
@@ -135,7 +135,7 @@
     <Allegro_AddonColor>true</Allegro_AddonColor>
     <Allegro_AddonVideo>true</Allegro_AddonVideo>
     <Allegro_LibraryType>StaticMonolithRelease</Allegro_LibraryType>
-    <IncludePath>./3rdparty;./3rdparty/spdlog/include;./3rdparty/physfs/source;./code;$(IncludePath)</IncludePath>
+    <IncludePath>./code;./3rdparty;./3rdparty/spdlog/include;./3rdparty/physfs/source;./3rdparty/sol2;./3rdparty/Lua/include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
