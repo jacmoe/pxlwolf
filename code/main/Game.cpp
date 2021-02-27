@@ -38,23 +38,23 @@ bool Game::OnUserCreate()
 
     m_map.get()->load(al_get_config_value(m_config.get(), "game", "level"));
 
-    Pixelator* pixelator = m_pixelator.get();
+    Pixelator* pix = m_pixelator.get();
 
-    pixelator->fill(al_color_name("darkgreen"));
+    pix->fill(al_color_name("darkslategray"));
 
-    pixelator->addBuffer("test", 100, 100);
+    pix->addBuffer("test", 100, 100);
 
-    pixelator->drawCircle("test", Vector2i(30, 30), 20, al_color_name("goldenrod"));
+    pix->drawCircle("test", Vector2i(30, 30), 20, al_color_name("goldenrod"));
 
-    pixelator->copy("test", 200, 10);
+    pix->copy("test", 200, 10);
 
     utility::ImageAtlas atlas;
 
     atlas.load("assets/sprites/guard.png", Vector2i(128, 128));
 
-    pixelator->copy(atlas.getPixels(16), atlas.getTileSize(), 80, 40, IntRect(0, 0, atlas.getTileSize().x, atlas.getTileSize().y));
+    pix->copy(atlas.getPixels(16), atlas.getTileSize(), 80, 40, IntRect(0, 0, atlas.getTileSize().x, atlas.getTileSize().y));
 
-    pixelator->addBuffer("minimap", m_map.get()->width() * 2, m_map.get()->height() * 2);
+    pix->addBuffer("minimap", m_map.get()->width() * 2, m_map.get()->height() * 2);
 
     Camera camera;
 
@@ -63,7 +63,7 @@ bool Game::OnUserCreate()
 
     raycaster.drawMinimap("minimap", camera, 2);
 
-    pixelator->copy("minimap", m_width - (m_map.get()->width() * 2) - 2, 2);
+    pix->copy("minimap", m_width - (m_map.get()->width() * 2) - 2, 2);
 
     return true;
 }
@@ -71,9 +71,9 @@ bool Game::OnUserCreate()
 bool Game::OnUserUpdate(double deltaTime)
 {
     m_delta_time = deltaTime;
-    Pixelator* pixelator = m_pixelator.get();
-    //pixelator->randomize();
-    //pixelator->blendAlpha(al_color_name("darkred"), deltaTime);
+    Pixelator* pix = m_pixelator.get();
+    //pix->randomize();
+    //pix->blendAlpha(al_color_name("darkred"), deltaTime);
     // convert deltaTime from microseconds to seconds
     //m_delta_time *= 1000000.0;
 
@@ -82,10 +82,10 @@ bool Game::OnUserUpdate(double deltaTime)
 
 bool Game::OnUserRender()
 {
-    Pixelator* pixelator = m_pixelator.get();
-    //pixelator->blendAlpha(al_color_name("darkred"), 0.04);
-    //pixelator->randomize();
-    //pixelator->fill(al_color_name("goldenrod"));
+    Pixelator* pix = m_pixelator.get();
+    //pix->blendAlpha(al_color_name("darkred"), 0.04);
+    //pix->randomize();
+    //pix->fill(al_color_name("goldenrod"));
     return true;
 }
 
@@ -104,9 +104,9 @@ bool Game::OnUserPostRender()
 
     average_fps = frames / al_get_time();
 
-    al_draw_textf(m_font.get(), al_color_name("black"), 10.0, 60.0, 0, "Deltatime : %.7f", m_delta_time);
-    al_draw_textf(m_font.get(), al_color_name("black"), 10.0, 90.0, 0, "FPS : %.2f", m_average_fps);
-    al_draw_textf(m_font.get(), al_color_name("black"), 10.0, 120.0, 0, "Actual FPS : %.2f", average_fps);
+    al_draw_textf(m_font.get(), al_color_name("blanchedalmond"), 10.0, 60.0, 0, "Deltatime : %.7f", m_delta_time);
+    al_draw_textf(m_font.get(), al_color_name("blanchedalmond"), 10.0, 90.0, 0, "FPS : %.2f", m_average_fps);
+    al_draw_textf(m_font.get(), al_color_name("blanchedalmond"), 10.0, 120.0, 0, "Actual FPS : %.2f", average_fps);
     //blanchedalmond
     ++frames;
 

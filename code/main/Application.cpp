@@ -274,7 +274,7 @@ void Application::render()
     al_set_target_backbuffer(m_display.get());
     al_draw_scaled_bitmap(m_display_buffer.get(), 0, 0, m_width, m_height, 0, 0, m_width * m_scale, m_height * m_scale, 0);
 
-    al_draw_text(m_title_font.get(), al_color_name("black"), 10.0, 10.0, 0, "PixelWolf");
+    al_draw_text(m_title_font.get(), al_color_name("blanchedalmond"), 10.0, 10.0, 0, "PixelWolf");
 
     OnUserPostRender();
 
