@@ -77,6 +77,15 @@ Uses Visual Studio on Windows, and CMake on Linux.
 #### Windows
 The easiest way to get Allegro on Windows is via Nuget, which is why this project uses Visual Studio for Windows.
 
+The PixelWolf solution references two projects, Lua and PhysicsFS, which should be generated using CMake before opening the project.
+
+Use the CMake script in `3rdparty` and choose `3rdparty/vsbuild` as the "where to build the binaries" folder.
+
+Make sure `win32` is chosen as the architecture, otherwise CMake will choose `x64` (and that is not going  to work).
+
+After having generated the two projects, you can now open the PixelWolf solution. Maybe in the future, there will be a better way.
+
+
 #### Linux
 Allegro should be available from your package manager. On Ubuntu, perform a simple ```sudo apt-get install liballegro5-dev```
 
