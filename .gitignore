@@ -12,6 +12,7 @@ test_package/build
 /.vscode
 *.user
 *.kdev4
+/3rdparty/vsbuild
 
 # Object files
 *.o
