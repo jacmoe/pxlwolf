@@ -107,6 +107,12 @@ On Linux PixelWolf is fully CMake'd. Simply open the main CMake script using CMa
 |[spdlog][spdlog]|Logging library|MIT license|
 |[stb_image][stbimage]|Image loader|Public domain|
 
+The bundled dependencies are all header-only, and doesn't require building, except for `Lua` and `PhysicsFS`.
+
+On Windows, you need to generate the projects following the instructions in the previous section.
+
+On Linux, the CMake script handles all this for you.
+
 
 ## Credits
 
