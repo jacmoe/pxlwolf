@@ -55,6 +55,9 @@ bool Game::OnUserCreate()
 bool Game::OnUserUpdate(double deltaTime)
 {
     m_delta_time = deltaTime;
+    Pixelator* pixelator = m_pixelator.get();
+    //pixelator->randomize();
+    //pixelator->blendAlpha(al_color_name("darkred"), deltaTime);
     // convert deltaTime from microseconds to seconds
     //m_delta_time *= 1000000.0;
 
@@ -67,6 +70,11 @@ bool Game::OnUserRender()
     //pixelator->blendAlpha(al_color_name("darkred"), 0.04);
     //pixelator->randomize();
     //pixelator->fill(al_color_name("goldenrod"));
+    return true;
+}
+
+bool Game::OnUserInput()
+{
     return true;
 }
 

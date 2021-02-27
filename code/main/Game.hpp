@@ -30,7 +30,7 @@ protected:
     bool OnUserUpdate(double deltaTime) override;
     bool OnUserRender() override;
     bool OnUserPostRender() override;
-
+    bool OnUserInput() override;
     bool OnUserDestroy() override;
 
 private:

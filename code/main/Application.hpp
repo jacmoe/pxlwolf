@@ -44,6 +44,7 @@ protected:
     virtual bool OnUserRender() { return true; }
     virtual bool OnUserPostRender() { return true; }
     virtual bool OnUserDestroy() { return  true; }
+    virtual bool OnUserInput() { return true;  }
 
     float m_scale;
     int m_width;
@@ -77,6 +78,6 @@ private:
 
     void update_display_buffer();
     void save_screenshot();
-    void event();
+    bool process_input();
     void render();
 };
