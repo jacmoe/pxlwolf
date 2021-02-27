@@ -16,6 +16,7 @@
 #include "main/Game.hpp"
 #include <allegro5/allegro_color.h>
 #include "utility/ImageAtlas.hpp"
+#include "main/RayCaster.hpp"
 
 Game::Game()
     : m_delta_time(0.0)
@@ -29,6 +30,10 @@ Game::~Game()
 
 bool Game::OnUserCreate()
 {
+    RayCaster raycaster;
+
+    raycaster.init(m_width, m_height, m_map, m_pixelator);
+
     m_map.get()->init("assets/levels/pxlwolf.ldtk");
 
     m_map.get()->load(al_get_config_value(m_config.get(), "game", "level"));
@@ -48,6 +53,17 @@ bool Game::OnUserCreate()
     atlas.load("assets/sprites/guard.png", Vector2i(128, 128));
 
     pixelator->copy(atlas.getPixels(16), atlas.getTileSize(), 80, 40, IntRect(0, 0, atlas.getTileSize().x, atlas.getTileSize().y));
+
+    pixelator->addBuffer("minimap", m_map.get()->width() * 2, m_map.get()->height() * 2);
+
+    Camera camera;
+
+    camera.x = m_map.get()->player_start().x;
+    camera.y = m_map.get()->player_start().y;
+
+    raycaster.drawMinimap("minimap", camera, 2);
+
+    pixelator->copy("minimap", m_width - (m_map.get()->width() * 2) - 2, 2);
 
     return true;
 }

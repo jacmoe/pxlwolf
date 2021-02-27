@@ -77,7 +77,7 @@ void RayCaster::drawMinimap(const std::string& buffer_name, const Camera& camera
     mapRect.width = map->width() * blockSize;
     mapRect.height = map->height() * blockSize;
     mapRect.top = mapRect.top = 0;
-    mapRect.left = 220;
+    mapRect.left = 0;
     IntRect blockRect;
     blockRect.width = blockSize;
     blockRect.height = blockSize;
@@ -96,7 +96,7 @@ void RayCaster::drawMinimap(const std::string& buffer_name, const Camera& camera
 
             blockRect.left = mapRect.left + col * blockSize;
             blockRect.top = mapRect.top + row * blockSize;
-            if( (map->walls()[row * map->width() + col] > 0) && ( m_global_visited.find(p_tile) != m_global_visited.end() ))
+            if( (map->walls()[row * map->width() + col] > 0) /*&& ( m_global_visited.find(p_tile) != m_global_visited.end() )*/)
             {
                 ALLEGRO_COLOR blockcolor = map->wall_element(map->walls()[row * map->width() + col]).color;
                 m_pixelator.get()->drawFilledRect(buffer_name, blockRect, blockcolor);
@@ -569,8 +569,16 @@ void RayCaster::initRayTexture(const std::string& path, int tile_width, int tile
         return;
     }
 
-    m_pixels.resize(tile_width * tile_height * num_tiles * 4);
-    memcpy(&m_pixels[0], (uint8_t*)&rgbaData, m_pixels.size());
+    Pixelator* pixelator = m_pixelator.get();
+    pixelator->addBuffer("raytex");
+    pixelator->setSize("raytex", Vector2i(mPixWidth, mPixHeight));
+    std::string buf = pixelator->getActiveBuffer();
+    pixelator->setActiveBuffer("raytex");
+    pixelator->copy(rgbaData, Vector2i(mPixWidth, mPixHeight), 0, 0, IntRect(0, 0, mPixWidth, mPixHeight));
+    m_pixels.resize(mPixWidth * mPixHeight * 4);
+    memcpy(&m_pixels[0], pixelator->getPixelsPtr(), mPixWidth * mPixHeight * 4);
+    pixelator->setActiveBuffer(buf);
+    pixelator->removeBuffer("raytex");
 
     stbi_image_free(rgbaData);
 }
@@ -586,8 +594,16 @@ void RayCaster::initWallCeilTexture(const std::string& path, int tile_width, int
         return;
     }
 
-    m_wall_ceil_pixels.resize(tile_width * tile_height * num_tiles * 4);
-    memcpy(&m_wall_ceil_pixels[0], (uint8_t*)&rgbaData, m_wall_ceil_pixels.size());
+    Pixelator* pixelator = m_pixelator.get();
+    pixelator->addBuffer("ceiltex");
+    pixelator->setSize("ceiltex", Vector2i(mPixWidth, mPixHeight));
+    std::string buf = pixelator->getActiveBuffer();
+    pixelator->setActiveBuffer("ceiltex");
+    pixelator->copy(rgbaData, Vector2i(mPixWidth, mPixHeight), 0, 0, IntRect(0, 0, mPixWidth, mPixHeight));
+    m_wall_ceil_pixels.resize(mPixWidth * mPixHeight * 4);
+    memcpy(&m_wall_ceil_pixels[0], pixelator->getPixelsPtr(), mPixWidth * mPixHeight * 4);
+    pixelator->setActiveBuffer(buf);
+    pixelator->removeBuffer("ceiltex");
 
     stbi_image_free(rgbaData);
 }
