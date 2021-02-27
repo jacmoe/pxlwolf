@@ -102,8 +102,6 @@ bool Application::init()
     {
         al_set_new_display_flags(ALLEGRO_OPENGL_3_0);
     }
-    al_set_new_display_option(ALLEGRO_RENDER_METHOD, 1, ALLEGRO_REQUIRE);
-    al_set_new_display_option(ALLEGRO_VSYNC, 2, ALLEGRO_REQUIRE);
     m_display.reset(al_create_display(m_width * m_scale, m_height * m_scale));
     if (!m_display.get())
     {
