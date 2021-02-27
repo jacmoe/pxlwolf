@@ -74,6 +74,12 @@ bool Application::init()
         return false;
     }
 
+    if (!al_install_mouse())
+    {
+        SPDLOG_ERROR("Couldn't initialize mouse");
+        return false;
+    }
+
     m_timer.reset(al_create_timer(1.0 / 60.0));
     if (!m_timer.get())
     {
@@ -168,6 +174,9 @@ void Application::run()
 
     uint64_t counted_frames = 0;
 
+    al_hide_mouse_cursor(m_display.get());
+    al_grab_mouse(m_display.get());
+
     OnUserCreate();
     
     al_start_timer(m_timer.get());
@@ -219,6 +228,8 @@ void Application::run()
         }
         ++counted_frames;
     }
+    al_show_mouse_cursor(m_display.get());
+    al_ungrab_mouse();
 }
 
 void Application::save_screenshot()
