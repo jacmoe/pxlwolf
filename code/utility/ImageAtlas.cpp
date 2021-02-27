@@ -74,7 +74,7 @@ namespace utility
                 buffer.height = m_height;
                 buffer.pixels.resize(m_width * m_height * 4);
                 pixelator.copy("source", 0, 0, IntRect(col * m_width, row * m_height, m_width, m_height));
-                SPDLOG_INFO("At {},{} : Intrect is ({}, {}, {}, {})", row, col, col * m_width, row * m_height, m_width, m_height);
+                //SPDLOG_INFO("At {},{} : Intrect is ({}, {}, {}, {})", row, col, col * m_width, row * m_height, m_width, m_height);
                 memcpy(&buffer.pixels[0], pixelator.getPixelsPtr(), buffer.pixels.size());
                 m_buffers.push_back(buffer);
             }
