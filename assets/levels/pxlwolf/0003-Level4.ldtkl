@@ -5,7 +5,7 @@
 		"doc": "https://ldtk.io/json",
 		"schema": "https://ldtk.io/files/JSON_SCHEMA.json",
 		"appAuthor": "Sebastien 'deepnight' Benard",
-		"appVersion": "0.7.2",
+		"appVersion": "0.8.0",
 		"url": "https://ldtk.io"
 	},
 	"identifier": "Level4",
@@ -22,6 +22,7 @@
 	"bgPivotY": 0.5,
 	"__bgPos": null,
 	"externalRelPath": null,
+	"fieldInstances": [],
 	"layerInstances": [
 		{
 			"__identifier": "Entities",
@@ -38,1909 +39,3762 @@
 			"layerDefUid": 4,
 			"pxOffsetX": 0,
 			"pxOffsetY": 0,
+			"visible": true,
 			"intGrid": [],
+			"intGridCsv": [],
 			"autoLayerTiles": [],
 			"seed": 2827096,
+			"overrideTilesetUid": null,
 			"gridTiles": [],
 			"entityInstances": [
-				{ "__identifier": "LevelEnd", "__grid": [45,59], "__pivot": [0.5,0.5], "__tile": null, "defUid": 10, "px": [728,952], "fieldInstances": [{ "__identifier": "next_level", "__value": null, "__type": "String", "defUid": 11, "realEditorValues": [] }] },
-				{ "__identifier": "PlayerStart", "__grid": [2,3], "__pivot": [0.5,0.5], "__tile": null, "defUid": 3, "px": [40,56], "fieldInstances": [{
-					"__identifier": "ViewerAngle",
-					"__value": 0,
-					"__type": "Float",
-					"defUid": 5,
-					"realEditorValues": [{ "id": "V_Float", "params": [0] }]
-				}] },
-				{ "__identifier": "Pickup", "__grid": [1,2], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [24,40], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ammo"],
-					"__type": "Array<LocalEnum.Items>",
-					"defUid": 25,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ammo"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [4,3], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [72,56], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [9,3], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [152,56], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [12,3], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [200,56], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [15,3], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [248,56], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [18,3], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [296,56], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [18,6], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [296,104], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
-					}]
-				}] },
-				{ "__identifier": "Enemy", "__grid": [18,22], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [296,360], "fieldInstances": [
-					{
-						"__identifier": "type",
-						"__value": ["Guard"],
-						"__type": "Array<LocalEnum.Enemies>",
-						"defUid": 28,
-						"realEditorValues": [{
-							"id": "V_String",
-							"params": ["Guard"]
-						}]
-					},
-					{
+				{
+					"__identifier": "LevelEnd",
+					"__grid": [45,59],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 10,
+					"px": [728,952],
+					"fieldInstances": [{ "__identifier": "next_level", "__value": null, "__type": "String", "defUid": 11, "realEditorValues": [] }]
+				},
+				{
+					"__identifier": "PlayerStart",
+					"__grid": [2,3],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 3,
+					"px": [40,56],
+					"fieldInstances": [{
 						"__identifier": "ViewerAngle",
-						"__value": 270,
+						"__value": 0,
 						"__type": "Float",
-						"defUid": 32,
-						"realEditorValues": [{ "id": "V_Float", "params": [270] }]
-					}
-				] },
-				{ "__identifier": "Static", "__grid": [18,17], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [296,280], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Gold"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Gold"]
+						"defUid": 5,
+						"realEditorValues": [{ "id": "V_Float", "params": [0] }]
 					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [18,30], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [296,488], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [18,27], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [296,440], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [18,33], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [296,536], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [13,30], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [216,488], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [8,30], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [136,488], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
-					}]
-				}] },
-				{ "__identifier": "Enemy", "__grid": [2,28], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [40,456], "fieldInstances": [
-					{
+				},
+				{
+					"__identifier": "Pickup",
+					"__grid": [1,2],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 22,
+					"px": [24,40],
+					"fieldInstances": [{
 						"__identifier": "type",
-						"__value": ["SS"],
-						"__type": "Array<LocalEnum.Enemies>",
-						"defUid": 28,
+						"__value": ["Ammo"],
+						"__type": "Array<LocalEnum.Items>",
+						"defUid": 25,
 						"realEditorValues": [{
 							"id": "V_String",
-							"params": ["SS"]
+							"params": ["Ammo"]
 						}]
-					},
-					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
-				] },
-				{ "__identifier": "Key", "__grid": [6,27], "__pivot": [0.5,0.5], "__tile": null, "defUid": 29, "px": [104,440], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Gold"],
-					"__type": "Array<LocalEnum.Keys>",
-					"defUid": 31,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Gold"]
 					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [1,26], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [24,424], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Flag"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Flag"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [1,34], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [24,552], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Flag"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Flag"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [2,30], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [40,488], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Table"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Table"]
-					}]
-				}] },
-				{ "__identifier": "Pickup", "__grid": [2,26], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [40,424], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Gold_Goblet"],
-					"__type": "Array<LocalEnum.Items>",
-					"defUid": 25,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Gold_Goblet"]
-					}]
-				}] },
-				{ "__identifier": "Pickup", "__grid": [2,27], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [40,440], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Gold_Goblet"],
-					"__type": "Array<LocalEnum.Items>",
-					"defUid": 25,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Gold_Goblet"]
-					}]
-				}] },
-				{ "__identifier": "Pickup", "__grid": [1,27], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [24,440], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Gold_Goblet"],
-					"__type": "Array<LocalEnum.Items>",
-					"defUid": 25,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Gold_Goblet"]
-					}]
-				}] },
-				{ "__identifier": "Pickup", "__grid": [1,28], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [24,456], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Gold_Goblet"],
-					"__type": "Array<LocalEnum.Items>",
-					"defUid": 25,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Gold_Goblet"]
-					}]
-				}] },
-				{ "__identifier": "Pickup", "__grid": [3,34], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [56,552], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Gold_Casket"],
-					"__type": "Array<LocalEnum.Items>",
-					"defUid": 25,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Gold_Casket"]
-					}]
-				}] },
-				{ "__identifier": "Pickup", "__grid": [4,33], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [72,536], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Gold_Casket"],
-					"__type": "Array<LocalEnum.Items>",
-					"defUid": 25,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Gold_Casket"]
-					}]
-				}] },
-				{ "__identifier": "Pickup", "__grid": [1,31], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [24,504], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Gold_Cross"],
-					"__type": "Array<LocalEnum.Items>",
-					"defUid": 25,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Gold_Cross"]
-					}]
-				}] },
-				{ "__identifier": "Pickup", "__grid": [1,32], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [24,520], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Gold_Cross"],
-					"__type": "Array<LocalEnum.Items>",
-					"defUid": 25,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Gold_Cross"]
-					}]
-				}] },
-				{ "__identifier": "Pickup", "__grid": [2,32], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [40,520], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Gold_Cross"],
-					"__type": "Array<LocalEnum.Items>",
-					"defUid": 25,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Gold_Cross"]
-					}]
-				}] },
-				{ "__identifier": "Pickup", "__grid": [2,33], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [40,536], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Gold_Cross"],
-					"__type": "Array<LocalEnum.Items>",
-					"defUid": 25,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Gold_Cross"]
-					}]
-				}] },
-				{ "__identifier": "Enemy", "__grid": [15,25], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [248,408], "fieldInstances": [
-					{
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [4,3],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [72,56],
+					"fieldInstances": [{
 						"__identifier": "type",
-						"__value": ["Guard"],
-						"__type": "Array<LocalEnum.Enemies>",
-						"defUid": 28,
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
 						"realEditorValues": [{
 							"id": "V_String",
-							"params": ["Guard"]
+							"params": ["Ceil_Green"]
 						}]
-					},
-					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
-				] },
-				{ "__identifier": "Pickup", "__grid": [13,24], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [216,392], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Gold_Cross"],
-					"__type": "Array<LocalEnum.Items>",
-					"defUid": 25,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Gold_Cross"]
 					}]
-				}] },
-				{ "__identifier": "Pickup", "__grid": [14,24], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [232,392], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Gold_Cross"],
-					"__type": "Array<LocalEnum.Items>",
-					"defUid": 25,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Gold_Cross"]
-					}]
-				}] },
-				{ "__identifier": "Pickup", "__grid": [15,24], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [248,392], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Gold_Goblet"],
-					"__type": "Array<LocalEnum.Items>",
-					"defUid": 25,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Gold_Goblet"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [14,25], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [232,408], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [28,30], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [456,488], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [23,30], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [376,488], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
-					}]
-				}] },
-				{ "__identifier": "Enemy", "__grid": [18,41], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [296,664], "fieldInstances": [
-					{
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [9,3],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [152,56],
+					"fieldInstances": [{
 						"__identifier": "type",
-						"__value": ["Guard"],
-						"__type": "Array<LocalEnum.Enemies>",
-						"defUid": 28,
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
 						"realEditorValues": [{
 							"id": "V_String",
-							"params": ["Guard"]
+							"params": ["Ceil_Green"]
 						}]
-					},
-					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
-				] },
-				{ "__identifier": "Enemy", "__grid": [3,42], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [56,680], "fieldInstances": [
-					{
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [12,3],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [200,56],
+					"fieldInstances": [{
 						"__identifier": "type",
-						"__value": ["Guard"],
-						"__type": "Array<LocalEnum.Enemies>",
-						"defUid": 28,
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
 						"realEditorValues": [{
 							"id": "V_String",
-							"params": ["Guard"]
+							"params": ["Ceil_Green"]
 						}]
-					},
-					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
-				] },
-				{ "__identifier": "Static", "__grid": [3,41], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [56,664], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Gold"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Gold"]
 					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [3,51], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [56,824], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Gold"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Gold"]
-					}]
-				}] },
-				{ "__identifier": "Pickup", "__grid": [1,52], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [24,840], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Meal"],
-					"__type": "Array<LocalEnum.Items>",
-					"defUid": 25,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Meal"]
-					}]
-				}] },
-				{ "__identifier": "Pickup", "__grid": [2,53], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [40,856], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Meal"],
-					"__type": "Array<LocalEnum.Items>",
-					"defUid": 25,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Meal"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [4,53], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [72,856], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Green_Barrel"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Green_Barrel"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [5,53], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [88,856], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Green_Barrel"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Green_Barrel"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [5,52], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [88,840], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Green_Barrel"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Green_Barrel"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [4,52], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [72,840], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Green_Barrel"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Green_Barrel"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [5,51], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [88,824], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Green_Barrel"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Green_Barrel"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [19,41], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [312,664], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [23,37], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [376,600], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [26,37], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [424,600], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [31,37], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [504,600], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [36,37], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [584,600], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [27,34], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [440,552], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [25,43], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [408,696], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Tree"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Tree"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [26,45], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [424,728], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Green_Barrel"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Green_Barrel"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [30,42], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [488,680], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Green_Barrel"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Green_Barrel"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [34,41], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [552,664], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Green_Barrel"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Green_Barrel"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [37,43], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [600,696], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Tree"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Tree"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [34,46], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [552,744], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Green_Barrel"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Green_Barrel"]
-					}]
-				}] },
-				{ "__identifier": "Enemy", "__grid": [40,43], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [648,696], "fieldInstances": [
-					{
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [15,3],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [248,56],
+					"fieldInstances": [{
 						"__identifier": "type",
-						"__value": ["Guard"],
-						"__type": "Array<LocalEnum.Enemies>",
-						"defUid": 28,
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
 						"realEditorValues": [{
 							"id": "V_String",
-							"params": ["Guard"]
+							"params": ["Ceil_Green"]
 						}]
-					},
-					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
-				] },
-				{ "__identifier": "Static", "__grid": [40,42], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [648,680], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
 					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [40,48], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [648,776], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [40,55], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [648,888], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [40,58], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [648,936], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
-					}]
-				}] },
-				{ "__identifier": "Enemy", "__grid": [31,61], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [504,984], "fieldInstances": [
-					{
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [18,3],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [296,56],
+					"fieldInstances": [{
 						"__identifier": "type",
-						"__value": ["Dog"],
-						"__type": "Array<LocalEnum.Enemies>",
-						"defUid": 28,
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
 						"realEditorValues": [{
 							"id": "V_String",
-							"params": ["Dog"]
+							"params": ["Ceil_Green"]
 						}]
-					},
-					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
-				] },
-				{ "__identifier": "Static", "__grid": [32,54], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [520,872], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Cloth"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Cloth"]
 					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [35,52], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [568,840], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Cloth"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Cloth"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [37,59], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [600,952], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Bowl"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Bowl"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [37,58], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [600,936], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Bowl"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Bowl"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [35,56], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [568,904], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Bowl"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Bowl"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [36,60], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [584,968], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Bowl"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Bowl"]
-					}]
-				}] },
-				{ "__identifier": "Pickup", "__grid": [33,58], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [536,936], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Dogfood"],
-					"__type": "Array<LocalEnum.Items>",
-					"defUid": 25,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Dogfood"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [28,62], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [456,1000], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Cloth"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Cloth"]
-					}]
-				}] },
-				{ "__identifier": "Enemy", "__grid": [40,35], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [648,568], "fieldInstances": [
-					{
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [18,6],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [296,104],
+					"fieldInstances": [{
 						"__identifier": "type",
-						"__value": ["Guard"],
-						"__type": "Array<LocalEnum.Enemies>",
-						"defUid": 28,
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
 						"realEditorValues": [{
 							"id": "V_String",
-							"params": ["Guard"]
+							"params": ["Ceil_Green"]
 						}]
-					},
-					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
-				] },
-				{ "__identifier": "Static", "__grid": [39,33], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [632,536], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Lamp"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Lamp"]
 					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [47,33], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [760,536], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Lamp"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Lamp"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [47,39], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [760,632], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Lamp"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Lamp"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [39,39], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [632,632], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Lamp"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Lamp"]
-					}]
-				}] },
-				{ "__identifier": "Pickup", "__grid": [39,34], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [632,552], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Gold_Cross"],
-					"__type": "Array<LocalEnum.Items>",
-					"defUid": 25,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Gold_Cross"]
-					}]
-				}] },
-				{ "__identifier": "Pickup", "__grid": [39,35], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [632,568], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Gold_Cross"],
-					"__type": "Array<LocalEnum.Items>",
-					"defUid": 25,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Gold_Cross"]
-					}]
-				}] },
-				{ "__identifier": "Pickup", "__grid": [39,36], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [632,584], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Gold_Cross"],
-					"__type": "Array<LocalEnum.Items>",
-					"defUid": 25,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Gold_Cross"]
-					}]
-				}] },
-				{ "__identifier": "Pickup", "__grid": [40,34], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [648,552], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Gold_Cross"],
-					"__type": "Array<LocalEnum.Items>",
-					"defUid": 25,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Gold_Cross"]
-					}]
-				}] },
-				{ "__identifier": "Pickup", "__grid": [42,33], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [680,536], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Gold_Casket"],
-					"__type": "Array<LocalEnum.Items>",
-					"defUid": 25,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Gold_Casket"]
-					}]
-				}] },
-				{ "__identifier": "Pickup", "__grid": [42,34], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [680,552], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Gold_Casket"],
-					"__type": "Array<LocalEnum.Items>",
-					"defUid": 25,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Gold_Casket"]
-					}]
-				}] },
-				{ "__identifier": "Pickup", "__grid": [45,34], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [728,552], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Gold_Goblet"],
-					"__type": "Array<LocalEnum.Items>",
-					"defUid": 25,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Gold_Goblet"]
-					}]
-				}] },
-				{ "__identifier": "Pickup", "__grid": [47,35], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [760,568], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Gold_Goblet"],
-					"__type": "Array<LocalEnum.Items>",
-					"defUid": 25,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Gold_Goblet"]
-					}]
-				}] },
-				{ "__identifier": "Pickup", "__grid": [47,36], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [760,584], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Gold_Goblet"],
-					"__type": "Array<LocalEnum.Items>",
-					"defUid": 25,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Gold_Goblet"]
-					}]
-				}] },
-				{ "__identifier": "Pickup", "__grid": [46,36], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [744,584], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Gold_Goblet"],
-					"__type": "Array<LocalEnum.Items>",
-					"defUid": 25,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Gold_Goblet"]
-					}]
-				}] },
-				{ "__identifier": "Pickup", "__grid": [45,39], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [728,632], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Gold_Goblet"],
-					"__type": "Array<LocalEnum.Items>",
-					"defUid": 25,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Gold_Goblet"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [45,42], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [728,680], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [45,54], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [728,872], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [45,48], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [728,776], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
-					}]
-				}] },
-				{ "__identifier": "Enemy", "__grid": [55,55], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [888,888], "fieldInstances": [
-					{
+				},
+				{
+					"__identifier": "Enemy",
+					"__grid": [18,22],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 27,
+					"px": [296,360],
+					"fieldInstances": [
+						{
+							"__identifier": "type",
+							"__value": ["Guard"],
+							"__type": "Array<LocalEnum.Enemies>",
+							"defUid": 28,
+							"realEditorValues": [{
+								"id": "V_String",
+								"params": ["Guard"]
+							}]
+						},
+						{
+							"__identifier": "ViewerAngle",
+							"__value": 270,
+							"__type": "Float",
+							"defUid": 32,
+							"realEditorValues": [{ "id": "V_Float", "params": [270] }]
+						}
+					]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [18,17],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [296,280],
+					"fieldInstances": [{
 						"__identifier": "type",
-						"__value": ["Guard"],
-						"__type": "Array<LocalEnum.Enemies>",
-						"defUid": 28,
+						"__value": ["Ceil_Gold"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
 						"realEditorValues": [{
 							"id": "V_String",
-							"params": ["Guard"]
+							"params": ["Ceil_Gold"]
 						}]
-					},
-					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
-				] },
-				{ "__identifier": "Enemy", "__grid": [57,56], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [920,904], "fieldInstances": [
-					{
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [18,30],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [296,488],
+					"fieldInstances": [{
 						"__identifier": "type",
-						"__value": ["Guard"],
-						"__type": "Array<LocalEnum.Enemies>",
-						"defUid": 28,
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
 						"realEditorValues": [{
 							"id": "V_String",
-							"params": ["Guard"]
+							"params": ["Ceil_Green"]
 						}]
-					},
-					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
-				] },
-				{ "__identifier": "Static", "__grid": [50,61], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [808,984], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
 					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [50,54], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [808,872], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [59,54], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [952,872], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [59,61], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [952,984], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [57,61], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [920,984], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Green_Barrel"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Green_Barrel"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [58,61], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [936,984], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Green_Barrel"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Green_Barrel"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [55,61], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [888,984], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Green_Barrel"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Green_Barrel"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [54,62], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [872,1000], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Cloth"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Cloth"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [46,57], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [744,920], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Planter"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Planter"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [46,61], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [744,984], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Planter"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Planter"]
-					}]
-				}] },
-				{ "__identifier": "Enemy", "__grid": [15,34], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [248,552], "fieldInstances": [
-					{
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [18,27],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [296,440],
+					"fieldInstances": [{
 						"__identifier": "type",
-						"__value": ["Guard"],
-						"__type": "Array<LocalEnum.Enemies>",
-						"defUid": 28,
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
 						"realEditorValues": [{
 							"id": "V_String",
-							"params": ["Guard"]
+							"params": ["Ceil_Green"]
 						}]
-					},
-					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
-				] },
-				{ "__identifier": "Enemy", "__grid": [9,37], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [152,600], "fieldInstances": [
-					{
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [18,33],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [296,536],
+					"fieldInstances": [{
 						"__identifier": "type",
-						"__value": ["Guard"],
-						"__type": "Array<LocalEnum.Enemies>",
-						"defUid": 28,
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
 						"realEditorValues": [{
 							"id": "V_String",
-							"params": ["Guard"]
+							"params": ["Ceil_Green"]
 						}]
-					},
-					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
-				] },
-				{ "__identifier": "Static", "__grid": [10,37], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [168,600], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Table"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Table"]
 					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [10,34], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [168,552], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Table"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Table"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [13,34], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [216,552], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Table"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Table"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [13,37], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [216,600], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Table"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Table"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [8,38], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [136,616], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Lamp"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Lamp"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [8,33], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [136,536], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Lamp"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Lamp"]
-					}]
-				}] },
-				{ "__identifier": "Pickup", "__grid": [9,36], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [152,584], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Meal"],
-					"__type": "Array<LocalEnum.Items>",
-					"defUid": 25,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Meal"]
-					}]
-				}] },
-				{ "__identifier": "Pickup", "__grid": [8,37], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [136,600], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Meal"],
-					"__type": "Array<LocalEnum.Items>",
-					"defUid": 25,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Meal"]
-					}]
-				}] },
-				{ "__identifier": "Enemy", "__grid": [1,19], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [24,312], "fieldInstances": [
-					{
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [13,30],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [216,488],
+					"fieldInstances": [{
 						"__identifier": "type",
-						"__value": ["Guard"],
-						"__type": "Array<LocalEnum.Enemies>",
-						"defUid": 28,
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
 						"realEditorValues": [{
 							"id": "V_String",
-							"params": ["Guard"]
+							"params": ["Ceil_Green"]
 						}]
-					},
-					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
-				] },
-				{ "__identifier": "Static", "__grid": [4,20], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [72,328], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Well_Dry"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Well_Dry"]
 					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [4,14], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [72,232], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Well_Dry"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Well_Dry"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [8,17], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [136,280], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [2,17], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [40,280], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [5,17], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [88,280], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [5,11], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [88,184], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [5,23], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [88,376], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [2,23], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [40,376], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [2,11], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [40,184], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
-					}]
-				}] },
-				{ "__identifier": "Enemy", "__grid": [10,12], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [168,200], "fieldInstances": [
-					{
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [8,30],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [136,488],
+					"fieldInstances": [{
 						"__identifier": "type",
-						"__value": ["Guard"],
-						"__type": "Array<LocalEnum.Enemies>",
-						"defUid": 28,
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
 						"realEditorValues": [{
 							"id": "V_String",
-							"params": ["Guard"]
+							"params": ["Ceil_Green"]
 						}]
-					},
-					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
-				] },
-				{ "__identifier": "Pickup", "__grid": [8,10], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [136,168], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ammo"],
-					"__type": "Array<LocalEnum.Items>",
-					"defUid": 25,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ammo"]
 					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [8,8], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [136,136], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Green_Barrel"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Green_Barrel"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [9,8], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [152,136], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Green_Barrel"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Green_Barrel"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [10,8], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [168,136], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Green_Barrel"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Green_Barrel"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [11,8], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [184,136], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Green_Barrel"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Green_Barrel"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [9,9], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [152,152], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Green_Barrel"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Green_Barrel"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [10,9], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [168,152], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Green_Barrel"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Green_Barrel"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [11,9], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [184,152], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Green_Barrel"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Green_Barrel"]
-					}]
-				}] },
-				{ "__identifier": "Pickup", "__grid": [13,9], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [216,152], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Chaingun"],
-					"__type": "Array<LocalEnum.Items>",
-					"defUid": 25,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Chaingun"]
-					}]
-				}] },
-				{ "__identifier": "Pickup", "__grid": [13,8], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [216,136], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ammo"],
-					"__type": "Array<LocalEnum.Items>",
-					"defUid": 25,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ammo"]
-					}]
-				}] },
-				{ "__identifier": "Pickup", "__grid": [14,8], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [232,136], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Health"],
-					"__type": "Array<LocalEnum.Items>",
-					"defUid": 25,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Health"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [11,26], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [184,424], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Wooden_Barrel"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Wooden_Barrel"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [11,25], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [184,408], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Wooden_Barrel"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Wooden_Barrel"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [11,24], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [184,392], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Wooden_Barrel"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Wooden_Barrel"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [10,25], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [168,408], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Wooden_Barrel"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Wooden_Barrel"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [10,26], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [168,424], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Wooden_Barrel"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Wooden_Barrel"]
-					}]
-				}] },
-				{ "__identifier": "Pickup", "__grid": [11,20], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [184,328], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Meal"],
-					"__type": "Array<LocalEnum.Items>",
-					"defUid": 25,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Meal"]
-					}]
-				}] },
-				{ "__identifier": "Pickup", "__grid": [10,20], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [168,328], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Meal"],
-					"__type": "Array<LocalEnum.Items>",
-					"defUid": 25,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Meal"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [10,21], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [168,344], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Wooden_Barrel"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Wooden_Barrel"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [9,21], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [152,344], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Wooden_Barrel"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Wooden_Barrel"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [11,22], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [184,360], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Wooden_Barrel"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Wooden_Barrel"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [10,22], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [168,360], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Wooden_Barrel"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Wooden_Barrel"]
-					}]
-				}] },
-				{ "__identifier": "Enemy", "__grid": [34,15], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [552,248], "fieldInstances": [
-					{
+				},
+				{
+					"__identifier": "Enemy",
+					"__grid": [2,28],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 27,
+					"px": [40,456],
+					"fieldInstances": [
+						{
+							"__identifier": "type",
+							"__value": ["SS"],
+							"__type": "Array<LocalEnum.Enemies>",
+							"defUid": 28,
+							"realEditorValues": [{
+								"id": "V_String",
+								"params": ["SS"]
+							}]
+						},
+						{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+					]
+				},
+				{
+					"__identifier": "Key",
+					"__grid": [6,27],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 29,
+					"px": [104,440],
+					"fieldInstances": [{
 						"__identifier": "type",
-						"__value": ["Guard"],
-						"__type": "Array<LocalEnum.Enemies>",
-						"defUid": 28,
+						"__value": ["Gold"],
+						"__type": "Array<LocalEnum.Keys>",
+						"defUid": 31,
 						"realEditorValues": [{
 							"id": "V_String",
-							"params": ["Guard"]
+							"params": ["Gold"]
 						}]
-					},
-					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
-				] },
-				{ "__identifier": "Static", "__grid": [34,13], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [552,216], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
 					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [34,17], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [552,280], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [29,13], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [472,216], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [26,13], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [424,216], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [26,9], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [424,152], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [23,9], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [376,152], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [23,2], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [376,40], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
-					}]
-				}] },
-				{ "__identifier": "Enemy", "__grid": [30,3], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [488,56], "fieldInstances": [
-					{
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [1,26],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [24,424],
+					"fieldInstances": [{
 						"__identifier": "type",
-						"__value": ["Guard"],
-						"__type": "Array<LocalEnum.Enemies>",
-						"defUid": 28,
+						"__value": ["Flag"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
 						"realEditorValues": [{
 							"id": "V_String",
-							"params": ["Guard"]
+							"params": ["Flag"]
 						}]
-					},
-					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
-				] },
-				{ "__identifier": "Enemy", "__grid": [32,8], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [520,136], "fieldInstances": [
-					{
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [1,34],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [24,552],
+					"fieldInstances": [{
 						"__identifier": "type",
-						"__value": ["Guard"],
-						"__type": "Array<LocalEnum.Enemies>",
-						"defUid": 28,
+						"__value": ["Flag"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
 						"realEditorValues": [{
 							"id": "V_String",
-							"params": ["Guard"]
+							"params": ["Flag"]
 						}]
-					},
-					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
-				] },
-				{ "__identifier": "Static", "__grid": [33,9], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [536,152], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Cage"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Cage"]
 					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [33,2], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [536,40], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Cage"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Cage"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [27,4], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [440,72], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Cage"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Cage"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [31,4], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [504,72], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Cage_Skel"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Cage_Skel"]
-					}]
-				}] },
-				{ "__identifier": "Pickup", "__grid": [30,1], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [488,24], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Meal"],
-					"__type": "Array<LocalEnum.Items>",
-					"defUid": 25,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Meal"]
-					}]
-				}] },
-				{ "__identifier": "Pickup", "__grid": [34,10], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [552,168], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Meal"],
-					"__type": "Array<LocalEnum.Items>",
-					"defUid": 25,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Meal"]
-					}]
-				}] },
-				{ "__identifier": "Pickup", "__grid": [34,4], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [552,72], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Meal"],
-					"__type": "Array<LocalEnum.Items>",
-					"defUid": 25,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Meal"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [39,17], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [632,280], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [46,17], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [744,280], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
-					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [46,14], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [744,232], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
-					}]
-				}] },
-				{ "__identifier": "Enemy", "__grid": [40,6], "__pivot": [0.5,0.5], "__tile": null, "defUid": 27, "px": [648,104], "fieldInstances": [
-					{
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [2,30],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [40,488],
+					"fieldInstances": [{
 						"__identifier": "type",
-						"__value": ["Dog"],
-						"__type": "Array<LocalEnum.Enemies>",
-						"defUid": 28,
+						"__value": ["Table"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
 						"realEditorValues": [{
 							"id": "V_String",
-							"params": ["Dog"]
+							"params": ["Table"]
 						}]
-					},
-					{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
-				] },
-				{ "__identifier": "Static", "__grid": [38,6], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [616,104], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
 					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [42,6], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [680,104], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
+				},
+				{
+					"__identifier": "Pickup",
+					"__grid": [2,26],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 22,
+					"px": [40,424],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Gold_Goblet"],
+						"__type": "Array<LocalEnum.Items>",
+						"defUid": 25,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Gold_Goblet"]
+						}]
 					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [46,6], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [744,104], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
+				},
+				{
+					"__identifier": "Pickup",
+					"__grid": [2,27],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 22,
+					"px": [40,440],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Gold_Goblet"],
+						"__type": "Array<LocalEnum.Items>",
+						"defUid": 25,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Gold_Goblet"]
+						}]
 					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [50,6], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [808,104], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
+				},
+				{
+					"__identifier": "Pickup",
+					"__grid": [1,27],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 22,
+					"px": [24,440],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Gold_Goblet"],
+						"__type": "Array<LocalEnum.Items>",
+						"defUid": 25,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Gold_Goblet"]
+						}]
 					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [54,6], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [872,104], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
+				},
+				{
+					"__identifier": "Pickup",
+					"__grid": [1,28],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 22,
+					"px": [24,456],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Gold_Goblet"],
+						"__type": "Array<LocalEnum.Items>",
+						"defUid": 25,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Gold_Goblet"]
+						}]
 					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [58,6], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [936,104], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
+				},
+				{
+					"__identifier": "Pickup",
+					"__grid": [3,34],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 22,
+					"px": [56,552],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Gold_Casket"],
+						"__type": "Array<LocalEnum.Items>",
+						"defUid": 25,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Gold_Casket"]
+						}]
 					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [46,10], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [744,168], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Ceil_Green"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ceil_Green"]
+				},
+				{
+					"__identifier": "Pickup",
+					"__grid": [4,33],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 22,
+					"px": [72,536],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Gold_Casket"],
+						"__type": "Array<LocalEnum.Items>",
+						"defUid": 25,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Gold_Casket"]
+						}]
 					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [59,3], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [952,56], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Bones"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Bones"]
+				},
+				{
+					"__identifier": "Pickup",
+					"__grid": [1,31],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 22,
+					"px": [24,504],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Gold_Cross"],
+						"__type": "Array<LocalEnum.Items>",
+						"defUid": 25,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Gold_Cross"]
+						}]
 					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [53,1], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [856,24], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Bones"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Bones"]
+				},
+				{
+					"__identifier": "Pickup",
+					"__grid": [1,32],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 22,
+					"px": [24,520],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Gold_Cross"],
+						"__type": "Array<LocalEnum.Items>",
+						"defUid": 25,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Gold_Cross"]
+						}]
 					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [43,1], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [696,24], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Skel_Remain"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Skel_Remain"]
+				},
+				{
+					"__identifier": "Pickup",
+					"__grid": [2,32],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 22,
+					"px": [40,520],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Gold_Cross"],
+						"__type": "Array<LocalEnum.Items>",
+						"defUid": 25,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Gold_Cross"]
+						}]
 					}]
-				}] },
-				{ "__identifier": "Pickup", "__grid": [43,3], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [696,56], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Meal"],
-					"__type": "Array<LocalEnum.Items>",
-					"defUid": 25,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Meal"]
+				},
+				{
+					"__identifier": "Pickup",
+					"__grid": [2,33],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 22,
+					"px": [40,536],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Gold_Cross"],
+						"__type": "Array<LocalEnum.Items>",
+						"defUid": 25,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Gold_Cross"]
+						}]
 					}]
-				}] },
-				{ "__identifier": "Static", "__grid": [39,1], "__pivot": [0.5,0.5], "__tile": null, "defUid": 23, "px": [632,24], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Bones"],
-					"__type": "Array<LocalEnum.Static>",
-					"defUid": 24,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Bones"]
+				},
+				{
+					"__identifier": "Enemy",
+					"__grid": [15,25],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 27,
+					"px": [248,408],
+					"fieldInstances": [
+						{
+							"__identifier": "type",
+							"__value": ["Guard"],
+							"__type": "Array<LocalEnum.Enemies>",
+							"defUid": 28,
+							"realEditorValues": [{
+								"id": "V_String",
+								"params": ["Guard"]
+							}]
+						},
+						{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+					]
+				},
+				{
+					"__identifier": "Pickup",
+					"__grid": [13,24],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 22,
+					"px": [216,392],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Gold_Cross"],
+						"__type": "Array<LocalEnum.Items>",
+						"defUid": 25,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Gold_Cross"]
+						}]
 					}]
-				}] },
-				{ "__identifier": "Pickup", "__grid": [43,14], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [696,232], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Meal"],
-					"__type": "Array<LocalEnum.Items>",
-					"defUid": 25,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Meal"]
+				},
+				{
+					"__identifier": "Pickup",
+					"__grid": [14,24],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 22,
+					"px": [232,392],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Gold_Cross"],
+						"__type": "Array<LocalEnum.Items>",
+						"defUid": 25,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Gold_Cross"]
+						}]
 					}]
-				}] },
-				{ "__identifier": "Pickup", "__grid": [43,13], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [696,216], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Health"],
-					"__type": "Array<LocalEnum.Items>",
-					"defUid": 25,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Health"]
+				},
+				{
+					"__identifier": "Pickup",
+					"__grid": [15,24],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 22,
+					"px": [248,392],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Gold_Goblet"],
+						"__type": "Array<LocalEnum.Items>",
+						"defUid": 25,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Gold_Goblet"]
+						}]
 					}]
-				}] },
-				{ "__identifier": "Pickup", "__grid": [42,14], "__pivot": [0.5,0.5], "__tile": null, "defUid": 22, "px": [680,232], "fieldInstances": [{
-					"__identifier": "type",
-					"__value": ["Health"],
-					"__type": "Array<LocalEnum.Items>",
-					"defUid": 25,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Health"]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [14,25],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [232,408],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Ceil_Green"]
+						}]
 					}]
-				}] }
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [28,30],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [456,488],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Ceil_Green"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [23,30],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [376,488],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Ceil_Green"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Enemy",
+					"__grid": [18,41],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 27,
+					"px": [296,664],
+					"fieldInstances": [
+						{
+							"__identifier": "type",
+							"__value": ["Guard"],
+							"__type": "Array<LocalEnum.Enemies>",
+							"defUid": 28,
+							"realEditorValues": [{
+								"id": "V_String",
+								"params": ["Guard"]
+							}]
+						},
+						{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+					]
+				},
+				{
+					"__identifier": "Enemy",
+					"__grid": [3,42],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 27,
+					"px": [56,680],
+					"fieldInstances": [
+						{
+							"__identifier": "type",
+							"__value": ["Guard"],
+							"__type": "Array<LocalEnum.Enemies>",
+							"defUid": 28,
+							"realEditorValues": [{
+								"id": "V_String",
+								"params": ["Guard"]
+							}]
+						},
+						{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+					]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [3,41],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [56,664],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Ceil_Gold"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Ceil_Gold"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [3,51],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [56,824],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Ceil_Gold"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Ceil_Gold"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Pickup",
+					"__grid": [1,52],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 22,
+					"px": [24,840],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Meal"],
+						"__type": "Array<LocalEnum.Items>",
+						"defUid": 25,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Meal"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Pickup",
+					"__grid": [2,53],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 22,
+					"px": [40,856],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Meal"],
+						"__type": "Array<LocalEnum.Items>",
+						"defUid": 25,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Meal"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [4,53],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [72,856],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Green_Barrel"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Green_Barrel"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [5,53],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [88,856],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Green_Barrel"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Green_Barrel"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [5,52],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [88,840],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Green_Barrel"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Green_Barrel"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [4,52],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [72,840],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Green_Barrel"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Green_Barrel"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [5,51],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [88,824],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Green_Barrel"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Green_Barrel"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [19,41],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [312,664],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Ceil_Green"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [23,37],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [376,600],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Ceil_Green"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [26,37],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [424,600],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Ceil_Green"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [31,37],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [504,600],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Ceil_Green"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [36,37],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [584,600],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Ceil_Green"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [27,34],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [440,552],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Ceil_Green"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [25,43],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [408,696],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Tree"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Tree"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [26,45],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [424,728],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Green_Barrel"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Green_Barrel"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [30,42],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [488,680],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Green_Barrel"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Green_Barrel"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [34,41],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [552,664],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Green_Barrel"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Green_Barrel"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [37,43],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [600,696],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Tree"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Tree"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [34,46],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [552,744],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Green_Barrel"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Green_Barrel"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Enemy",
+					"__grid": [40,43],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 27,
+					"px": [648,696],
+					"fieldInstances": [
+						{
+							"__identifier": "type",
+							"__value": ["Guard"],
+							"__type": "Array<LocalEnum.Enemies>",
+							"defUid": 28,
+							"realEditorValues": [{
+								"id": "V_String",
+								"params": ["Guard"]
+							}]
+						},
+						{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+					]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [40,42],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [648,680],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Ceil_Green"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [40,48],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [648,776],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Ceil_Green"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [40,55],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [648,888],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Ceil_Green"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [40,58],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [648,936],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Ceil_Green"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Enemy",
+					"__grid": [31,61],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 27,
+					"px": [504,984],
+					"fieldInstances": [
+						{
+							"__identifier": "type",
+							"__value": ["Dog"],
+							"__type": "Array<LocalEnum.Enemies>",
+							"defUid": 28,
+							"realEditorValues": [{
+								"id": "V_String",
+								"params": ["Dog"]
+							}]
+						},
+						{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+					]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [32,54],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [520,872],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Cloth"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Cloth"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [35,52],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [568,840],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Cloth"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Cloth"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [37,59],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [600,952],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Bowl"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Bowl"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [37,58],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [600,936],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Bowl"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Bowl"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [35,56],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [568,904],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Bowl"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Bowl"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [36,60],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [584,968],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Bowl"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Bowl"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Pickup",
+					"__grid": [33,58],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 22,
+					"px": [536,936],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Dogfood"],
+						"__type": "Array<LocalEnum.Items>",
+						"defUid": 25,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Dogfood"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [28,62],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [456,1000],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Cloth"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Cloth"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Enemy",
+					"__grid": [40,35],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 27,
+					"px": [648,568],
+					"fieldInstances": [
+						{
+							"__identifier": "type",
+							"__value": ["Guard"],
+							"__type": "Array<LocalEnum.Enemies>",
+							"defUid": 28,
+							"realEditorValues": [{
+								"id": "V_String",
+								"params": ["Guard"]
+							}]
+						},
+						{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+					]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [39,33],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [632,536],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Lamp"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Lamp"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [47,33],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [760,536],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Lamp"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Lamp"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [47,39],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [760,632],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Lamp"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Lamp"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [39,39],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [632,632],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Lamp"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Lamp"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Pickup",
+					"__grid": [39,34],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 22,
+					"px": [632,552],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Gold_Cross"],
+						"__type": "Array<LocalEnum.Items>",
+						"defUid": 25,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Gold_Cross"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Pickup",
+					"__grid": [39,35],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 22,
+					"px": [632,568],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Gold_Cross"],
+						"__type": "Array<LocalEnum.Items>",
+						"defUid": 25,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Gold_Cross"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Pickup",
+					"__grid": [39,36],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 22,
+					"px": [632,584],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Gold_Cross"],
+						"__type": "Array<LocalEnum.Items>",
+						"defUid": 25,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Gold_Cross"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Pickup",
+					"__grid": [40,34],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 22,
+					"px": [648,552],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Gold_Cross"],
+						"__type": "Array<LocalEnum.Items>",
+						"defUid": 25,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Gold_Cross"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Pickup",
+					"__grid": [42,33],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 22,
+					"px": [680,536],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Gold_Casket"],
+						"__type": "Array<LocalEnum.Items>",
+						"defUid": 25,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Gold_Casket"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Pickup",
+					"__grid": [42,34],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 22,
+					"px": [680,552],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Gold_Casket"],
+						"__type": "Array<LocalEnum.Items>",
+						"defUid": 25,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Gold_Casket"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Pickup",
+					"__grid": [45,34],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 22,
+					"px": [728,552],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Gold_Goblet"],
+						"__type": "Array<LocalEnum.Items>",
+						"defUid": 25,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Gold_Goblet"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Pickup",
+					"__grid": [47,35],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 22,
+					"px": [760,568],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Gold_Goblet"],
+						"__type": "Array<LocalEnum.Items>",
+						"defUid": 25,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Gold_Goblet"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Pickup",
+					"__grid": [47,36],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 22,
+					"px": [760,584],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Gold_Goblet"],
+						"__type": "Array<LocalEnum.Items>",
+						"defUid": 25,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Gold_Goblet"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Pickup",
+					"__grid": [46,36],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 22,
+					"px": [744,584],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Gold_Goblet"],
+						"__type": "Array<LocalEnum.Items>",
+						"defUid": 25,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Gold_Goblet"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Pickup",
+					"__grid": [45,39],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 22,
+					"px": [728,632],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Gold_Goblet"],
+						"__type": "Array<LocalEnum.Items>",
+						"defUid": 25,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Gold_Goblet"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [45,42],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [728,680],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Ceil_Green"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [45,54],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [728,872],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Ceil_Green"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [45,48],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [728,776],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Ceil_Green"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Enemy",
+					"__grid": [55,55],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 27,
+					"px": [888,888],
+					"fieldInstances": [
+						{
+							"__identifier": "type",
+							"__value": ["Guard"],
+							"__type": "Array<LocalEnum.Enemies>",
+							"defUid": 28,
+							"realEditorValues": [{
+								"id": "V_String",
+								"params": ["Guard"]
+							}]
+						},
+						{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+					]
+				},
+				{
+					"__identifier": "Enemy",
+					"__grid": [57,56],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 27,
+					"px": [920,904],
+					"fieldInstances": [
+						{
+							"__identifier": "type",
+							"__value": ["Guard"],
+							"__type": "Array<LocalEnum.Enemies>",
+							"defUid": 28,
+							"realEditorValues": [{
+								"id": "V_String",
+								"params": ["Guard"]
+							}]
+						},
+						{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+					]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [50,61],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [808,984],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Ceil_Green"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [50,54],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [808,872],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Ceil_Green"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [59,54],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [952,872],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Ceil_Green"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [59,61],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [952,984],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Ceil_Green"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [57,61],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [920,984],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Green_Barrel"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Green_Barrel"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [58,61],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [936,984],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Green_Barrel"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Green_Barrel"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [55,61],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [888,984],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Green_Barrel"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Green_Barrel"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [54,62],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [872,1000],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Cloth"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Cloth"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [46,57],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [744,920],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Planter"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Planter"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [46,61],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [744,984],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Planter"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Planter"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Enemy",
+					"__grid": [15,34],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 27,
+					"px": [248,552],
+					"fieldInstances": [
+						{
+							"__identifier": "type",
+							"__value": ["Guard"],
+							"__type": "Array<LocalEnum.Enemies>",
+							"defUid": 28,
+							"realEditorValues": [{
+								"id": "V_String",
+								"params": ["Guard"]
+							}]
+						},
+						{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+					]
+				},
+				{
+					"__identifier": "Enemy",
+					"__grid": [9,37],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 27,
+					"px": [152,600],
+					"fieldInstances": [
+						{
+							"__identifier": "type",
+							"__value": ["Guard"],
+							"__type": "Array<LocalEnum.Enemies>",
+							"defUid": 28,
+							"realEditorValues": [{
+								"id": "V_String",
+								"params": ["Guard"]
+							}]
+						},
+						{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+					]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [10,37],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [168,600],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Table"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Table"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [10,34],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [168,552],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Table"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Table"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [13,34],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [216,552],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Table"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Table"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [13,37],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [216,600],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Table"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Table"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [8,38],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [136,616],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Lamp"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Lamp"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [8,33],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [136,536],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Lamp"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Lamp"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Pickup",
+					"__grid": [9,36],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 22,
+					"px": [152,584],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Meal"],
+						"__type": "Array<LocalEnum.Items>",
+						"defUid": 25,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Meal"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Pickup",
+					"__grid": [8,37],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 22,
+					"px": [136,600],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Meal"],
+						"__type": "Array<LocalEnum.Items>",
+						"defUid": 25,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Meal"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Enemy",
+					"__grid": [1,19],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 27,
+					"px": [24,312],
+					"fieldInstances": [
+						{
+							"__identifier": "type",
+							"__value": ["Guard"],
+							"__type": "Array<LocalEnum.Enemies>",
+							"defUid": 28,
+							"realEditorValues": [{
+								"id": "V_String",
+								"params": ["Guard"]
+							}]
+						},
+						{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+					]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [4,20],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [72,328],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Well_Dry"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Well_Dry"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [4,14],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [72,232],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Well_Dry"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Well_Dry"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [8,17],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [136,280],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Ceil_Green"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [2,17],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [40,280],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Ceil_Green"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [5,17],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [88,280],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Ceil_Green"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [5,11],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [88,184],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Ceil_Green"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [5,23],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [88,376],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Ceil_Green"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [2,23],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [40,376],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Ceil_Green"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [2,11],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [40,184],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Ceil_Green"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Enemy",
+					"__grid": [10,12],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 27,
+					"px": [168,200],
+					"fieldInstances": [
+						{
+							"__identifier": "type",
+							"__value": ["Guard"],
+							"__type": "Array<LocalEnum.Enemies>",
+							"defUid": 28,
+							"realEditorValues": [{
+								"id": "V_String",
+								"params": ["Guard"]
+							}]
+						},
+						{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+					]
+				},
+				{
+					"__identifier": "Pickup",
+					"__grid": [8,10],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 22,
+					"px": [136,168],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Ammo"],
+						"__type": "Array<LocalEnum.Items>",
+						"defUid": 25,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Ammo"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [8,8],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [136,136],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Green_Barrel"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Green_Barrel"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [9,8],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [152,136],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Green_Barrel"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Green_Barrel"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [10,8],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [168,136],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Green_Barrel"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Green_Barrel"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [11,8],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [184,136],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Green_Barrel"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Green_Barrel"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [9,9],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [152,152],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Green_Barrel"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Green_Barrel"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [10,9],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [168,152],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Green_Barrel"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Green_Barrel"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [11,9],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [184,152],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Green_Barrel"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Green_Barrel"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Pickup",
+					"__grid": [13,9],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 22,
+					"px": [216,152],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Chaingun"],
+						"__type": "Array<LocalEnum.Items>",
+						"defUid": 25,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Chaingun"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Pickup",
+					"__grid": [13,8],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 22,
+					"px": [216,136],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Ammo"],
+						"__type": "Array<LocalEnum.Items>",
+						"defUid": 25,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Ammo"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Pickup",
+					"__grid": [14,8],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 22,
+					"px": [232,136],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Health"],
+						"__type": "Array<LocalEnum.Items>",
+						"defUid": 25,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Health"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [11,26],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [184,424],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Wooden_Barrel"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Wooden_Barrel"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [11,25],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [184,408],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Wooden_Barrel"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Wooden_Barrel"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [11,24],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [184,392],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Wooden_Barrel"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Wooden_Barrel"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [10,25],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [168,408],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Wooden_Barrel"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Wooden_Barrel"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [10,26],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [168,424],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Wooden_Barrel"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Wooden_Barrel"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Pickup",
+					"__grid": [11,20],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 22,
+					"px": [184,328],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Meal"],
+						"__type": "Array<LocalEnum.Items>",
+						"defUid": 25,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Meal"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Pickup",
+					"__grid": [10,20],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 22,
+					"px": [168,328],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Meal"],
+						"__type": "Array<LocalEnum.Items>",
+						"defUid": 25,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Meal"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [10,21],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [168,344],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Wooden_Barrel"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Wooden_Barrel"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [9,21],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [152,344],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Wooden_Barrel"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Wooden_Barrel"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [11,22],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [184,360],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Wooden_Barrel"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Wooden_Barrel"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [10,22],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [168,360],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Wooden_Barrel"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Wooden_Barrel"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Enemy",
+					"__grid": [34,15],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 27,
+					"px": [552,248],
+					"fieldInstances": [
+						{
+							"__identifier": "type",
+							"__value": ["Guard"],
+							"__type": "Array<LocalEnum.Enemies>",
+							"defUid": 28,
+							"realEditorValues": [{
+								"id": "V_String",
+								"params": ["Guard"]
+							}]
+						},
+						{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+					]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [34,13],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [552,216],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Ceil_Green"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [34,17],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [552,280],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Ceil_Green"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [29,13],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [472,216],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Ceil_Green"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [26,13],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [424,216],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Ceil_Green"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [26,9],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [424,152],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Ceil_Green"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [23,9],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [376,152],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Ceil_Green"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [23,2],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [376,40],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Ceil_Green"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Enemy",
+					"__grid": [30,3],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 27,
+					"px": [488,56],
+					"fieldInstances": [
+						{
+							"__identifier": "type",
+							"__value": ["Guard"],
+							"__type": "Array<LocalEnum.Enemies>",
+							"defUid": 28,
+							"realEditorValues": [{
+								"id": "V_String",
+								"params": ["Guard"]
+							}]
+						},
+						{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+					]
+				},
+				{
+					"__identifier": "Enemy",
+					"__grid": [32,8],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 27,
+					"px": [520,136],
+					"fieldInstances": [
+						{
+							"__identifier": "type",
+							"__value": ["Guard"],
+							"__type": "Array<LocalEnum.Enemies>",
+							"defUid": 28,
+							"realEditorValues": [{
+								"id": "V_String",
+								"params": ["Guard"]
+							}]
+						},
+						{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+					]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [33,9],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [536,152],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Cage"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Cage"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [33,2],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [536,40],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Cage"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Cage"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [27,4],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [440,72],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Cage"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Cage"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [31,4],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [504,72],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Cage_Skel"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Cage_Skel"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Pickup",
+					"__grid": [30,1],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 22,
+					"px": [488,24],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Meal"],
+						"__type": "Array<LocalEnum.Items>",
+						"defUid": 25,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Meal"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Pickup",
+					"__grid": [34,10],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 22,
+					"px": [552,168],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Meal"],
+						"__type": "Array<LocalEnum.Items>",
+						"defUid": 25,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Meal"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Pickup",
+					"__grid": [34,4],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 22,
+					"px": [552,72],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Meal"],
+						"__type": "Array<LocalEnum.Items>",
+						"defUid": 25,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Meal"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [39,17],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [632,280],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Ceil_Green"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [46,17],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [744,280],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Ceil_Green"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [46,14],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [744,232],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Ceil_Green"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Enemy",
+					"__grid": [40,6],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 27,
+					"px": [648,104],
+					"fieldInstances": [
+						{
+							"__identifier": "type",
+							"__value": ["Dog"],
+							"__type": "Array<LocalEnum.Enemies>",
+							"defUid": 28,
+							"realEditorValues": [{
+								"id": "V_String",
+								"params": ["Dog"]
+							}]
+						},
+						{ "__identifier": "ViewerAngle", "__value": 0, "__type": "Float", "defUid": 32, "realEditorValues": [] }
+					]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [38,6],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [616,104],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Ceil_Green"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [42,6],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [680,104],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Ceil_Green"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [46,6],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [744,104],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Ceil_Green"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [50,6],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [808,104],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Ceil_Green"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [54,6],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [872,104],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Ceil_Green"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [58,6],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [936,104],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Ceil_Green"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [46,10],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [744,168],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Ceil_Green"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Ceil_Green"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [59,3],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [952,56],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Bones"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Bones"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [53,1],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [856,24],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Bones"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Bones"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [43,1],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [696,24],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Skel_Remain"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Skel_Remain"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Pickup",
+					"__grid": [43,3],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 22,
+					"px": [696,56],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Meal"],
+						"__type": "Array<LocalEnum.Items>",
+						"defUid": 25,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Meal"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Static",
+					"__grid": [39,1],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 23,
+					"px": [632,24],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Bones"],
+						"__type": "Array<LocalEnum.Static>",
+						"defUid": 24,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Bones"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Pickup",
+					"__grid": [43,14],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 22,
+					"px": [696,232],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Meal"],
+						"__type": "Array<LocalEnum.Items>",
+						"defUid": 25,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Meal"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Pickup",
+					"__grid": [43,13],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 22,
+					"px": [696,216],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Health"],
+						"__type": "Array<LocalEnum.Items>",
+						"defUid": 25,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Health"]
+						}]
+					}]
+				},
+				{
+					"__identifier": "Pickup",
+					"__grid": [42,14],
+					"__pivot": [0.5,0.5],
+					"__tile": null,
+					"width": 16,
+					"height": 16,
+					"defUid": 22,
+					"px": [680,232],
+					"fieldInstances": [{
+						"__identifier": "type",
+						"__value": ["Health"],
+						"__type": "Array<LocalEnum.Items>",
+						"defUid": 25,
+						"realEditorValues": [{
+							"id": "V_String",
+							"params": ["Health"]
+						}]
+					}]
+				}
 			]
 		},
 		{
@@ -1958,9 +3812,131 @@
 			"layerDefUid": 12,
 			"pxOffsetX": 0,
 			"pxOffsetY": 0,
+			"visible": true,
 			"intGrid": [],
+			"intGridCsv": [
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0
+			],
 			"autoLayerTiles": [],
 			"seed": 3456919,
+			"overrideTilesetUid": null,
 			"gridTiles": [],
 			"entityInstances": []
 		},
@@ -1979,6 +3955,7 @@
 			"layerDefUid": 16,
 			"pxOffsetX": 0,
 			"pxOffsetY": 0,
+			"visible": true,
 			"intGrid": [
 				{ "coordId": 153, "v": 0 },
 				{ "coordId": 199, "v": 0 },
@@ -2019,8 +3996,129 @@
 				{ "coordId": 3750, "v": 0 },
 				{ "coordId": 3824, "v": 0 }
 			],
+			"intGridCsv": [
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+				0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,
+				1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,
+				0,1,0,0,0,0,1,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0
+			],
 			"autoLayerTiles": [],
 			"seed": 5552183,
+			"overrideTilesetUid": null,
 			"gridTiles": [],
 			"entityInstances": []
 		},
@@ -2039,6 +4137,7 @@
 			"layerDefUid": 2,
 			"pxOffsetX": 0,
 			"pxOffsetY": 0,
+			"visible": true,
 			"intGrid": [
 				{ "coordId": 21, "v": 1 },
 				{ "coordId": 22, "v": 1 },
@@ -3111,8 +5210,129 @@
 				{ "coordId": 4094, "v": 9 },
 				{ "coordId": 4095, "v": 9 }
 			],
+			"intGridCsv": [
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,5,2,2,2,2,2,2,2,2,2,2,2,
+				2,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,0,0,0,2,2,2,2,2,2,
+				2,2,2,2,4,2,2,4,2,2,2,2,2,2,2,2,0,0,0,2,0,0,0,0,0,0,0,0,0,1,10,0,0,0,0,
+				0,10,0,0,0,0,0,10,0,0,0,0,0,10,0,0,0,0,0,10,0,0,0,2,0,0,0,0,0,0,3,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,1,10,0,0,0,0,0,10,0,0,0,0,
+				0,10,0,0,0,0,0,10,0,0,0,0,0,10,0,0,0,34,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,1,10,0,0,0,0,0,10,0,0,0,0,0,10,0,0,0,0,
+				0,10,0,0,0,0,0,10,0,0,0,2,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,
+				0,2,0,0,0,0,0,0,0,0,0,1,10,10,10,0,10,10,10,10,10,0,10,10,10,10,10,0,10,10,10,10,10,0,10,
+				10,10,0,0,0,2,2,2,2,2,2,2,2,2,2,4,2,2,4,2,2,0,0,0,0,0,2,0,0,0,2,0,0,0,0,
+				0,0,0,0,0,1,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,2,
+				0,0,0,0,0,0,2,0,0,0,0,0,0,0,2,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,1,
+				10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,2,0,0,0,0,0,0,
+				2,2,2,2,2,2,2,2,2,0,0,0,0,0,2,0,0,0,2,2,2,2,0,0,0,0,0,0,1,11,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,2,2,0,0,0,0,0,2,0,0,0,0,0,
+				0,0,2,0,0,0,0,0,2,0,0,0,0,0,0,2,0,0,0,0,0,0,1,10,10,10,10,10,10,10,10,0,0,0,0,
+				0,10,10,10,10,10,10,10,10,10,10,10,10,0,0,0,2,2,2,2,2,2,2,2,0,0,0,0,1,0,2,2,2,2,0,
+				2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,1,10,0,0,0,0,10,0,0,10,0,0,0,10,10,0,0,0,0,
+				0,0,0,0,0,0,10,0,0,0,2,0,0,0,0,0,0,2,0,0,0,0,0,0,0,2,2,0,0,0,2,2,0,0,0,
+				0,0,0,2,0,0,0,0,0,0,1,10,0,0,0,0,10,10,10,10,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,
+				10,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,2,0,0,0,2,2,2,2,2,0,0,0,2,2,2,
+				2,2,2,2,2,2,10,0,0,0,10,0,0,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,2,0,
+				0,0,0,0,0,2,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,2,
+				10,0,0,0,10,0,0,10,10,0,10,10,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,2,0,0,12,12,0,0,2,
+				0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,2,10,0,0,0,10,0,
+				0,10,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,2,0,0,12,0,0,0,2,0,0,0,0,2,0,
+				0,4,2,0,0,0,2,5,0,0,2,0,0,0,0,0,0,0,0,0,0,0,2,10,0,0,0,10,0,0,10,0,0,0,10,
+				0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,2,0,0,12,12,0,0,2,2,2,2,2,2,0,0,2,5,0,0,0,
+				4,2,0,0,2,2,2,2,2,3,2,2,2,0,0,0,2,10,10,10,10,10,10,10,10,0,0,0,10,0,0,0,0,0,0,
+				0,0,0,0,0,10,0,0,0,2,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				2,0,0,0,0,0,2,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,10,
+				10,10,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,0,2,0,0,
+				0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,10,
+				0,0,0,0,0,0,0,0,0,0,10,10,0,0,0,0,0,0,0,0,0,0,0,10,10,0,2,0,0,12,12,0,0,2,2,
+				2,2,2,2,0,0,2,4,0,0,0,5,2,0,0,2,2,2,2,2,3,2,2,2,2,2,2,2,10,10,10,10,10,10,10,
+				10,10,10,10,10,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,2,0,0,12,0,0,0,2,0,0,0,0,2,0,0,
+				5,2,0,0,0,2,4,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,2,10,0,0,0,0,0,0,0,0,0,10,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,10,0,2,0,0,12,12,0,0,2,0,0,0,0,2,0,0,0,0,0,0,0,0,
+				0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,2,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,10,0,2,0,0,0,0,0,0,2,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,2,0,0,
+				0,0,0,0,0,0,0,0,0,0,2,10,0,0,10,0,0,0,10,0,0,10,0,0,0,2,2,2,2,2,2,2,0,0,0,
+				10,0,2,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,2,0,0,0,2,2,2,2,2,0,0,0,0,0,0,0,0,
+				0,0,0,0,2,10,0,0,0,0,0,0,0,0,0,10,0,0,0,2,2,2,2,2,2,2,0,0,0,10,0,2,0,0,0,
+				0,0,0,2,0,0,0,0,2,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,10,
+				0,0,0,0,0,0,0,0,0,10,0,0,0,2,2,2,2,0,0,2,0,0,0,10,0,2,2,2,5,2,2,2,2,0,0,
+				0,0,2,0,0,0,2,2,0,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,10,0,0,10,0,0,0,
+				10,0,0,10,0,0,0,2,2,0,0,0,0,2,0,0,0,10,0,2,0,0,0,0,0,0,2,0,0,0,0,2,0,0,0,
+				2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,2,2,10,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,2,2,0,0,0,0,2,0,0,0,10,0,2,0,0,0,0,0,0,2,2,2,2,2,2,0,0,0,2,0,0,0,2,0,
+				0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,10,0,0,0,0,0,0,0,0,0,10,0,0,0,2,2,0,0,0,
+				0,2,0,0,0,10,0,2,0,0,0,0,0,2,2,2,2,2,2,2,2,0,2,2,0,0,0,2,2,2,2,2,2,2,2,
+				2,2,2,2,2,0,0,0,0,0,10,10,0,10,10,10,10,10,0,10,10,0,0,0,2,2,2,2,2,2,2,0,0,0,10,
+				0,2,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,3,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,2,0,0,0,0,0,4,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,2,0,0,0,0,0,2,2,2,2,2,2,2,2,2,2,2,
+				0,0,0,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,10,10,10,10,10,10,10,10,10,10,10,0,0,0,
+				2,2,2,2,2,2,2,0,0,0,10,0,2,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,2,0,0,0,2,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,0,0,0,0,0,0,10,0,0,0,2,0,0,0,0,0,
+				2,0,0,0,10,0,2,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,10,0,0,0,0,0,0,0,0,0,10,0,0,0,2,0,0,0,0,0,2,0,0,0,10,0,
+				2,2,2,5,2,2,2,2,0,0,0,0,0,0,0,0,2,2,0,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,10,0,0,0,0,0,0,0,0,0,10,0,0,0,2,0,0,0,0,0,2,0,0,0,10,0,2,0,0,0,0,0,
+				2,2,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0,
+				0,0,0,0,0,0,0,10,0,0,0,2,0,0,0,0,0,2,0,0,0,10,0,2,0,0,0,0,0,2,2,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,0,0,0,0,0,
+				0,10,0,0,0,2,0,0,0,0,0,2,0,0,0,10,0,2,0,0,0,0,0,2,2,0,0,0,0,0,0,0,0,0,0,
+				0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,0,0,0,0,0,0,10,0,0,0,2,
+				2,2,0,2,2,2,0,0,0,10,0,2,0,0,0,0,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,0,0,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,10,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,2,2,0,2,2,2,
+				2,0,2,2,2,2,0,2,10,10,0,10,10,10,10,0,10,10,10,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,2,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,2,0,0,0,10,0,0,0,0,0,10,10,0,0,0,0,0,0,0,0,0,0,0,10,10,0,2,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,
+				10,0,0,0,0,0,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,0,2,0,0,0,0,0,2,2,2,2,2,2,2,
+				2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,6,0,6,6,6,0,0,0,0,2,0,0,0,10,0,0,0,0,0,
+				10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,2,2,0,0,0,6,0,6,0,0,0,0,0,2,2,0,0,0,10,0,0,0,0,0,10,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+				4,0,0,0,6,6,0,6,6,0,0,0,4,2,0,0,0,10,0,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,0,0,0,0,0,
+				6,0,6,0,0,0,2,2,0,0,0,10,0,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,
+				0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,6,6,6,0,6,0,0,0,
+				0,2,0,0,0,10,0,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,0,2,2,2,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,
+				0,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,10,0,0,0,0,0,10,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,0,0,2,2,2,2,2,2,2,
+				2,2,2,2,2,2,2,2,2,2,2,5,2,2,2,2,2,2,2,0,0,0,10,0,0,0,0,0,10,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,
+				2,2,0,0,0,0,0,0,0,2,2,2,2,0,0,0,10,0,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,2,0,0,0,0,0,2,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,
+				0,0,0,0,2,2,2,0,0,0,10,0,0,0,0,0,10,10,10,10,10,10,10,10,10,10,10,10,10,10,0,0,2,0,0,
+				0,0,0,2,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,2,2,0,0,0,0,0,0,0,0,0,0,0,2,
+				2,0,0,0,10,0,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0,2,2,2,2,2,2,2,2,2,
+				1,2,2,2,2,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,10,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,10,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,
+				0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,12,12,12,0,0,0,0,0,0,0,0,0,10,0,0,0,0,0,10,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,10,10,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,
+				0,0,0,2,0,0,0,0,12,12,12,12,12,0,0,0,0,2,0,0,0,10,10,10,10,10,10,10,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,2,0,0,
+				0,0,12,12,12,12,12,0,0,0,0,2,0,0,0,10,0,0,10,0,0,10,0,0,0,0,0,0,0,0,10,10,0,0,0,
+				0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,12,12,12,
+				0,0,0,0,0,0,0,0,0,10,10,16,10,0,0,10,0,0,0,0,0,0,0,0,10,10,10,0,0,0,10,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+				0,0,0,10,17,0,0,0,0,0,0,0,0,0,0,0,0,0,10,10,10,0,0,0,10,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,2,0,0,0,0,0,0,0,0,0,0,2,2,0,0,0,0,0,0,0,0,0,0,0,2,2,0,0,0,10,10,16,
+				10,0,0,10,0,0,0,0,0,0,0,0,10,10,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,
+				2,2,2,2,2,2,2,2,2,0,2,0,0,0,0,0,0,0,0,0,2,0,2,0,0,0,10,0,0,10,0,0,10,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,10,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,2,0,0,0,0,0,0,0,2,0,0,2,0,0,0,10,0,0,10,10,10,10,0,0,0,0,0,0,0,0,
+				0,0,0,0,10,10,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+				2,2,2,2,2,2,2,2,2,2,2,2,4,2,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,
+				10
+			],
 			"autoLayerTiles": [],
 			"seed": 8859294,
+			"overrideTilesetUid": null,
 			"gridTiles": [],
 			"entityInstances": []
 		},
@@ -3131,9 +5351,131 @@
 			"layerDefUid": 13,
 			"pxOffsetX": 0,
 			"pxOffsetY": 0,
+			"visible": true,
 			"intGrid": [],
+			"intGridCsv": [
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0
+			],
 			"autoLayerTiles": [],
 			"seed": 3757037,
+			"overrideTilesetUid": null,
 			"gridTiles": [],
 			"entityInstances": []
 		}

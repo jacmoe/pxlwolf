@@ -164,6 +164,7 @@ namespace utility
             std::string layer_type = (*itr)["__type"].GetString();
             if(layer_type == "Entities")
             {
+                SPDLOG_INFO("Parsing entities . . .");
                 const rapidjson::Value& entityInstances = (*itr)["entityInstances"];
                 for (rapidjson::Value::ConstValueIterator itr = entityInstances.Begin(); itr != entityInstances.End(); ++itr)
                 {
@@ -261,41 +262,22 @@ namespace utility
                 std::string identifier = (*itr)["__identifier"].GetString();
                 SPDLOG_INFO("Parsing IntGrid '{}' . . .", identifier);
 
-                // Set the size of walls, floor and ceiling vectors and fill it with zeroes.
-                // For debugging purposes, only zero out if found
-                if(identifier == "Walls")
+                for (auto const& int_grid : (*itr)["intGridCsv"].GetArray())
                 {
-                    m_walls.assign(m_map_width * m_map_height, 0);
-                }
-                if(identifier == "Floor")
-                {
-                    m_floor.assign(m_map_width * m_map_height, 0);
-                }
-                if(identifier == "Ceiling")
-                {
-                    m_ceiling.assign(m_map_width * m_map_height, 0);
+                    if (identifier == "Walls")
+                    {
+                        m_walls.push_back(int_grid.GetInt());
+                    }
+                    if (identifier == "Floor")
+                    {
+                        m_floor.push_back(int_grid.GetInt());
+                    }
+                    if (identifier == "Ceiling")
+                    {
+                        m_ceiling.push_back(int_grid.GetInt());
+                    }
                 }
 
-                const rapidjson::Value& initGrid = (*itr)["intGrid"];
-
-                for (rapidjson::Value::ConstValueIterator itr = initGrid.Begin(); itr != initGrid.End(); ++itr)
-                {
-                    if(identifier == "Walls")
-                    {
-                        // Add one to wall values so that zero becomes walkable area
-                        m_walls[(*itr)["coordId"].GetInt()] = (*itr)["v"].GetInt() + 1;
-                    }
-                    if(identifier == "Floor")
-                    {
-                        // Add one to floor values because LDtk starts from zero
-                        m_floor[(*itr)["coordId"].GetInt()] = (*itr)["v"].GetInt() + 1;
-                    }
-                    if(identifier == "Ceiling")
-                    {
-                        // Add one to ceiling values because LDtk starts from zero
-                        m_ceiling[(*itr)["coordId"].GetInt()] = (*itr)["v"].GetInt() + 1;
-                    }
-                }
             } // if layer type is IntGrid
 
         } // for layer instances
