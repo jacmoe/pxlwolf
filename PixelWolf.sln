@@ -5,6 +5,7 @@ VisualStudioVersion = 16.0.31019.35
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PixelWolf", "PixelWolf.vcxproj", "{53FF9EB7-7AC4-4843-AD5A-6122C8196796}"
 	ProjectSection(ProjectDependencies) = postProject
+		{D379CF39-8203-320C-AFC3-AF57F49CD1D3} = {D379CF39-8203-320C-AFC3-AF57F49CD1D3}
 		{1622514E-F5A8-3FFB-9C25-27F3404C5EA1} = {1622514E-F5A8-3FFB-9C25-27F3404C5EA1}
 		{130F49F0-CA16-348E-866E-E65B33BFE117} = {130F49F0-CA16-348E-866E-E65B33BFE117}
 	EndProjectSection
@@ -12,6 +13,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lua", "3rdparty\vsbuild\Lua\lua.vcxproj", "{130F49F0-CA16-348E-866E-E65B33BFE117}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "physfs-static", "3rdparty\vsbuild\physfs\physfs-static.vcxproj", "{1622514E-F5A8-3FFB-9C25-27F3404C5EA1}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lgui", "3rdparty\vsbuild\lgui\lgui.vcxproj", "{D379CF39-8203-320C-AFC3-AF57F49CD1D3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,6 +96,26 @@ Global
 		{1622514E-F5A8-3FFB-9C25-27F3404C5EA1}.RelWithDebInfo|x64.ActiveCfg = RelWithDebInfo|x64
 		{1622514E-F5A8-3FFB-9C25-27F3404C5EA1}.RelWithDebInfo|x64.Build.0 = RelWithDebInfo|x64
 		{1622514E-F5A8-3FFB-9C25-27F3404C5EA1}.RelWithDebInfo|x86.ActiveCfg = RelWithDebInfo|x64
+		{D379CF39-8203-320C-AFC3-AF57F49CD1D3}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D379CF39-8203-320C-AFC3-AF57F49CD1D3}.Debug|Win32.Build.0 = Debug|Win32
+		{D379CF39-8203-320C-AFC3-AF57F49CD1D3}.Debug|x64.ActiveCfg = Debug|Win32
+		{D379CF39-8203-320C-AFC3-AF57F49CD1D3}.Debug|x86.ActiveCfg = Debug|Win32
+		{D379CF39-8203-320C-AFC3-AF57F49CD1D3}.Debug|x86.Build.0 = Debug|Win32
+		{D379CF39-8203-320C-AFC3-AF57F49CD1D3}.MinSizeRel|Win32.ActiveCfg = MinSizeRel|Win32
+		{D379CF39-8203-320C-AFC3-AF57F49CD1D3}.MinSizeRel|Win32.Build.0 = MinSizeRel|Win32
+		{D379CF39-8203-320C-AFC3-AF57F49CD1D3}.MinSizeRel|x64.ActiveCfg = MinSizeRel|Win32
+		{D379CF39-8203-320C-AFC3-AF57F49CD1D3}.MinSizeRel|x86.ActiveCfg = MinSizeRel|Win32
+		{D379CF39-8203-320C-AFC3-AF57F49CD1D3}.MinSizeRel|x86.Build.0 = MinSizeRel|Win32
+		{D379CF39-8203-320C-AFC3-AF57F49CD1D3}.Release|Win32.ActiveCfg = Release|Win32
+		{D379CF39-8203-320C-AFC3-AF57F49CD1D3}.Release|Win32.Build.0 = Release|Win32
+		{D379CF39-8203-320C-AFC3-AF57F49CD1D3}.Release|x64.ActiveCfg = Release|Win32
+		{D379CF39-8203-320C-AFC3-AF57F49CD1D3}.Release|x86.ActiveCfg = Release|Win32
+		{D379CF39-8203-320C-AFC3-AF57F49CD1D3}.Release|x86.Build.0 = Release|Win32
+		{D379CF39-8203-320C-AFC3-AF57F49CD1D3}.RelWithDebInfo|Win32.ActiveCfg = RelWithDebInfo|Win32
+		{D379CF39-8203-320C-AFC3-AF57F49CD1D3}.RelWithDebInfo|Win32.Build.0 = RelWithDebInfo|Win32
+		{D379CF39-8203-320C-AFC3-AF57F49CD1D3}.RelWithDebInfo|x64.ActiveCfg = RelWithDebInfo|Win32
+		{D379CF39-8203-320C-AFC3-AF57F49CD1D3}.RelWithDebInfo|x86.ActiveCfg = RelWithDebInfo|Win32
+		{D379CF39-8203-320C-AFC3-AF57F49CD1D3}.RelWithDebInfo|x86.Build.0 = RelWithDebInfo|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

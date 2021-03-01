@@ -27,3 +27,5 @@ set(CMAKE_CXX_STANDARD 17)
 add_subdirectory(Lua)
 
 add_subdirectory(physfs)
+
+add_subdirectory(lgui)
