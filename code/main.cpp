@@ -13,18 +13,17 @@
 #
 #   MIT License
 #*/
-// linalg needs this
-#define NOMINMAX
-
 #include <filesystem>
-
 #include "utility/utils.hpp"
 #include "utility/dbg_console.hpp"
 #include "spdlog/spdlog.h"
 #include "spdlog/sinks/basic_file_sink.h"
 #include "spdlog/sinks/stdout_color_sinks.h"
+
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
+
+#include "lgui/gui.h"
 
 #include "main/Game.hpp"
 
