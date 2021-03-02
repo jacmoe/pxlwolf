@@ -36,6 +36,8 @@ Application::Application()
     , m_font_size(24)
     , m_font_size_title(32)
     , m_screenlock(nullptr)
+    , m_gui_font(m_font_name, m_font_size)
+    , m_gui_default_style(m_gui_font, m_color_scheme)
 {}
 
 Application::~Application()
@@ -261,6 +263,14 @@ void Application::update_display_buffer()
 
     al_unlock_bitmap(m_display_buffer.get());
 }
+
+void Application::setup_gui()
+{
+    m_gui_graphics = std::make_unique<lgui::Graphics>();
+    lgui::Widget::set_default_style(&m_gui_default_style);
+    m_gui = std::make_unique<lgui::GUI>();
+}
+
 
 void Application::render()
 {
