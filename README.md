@@ -98,7 +98,6 @@ On Linux PixelWolf is fully CMake'd. Simply open the main CMake script using CMa
 |-------|-----------|-------|
 |[cereal][cereal]|C++11 library for serialization|BSD license|
 |[enTT][entt]|C++ entity component system|MIT license|
-|[linalg][linalg]|Single header vector math library for C++|Public domain|
 |[Lua 5.4][lua]|Scripting language|zlib License|
 |[PhysicsFS ][physfs]|Archive support for games|zlib license|
 |[PhysFS++][physpp]|C++ wrapper for PhysicsFS|zlib license|
@@ -107,9 +106,9 @@ On Linux PixelWolf is fully CMake'd. Simply open the main CMake script using CMa
 |[spdlog][spdlog]|Logging library|MIT license|
 |[stb_image][stbimage]|Image loader|Public domain|
 
-The bundled dependencies are all header-only, and doesn't require building, except for `Lua` and `PhysicsFS`.
+The bundled dependencies are all header-only, and doesn't require building, except for `Lua`, `lgui`, and `PhysicsFS`.
 
-On Windows, you need to generate the projects following the instructions in the previous section.
+On Windows, you need to generate the projects simply by running the `` batch file from the `3rdparty` directory. You need CMake, Doxygen and the Graphviz tools (dot) installed.
 
 On Linux, the CMake script handles all this for you.
 
@@ -136,7 +135,6 @@ This project is using code from the [c-raycaster project][cray] - the raycaster 
 [allegro]: https://liballeg.org/ "A game programming library"
 [cereal]: https://uscilab.github.io/cereal/ "C++11 library for serialization"
 [entt]: https://github.com/skypjack/entt "C++ entity component system"
-[linalg]: https://github.com/sgorsten/linalg "Single header vector math library for C++"
 [lua]: https://www.lua.org/download.html "Scripting language"
 [physfs]: https://www.icculus.org/physfs/ "Archive support for games"
 [physpp]: https://github.com/kahowell/physfs-cpp "C++ wrapper for PhysicsFS"
