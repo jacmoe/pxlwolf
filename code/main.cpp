@@ -23,8 +23,6 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
-#include "lgui/gui.h"
-
 #include "main/Game.hpp"
 
 
