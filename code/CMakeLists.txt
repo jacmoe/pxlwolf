@@ -54,4 +54,4 @@ add_executable(${TARGET_NAME}
     ${utility}
 )
 
-target_link_libraries(pxlwolf lua  physfs-static ${ALLEGRO_LIBRARIES})
+target_link_libraries(pxlwolf lua  physfs-static lgui ${ALLEGRO_LIBRARIES})

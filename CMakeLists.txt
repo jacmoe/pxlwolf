@@ -31,12 +31,15 @@ add_subdirectory(3rdparty/Lua)
 
 add_subdirectory(3rdparty/physfs)
 
+add_subdirectory(3rdparty/lgui)
+
 set(3RD_PARTY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty)
 set(SOL_INCLUDE_DIR ${3RD_PARTY_DIR}/sol2)
 set(ENTT_INCLUDE_DIR ${3RD_PARTY_DIR}/entt)
 set(LUA_INCLUDE_DIR ${3RD_PARTY_DIR}/Lua/include)
 set(PHYSFS_INCLUDE_DIR ${3RD_PARTY_DIR}/physfs/src)
 set(SPDLOG_INCLUDE_DIR ${3RD_PARTY_DIR}/spdlog/include)
+set(LGUI_INCLUDE_DIR ${3RD_PARTY_DIR}/lgui)
 
 include_directories(
     ${ALLEGRO_INCLUDE_DIR}
@@ -46,6 +49,7 @@ include_directories(
     ${LUA_INCLUDE_DIR}
     ${SOL_INCLUDE_DIR}
     ${PHYSFS_INCLUDE_DIR}
+    ${LGUI_INCLUDE_DIR}
     ./code
 )
 
