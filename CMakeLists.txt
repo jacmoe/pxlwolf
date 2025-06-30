@@ -23,33 +23,44 @@ endif(WIN32)
 
 set(CMAKE_CXX_STANDARD 17)
 
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
+include(FetchContent)
 
-find_package(Allegro5 REQUIRED)
+FetchContent_Declare(
+  allegro5
+  GIT_REPOSITORY https://github.com/liballeg/allegro5.git
+  GIT_TAG        5.2.7.0
+)
+FetchContent_GetProperties(allegro5)
+if(NOT allegro5_POPULATED)
+  FetchContent_Populate(allegro5)
+	if (MSVC)
+		set(SHARED ON)
+	else()
+		set(SHARED OFF)
+	endif()
+	set(WANT_TESTS OFF)
+	set(WANT_EXAMPLES OFF)
+	set(WANT_DEMO OFF)
+  add_subdirectory(${allegro5_SOURCE_DIR} ${allegro5_BINARY_DIR} EXCLUDE_FROM_ALL)
+endif()
+
+set(ALLEGRO_LIBRARIES allegro allegro_image allegro_font allegro_color allegro_primitives allegro_ttf allegro_main)
 
 add_subdirectory(3rdparty/Lua)
-
-add_subdirectory(3rdparty/physfs)
-
-add_subdirectory(3rdparty/lgui)
 
 set(3RD_PARTY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty)
 set(SOL_INCLUDE_DIR ${3RD_PARTY_DIR}/sol2)
 set(ENTT_INCLUDE_DIR ${3RD_PARTY_DIR}/entt)
 set(LUA_INCLUDE_DIR ${3RD_PARTY_DIR}/Lua/include)
-set(PHYSFS_INCLUDE_DIR ${3RD_PARTY_DIR}/physfs/src)
 set(SPDLOG_INCLUDE_DIR ${3RD_PARTY_DIR}/spdlog/include)
-set(LGUI_INCLUDE_DIR ${3RD_PARTY_DIR}/lgui)
 
 include_directories(
-    ${ALLEGRO_INCLUDE_DIR}
+    ${allegro5_SOURCE_DIR}/include
     ${3RD_PARTY_DIR}
     ${SPDLOG_INCLUDE_DIR}
     ${ENTT_INCLUDE_DIR}
     ${LUA_INCLUDE_DIR}
     ${SOL_INCLUDE_DIR}
-    ${PHYSFS_INCLUDE_DIR}
-    ${LGUI_INCLUDE_DIR}
     ./code
 )
 

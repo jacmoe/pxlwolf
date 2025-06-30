@@ -43,8 +43,6 @@ set(utility
     # ./utility/SpriteSheetLoader.hpp
     ./utility/utils.cpp
     ./utility/utils.hpp
-    ${3RD_PARTY_DIR}/physfs.cpp
-    ${3RD_PARTY_DIR}/physfs.hpp
     # ${3RD_PARTY_DIR}/lua_main.hpp
 )
 
@@ -54,4 +52,4 @@ add_executable(${TARGET_NAME}
     ${utility}
 )
 
-target_link_libraries(pxlwolf lua  physfs-static lgui ${ALLEGRO_LIBRARIES})
+target_link_libraries(pxlwolf lua ${ALLEGRO_LIBRARIES})

@@ -25,11 +25,6 @@
 
 #include <spdlog/spdlog.h>
 
-#include "lgui/gui.h"
-#include "lgui/platform/graphics.h"
-#include "lgui/style/defaultstyle.h"
-#include "lgui/style/defaultstylecolorscheme.h"
-
 #include "utility/ALDeleter.hpp"
 #include "main/Pixelator.hpp"
 
@@ -75,11 +70,6 @@ protected:
     ALLEGRO_MOUSE_STATE m_mouse_state;
     std::shared_ptr<Pixelator> m_pixelator;
 
-    std::unique_ptr<lgui::GUI> m_gui;
-    std::unique_ptr<lgui::Graphics> m_gui_graphics;
-    lgui::Font m_gui_font;
-    lgui::DefaultStyleColorScheme m_color_scheme;
-    lgui::DefaultStyle m_gui_default_style;
 private:
     std::string m_title;
     bool m_running;

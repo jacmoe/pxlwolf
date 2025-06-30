@@ -19,7 +19,6 @@
 #include "rapidjson/filereadstream.h"
 #include "rapidjson/document.h"
 #include "rapidjson/istreamwrapper.h"
-#include "physfs.hpp"
 #include "spdlog/spdlog.h"
 
 #include <algorithm>
@@ -52,17 +51,6 @@ namespace utility
         rapidjson::Document document;
         std::fstream fp;
 
-        if(from_zip)
-        {
-            PhysFS::ifstream fp(file_name);
-            if(!fp)
-            {
-                SPDLOG_ERROR("Was unable to load '{}' from zip", file_name.c_str());
-                return false;
-            }
-            rapidjson::IStreamWrapper isw(fp);
-        document.ParseStream(isw);
-        } else {
             fp.open(file_name, std::fstream::in);
             if(!fp)
             {
@@ -71,7 +59,6 @@ namespace utility
             }
             rapidjson::IStreamWrapper isw(fp);
             document.ParseStream(isw);
-        }
 
         const rapidjson::Value& layers = document["defs"]["layers"];
         for (rapidjson::Value::ConstValueIterator itr = layers.Begin(); itr != layers.End(); ++itr)
@@ -130,17 +117,6 @@ namespace utility
         rapidjson::Document document;
         std::fstream fp;
 
-        if(from_zip)
-        {
-            PhysFS::ifstream fp(level_file);
-            if(!fp)
-            {
-                SPDLOG_ERROR("Was unable to load '{}' from zip", level_file);
-                return false;
-            }
-            rapidjson::IStreamWrapper isw(fp);
-        document.ParseStream(isw);
-        } else {
             fp.open(level_file, std::fstream::in);
             if(!fp)
             {
@@ -149,7 +125,6 @@ namespace utility
             }
             rapidjson::IStreamWrapper isw(fp);
             document.ParseStream(isw);
-        }
 
         SPDLOG_INFO("Loading level '{}'", level_name);
 
