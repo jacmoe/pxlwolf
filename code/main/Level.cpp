@@ -9,7 +9,7 @@
 #
 #   https://github.com/jacmoe/pxlwolf
 #
-#   (c) 2020 - 2021 Jacob Moena
+#   (c) 2020 - 2025 Jacob Moena
 #
 #   MIT License
 #*/
@@ -33,12 +33,12 @@ Entity Level::createEntity(const std::string& name)
     return entity;
 }
 
-void Level::destroyEntity(Entity entity)
+void Level::destroyEntity(const Entity entity)
 {
     m_registry.destroy(entity);
 }
 
-bool check_key(EntityMap m, std::string key) 
+bool check_key(EntityMap m, const std::string& key)
 { 
     if (m.find(key) == m.end()) 
         return false; 
@@ -46,7 +46,7 @@ bool check_key(EntityMap m, std::string key)
     return true; 
 }
 
-bool check_key(EntityTextureMap m, EntityType key) 
+bool check_key(EntityTextureMap m, const EntityType key)
 { 
     if (m.find(key) == m.end()) 
         return false; 
@@ -54,7 +54,7 @@ bool check_key(EntityTextureMap m, EntityType key)
     return true; 
 }
 
-EntityType Level::getEntityType(std::string type)
+EntityType Level::getEntityType(const std::string& type)
 {
     if(!check_key(m_entity_map, type))
     {
@@ -63,7 +63,7 @@ EntityType Level::getEntityType(std::string type)
     return m_entity_map[type];
 }
 
-std::string Level::getEntityTexture(enum EntityType type)
+std::string Level::getEntityTexture(const EntityType type)
 {
     if(!check_key(m_entitytexture_map, type))
     {
@@ -72,9 +72,9 @@ std::string Level::getEntityTexture(enum EntityType type)
     return m_entitytexture_map[type];
 }
 
-enum EntityCategory Level::getEntityCategory(enum EntityType type)
+EntityCategory Level::getEntityCategory(const EntityType type)
 {
-    enum EntityCategory cat;
+    EntityCategory cat;
     switch(type)
     {
         case EntityType::none:
@@ -125,7 +125,7 @@ enum EntityCategory Level::getEntityCategory(enum EntityType type)
         // keys
         case EntityType::gold_key:
         case EntityType::silver_key:
-            return EntityCategory::key;
+            cat = EntityCategory::key;
             break;
         // enemies
         case EntityType::guard:

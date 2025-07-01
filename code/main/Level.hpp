@@ -9,7 +9,7 @@
 #
 #   https://github.com/jacmoe/pxlwolf
 #
-#   (c) 2020 - 2021 Jacob Moena
+#   (c) 2020 - 2025 Jacob Moena
 #
 #   MIT License
 #*/
@@ -36,9 +36,9 @@ public:
     Entity createEntity(const std::string& name = std::string());
     void destroyEntity(Entity entity);
 
-    EntityType getEntityType(std::string type);
-    std::string getEntityTexture(enum EntityType type);
-    enum EntityCategory getEntityCategory(enum EntityType type);
+    EntityType getEntityType(const std::string& type);
+    std::string getEntityTexture(EntityType type);
+    static EntityCategory getEntityCategory(EntityType type);
 
 private:
 	entt::registry m_registry;

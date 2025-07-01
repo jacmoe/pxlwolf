@@ -9,7 +9,7 @@
 #
 #   https://github.com/jacmoe/pxlwolf
 #
-#   (c) 2020 - 2021 Jacob Moena
+#   (c) 2020 - 2025 Jacob Moena
 #
 #   MIT License
 #*/
@@ -19,11 +19,11 @@
 #include "utility/Map.hpp"
 #include <memory>
 
-class Game : public Application
+class Game final : public Application
 {
 public:
     Game();
-    ~Game();
+    ~Game() override;
 
 protected:
     bool OnUserCreate() override;

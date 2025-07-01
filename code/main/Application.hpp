@@ -9,7 +9,7 @@
 #
 #   https://github.com/jacmoe/pxlwolf
 #
-#   (c) 2020 - 2021 Jacob Moena
+#   (c) 2020 - 2025 Jacob Moena
 #
 #   MIT License
 #*/
@@ -79,7 +79,7 @@ private:
 
     void setup_gui();
     void update_display_buffer();
-    void save_screenshot();
+    void save_screenshot() const;
     bool process_input();
     void render();
 };

@@ -9,7 +9,7 @@
 #
 #   https://github.com/jacmoe/pxlwolf
 #
-#   (c) 2020 - 2021 Jacob Moena
+#   (c) 2020 - 2025 Jacob Moena
 #
 #   MIT License
 #*/
@@ -19,16 +19,17 @@
 #include "main/RayCaster.hpp"
 #include "main/types.hpp"
 #include "utility/packer.hpp"
-#include "utility/unpacker.hpp"
+//#include "utility/unpacker.hpp"
 
-RayCaster::RayCaster()
+RayCaster::RayCaster(): m_width(0), m_height(0), tex_tile_width(0), tex_tile_height(0), ceil_tile_width(0),
+                        ceil_tile_height(0)
 {
 }
 
 RayCaster::~RayCaster()
 {
 }
-void RayCaster::init(uint32_t width, uint32_t height, std::shared_ptr<utility::Map> map, std::shared_ptr<Pixelator> pixelator)
+void RayCaster::init(const uint32_t width, const uint32_t height, const std::shared_ptr<utility::Map>& map, const std::shared_ptr<Pixelator>& pixelator)
 {
     m_map = map;
     m_pixelator = pixelator;
@@ -51,9 +52,9 @@ void RayCaster::init(uint32_t width, uint32_t height, std::shared_ptr<utility::M
  * @param width Width in pixels to generate offsets for
  * @param camera Camera for offsets
  */
-void RayCaster::generateAngleValues(uint32_t width, Camera* camera)
+void RayCaster::generateAngleValues(const uint32_t width, Camera* camera)
 {
-    double adjFactor = (double)width / (2 * tan(camera->fov / 2));
+    const double adjFactor = static_cast<double>(width) / (2 * tan(camera->fov / 2));
     camera->angleValues[0] = atan((width / 2) / adjFactor) - atan((width / 2 - 1) / adjFactor);
     for (uint32_t i = 1; i < width; i++)
     {
@@ -68,11 +69,10 @@ void RayCaster::generateAngleValues(uint32_t width, Camera* camera)
     }
 }
 
-void RayCaster::drawMinimap(const std::string& buffer_name, const Camera& camera, int blockSize)
+void RayCaster::drawMinimap(const std::string& buffer_name, const Camera& camera, const int blockSize) const
 {
     utility::Map* map = m_map.get();
 
-    int row, col;
     IntRect mapRect;
     mapRect.width = map->width() * blockSize;
     mapRect.height = map->height() * blockSize;
@@ -82,17 +82,17 @@ void RayCaster::drawMinimap(const std::string& buffer_name, const Camera& camera
     blockRect.width = blockSize;
     blockRect.height = blockSize;
 
-    int p_x = static_cast<int>(camera.x);
-    int p_y = static_cast<int>(camera.y);
+    const int p_x = static_cast<int>(camera.x);
+    const int p_y = static_cast<int>(camera.y);
 
     /* Draw map tiles */
-    for(row = 0; row < map->height(); row++)
+    for(int row = 0; row < map->height(); row++)
     {
-        for(col = 0; col < map->width(); col++)
+        for(int col = 0; col < map->width(); col++)
         {
-            uint8_t p_row = (uint8_t)row;
-            uint8_t p_col = (uint8_t)col;
-            uint32_t p_tile = utility::pack(p_col,p_row,1,1);
+            //static_cast<uint8_t>(row);
+            //const uint8_t p_col = static_cast<uint8_t>(col);
+            //uint32_t p_tile = utility::pack(p_col,p_row,1,1);
 
             blockRect.left = mapRect.left + col * blockSize;
             blockRect.top = mapRect.top + row * blockSize;
@@ -116,46 +116,35 @@ void RayCaster::drawMinimap(const std::string& buffer_name, const Camera& camera
     }
 }
 
-ALLEGRO_COLOR RayCaster::pixelGradientShader(ALLEGRO_COLOR pixel, double percent, ALLEGRO_COLOR target)
+ALLEGRO_COLOR RayCaster::pixelGradientShader(const ALLEGRO_COLOR pixel, const double percent, const ALLEGRO_COLOR target)
 {
     uint8_t r, g, b, a;
     al_unmap_rgba(pixel, &r, &g, &b, &a);
     uint8_t tr, tg, tb, ta;
     al_unmap_rgba(target, &tr, &tg, &tb, &ta);
-    uint8_t dr = tr - r;
-    uint8_t dg = tg - g;
-    uint8_t db = tb - b;
-    uint8_t da = ta - a;
-    r += (uint8_t)((double)dr * percent);
-    g += (uint8_t)((double)dg * percent);
-    b += (uint8_t)((double)db * percent);
-    a += (uint8_t)((double)da * percent);
+    const uint8_t dr = tr - r;
+    const uint8_t dg = tg - g;
+    const uint8_t db = tb - b;
+    const uint8_t da = ta - a;
+    r += static_cast<uint8_t>(static_cast<double>(dr) * percent);
+    g += static_cast<uint8_t>(static_cast<double>(dg) * percent);
+    b += static_cast<uint8_t>(static_cast<double>(db) * percent);
+    a += static_cast<uint8_t>(static_cast<double>(da) * percent);
     return al_map_rgba(r,g,b,a);
 }
 
-/**
- * @brief 
- * 
- * @param buffer 
- * @param x 
- * @param y 
- * @param color 
- * @param alphaNum 
- * @param depth 
- */
-void RayCaster::setPixelAlphaDepth(uint32_t x, uint32_t y, ALLEGRO_COLOR color, double alphaNum, double depth)
+void RayCaster::setPixelAlphaDepth(const uint32_t x, const uint32_t y, const ALLEGRO_COLOR color, const double alphaNum, const double depth)
 {
     uint8_t color_r, color_g, color_b, color_a;
     al_unmap_rgba(color, &color_r, &color_g, &color_b, &color_a);
 
-    if (x >= 0 && x < m_width && y >= 0 && y < m_height)
+    if (x < m_width && y < m_height)
     {
         // Keep pixel in alpha layer
         if (alphaNum < 1 || color_a < 255)
         {
             // If new alpha in front
-            double pixDepth = getDepth(x, y, BL_ALPHA);
-            if (pixDepth > depth)
+            if (const double pixDepth = getDepth(x, y, BL_ALPHA); pixDepth > depth)
             {
                 setDepth(x, y, BL_ALPHA, depth);
                 if (pixDepth == INFINITY)
@@ -202,27 +191,26 @@ void RayCaster::setPixelAlphaDepth(uint32_t x, uint32_t y, ALLEGRO_COLOR color, 
  * @param side Numerical representation of side of intersect
  * @return double Adjusted distance to intersect
  */
-double RayCaster::getInterDist(double dx, double dy, double xi, double yi, double coordX, double coordY, double* newX, double* newY, uint8_t* side)
+double RayCaster::getInterDist(const double dx, const double dy, const double xi, const double yi, const double coordX, const double coordY, double* newX, double* newY, uint8_t* side)
 {
     // Check side intercepts first
     double slope = (dy/dx);
-    double leftCoord = slope * (coordX - xi) + yi;
-    double rightCoord = slope * (coordX + 1 - xi) + yi;
+    const double leftCoord = slope * (coordX - xi) + yi;
+    const double rightCoord = slope * (coordX + 1 - xi) + yi;
     slope = (dx/dy);
-    double topCoord = slope * (coordY - yi) + xi;
-    double bottomCoord = slope * (coordY + 1 - yi) + xi;
-    double dist;
+    const double topCoord = slope * (coordY - yi) + xi;
+    const double bottomCoord = slope * (coordY + 1 - yi) + xi;
     double minDist = -1;
     
-    if ((int)floor(leftCoord) == (int)coordY) // Left side
+    if (static_cast<int>(floor(leftCoord)) == static_cast<int>(coordY)) // Left side
     {
         minDist = (xi - coordX)*(xi - coordX) + (yi - leftCoord)*(yi - leftCoord);
         *side = 0;
         *newX = coordX;
         *newY = leftCoord;
     }
-    dist = (coordX + 1 - xi)*(coordX + 1 - xi) + (rightCoord - yi)*(rightCoord - yi);
-    if ((int)floor(rightCoord) == (int)coordY && (dist < minDist || minDist == -1)) // Right side
+    double dist = (coordX + 1 - xi) * (coordX + 1 - xi) + (rightCoord - yi) * (rightCoord - yi);
+    if (static_cast<int>(floor(rightCoord)) == static_cast<int>(coordY) && (dist < minDist || minDist == -1)) // Right side
     {
         minDist = dist;
         *side = 1;
@@ -230,7 +218,7 @@ double RayCaster::getInterDist(double dx, double dy, double xi, double yi, doubl
         *newY = rightCoord;
     }
     dist = (xi - topCoord)*(xi - topCoord) + (yi - coordY)*(yi - coordY);
-    if ((int)floor(topCoord) == (int)coordX && (dist < minDist || minDist == -1)) // Top side
+    if (static_cast<int>(floor(topCoord)) == static_cast<int>(coordX) && (dist < minDist || minDist == -1)) // Top side
     {
         minDist = dist;
         *side = 2;
@@ -238,7 +226,7 @@ double RayCaster::getInterDist(double dx, double dy, double xi, double yi, doubl
         *newY = coordY;
     }
     dist = (xi - bottomCoord)*(xi - bottomCoord) + (yi - coordY - 1)*(yi - coordY - 1);
-    if ((int)floor(bottomCoord) == (int)coordX && (dist < minDist || minDist == -1)) // Bottom side
+    if (static_cast<int>(floor(bottomCoord)) == static_cast<int>(coordX) && (dist < minDist || minDist == -1)) // Bottom side
     {
         minDist = dist;
         *side = 3;
@@ -268,12 +256,12 @@ void RayCaster::resetDepthBuffer()
     m_alpha_depth.assign(m_width * m_height, INFINITY);
 }
 
-double RayCaster::getDepth(uint32_t x, uint32_t y, uint8_t layer)
+double RayCaster::getDepth(const uint32_t x, const uint32_t y, const uint8_t layer) const
 {
     return layer ? m_alpha_depth[m_width * y + x] : m_pixel_depth[m_width * y + x];
 }
 
-void RayCaster::setDepth(uint32_t x, uint32_t y, uint8_t layer, double depth)
+void RayCaster::setDepth(const uint32_t x, const uint32_t y, const uint8_t layer, const double depth)
 {
     if (layer)
     {
@@ -288,35 +276,33 @@ void RayCaster::setDepth(uint32_t x, uint32_t y, uint8_t layer, double depth)
 /** RaycasterEngine::renderBuffer
  * @brief Merges opaque and alpha layers of buffer for rendering
  * 
- * @param buffer Buffer to render
  */
-void RayCaster::renderBuffer()
+void RayCaster::renderBuffer() const
 {
-    ALLEGRO_COLOR pixel;
     for (uint32_t i = 0; i < m_width; i++)
     {
         for (uint32_t j = 0; j < m_height; j++)
         {
             if (getDepth(i, j, BL_BASE) > getDepth(i, j, BL_ALPHA))
             {
-                pixel = m_pixelator.get()->getPixel("alphaBuffer", i, j);
+                ALLEGRO_COLOR pixel = m_pixelator.get()->getPixel("alphaBuffer", i, j);
                 m_pixelator.get()->setPixel("pixelBuffer", i, j, pixel);
             }
         }
     }
 }
 
-void RayCaster::drawTextureColumn(uint32_t x, int32_t y,
-                              int32_t h, double depth,
-                             uint8_t tileNum, double alphaNum, 
-                             uint32_t column, double fadePercent, 
-                             ALLEGRO_COLOR targetColor)
+void RayCaster::drawTextureColumn(const uint32_t x, int32_t y,
+                              int32_t h, const double depth,
+                             const uint8_t tileNum, const double alphaNum,
+                             const uint32_t column, const double fadePercent,
+                             const ALLEGRO_COLOR targetColor)
 {
     if (y + h < 0 || fadePercent > 1.0)
     {
         return;  // Sorry, messy fix but it works
     }
-    int32_t offH = h;
+    const int32_t offH = h;
     int32_t offY = 0;
     if (y < 0)
     {
@@ -331,10 +317,10 @@ void RayCaster::drawTextureColumn(uint32_t x, int32_t y,
 
     for (int32_t i = 0; i < h; i++)
     {
-        int magic_number = 
+        const int magic_number =
             tileNum * tex_tile_width * tex_tile_height
-            + (uint32_t)floor(((double)(offY + i) /
-            (double)offH) * (tex_tile_height))
+            + static_cast<uint32_t>(floor((static_cast<double>(offY + i) /
+                static_cast<double>(offH)) * (tex_tile_height)))
              * tex_tile_width + column;
 
         const uint8_t* pixel = &m_pixels[magic_number * 4];
@@ -347,18 +333,18 @@ void RayCaster::drawTextureColumn(uint32_t x, int32_t y,
     }
 }
 
-void RayCaster::drawTextureColumnEx(uint32_t x, int32_t y,
-                              int32_t h, double depth,
-                              Texture texture,
-                             uint8_t tileNum, double alphaNum, 
-                             uint32_t column, double fadePercent, 
-                             ALLEGRO_COLOR targetColor)
+void RayCaster::drawTextureColumnEx(const uint32_t x, int32_t y,
+                              int32_t h, const double depth,
+                              const Texture& texture,
+                             const uint8_t tileNum, const double alphaNum,
+                             const uint32_t column, const double fadePercent,
+                             const ALLEGRO_COLOR targetColor)
 {
     if (y + h < 0 || fadePercent > 1.0)
     {
         return;  // Sorry, messy fix but it works
     }
-    int32_t offH = h;
+    const int32_t offH = h;
     int32_t offY = 0;
     if (y < 0)
     {
@@ -373,10 +359,10 @@ void RayCaster::drawTextureColumnEx(uint32_t x, int32_t y,
 
     for (int32_t i = 0; i < h; i++)
     {
-        int magic_number = 
+        const int magic_number =
             tileNum * texture.tile_width * texture.tile_height
-            + (uint32_t)floor(((double)(offY + i) /
-            (double)offH) * (texture.tile_height))
+            + static_cast<uint32_t>(floor((static_cast<double>(offY + i) /
+                static_cast<double>(offH)) * (texture.tile_height)))
              * texture.tile_width + column;
 
         const uint8_t* pixel = &m_pixels[magic_number * 4];
@@ -390,12 +376,12 @@ void RayCaster::drawTextureColumnEx(uint32_t x, int32_t y,
 }
 
 //! RayBuffer dependent
-void RayCaster::raycastRender(Camera* camera, double resolution)
+void RayCaster::raycastRender(const Camera* camera, const double resolution)
 {
     // Establish starting angle and sweep per column
-    double startAngle = camera->angle - camera->fov / 2.0;
-    double adjFactor = m_width / (2 * tan(camera->fov / 2));
-    double scaleFactor = (double)m_width / (double)m_height * 2.4;
+    const double startAngle = camera->angle - camera->fov / 2.0;
+    //double adjFactor = m_width / (2 * tan(camera->fov / 2));
+    const double scaleFactor = static_cast<double>(m_width) / static_cast<double>(m_height) * 2.4;
     double rayAngle = startAngle;
     
     utility::Map* map = m_map.get();
@@ -410,9 +396,9 @@ void RayCaster::raycastRender(Camera* camera, double resolution)
         rayAngle = startAngle + camera->angleValues[i];
         double rayX = camera->x;
         double rayY = camera->y;
-        double rayStepX = (resolution) * cos(rayAngle);
-        double rayStepY = (resolution) * sin(rayAngle);
-        double stepLen = (resolution) / scaleFactor;
+        const double rayStepX = (resolution) * cos(rayAngle);
+        const double rayStepY = (resolution) * sin(rayAngle);
+        const double stepLen = (resolution) / scaleFactor;
         double rayLen = 0;
         int rayStep = 0;
         int rayOffX = 0;
@@ -420,12 +406,12 @@ void RayCaster::raycastRender(Camera* camera, double resolution)
         int collisions = 0;
         while (rayLen < camera->dist && collisions < 3)
         {
-            int coordX = (int)floor(rayX+rayOffX);
-            int coordY = (int)floor(rayY+rayOffY);
+            const int coordX = static_cast<int>(floor(rayX + rayOffX));
+            const int coordY = static_cast<int>(floor(rayY + rayOffY));
 
             // pack visited tile into a 32 bit int
-            uint8_t theX = (uint8_t)floor(rayX+rayOffX);
-            uint8_t theY = (uint8_t)floor(rayY+rayOffY);
+            const uint8_t theX = static_cast<uint8_t>(floor(rayX + rayOffX));
+            const uint8_t theY = static_cast<uint8_t>(floor(rayY + rayOffY));
             uint32_t tilenum = utility::pack(theX,theY,1,1);
             // store it in the visited set
             m_visited.insert(tilenum);
@@ -434,35 +420,34 @@ void RayCaster::raycastRender(Camera* camera, double resolution)
 
             if ((coordX >= 0.0 && coordY >= 0.0) && (coordX < map->width() && coordY < map->height()) && (map->walls()[coordY * map->width() + coordX] != 0))
             {
-                uint8_t mapTile = map->walls()[coordY * map->width() + coordX];
-                ALLEGRO_COLOR colorDat = {0,0,0,255};
+                const uint8_t mapTile = map->walls()[coordY * map->width() + coordX];
+                //ALLEGRO_COLOR colorDat = {0,0,0,255};
                 if (rayLen != 0)
                 {
                     uint8_t side;
                     double newX;
                     double newY;
-                    double rayLen = sqrt(getInterDist(rayStepX, rayStepY, camera->x + rayOffX, camera->y + rayOffY, (double)coordX, (double)coordY, &newX, &newY, &side))/scaleFactor;
+                    rayLen = sqrt(getInterDist(rayStepX, rayStepY, camera->x + rayOffX, camera->y + rayOffY, coordX, coordY, &newX, &newY, &side))/scaleFactor;
                     uint32_t texCoord;
                     if (side > 1)
                     {
-                        texCoord = (uint32_t)floor((newX - coordX) * tex_tile_width);
+                        texCoord = static_cast<uint32_t>(floor((newX - coordX) * tex_tile_width));
                     }
                     else
                     {
-                        texCoord = (uint32_t)floor((newY - coordY) * tex_tile_height);
+                        texCoord = static_cast<uint32_t>(floor((newY - coordY) * tex_tile_height));
                     }
-                    double depth = (double)(rayLen * cos(rayAngle - camera->angle));
+                    const double depth = rayLen * cos(rayAngle - camera->angle);
                     //double colorGrad = (depth) / camera->dist;
                     //* Note: This is an awful mess but it is a temporary fix to get around rounding issues
-                    int32_t drawHeight = (int32_t)ceil((double)m_height / (depth * 5));
-                    int32_t wallHeight = (int32_t)round(-camera->h * drawHeight);
-                    int32_t startY = m_height / 2 - drawHeight / 2 - wallHeight;
-                    int32_t offsetStartY = m_height / 2 - drawHeight / 2;
-                    int32_t deltaY = m_height - offsetStartY * 2;
+                    const int32_t drawHeight = static_cast<int32_t>(ceil(static_cast<double>(m_height) / (depth * 5)));
+                    const int32_t wallHeight = static_cast<int32_t>(round(-camera->h * drawHeight));
+                    const int32_t startY = m_height / 2 - drawHeight / 2 - wallHeight;
+                    const int32_t offsetStartY = m_height / 2 - drawHeight / 2;
+                    const int32_t deltaY = m_height - offsetStartY * 2;
                     //ALLEGRO_COLOR fadeColor = {77,150,154,255};
                     double colorGrad;
-                    double fogConstant = 1.5/5;
-                    if (rayLen < (camera->dist*fogConstant))
+                    if (constexpr double fogConstant = 1.5/5; rayLen < (camera->dist*fogConstant))
                     {
                         colorGrad = (rayLen) / (camera->dist*fogConstant);
                     }
@@ -470,7 +455,7 @@ void RayCaster::raycastRender(Camera* camera, double resolution)
                     {
                         colorGrad = 1.0;
                     }
-                    ALLEGRO_COLOR fadeColor = {50,20,50,255};
+                    constexpr ALLEGRO_COLOR fadeColor = {50,20,50,255};
                     drawTextureColumn(
                         i, startY, deltaY, depth,
                         mapTile - 1, 1.0, 
@@ -478,11 +463,11 @@ void RayCaster::raycastRender(Camera* camera, double resolution)
                     );
                     // Check for texture column transparency
                     bool hasAlpha = false;
-                    int border = 2;
                     for (uint32_t p = 0; p < tex_tile_height; p++)
                     {
                         if (( m_pixels[(mapTile-1)*tex_tile_width*tex_tile_height+texCoord+(tex_tile_width*p)] & 0xFF) < 0xFF)
                         {
+                            constexpr int border = 2;
                             collisions++;
                             if (side == 0) // Hit from left
                             {
@@ -522,7 +507,7 @@ void RayCaster::raycastRender(Camera* camera, double resolution)
                             }
                             rayLen = sqrt((rayX-camera->x)*(rayX-camera->x) + (rayY-camera->y)*(rayY-camera->y));
                             rayStep++;
-                            hasAlpha = 1;
+                            hasAlpha = true;
                             break;
                         }
                     }
@@ -535,7 +520,7 @@ void RayCaster::raycastRender(Camera* camera, double resolution)
             }
             rayX += rayStepX;
             rayY += rayStepY;
-            int map_border = 2;
+            constexpr int map_border = 2;
             if (rayX+rayOffX < - map_border)
             {
                 rayOffX += map->width() + map_border * 2;
@@ -562,7 +547,7 @@ void RayCaster::initRayTexture(const std::string& path, int tile_width, int tile
 {
     int32_t mPixWidth;
     int32_t mPixHeight;
-    uint8_t* rgbaData = stbi_load(path.c_str(), &mPixWidth, &mPixHeight, NULL, 0);
+    uint8_t* rgbaData = stbi_load(path.c_str(), &mPixWidth, &mPixHeight, nullptr, 0);
     if (!rgbaData)
     {
         SPDLOG_ERROR("Could not load texture '{}'", path);
@@ -572,7 +557,7 @@ void RayCaster::initRayTexture(const std::string& path, int tile_width, int tile
     Pixelator* pixelator = m_pixelator.get();
     pixelator->addBuffer("raytex");
     pixelator->setSize("raytex", Vector2i(mPixWidth, mPixHeight));
-    std::string buf = pixelator->getActiveBuffer();
+    const std::string buf = pixelator->getActiveBuffer();
     pixelator->setActiveBuffer("raytex");
     pixelator->copy(rgbaData, Vector2i(mPixWidth, mPixHeight), 0, 0, IntRect(0, 0, mPixWidth, mPixHeight));
     m_pixels.resize(mPixWidth * mPixHeight * 4);
@@ -587,7 +572,7 @@ void RayCaster::initWallCeilTexture(const std::string& path, int tile_width, int
 {
     int32_t mPixWidth;
     int32_t mPixHeight;
-    uint8_t* rgbaData = stbi_load(path.c_str(), &mPixWidth, &mPixHeight, NULL, 0);
+    uint8_t* rgbaData = stbi_load(path.c_str(), &mPixWidth, &mPixHeight, nullptr, 0);
     if (!rgbaData)
     {
         SPDLOG_ERROR("Could not load texture '{}'", path);
@@ -597,7 +582,7 @@ void RayCaster::initWallCeilTexture(const std::string& path, int tile_width, int
     Pixelator* pixelator = m_pixelator.get();
     pixelator->addBuffer("ceiltex");
     pixelator->setSize("ceiltex", Vector2i(mPixWidth, mPixHeight));
-    std::string buf = pixelator->getActiveBuffer();
+    const std::string buf = pixelator->getActiveBuffer();
     pixelator->setActiveBuffer("ceiltex");
     pixelator->copy(rgbaData, Vector2i(mPixWidth, mPixHeight), 0, 0, IntRect(0, 0, mPixWidth, mPixHeight));
     m_wall_ceil_pixels.resize(mPixWidth * mPixHeight * 4);
@@ -608,46 +593,34 @@ void RayCaster::initWallCeilTexture(const std::string& path, int tile_width, int
     stbi_image_free(rgbaData);
 }
 
-void RayCaster::renderFloor(Camera* camera, double resolution)
+void RayCaster::renderFloor(const Camera* camera, double resolution) const
 {
-    int tileNum = 0;
-    double scaleFactor = (double)m_width / (double)m_height * 2.4;
+    const double scaleFactor = static_cast<double>(m_width) / static_cast<double>(m_height) * 2.4;
 
     // Get initial coordinate position at top-left of floor space
-    uint32_t startX = 0;
-    uint32_t startY = m_height / 2;
+    constexpr uint32_t startX = 0;
+    const uint32_t startY = m_height / 2;
 
-    double pixelX;
-    double pixelY;
-    double pixelDist;
-    double pixelDepth;
-    double fadePercent;
+    const double startAngle = camera->angle - camera->fov / 2.0;
 
-    uint32_t texX;
-    uint32_t texY;
-
-    double startAngle = camera->angle - camera->fov / 2.0;
-    double rayAngle;
-    double rayCos;
-
-    ALLEGRO_COLOR fadeColor = al_map_rgba(50,20,50,255);
+    const ALLEGRO_COLOR fadeColor = al_map_rgba(50,20,50,255);
     
     // iterate through *all* pixels...
     for (int x = startX; x < m_width; x++)
     {
         // Establish angle of column...
-        rayAngle = startAngle + camera->angleValues[x];
-        rayCos = cos(rayAngle - camera->angle);
+        const double rayAngle = startAngle + camera->angleValues[x];
+        const double rayCos = cos(rayAngle - camera->angle);
 
         for (int y = startY + 1; y < m_height; y++)
         {
             // Compute the distance to the pixel...
-            pixelDist = (double)m_height * (1 + 2 * camera->h) / (10.0 * (y-startY-1) * rayCos) * scaleFactor;
-            double fogConstant = 4.0/5;
-            pixelDepth = (pixelDist * rayCos);
-            fadePercent = pixelDist / (camera->dist * fogConstant);
-            pixelX = camera->x + pixelDist * cos(rayAngle);
-            pixelY = camera->y + pixelDist * sin(rayAngle);
+            const double pixelDist = static_cast<double>(m_height) * (1 + 2 * camera->h) / (10.0 * (y - startY - 1) * rayCos) * scaleFactor;
+            constexpr double fogConstant = 4.0/5;
+            //double pixelDepth = (pixelDist * rayCos);
+            const double fadePercent = pixelDist / (camera->dist * fogConstant);
+            const double pixelX = camera->x + pixelDist * cos(rayAngle);
+            const double pixelY = camera->y + pixelDist * sin(rayAngle);
             // Wow, is that really it? The math says so...
             int r;
             int g;
@@ -657,20 +630,21 @@ void RayCaster::renderFloor(Camera* camera, double resolution)
             // b = 99;
             if (pixelDist < camera->dist * fogConstant)
             {
+                constexpr int tileNum = 0;
                 // Get associated coordinate pixel...
                 // TODO: some grid code...
-                texX = (uint32_t)floor((double)ceil_tile_width * (pixelX - floor(pixelX)));
-                texY = (uint32_t)floor((double)ceil_tile_height * (pixelY - floor(pixelY)));
-                uint32_t pixColor = m_wall_ceil_pixels[tileNum * ceil_tile_width * ceil_tile_height + texX + texY * ceil_tile_width];
-                r = (int)(pixColor >> 3*8);
-                g = (int)((pixColor >> 2*8) & 0xFF);
-                b = (int)((pixColor >> 8) & 0xFF);
-                int dr = fadeColor.r - r;
-                int dg = fadeColor.g - g;
-                int db = fadeColor.b - b;
-                r += (int)((double)dr * fadePercent);
-                g += (int)((double)dg * fadePercent);
-                b += (int)((double)db * fadePercent);
+                const uint32_t texX = static_cast<uint32_t>(floor(static_cast<double>(ceil_tile_width) * (pixelX - floor(pixelX))));
+                const uint32_t texY = static_cast<uint32_t>(floor(static_cast<double>(ceil_tile_height) * (pixelY - floor(pixelY))));
+                const uint32_t pixColor = m_wall_ceil_pixels[tileNum * ceil_tile_width * ceil_tile_height + texX + texY * ceil_tile_width];
+                r = static_cast<int>(pixColor >> 3 * 8);
+                g = static_cast<int>((pixColor >> 2 * 8) & 0xFF);
+                b = static_cast<int>((pixColor >> 8) & 0xFF);
+                const int dr = fadeColor.r - r;
+                const int dg = fadeColor.g - g;
+                const int db = fadeColor.b - b;
+                r += static_cast<int>(static_cast<double>(dr) * fadePercent);
+                g += static_cast<int>(static_cast<double>(dg) * fadePercent);
+                b += static_cast<int>(static_cast<double>(db) * fadePercent);
             }
             else
             {
@@ -685,46 +659,35 @@ void RayCaster::renderFloor(Camera* camera, double resolution)
     }
 }
 
-void RayCaster::renderCeiling(Camera* camera, double resolution)
+void RayCaster::renderCeiling(const Camera* camera, double resolution) const
 {
-    int tileNum = 1;
-    double scaleFactor = (double)m_width / (double)m_height * 2.4;
+    const double scaleFactor = static_cast<double>(m_width) / static_cast<double>(m_height) * 2.4;
 
     // Get initial coordinate position at top-left of floor space
-    uint32_t startX = 0;
-    uint32_t startY = 0;
+    constexpr uint32_t startX = 0;
 
-    double pixelX;
-    double pixelY;
-    double pixelDist;
-    double pixelDepth;
-    double fadePercent;
+    //double pixelDepth;
 
-    uint32_t texX;
-    uint32_t texY;
+    const double startAngle = camera->angle - camera->fov / 2.0;
 
-    double startAngle = camera->angle - camera->fov / 2.0;
-    double rayAngle;
-    double rayCos;
-
-    ALLEGRO_COLOR fadeColor = {50,20,50,255};
-    
     // iterate through *all* pixels...
     for (int x = startX; x < m_width; x++)
     {
+        constexpr uint32_t startY = 0;
         // Establish angle of column...
-        rayAngle = startAngle + camera->angleValues[x];
-        rayCos = cos(rayAngle - camera->angle);
+        const double rayAngle = startAngle + camera->angleValues[x];
+        const double rayCos = cos(rayAngle - camera->angle);
 
         for (int y = startY; y < (m_height / 2)+1; y++)
         {
+            constexpr ALLEGRO_COLOR fadeColor = {50,20,50,255};
             // Compute the distance to the pixel...
-            pixelDist = (double)m_height * (1 - 2 * camera->h) / (10.0 * (m_height / 2 - y) * rayCos) * scaleFactor;
-            pixelDepth = (pixelDist * rayCos);
-            double fogConstant = 4.0/5;
-            fadePercent = pixelDist / (camera->dist * fogConstant);
-            pixelX = camera->x + pixelDist * cos(rayAngle);
-            pixelY = camera->y + pixelDist * sin(rayAngle);
+            const double pixelDist = static_cast<double>(m_height) * (1 - 2 * camera->h) / (10.0 * (m_height / 2 - y) * rayCos) * scaleFactor;
+            //pixelDepth = (pixelDist * rayCos);
+            constexpr double fogConstant = 4.0/5;
+            const double fadePercent = pixelDist / (camera->dist * fogConstant);
+            const double pixelX = camera->x + pixelDist * cos(rayAngle);
+            const double pixelY = camera->y + pixelDist * sin(rayAngle);
             // Wow, is that really it? The math says so...
             int r;
             int g;
@@ -734,20 +697,21 @@ void RayCaster::renderCeiling(Camera* camera, double resolution)
             // b = 135;
             if (pixelDist < camera->dist * fogConstant)
             {
+                constexpr int tileNum = 1;
                 // Get associated coordinate pixel...
                 // TODO: some grid code...
-                texX = (uint32_t)floor((double)ceil_tile_width * (pixelX - floor(pixelX)));
-                texY = (uint32_t)floor((double)ceil_tile_height * (pixelY - floor(pixelY)));
-                uint32_t pixColor = m_wall_ceil_pixels[tileNum * ceil_tile_width * ceil_tile_height + texX + texY * ceil_tile_width];
-                r = (int)(pixColor >> 3*8);
-                g = (int)((pixColor >> 2*8) & 0xFF);
-                b = (int)((pixColor >> 8) & 0xFF);
-                int dr = fadeColor.r - r;
-                int dg = fadeColor.g - g;
-                int db = fadeColor.b - b;
-                r += (int)((double)dr * fadePercent);
-                g += (int)((double)dg * fadePercent);
-                b += (int)((double)db * fadePercent);
+                const uint32_t texX = static_cast<uint32_t>(floor(static_cast<double>(ceil_tile_width) * (pixelX - floor(pixelX))));
+                const uint32_t texY = static_cast<uint32_t>(floor(static_cast<double>(ceil_tile_height) * (pixelY - floor(pixelY))));
+                const uint32_t pixColor = m_wall_ceil_pixels[tileNum * ceil_tile_width * ceil_tile_height + texX + texY * ceil_tile_width];
+                r = static_cast<int>(pixColor >> 3 * 8);
+                g = static_cast<int>((pixColor >> 2 * 8) & 0xFF);
+                b = static_cast<int>((pixColor >> 8) & 0xFF);
+                const int dr = fadeColor.r - r;
+                const int dg = fadeColor.g - g;
+                const int db = fadeColor.b - b;
+                r += static_cast<int>(static_cast<double>(dr) * fadePercent);
+                g += static_cast<int>(static_cast<double>(dg) * fadePercent);
+                b += static_cast<int>(static_cast<double>(db) * fadePercent);
             }
             else
             {

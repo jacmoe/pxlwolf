@@ -9,7 +9,7 @@
 #
 #   https://github.com/jacmoe/pxlwolf
 #
-#   (c) 2020 - 2021 Jacob Moena
+#   (c) 2020 - 2025 Jacob Moena
 #
 #   MIT License
 #*/
@@ -37,18 +37,18 @@ public:
     RayCaster();
     ~RayCaster();
 
-    void init(uint32_t width, uint32_t height, std::shared_ptr<utility::Map> map, std::shared_ptr<Pixelator> pixelator);
+    void init(uint32_t width, uint32_t height, const std::shared_ptr<utility::Map>& map, const std::shared_ptr<Pixelator>& pixelator);
 
     void resetDepthBuffer();
 
-    void generateAngleValues(uint32_t width, Camera* camera);
+    static void generateAngleValues(uint32_t width, Camera* camera);
 
-    void drawMinimap(const std::string& buffer_name, const Camera& camera, int blockSize);
+    void drawMinimap(const std::string& buffer_name, const Camera& camera, int blockSize) const;
 
-    void raycastRender(Camera* camera, double resolution);
-    void renderFloor(Camera* camera, double resolution);
-    void renderCeiling(Camera* camera, double resolution);
-    void renderBuffer();
+    void raycastRender(const Camera* camera, double resolution);
+    void renderFloor(const Camera* camera, double resolution) const;
+    void renderCeiling(const Camera* camera, double resolution) const;
+    void renderBuffer() const;
 
     void drawTextureColumn(uint32_t x, int32_t y,
                               int32_t h, double depth,
@@ -57,7 +57,7 @@ public:
                              ALLEGRO_COLOR targetColor);
     void drawTextureColumnEx(uint32_t x, int32_t y,
                               int32_t h, double depth,
-                              Texture texture,
+                              const Texture& texture,
                              uint8_t tileNum, double alphaNum, 
                              uint32_t column, double fadePercent, 
                              ALLEGRO_COLOR targetColor);
@@ -88,13 +88,13 @@ private:
     int ceil_tile_height;
 
     void initDepthBuffer();
-    double getDepth(uint32_t x, uint32_t y, uint8_t layer);
+    double getDepth(uint32_t x, uint32_t y, uint8_t layer) const;
     void setDepth(uint32_t x, uint32_t y, uint8_t layer, double depth);
 
     void setPixelAlphaDepth(uint32_t x, uint32_t y, ALLEGRO_COLOR color, double alphaNum, double depth);
 
     double getInterDist(double dx, double dy, double xi, double yi, double coordX, double coordY, double* newX, double* newY, uint8_t* side);
-    ALLEGRO_COLOR pixelGradientShader(ALLEGRO_COLOR pixel, double percent, ALLEGRO_COLOR target);
+    static ALLEGRO_COLOR pixelGradientShader(ALLEGRO_COLOR pixel, double percent, ALLEGRO_COLOR target);
     void initRayTexture(const std::string& path, int tile_width, int tile_height, int num_tiles);
     void initWallCeilTexture(const std::string& path, int tile_width, int tile_height, int num_tiles);
 };

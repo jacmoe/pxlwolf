@@ -9,7 +9,7 @@
 #
 #   https://github.com/jacmoe/pxlwolf
 #
-#   (c) 2020 - 2021 Jacob Moena
+#   (c) 2020 - 2025 Jacob Moena
 #
 #   MIT License
 #*/
@@ -33,7 +33,7 @@ bool check_key(std::unordered_map<std::string, unsigned int> m, std::string key)
     return true; 
 }
 
-bool Pixelator::addBuffer(const std::string name, const int width, const int height)
+bool Pixelator::addBuffer(const std::string& name, const int width, const int height)
 {
     if(check_key(m_buffer_map, name))
     {
@@ -47,7 +47,7 @@ bool Pixelator::addBuffer(const std::string name, const int width, const int hei
 
     std::vector<uint8_t> newPixels(width * height * 4u);
     uint8_t* ptr = &newPixels[0];
-    uint8_t* end = ptr + newPixels.size();
+    const uint8_t* end = ptr + newPixels.size();
     while (ptr < end)
     {
         *ptr++ = 0;
@@ -62,7 +62,7 @@ bool Pixelator::addBuffer(const std::string name, const int width, const int hei
     return true;
 }
 
-bool Pixelator::removeBuffer(const std::string name)
+bool Pixelator::removeBuffer(const std::string& name)
 {
     if(!check_key(m_buffer_map, name))
     {
@@ -81,7 +81,7 @@ bool Pixelator::removeBuffer(const std::string name)
     return true;
 }
 
-void Pixelator::setActiveBuffer(const std::string name)
+void Pixelator::setActiveBuffer(const std::string& name)
 {
     if(!check_key(m_buffer_map, name))
     {
@@ -92,7 +92,7 @@ void Pixelator::setActiveBuffer(const std::string name)
     m_current_buffer = name;
 }
 
-bool Pixelator::swapBuffer(const std::string name)
+bool Pixelator::swapBuffer(const std::string& name)
 {
     if(!check_key(m_buffer_map, name))
     {
@@ -100,8 +100,8 @@ bool Pixelator::swapBuffer(const std::string name)
         return false;
     }
 
-    unsigned int own_index = m_buffer_map[m_current_buffer];
-    unsigned int swap_index = m_buffer_map[name];
+    const unsigned int own_index = m_buffer_map[m_current_buffer];
+    const unsigned int swap_index = m_buffer_map[name];
 
     m_buffers[swap_index].pixels.swap(m_buffers[own_index].pixels);
 
@@ -115,11 +115,11 @@ void Pixelator::setSize(const Vector2i size)
 
 void Pixelator::setSize(const std::string& name, const Vector2i size)
 {
-    unsigned int index = m_buffer_map[name];
+    const unsigned int index = m_buffer_map[name];
     m_buffers[index].size = size;
     std::vector<uint8_t> newPixels(m_buffers[index].size.x * m_buffers[index].size.y * 4u);
     uint8_t* ptr = &newPixels[0];
-    uint8_t* end = ptr + newPixels.size();
+    const uint8_t* end = ptr + newPixels.size();
     while (ptr < end)
     {
         *ptr++ = 0;
@@ -132,9 +132,9 @@ void Pixelator::setSize(const std::string& name, const Vector2i size)
     m_buffers[index].size = size;
 }
 
-void Pixelator::setPixel(const std::string& name, unsigned int x, unsigned int y, const ALLEGRO_COLOR& color)
+void Pixelator::setPixel(const std::string& name, const unsigned int x, const unsigned int y, const ALLEGRO_COLOR& color)
 {
-    unsigned int index = m_buffer_map[name];
+    const unsigned int index = m_buffer_map[name];
     uint8_t* pixel = &m_buffers[index].pixels[(x + y * m_buffers[index].size.x) * 4];
     uint8_t r, g, b, a;
     al_unmap_rgba(color, &r, &g, &b, &a);
@@ -144,14 +144,13 @@ void Pixelator::setPixel(const std::string& name, unsigned int x, unsigned int y
     *pixel++ = a;
 }
 
-void Pixelator::setPixelAlpha(const std::string& name, uint32_t x, uint32_t y, ALLEGRO_COLOR color, double alpha)
+void Pixelator::setPixelAlpha(const std::string& name, const uint32_t x, const uint32_t y, const ALLEGRO_COLOR color, const double alpha)
 {
     if (!check_key(m_buffer_map, name))
     {
         SPDLOG_ERROR("Attempting to set a pixel of a buffer that doesn't exist!");
         return;
     }
-    unsigned int index = m_buffer_map[name];
 
     uint8_t r, g, b, a;
     al_unmap_rgba(color, &r, &g, &b, &a);
@@ -160,26 +159,21 @@ void Pixelator::setPixelAlpha(const std::string& name, uint32_t x, uint32_t y, A
     {
         if (alpha * a != 0 && alpha * a != 255) // Alpha transparency, compute alpha based on array colors
         {
-            double c_alpha = ((double)a) / 255.0 * (alpha);
-            ALLEGRO_COLOR oldPix = getPixel(name, x, y);
+            const double c_alpha = static_cast<double>(a) / 255.0 * (alpha);
+            const ALLEGRO_COLOR oldPix = getPixel(name, x, y);
             uint8_t oldR, oldG, oldB, oldA;
             al_unmap_rgba(oldPix, &oldR, &oldG, &oldB, &oldA);
-            r = (int)((double)r * c_alpha + (double)oldR * (1 - c_alpha));
-            g = (int)((double)g * c_alpha + (double)oldG * (1 - c_alpha));
-            b = (int)((double)b * c_alpha + (double)oldB * (1 - c_alpha));
-            a = (int)((double)a * c_alpha + (double)oldA * (1 - c_alpha));
+            r = static_cast<int>(static_cast<double>(r) * c_alpha + static_cast<double>(oldR) * (1 - c_alpha));
+            g = static_cast<int>(static_cast<double>(g) * c_alpha + static_cast<double>(oldG) * (1 - c_alpha));
+            b = static_cast<int>(static_cast<double>(b) * c_alpha + static_cast<double>(oldB) * (1 - c_alpha));
+            a = static_cast<int>(static_cast<double>(a) * c_alpha + static_cast<double>(oldA) * (1 - c_alpha));
         }
         setPixel(name, x, y, al_map_rgba(r, g, b, a));
     }
 }
 
-void Pixelator::drawColumn(const std::string& name, unsigned int x, unsigned int y, unsigned int height, const ALLEGRO_COLOR& color)
+void Pixelator::drawColumn(const std::string& name, const unsigned int x, const unsigned int y, unsigned int height, const ALLEGRO_COLOR& color)
 {
-   if (y < 0)
-    {
-        height = height + y;
-        y = 0;
-    }
     if (y + height > m_buffers[m_buffer_map[name]].size.y)
     {
         height = m_buffers[m_buffer_map[name]].size.y - y;

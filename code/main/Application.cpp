@@ -9,7 +9,7 @@
 #
 #   https://github.com/jacmoe/pxlwolf
 #
-#   (c) 2020 - 2021 Jacob Moena
+#   (c) 2020 - 2025 Jacob Moena
 #
 #   MIT License
 #*/
@@ -179,7 +179,7 @@ void Application::run()
     
     al_start_timer(m_timer.get());
 
-    while (1)
+    while (true)
     {
         al_wait_for_event(m_queue.get(), &m_event);
 
@@ -227,7 +227,7 @@ void Application::run()
     al_ungrab_mouse();
 }
 
-void Application::save_screenshot()
+void Application::save_screenshot() const
 {
     al_save_bitmap("screenshot.png", al_get_backbuffer(m_display.get()));
 }
@@ -254,7 +254,7 @@ void Application::update_display_buffer()
     {
         for (int x = 0; x < m_width; ++x)
         {
-            ALLEGRO_COLOR color = m_pixelator.get()->getPixel(x, y);
+            const ALLEGRO_COLOR color = m_pixelator.get()->getPixel(x, y);
             al_put_pixel(x, y, color);
         }
     }

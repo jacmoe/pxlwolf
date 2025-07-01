@@ -9,7 +9,7 @@
 #
 #   https://github.com/jacmoe/pxlwolf
 #
-#   (c) 2020 - 2021 Jacob Moena
+#   (c) 2020 - 2025 Jacob Moena
 #
 #   MIT License
 #*/
@@ -32,11 +32,11 @@ void setup_working_directory()
     std::string path = std::filesystem::current_path().generic_string();
     // Remove the build directory, so that we land on appropriate directory for asset loading
     std::vector<std::string> strList;
-    strList.push_back("/build/code");
-    strList.push_back("/vsbuild/code");
-    strList.push_back("Release");
-    strList.push_back("RelWithDebInfo");
-    strList.push_back("Debug");
+    strList.emplace_back("/build/code");
+    strList.emplace_back("/vsbuild/code");
+    strList.emplace_back("Release");
+    strList.emplace_back("RelWithDebInfo");
+    strList.emplace_back("Debug");
     utility::eraseSubStrings(path, strList);
     // Set a proper working directory
     std::filesystem::current_path(path);
@@ -44,8 +44,6 @@ void setup_working_directory()
 
 void setup_logging()
 {
-    std::shared_ptr<spdlog::logger> m_pxllogger;
-
     std::string logfile_name = "log/pxllog.txt";
     
     // Remove old log file
@@ -59,7 +57,8 @@ void setup_logging()
 	auto file_sink = std::make_shared<spdlog::sinks::basic_file_sink_mt>(logfile_name, true);
 	spdlog::sinks_init_list sink_list = { file_sink, console_sink };
 	// Make the logger use both the console and the file sink
-    m_pxllogger = std::make_shared<spdlog::logger>("multi_sink", spdlog::sinks_init_list({console_sink, file_sink}));
+    const auto m_pxllogger = std::make_shared<spdlog::logger>(
+        "multi_sink", spdlog::sinks_init_list({console_sink, file_sink}));
 	// Set the standard logger so that we can use it freely everywhere
     spdlog::set_default_logger(m_pxllogger);
 	// Set the format pattern - [Loglevel] [Function] [Line] message
@@ -74,9 +73,7 @@ int main(int, char**)
 
 	SPDLOG_INFO("PixelWolf initializing.");
 
-    Game game;
-
-    if(game.init())
+    if(Game game; game.init())
     {
         game.run();
     }
