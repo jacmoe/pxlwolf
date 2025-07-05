@@ -5,7 +5,7 @@
 		"doc": "https://ldtk.io/json",
 		"schema": "https://ldtk.io/files/JSON_SCHEMA.json",
 		"appAuthor": "Sebastien 'deepnight' Benard",
-		"appVersion": "1.2.5",
+		"appVersion": "1.5.3",
 		"url": "https://ldtk.io"
 	},
 	"identifier": "Level6",
@@ -64,7 +64,9 @@
 					"height": 16,
 					"defUid": 3,
 					"px": [712,360],
-					"fieldInstances": [{ "__identifier": "ViewerAngle", "__value": 270, "__type": "Float", "__tile": null, "defUid": 5, "realEditorValues": [{ "id": "V_Float", "params": [270] }] }]
+					"fieldInstances": [{ "__identifier": "ViewerAngle", "__type": "Float", "__value": 270, "__tile": null, "defUid": 5, "realEditorValues": [{ "id": "V_Float", "params": [270] }] }],
+					"__worldX": -5432,
+					"__worldY": -152
 				},
 				{
 					"__identifier": "LevelEnd",
@@ -78,7 +80,9 @@
 					"height": 16,
 					"defUid": 10,
 					"px": [552,40],
-					"fieldInstances": [{ "__identifier": "next_level", "__value": null, "__type": "String", "__tile": null, "defUid": 11, "realEditorValues": [] }]
+					"fieldInstances": [{ "__identifier": "next_level", "__type": "String", "__value": null, "__tile": null, "defUid": 11, "realEditorValues": [] }],
+					"__worldX": -5592,
+					"__worldY": -472
 				}
 			]
 		},
