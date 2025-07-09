@@ -13,15 +13,11 @@
 #
 #   MIT License
 #
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.10)
 
 project(pixelwolf)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-
-if(WIN32)
-    message(SEND_ERROR "This CMake script is meant to be used on Linux. And you are not on Linux at the moment. Use the Visual Studio solution instead :)")
-endif(WIN32)
 
 set(CMAKE_CXX_STANDARD 17)
 
