@@ -9,11 +9,11 @@
 #
 #   https://github.com/jacmoe/pxlwolf
 #
-#   (c) 2020 - 2021 Jacob Moena
+#   (c) 2020 - 2025 Jacob Moena
 #
 #   MIT License
 #
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.28)
 
 project(pixelwolf)
 
@@ -25,21 +25,13 @@ include(FetchContent)
 
 FetchContent_Declare(
   allegro5
-  GIT_REPOSITORY https://github.com/liballeg/allegro5.git
-  GIT_TAG        5.2.10.1
+  GIT_REPOSITORY https://github.com/jacmoe/allegro5.git
+  GIT_TAG        v52101
 )
+
 FetchContent_GetProperties(allegro5)
 if(NOT allegro5_POPULATED)
-  FetchContent_Populate(allegro5)
-	if (MSVC)
-		set(SHARED ON)
-	else()
-		set(SHARED OFF)
-	endif()
-	set(WANT_TESTS OFF)
-	set(WANT_EXAMPLES OFF)
-	set(WANT_DEMO OFF)
-  add_subdirectory(${allegro5_SOURCE_DIR} ${allegro5_BINARY_DIR} EXCLUDE_FROM_ALL)
+  FetchContent_MakeAvailable(allegro5)
 endif()
 
 set(ALLEGRO_LIBRARIES allegro allegro_image allegro_font allegro_color allegro_primitives allegro_ttf allegro_main)
